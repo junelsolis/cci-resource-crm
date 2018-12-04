@@ -1,0 +1,18 @@
+body {
+  height: 100vh;
+}
+
+#main {
+  max-width: 500px;
+  min-height: 500px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+  text-align: center;
+}
+
+#main form {
+  max-width: 350px;
+  margin: auto;
+}

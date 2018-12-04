@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'LoginController@showLogin');
+Route::post('/login', 'LoginController@login');
