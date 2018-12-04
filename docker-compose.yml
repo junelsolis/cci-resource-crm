@@ -23,14 +23,14 @@ services:
     volumes:
       - "./app:/var/www/html"
 
-  mysql:
-    image: mysql:5.7
-    container_name: cci-mysql
+  mariadb:
+    image: mariadb
+    container_name: cci-db
     restart: always
     volumes:
       - ./db:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: db_root_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: cci
     secrets:
       - db_root_password
@@ -47,4 +47,4 @@ services:
 
 secrets:
    db_root_password:
-     file: /secrets/cci/db_root_password
+     file: ./secrets/db_root_password
