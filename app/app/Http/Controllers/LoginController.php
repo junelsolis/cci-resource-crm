@@ -15,7 +15,24 @@ class LoginController extends Controller
     }
 
     public function login(Request $request) {
-      
+      /*  Process user-entered credentials for login
+      */
+
+      $request->validate([
+        'username' => 'required',
+        'password' => 'required'
+      ]);
+
+      $username = $request['username'];   // store from request
+      $password = $request['password'];   // store from request
+
+      $check = $this->checkUserPassword($username, $password);    // check user credentials
+      if ($check == false) {
+        return back()->with('error', 'error');
+      }
+
+      return redirect('/dashboard');
+
     }
 
 
@@ -49,5 +66,27 @@ class LoginController extends Controller
       }
 
       else { return; }
+    }
+    private function checkUserPassword($username, $password) {
+
+      /* verify existence of username and compare entered password */
+      $user = DB::table('users')->where('username', $username)->first();
+
+      if (empty($user)) {
+        return false;
+      }
+
+      if (Hash::check($password, $user->password)) {
+
+        $user_roles = DB::table('user_roles')->where('user_id', $user->id)->pluck('role');             // retrive user roles
+        
+        session([ 'logged_in_user_id' => $user->id ]);      // store user id in session variable
+        session([ 'logged_in_user_roles' => $user_roles ]);       // store user roles in session variable
+
+
+        return true;
+      }
+
+      return false;
     }
 }

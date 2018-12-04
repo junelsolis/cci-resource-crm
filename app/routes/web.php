@@ -13,3 +13,4 @@
 
 Route::get('/', 'LoginController@showLogin');
 Route::post('/login', 'LoginController@login');
+Route::get('/dashboard', 'DashboardController@selectUserRole');
