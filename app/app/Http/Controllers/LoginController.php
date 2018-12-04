@@ -14,6 +14,10 @@ class LoginController extends Controller
       return view('login');
     }
 
+    public function login(Request $request) {
+      
+    }
+
 
     private function checkFirstLogin() {
       /*  Check for presence of users in users table
