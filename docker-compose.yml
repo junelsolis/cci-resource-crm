@@ -1,0 +1,50 @@
+version: '3.6'
+
+services:
+
+
+  web:
+    image: nginx
+    container_name: cci-nginx
+    restart: always
+    volumes:
+      - "./app:/var/www/html"
+      - "./nginx:/etc/nginx/"
+    ports:
+      - "9000:80"
+
+
+  php:
+    image: php:7.2-fpm
+    container_name: cci-php
+    build:
+      context: ./
+      dockerfile: php.dockerfile
+    volumes:
+      - "./app:/var/www/html"
+
+  mysql:
+    image: mysql:5.7
+    container_name: cci-mysql
+    restart: always
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: db_root_password
+      MYSQL_DATABASE: cci
+    secrets:
+      - db_root_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: cci-pma
+    restart: always
+    environment:
+      - PMA_HOST=cci-db
+    ports:
+      - "127.0.0.1:9001:80"
+
+
+secrets:
+   db_root_password:
+     file: /secrets/cci/db_root_password
