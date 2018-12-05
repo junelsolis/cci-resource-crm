@@ -65,6 +65,13 @@ class AdminController extends Controller
       return redirect('/admin')
         ->with('success', 'User added. The temporary password is <strong>' . $password . '</strong>');
     }
+    public function viewUser($id) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      return $id;
+    }
+
 
 
     private function checkLoggedIn() {

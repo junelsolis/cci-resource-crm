@@ -19,3 +19,4 @@ Route::get('/dashboard', 'DashboardController@selectUserRole');
 // administrator routes
 Route::get('/admin', 'AdminController@showDashboard');
 Route::post('/admin/user/add', 'AdminController@addUser');
+Route::get('/admin/user/{id}',  'AdminController@viewUser');

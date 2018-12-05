@@ -108,7 +108,7 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->username }}</td>
                 <td>{{ $user->created_at }}</td>
-                <td><a href='#'><i class="fas fa-edit"></i></a></td>
+                <td><a href='/admin/user/{{ $user->id}}'><i class="fas fa-edit"></i></a></td>
               </tr>
               @endforeach
             </tbody>
