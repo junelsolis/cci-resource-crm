@@ -17,7 +17,7 @@
     <div class='grid-x'>
       <div class='cell medium-6'>
         <div class="card" style="width: 90%;">
-          <h5><strong><i class="fas fa-users"></i>&nbsp;Add User</strong></h5>
+          <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
           <form method='post' action='/admin/user/add'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
@@ -41,12 +41,41 @@
                 Select Roles
               </legend>
 
-              <input id="checkbox12" type="checkbox"><label for="checkbox12">Sales</label><br />
-              <input id="checkbox22" type="checkbox"><label for="checkbox22">Service</label><br />
-              <input id="checkbox32" type="checkbox"><label for="checkbox32">Executive</label><br />
-              <input id="checkbox33" type="checkbox"><label for="checkbox33">System Administrator</label>
+              <input id="checkbox12" name='roles[]' value='sales' type="checkbox"><label for="checkbox12">Sales</label><br />
+              <input id="checkbox22" name='roles[]' value='service' type="checkbox"><label for="checkbox22">Service</label><br />
+              <input id="checkbox32" name='roles[]' value='executive' type="checkbox"><label for="checkbox32">Executive</label><br />
+              <input id="checkbox33" name='roles[]' value='administrator' type="checkbox"><label for="checkbox33">System Administrator</label>
 
             </fieldset>
+
+            @if ($errors->any())
+              @foreach ($errors->all() as $error)
+              <div data-closable class="callout alert-callout-subtle warning radius">
+                <strong>Error</strong><br />{{ $error }}
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                  <span aria-hidden="true">⊗</span>
+                </button>
+              </div>
+              @endforeach
+            @endif
+
+            @if (session('error'))
+            <div data-closable class="callout alert-callout-subtle warning radius">
+              <strong>Error</strong><br />{{ session('error') }}
+              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">⊗</span>
+              </button>
+            </div>
+            @endif
+
+            @if (session('success'))
+            <div data-closable class="callout alert-callout-subtle success radius">
+              <strong>Success</strong><br />{{ session('success') }}
+              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">⊗</span>
+              </button>
+            </div>
+            @endif
 
             <button type='submit' class='button button-primary'><i class="fas fa-check"></i>&nbsp;Create User</button>
           </form>
@@ -55,6 +84,8 @@
 
       <div class='cell medium-6'>
         <div class="card" style="width: 90%;">
+          <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
+
           <div class="input-group">
             <input class="input-group-field" type="text" name='query'>
             <div class="input-group-button">

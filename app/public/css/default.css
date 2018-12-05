@@ -11,7 +11,7 @@ h1,h2,h3,h4,h5 {
   text-transform: uppercase;
 }
 
-.input-group-button {
+.input-group-button input {
   background-color: #2b6bac;
 }
 .alert-callout-subtle.warning {
@@ -19,6 +19,13 @@ h1,h2,h3,h4,h5 {
   color: #8a8a8a;
   border-left: 0.3125rem solid #ffae00;
 }
+
+.alert-callout-subtle.success {
+  background: #e6e6e6;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #3adb76;
+}
+
 
 legend {
   color: #747896;

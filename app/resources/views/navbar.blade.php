@@ -18,8 +18,8 @@
             <li><a href="#">Executive</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fas fa-cogs"></i></a></li>
-        <li><a href="/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
+        <li><a href="#" title='Account Settings'><i class="fas fa-cogs"></i></a></li>
+        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i></a></li>
       </ul>
     </div>
   </div>

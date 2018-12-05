@@ -18,6 +18,45 @@ class AdminController extends Controller
         ->with('userDetails', $userDetails);
     }
 
+
+    public function addUser(Request $request) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      /*  Add a user, set its roles,
+          generate initial password,
+          set change password on next login
+      */
+
+      $request->validate([
+        'username' => 'required|string',
+        'name' => 'required|string',
+        'roles' => 'required|array'
+      ]);
+
+      $username = $request['username'];
+      $name = $request['name'];
+      $roles = $request['roles'];
+
+      $username = strtolower($username);
+      $password = $this->randomPasswordString();
+
+      // create user in user table
+      $user_id = DB::table('users')->insertGetId([
+        'username' => $username,
+        'name' => $name,
+        'password' => $password,
+        'change_password' => true,
+        'created_at' => \Carbon\Carbon::now()
+      ]);
+
+      // create role entries for user
+      foreach ($roles as $role) {
+        
+      }
+    }
+
+
     private function checkLoggedIn() {
       if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('administrator')) {
         return true;
@@ -25,7 +64,6 @@ class AdminController extends Controller
 
       return false;
     }
-
     private function getUserDetails() {
       /*  returns the user's full name
           and role
@@ -43,4 +81,15 @@ class AdminController extends Controller
 
       return $collect;
     }
+    private function randomPasswordString($length = 8) {
+  	  $str = "";
+    	$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+    	$max = count($characters) - 1;
+    	for ($i = 0; $i < $length; $i++) {
+    		$rand = mt_rand(0, $max);
+    		$str .= $characters[$rand];
+    	}
+    	return $str;
+    }
+
 }
