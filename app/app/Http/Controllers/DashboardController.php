@@ -45,7 +45,7 @@ class DashboardController extends Controller
       $user_id = session('logged_in_user_id');
       $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
 
-      
+      return view('set-password')->with('name', $name);
     }
 
     public function setPassword(Request $request) {
