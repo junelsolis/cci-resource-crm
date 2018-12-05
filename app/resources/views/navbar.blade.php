@@ -10,7 +10,7 @@
         <li style='text-align:right;'><a href="#"><strong>{{ $userDetails['name'] }}</strong><br />{{ $userDetails['role'] }}</a></li>
 
         <li>
-          <a href="#"><i class="fas fa-toggle-on"></i>&nbsp; Switch</a>
+          <a href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Change Section</a>
           <ul class="menu">
             <li><a href="#">Administrator</a></li>
             <li><a href="#">Sales</a></li>
@@ -18,7 +18,7 @@
             <li><a href="#">Executive</a></li>
           </ul>
         </li>
-        <li><a href="#" title='Account Settings'><i class="fas fa-cogs"></i></a></li>
+        <li><a href="#" title='Account Settings'><i class="fas fa-cog"></i></a></li>
         <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i></a></li>
       </ul>
     </div>
