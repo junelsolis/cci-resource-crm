@@ -15,10 +15,12 @@ class AdminController extends Controller
 
       $userDetails = $this->getLoggedInUserDetails();
       $userDirectory = $this->getUserDirectory();
+      $stats = $this->getStats();
 
       return view('administrator/main')
         ->with('userDetails', $userDetails)
-        ->with('userDirectory', $userDirectory);
+        ->with('userDirectory', $userDirectory)
+        ->with('stats', $stats);
     }
 
 
@@ -219,6 +221,21 @@ class AdminController extends Controller
 
       return $user;
     }
+
+    private function getStats() {
+      /*  calculates some statistics
+          to be shown on the dashboard
+      */
+
+      $totalUsers = DB::table('users')->count();
+
+      $stats = collect();
+
+      $stats->totalUsers = $totalUsers;
+
+      return $stats;
+    }
+
     private function randomPasswordString($length = 8) {
   	  $str = "";
     	$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));

@@ -7,3 +7,13 @@ body {
   margin-top: 50px;
   padding: 20px;
 }
+
+.stat {
+  text-align: center;
+}
+.stat .value {
+  font-weight: bold;
+}
+.stat .title {
+  font-size: 0.5em;
+}
