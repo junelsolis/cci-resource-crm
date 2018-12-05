@@ -41,6 +41,81 @@ class AdminController extends Controller
       $name = $request['name'];
       $roles = $request['roles'];
 
+      $password = $this->createUser($username, $name, $roles);
+
+      return redirect('/admin')
+        ->with('success', 'User added. The temporary password is <strong>' . $password . '</strong>');
+    }
+    public function viewUser($id) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      $userDetails = $this->getLoggedInUserDetails();
+      $userDirectory = $this->getUserDirectory();
+      $user = $this->getUserDetails($id);
+
+      return view('administrator/user-edit')
+        ->with('userDetails', $userDetails)
+        ->with('userDirectory', $userDirectory)
+        ->with('user', $user);
+    }
+    public function editUser($id, Request $request) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      $request->validate([
+        'username' => 'required|string',
+        'name' => 'required|string',
+        'roles' => 'required|array'
+      ]);
+
+      $username = $request['username'];
+      $name = $request['name'];
+      $roles = $request['roles'];
+
+      $this->modifyUser($id, $username, $name, $roles);
+
+      return redirect('/admin/user/'.$id)
+        ->with('success', 'Changes saved.');
+    }
+    public function resetPassword($id) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      $password = $this->modifyUserPassword($id);
+
+      return redirect('/admin/user/'.$id)
+        ->with('success', 'Password changed. The temporary password is <strong>' . $password . '</strong>');
+    }
+
+
+    private function checkLoggedIn() {
+      if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('administrator')) {
+        return true;
+      }
+
+      return false;
+    }
+
+    private function getLoggedInUserDetails() {
+      /*  returns the user's full name
+          and role
+      */
+
+      $user_id = session()->get('logged_in_user_id');     // get user id from session
+      $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
+
+      $role = 'System Administrator';
+
+      $collect = collect([
+        'name' => $name,
+        'role' => $role
+      ]);
+
+      return $collect;
+    }
+
+    private function createUser($username, $name, $roles) {
       $username = strtolower($username);
       $password = $this->randomPasswordString();
 
@@ -62,49 +137,49 @@ class AdminController extends Controller
         ]);
       }
 
-      return redirect('/admin')
-        ->with('success', 'User added. The temporary password is <strong>' . $password . '</strong>');
-    }
-    public function viewUser($id) {
-      if ($this->checkLoggedIn()) {}
-      else { return redirect('/'); }
-
-      $userDetails = $this->getLoggedInUserDetails();
-      $userDirectory = $this->getUserDirectory();
-      $user = $this->getUserDetails($id);
-
-      return view('administrator/user-edit')
-        ->with('userDetails', $userDetails)
-        ->with('userDirectory', $userDirectory)
-        ->with('user', $user);
+      return $password;
     }
 
+    private function modifyUser($id, $username, $name, $roles) {
+      $username = strtolower($username);
 
-
-    private function checkLoggedIn() {
-      if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('administrator')) {
-        return true;
-      }
-
-      return false;
-    }
-    private function getLoggedInUserDetails() {
-      /*  returns the user's full name
-          and role
-      */
-
-      $user_id = session()->get('logged_in_user_id');     // get user id from session
-      $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
-
-      $role = 'System Administrator';
-
-      $collect = collect([
+      // edit user in users table
+      DB::table('users')->where('id', $id)->update([
+        'username' => $username,
         'name' => $name,
-        'role' => $role
+        'updated_at' => \Carbon\Carbon::now()
       ]);
 
-      return $collect;
+      // clear all role entries for user
+      DB::table('user_roles')->where('user_id', $id)->delete();
+
+      // create role entries for user
+      foreach ($roles as $role) {
+        DB::table('user_roles')->insert([
+          'user_id' => $id,
+          'role' => strtolower($role),
+          'created_at' => \Carbon\Carbon::now()
+        ]);
+      }
+
+      return;
     }
+
+    private function modifyUserPassword($id) {
+      /*  Modify the user password matching the id
+      */
+
+      $password = $this->randomPasswordString();
+
+      DB::table('users')->where('id', $id)->update([
+        'password' => Hash::make($password),
+        'change_password' => true,
+        'updated_at' => \Carbon\Carbon::now(),
+      ]);
+
+      return $password;
+    }
+
     private function getUserDirectory() {
       /*  Return a collection containing data for all users
           to show in the user directory
@@ -129,6 +204,7 @@ class AdminController extends Controller
       return $users;
 
     }
+
     private function getUserDetails($id) {
       $user = DB::table('users')->where('id', $id)
         ->select('id', 'username', 'name', 'created_at')

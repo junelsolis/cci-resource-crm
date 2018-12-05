@@ -20,4 +20,5 @@ Route::get('/dashboard', 'DashboardController@selectUserRole');
 Route::get('/admin', 'AdminController@showDashboard');
 Route::post('/admin/user/add', 'AdminController@addUser');
 Route::get('/admin/user/{id}',  'AdminController@viewUser');
-Route::get('/admin/user/reset-password/{$id}', 'AdminController@resetPassword');
+Route::post('/admin/user/edit/{id}', 'AdminController@editUser');
+Route::get('/admin/user/reset/{id}', 'AdminController@resetPassword');

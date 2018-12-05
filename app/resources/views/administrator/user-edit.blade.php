@@ -21,7 +21,7 @@
           <div>
             <i class="fas fa-user"></i><h5>{{ $user->name }}</h5>
           </div>
-          <form method='post' action='/admin/user/{{ $user->id}}'>
+          <form method='post' action='/admin/user/edit/{{ $user->id}}'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
               <legend>
@@ -49,25 +49,25 @@
                 <?php
                   if (in_array('sales',$user->roles->toArray())) { echo 'checked'; }
                 ?>
-              /><label>Sales</label><br />
+              /><label>Sales</label>
 
               <input name='roles[]' value='service' type='checkbox'
               <?php
                 if (in_array('service',$user->roles->toArray())) { echo 'checked'; }
               ?>
-              /><label>Service</label><br />
+              /><label>Service</label>
 
               <input name='roles[]' value='executive' type='checkbox'
               <?php
                 if (in_array('executive',$user->roles->toArray())) { echo 'checked'; }
               ?>
-              /><label>Executive</label><br />
+              /><label>Executive</label>
 
               <input name='roles[]' value='administrator' type='checkbox'
               <?php
                 if (in_array('administrator',$user->roles->toArray())) { echo 'checked'; }
               ?>
-              /><label>System Administrator</label><br />
+              /><label>System Administrator</label>
             </fieldset>
 
 
@@ -75,8 +75,37 @@
               <legend>
                 Password Reset
               </legend>
-              <a href='#'>Generate New Password</a>
+              <a href='/admin/user/reset/{{ $user->id }}'>Generate New Password</a>
             </fieldset>
+
+            @if ($errors->any())
+              @foreach ($errors->all() as $error)
+              <div data-closable class="callout alert-callout-subtle warning radius">
+                <strong>Error</strong><br />{{ $error }}
+                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                  <span aria-hidden="true">⊗</span>
+                </button>
+              </div>
+              @endforeach
+            @endif
+
+            @if (session('error'))
+            <div data-closable class="callout alert-callout-subtle warning radius">
+              <strong>Error</strong><br />{{ session('error') }}
+              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">⊗</span>
+              </button>
+            </div>
+            @endif
+
+            @if (session('success'))
+            <div data-closable class="callout alert-callout-subtle success radius">
+              <strong>Success</strong><br />{!! session('success') !!}
+              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">⊗</span>
+              </button>
+            </div>
+            @endif
 
             <button class='button button-primary' type='submit'><i class="fas fa-save"></i>&nbsp;Save</button>
           </form>
