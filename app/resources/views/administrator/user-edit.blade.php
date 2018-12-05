@@ -75,7 +75,7 @@
               <legend>
                 Password Reset
               </legend>
-              <a href='/admin/user/reset/{{ $user->id }}'>Generate New Password</a>
+              <a href='/admin/user/reset/{{ $user->id }}'><i class="fas fa-sync-alt"></i>&nbsp;Generate New Password</a>
             </fieldset>
 
             @if ($errors->any())
