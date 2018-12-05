@@ -18,6 +18,14 @@
       <div class='cell medium-6'>
         <div class="card" style="width: 90%;">
           <h5><strong>Add User</strong></h5>
+          <form method='post' action='/admin/user/add'>
+            {{ csrf_field() }}
+            <label>Username</label>
+            <input type='text' name='username' required />
+            <label>Full Name</label>
+            <input type='text' name='name' required />
+            <button type='submit' class='button button-primary'>Submit</button>
+          </form>
         </div>
       </div>
 
