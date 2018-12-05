@@ -70,7 +70,7 @@
 
             @if (session('success'))
             <div data-closable class="callout alert-callout-subtle success radius">
-              <strong>Success</strong><br />{{ session('success') }}
+              <strong>Success</strong><br />{!! session('success') !!}
               <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
                 <span aria-hidden="true">⊗</span>
               </button>

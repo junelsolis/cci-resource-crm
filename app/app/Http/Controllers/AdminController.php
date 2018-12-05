@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Hash;
 
 class AdminController extends Controller
 {
@@ -45,15 +46,22 @@ class AdminController extends Controller
       $user_id = DB::table('users')->insertGetId([
         'username' => $username,
         'name' => $name,
-        'password' => $password,
+        'password' => Hash::make($password),
         'change_password' => true,
         'created_at' => \Carbon\Carbon::now()
       ]);
 
       // create role entries for user
       foreach ($roles as $role) {
-        
+        DB::table('user_roles')->insert([
+          'user_id' => $user_id,
+          'role' => strtolower($role),
+          'created_at' => \Carbon\Carbon::now()
+        ]);
       }
+
+      return redirect('/admin')
+        ->with('success', 'User added. The temporary password is <strong>' . $password . '</strong>');
     }
 
 
