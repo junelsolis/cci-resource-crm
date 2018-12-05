@@ -15,6 +15,8 @@ Route::get('/', 'LoginController@showLogin');
 Route::post('/login', 'LoginController@login');
 Route::get('/logout', 'LoginController@logout');
 Route::get('/dashboard', 'DashboardController@selectUserRole');
+Route::get('/dashboard/set-password', 'DashboardController@showSetPassword');
+Route::post('/dashboard/set-password', 'DashboardController@setPassword');
 
 // administrator routes
 Route::get('/administrator', 'AdminController@showDashboard');
