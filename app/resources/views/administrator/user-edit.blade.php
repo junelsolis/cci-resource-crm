@@ -7,6 +7,7 @@
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/admin/main.css') }}" />
+    <link rel='stylesheet' href="{{ asset('css/admin/user-edit.css') }}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
@@ -16,68 +17,66 @@
   <body>
     <div class='grid-x'>
       <div class='cell medium-6'>
-        <div class="card" style="width: 90%;">
-          <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
-          <form method='post' action='/admin/user/add'>
+        <div id='user-card' class="card" style="width: 90%;">
+          <div>
+            <i class="fas fa-user"></i><h5>{{ $user->name }}</h5>
+          </div>
+          <form method='post' action='/admin/user/{{ $user->id}}'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
               <legend>
                 User Details
               </legend>
               <div class='grid-x grid-padding-x'>
-                <div class='cell small-6'>
+                <div class='cell medium-6'>
                   <label>Username</label>
-                  <input type='text' name='username' required />
+                  <input type='text' name='username' value='{{ $user->username }}' required />
                 </div>
-                <div class='cell small-6'>
+                <div class='cell medium-6'>
                   <label>Full Name</label>
-                  <input type='text' name='name' required />
+                  <input type='text' name='name' value='{{ $user->name }}' required />
                 </div>
               </div>
-
             </fieldset>
+
+
             <fieldset class='fieldset'>
               <legend>
-                Select Roles
+                User Roles
               </legend>
 
-              <input id="checkbox12" name='roles[]' value='sales' type="checkbox"><label for="checkbox12">Sales</label><br />
-              <input id="checkbox22" name='roles[]' value='service' type="checkbox"><label for="checkbox22">Service</label><br />
-              <input id="checkbox32" name='roles[]' value='executive' type="checkbox"><label for="checkbox32">Executive</label><br />
-              <input id="checkbox33" name='roles[]' value='administrator' type="checkbox"><label for="checkbox33">System Administrator</label>
+              <input name='roles[]' value='sales' type='checkbox'
+                <?php
+                  if (in_array('sales',$user->roles->toArray())) { echo 'checked'; }
+                ?>
+              /><label>Sales</label><br />
 
+              <input name='roles[]' value='service' type='checkbox'
+              <?php
+                if (in_array('service',$user->roles->toArray())) { echo 'checked'; }
+              ?>
+              /><label>Service</label><br />
+
+              <input name='roles[]' value='executive' type='checkbox'
+              <?php
+                if (in_array('executive',$user->roles->toArray())) { echo 'checked'; }
+              ?>
+              /><label>Executive</label><br />
+
+              <input name='roles[]' value='administrator' type='checkbox'
+              <?php
+                if (in_array('administrator',$user->roles->toArray())) { echo 'checked'; }
+              ?>
+              /><label>System Administrator</label><br />
             </fieldset>
 
-            @if ($errors->any())
-              @foreach ($errors->all() as $error)
-              <div data-closable class="callout alert-callout-subtle warning radius">
-                <strong>Error</strong><br />{{ $error }}
-                <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                  <span aria-hidden="true">⊗</span>
-                </button>
-              </div>
-              @endforeach
-            @endif
 
-            @if (session('error'))
-            <div data-closable class="callout alert-callout-subtle warning radius">
-              <strong>Error</strong><br />{{ session('error') }}
-              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                <span aria-hidden="true">⊗</span>
-              </button>
-            </div>
-            @endif
-
-            @if (session('success'))
-            <div data-closable class="callout alert-callout-subtle success radius">
-              <strong>Success</strong><br />{!! session('success') !!}
-              <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                <span aria-hidden="true">⊗</span>
-              </button>
-            </div>
-            @endif
-
-            <button type='submit' class='button button-primary'><i class="fas fa-check"></i>&nbsp;Create User</button>
+            <fieldset class='fieldset'>
+              <legend>
+                Password Reset
+              </legend>
+              <a href='#'>Generate New Password</a>
+            </fieldset>
           </form>
         </div>
       </div>

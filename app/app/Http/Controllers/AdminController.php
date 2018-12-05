@@ -13,7 +13,7 @@ class AdminController extends Controller
       else { return redirect('/'); }
 
 
-      $userDetails = $this->getUserDetails();
+      $userDetails = $this->getLoggedInUserDetails();
       $userDirectory = $this->getUserDirectory();
 
       return view('administrator/main')
@@ -69,7 +69,14 @@ class AdminController extends Controller
       if ($this->checkLoggedIn()) {}
       else { return redirect('/'); }
 
-      return $id;
+      $userDetails = $this->getLoggedInUserDetails();
+      $userDirectory = $this->getUserDirectory();
+      $user = $this->getUserDetails($id);
+
+      return view('administrator/user-edit')
+        ->with('userDetails', $userDetails)
+        ->with('userDirectory', $userDirectory)
+        ->with('user', $user);
     }
 
 
@@ -81,7 +88,7 @@ class AdminController extends Controller
 
       return false;
     }
-    private function getUserDetails() {
+    private function getLoggedInUserDetails() {
       /*  returns the user's full name
           and role
       */
@@ -114,13 +121,27 @@ class AdminController extends Controller
       foreach ($users as $user) {
         $date = $user->created_at;
         $date = strtotime($date);
-        $date = date('M d, Y');
+        $date = date('M d, Y', $date);
 
         $user->created_at = $date;
       }
 
       return $users;
 
+    }
+    private function getUserDetails($id) {
+      $user = DB::table('users')->where('id', $id)
+        ->select('id', 'username', 'name', 'created_at')
+        ->first();
+
+      $date = $user->created_at;
+      $date = strtotime($date);
+      $date = date('M d, Y', $date);
+
+      $roles = DB::table('user_roles')->where('user_id', $id)->pluck('role');
+      $user->roles = $roles;
+
+      return $user;
     }
     private function randomPasswordString($length = 8) {
   	  $str = "";
