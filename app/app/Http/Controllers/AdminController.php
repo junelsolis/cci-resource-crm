@@ -19,7 +19,7 @@ class AdminController extends Controller
     }
 
     private function checkLoggedIn() {
-      if (session()->has('logged_in_user_id') && session(['logged_in_user_roles'])->contains('administrator')) {
+      if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('administrator')) {
         return true;
       }
 
