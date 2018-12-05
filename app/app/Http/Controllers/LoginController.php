@@ -11,6 +11,11 @@ class LoginController extends Controller
     public function showLogin() {
 
       $this->checkFirstLogin();         // check if this is the first login
+
+      $alreadyLoggedIn = $this->checkAlreadyLoggedIn();   
+      if ($alreadyLoggedIn == true) {
+        return redirect('/dashboard');
+      }
       return view('login');
     }
 
@@ -71,6 +76,14 @@ class LoginController extends Controller
       }
 
       else { return; }
+    }
+    private function checkAlreadyLoggedIn() {
+      if (session()->has('logged_in_user_id') && session()->has('logged_in_user_roles')) {
+        return true;
+      }
+
+      return false;
+
     }
     private function checkUserPassword($username, $password) {
 
