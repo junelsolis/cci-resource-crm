@@ -99,6 +99,7 @@
                 <th>Name</th>
                 <th>Username</th>
                 <th>Created on</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -107,6 +108,7 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->username }}</td>
                 <td>{{ $user->created_at }}</td>
+                <td><a href='#'><i class="fas fa-edit"></i></a></td>
               </tr>
               @endforeach
             </tbody>

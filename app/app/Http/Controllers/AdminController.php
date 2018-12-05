@@ -104,6 +104,14 @@ class AdminController extends Controller
         ->where('id', '!=', $currentUserId)
         ->get();
 
+      foreach ($users as $user) {
+        $date = $user->created_at;
+        $date = strtotime($date);
+        $date = date('M d, Y');
+
+        $user->created_at = $date;
+      }
+
       return $users;
 
     }
