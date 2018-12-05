@@ -1,0 +1,27 @@
+/* #navbar #right {
+  display: inline;
+} */
+
+#navbar {
+  background-color: #000A55;
+  color: white;
+}
+
+#navbar a {
+  color: white;
+}
+
+#navbar #right .menu {
+  background-color: #000A55;
+}
+
+#navbar #right .menu a {
+  color: white;
+}
+/* #navbar #right {
+  text-align: right;
+}
+#navbar #right > div {
+  text-align: right;
+  display: inline-block;
+} */
