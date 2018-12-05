@@ -13,6 +13,7 @@
 
 Route::get('/', 'LoginController@showLogin');
 Route::post('/login', 'LoginController@login');
+Route::get('/logout', 'LoginController@logout');
 Route::get('/dashboard', 'DashboardController@selectUserRole');
 
 // administrator routes

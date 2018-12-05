@@ -35,6 +35,11 @@ class LoginController extends Controller
 
     }
 
+    public function logout() {
+      session()->flush();
+      return redirect('/');
+    }
+
 
     private function checkFirstLogin() {
       /*  Check for presence of users in users table
@@ -79,7 +84,7 @@ class LoginController extends Controller
       if (Hash::check($password, $user->password)) {
 
         $user_roles = DB::table('user_roles')->where('user_id', $user->id)->pluck('role');             // retrive user roles
-        
+
         session([ 'logged_in_user_id' => $user->id ]);      // store user id in session variable
         session([ 'logged_in_user_roles' => $user_roles ]);       // store user roles in session variable
 

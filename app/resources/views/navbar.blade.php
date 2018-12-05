@@ -19,7 +19,7 @@
           </ul>
         </li>
         <li><a href="#"><i class="fas fa-cogs"></i></a></li>
-        <li><a href="#"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
+        <li><a href="/logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
       </ul>
     </div>
   </div>
