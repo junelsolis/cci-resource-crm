@@ -7,13 +7,15 @@
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/login.css')}}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src='{{ asset('js/foundation.min.js')}}'></script>
   </head>
   <body>
     <div id='main'>
       <img src='{{ asset('images/logo.png')}}' />
-      <h3>Critical Components CRM</h3>
+      <!-- <h3>Critical Components CRM</h3> -->
+      <br /><br />
       <form method='post' action='/login'>
         {{ csrf_field() }}
         <label>Username</label>
@@ -30,7 +32,7 @@
         </div>
         @endif
 
-        <button class='button button-primary expanded' type='submit'>Login</button>
+        <button class='button button-primary expanded' type='submit'><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button>
       </form>
     </div>
   </body>
