@@ -77,6 +77,8 @@
               </legend>
               <a href='#'>Generate New Password</a>
             </fieldset>
+
+            <button class='button button-primary' type='submit'><i class="fas fa-save"></i>&nbsp;Save</button>
           </form>
         </div>
       </div>
