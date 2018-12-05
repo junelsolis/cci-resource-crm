@@ -55,7 +55,12 @@
 
       <div class='cell medium-6'>
         <div class="card" style="width: 90%;">
-          <h5>Search Users</h5>
+          <div class="input-group">
+            <input class="input-group-field" type="text" name='query'>
+            <div class="input-group-button">
+              <input type="submit" class="button" value="Find User">
+            </div>
+        </div>
         </div>
       </div>
     </div>
