@@ -27,7 +27,7 @@
             </div>
           </div>
 
-          <form method='post' action='/admin/user/edit/{{ $user->id}}'>
+          <form method='post' action='/administrator/user/edit/{{ $user->id}}'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
               <legend>
