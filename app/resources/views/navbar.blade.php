@@ -12,10 +12,14 @@
         <li>
           <a href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Change Section</a>
           <ul class="menu">
-            <li><a href="#">Administrator</a></li>
+            <!-- <li><a href="#">Administrator</a></li>
             <li><a href="#">Sales</a></li>
             <li><a href="#">Service</a></li>
-            <li><a href="#">Executive</a></li>
+            <li><a href="#">Executive</a></li> -->
+
+            @foreach (session('logged_in_user_roles') as $role)
+            <li><a href='/{{ $role }}'>{{ ucwords($role) }}</a></li>
+            @endforeach
           </ul>
         </li>
         <li><a href="#" title='Account Settings'><i class="fas fa-cog"></i></a></li>
