@@ -18,9 +18,15 @@
     <div class='grid-x'>
       <div class='cell medium-6'>
         <div id='user-card' class="card" style="width: 90%;">
-          <div>
-            <i class="fas fa-user"></i><h5>{{ $user->name }}</h5>
+          <div class='banner align-middle'>
+            <div>
+              <i class="fas fa-user"></i>
+            </div>
+            <div class='name'>
+              {{ $user->name }}
+            </div>
           </div>
+
           <form method='post' action='/admin/user/edit/{{ $user->id}}'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
