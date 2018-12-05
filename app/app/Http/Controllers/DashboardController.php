@@ -19,11 +19,11 @@ class DashboardController extends Controller
       }
 
       if ($user_roles->contains('executive')) {
-        return redirect('/exec');
+        return redirect('/executive');
       }
 
       if ($user_roles->contains('administrator')) {
-        return redirect('/admin');
+        return redirect('/administrator');
       }
 
       return redirect('/');

@@ -17,8 +17,8 @@ Route::get('/logout', 'LoginController@logout');
 Route::get('/dashboard', 'DashboardController@selectUserRole');
 
 // administrator routes
-Route::get('/admin', 'AdminController@showDashboard');
-Route::post('/admin/user/add', 'AdminController@addUser');
-Route::get('/admin/user/{id}',  'AdminController@viewUser');
-Route::post('/admin/user/edit/{id}', 'AdminController@editUser');
-Route::get('/admin/user/reset/{id}', 'AdminController@resetPassword');
+Route::get('/administrator', 'AdminController@showDashboard');
+Route::post('/administrator/user/add', 'AdminController@addUser');
+Route::get('/administrator/user/{id}',  'AdminController@viewUser');
+Route::post('/administrator/user/edit/{id}', 'AdminController@editUser');
+Route::get('/administrator/user/reset/{id}', 'AdminController@resetPassword');
