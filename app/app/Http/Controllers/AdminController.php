@@ -14,9 +14,11 @@ class AdminController extends Controller
 
 
       $userDetails = $this->getUserDetails();
+      $userDirectory = $this->getUserDirectory();
 
       return view('administrator/main')
-        ->with('userDetails', $userDetails);
+        ->with('userDetails', $userDetails)
+        ->with('userDirectory', $userDirectory);
     }
 
 
@@ -88,6 +90,22 @@ class AdminController extends Controller
       ]);
 
       return $collect;
+    }
+    private function getUserDirectory() {
+      /*  Return a collection containing data for all users
+          to show in the user directory
+      */
+
+      $currentUserId = session('logged_in_user_id');
+
+      $users = DB::table('users')
+        ->select('id', 'username', 'name', 'created_at')
+        ->orderBy('name')
+        ->where('id', '!=', $currentUserId)
+        ->get();
+
+      return $users;
+
     }
     private function randomPasswordString($length = 8) {
   	  $str = "";

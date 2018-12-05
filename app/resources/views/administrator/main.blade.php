@@ -85,13 +85,32 @@
       <div class='cell medium-6'>
         <div class="card" style="width: 90%;">
           <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
-
+          <br /><br />
           <div class="input-group">
             <input class="input-group-field" type="text" name='query'>
             <div class="input-group-button">
               <input type="submit" class="button" value="Find User">
             </div>
-        </div>
+          </div>
+
+          <table class="unstriped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Created on</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($userDirectory as $user)
+              <tr>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->username }}</td>
+                <td>{{ $user->created_at }}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
