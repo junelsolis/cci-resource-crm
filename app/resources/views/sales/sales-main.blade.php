@@ -47,7 +47,106 @@
       </div>
       <div class='cell small-12'>
         <div class='card'>
-          <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Active Projects</strong></h5>
+          <div class='grid-x align-middle'>
+            <div class='cell medium-6 large-2'>
+              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Active Projects</strong></h5>
+            </div>
+            <div class='cell medium-6 large-10'>
+              <ul class='menu align-right'>
+                <li><a href='#'><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+                <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
+              </ul>
+            </div>
+          </div>
+          <br />
+          <div class='table-scroll'>
+            <table class="unstriped">
+              <thead>
+                <tr>
+                  <th>Ship Date</th>
+                  <th>Manufacturer</th>
+                  <th>Product</th>
+                  <th>Amount</th>
+                  <th>APC ID</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Jan 3, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$6,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+                <tr>
+                  <td>Jan 15, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$3,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+                <tr>
+                  <td>Jan 20, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$4,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+                <tr>
+                  <td>Jan 315, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$7,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+                <tr>
+                  <td>Jan 315, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$7,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+                <tr>
+                  <td>Jan 315, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$7,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+                <tr>
+                  <td>Jan 315, 2019</td>
+                  <td>Metallurgy Inc.</td>
+                  <td>Right-angle clamps</td>
+                  <td>$7,000.00</td>
+                  <td>09874928</td>
+                  <td>Peter Barnes</td>
+                  <td>Jason Hayes</td>
+                  <td>This is a note</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
