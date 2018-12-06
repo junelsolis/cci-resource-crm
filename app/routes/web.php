@@ -24,3 +24,6 @@ Route::post('/administrator/user/add', 'AdminController@addUser');
 Route::get('/administrator/user/{id}',  'AdminController@viewUser');
 Route::post('/administrator/user/edit/{id}', 'AdminController@editUser');
 Route::get('/administrator/user/reset/{id}', 'AdminController@resetPassword');
+
+// sales routes
+Route::get('/sales', 'SalesController@showDashboard');
