@@ -100,6 +100,7 @@
                   <th>Product</th>
                   <th>Amount</th>
                   <th>APC ID</th>
+                  <th>Inside Sales</th>
                   <th>Engineer</th>
                   <th>Contractor</th>
                   <th>Notes</th>
@@ -113,6 +114,7 @@
                   <td>Right-angle clamps</td>
                   <td>$6,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
@@ -124,6 +126,7 @@
                   <td>Right-angle clamps</td>
                   <td>$3,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
@@ -135,6 +138,7 @@
                   <td>Right-angle clamps</td>
                   <td>$4,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
@@ -146,6 +150,7 @@
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
@@ -157,6 +162,7 @@
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
@@ -168,6 +174,7 @@
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
@@ -179,6 +186,7 @@
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
                   <td>09874928</td>
+                  <td>SV</td>
                   <td>Peter Barnes</td>
                   <td>Jason Hayes</td>
                   <td>This is a note</td>
