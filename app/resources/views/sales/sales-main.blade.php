@@ -34,13 +34,13 @@
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
           <div class='grid-x'>
             <div class='cell large-4'>
-              <canvas id="line-chart"></canvas>
-            </div>
-            <div class='cell large-4'>
               <canvas id="myChart2"></canvas>
             </div>
             <div class='cell large-4'>
               <canvas id="myChart3"></canvas>
+            </div>
+            <div class='cell large-4'>
+              <canvas id='quote-status'></canvas>
             </div>
           </div>
         </div>
@@ -56,30 +56,6 @@
     $(document).foundation();
   </script>
   <script>
-    var ctx = document.getElementById("line-chart").getContext('2d');
-    var linechart = new Chart(document.getElementById("line-chart"), {
-      type: 'line',
-      data: {
-        labels: ['Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
-        datasets: [{
-            data: [15000,3500,8000,10000,29000,9500,11000],
-            label: "",
-            borderColor: "#3e95cd",
-            fill: false
-          }
-        ]
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'Sales (Last 6 months)'
-        },
-        legend: {
-          display: false,
-        }
-      }
-    });
-
     var ctx = document.getElementById("myChart2").getContext('2d');
     var myChart2 = new Chart(document.getElementById("myChart2"), {
       type: 'line',
@@ -94,6 +70,7 @@
         ]
       },
       options: {
+        maintainAspectRatio: false,
         title: {
           display: true,
           text: 'Sales (Last 12 months)'
@@ -111,8 +88,7 @@
         data: {
             labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [50000,29000,15000,13500,12000],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -133,6 +109,7 @@
             }]
         },
         options: {
+          maintainAspectRatio: false,
           title: {
             display: true,
             text: 'Top 5 Clients'
@@ -149,5 +126,29 @@
           }
         }
     });
+
+    var ctx = document.getElementById('quote-status').getContext('2d');
+    var quoteStatus = new Chart(document.getElementById("quote-status"), {
+    type: 'doughnut',
+    data: {
+      labels: ["Engineered", "Quoted", "Lost", "Sold","New"],
+      datasets: [
+        {
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [80,106,3,180,6]
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: 'Project Status'
+      }
+    }
+});
 </script>
 </html>
