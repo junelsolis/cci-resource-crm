@@ -12,6 +12,7 @@ class ProductSalesController extends Controller
       else { return redirect('/'); }
 
       $userDetails = $this->getLoggedInUserDetails();
+      $insideSales = $this->getInsideSalesReps();
 
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails);
@@ -40,5 +41,19 @@ class ProductSalesController extends Controller
       ]);
 
       return $collect;
+    }
+    private function getInsideSalesReps() {
+      /*  Returns a collection of inside salespersons
+      */
+
+      $sales = DB::table('user_roles')->select('user_id','role')->where('role','inside-sales')->distinct()->get();
+      $sales = $sales->pluck('user_id');
+
+      $users = DB::table('users')
+        ->whereIn('id', $sales)
+        ->select('id', 'name')
+        ->get();
+
+      return $users;
     }
 }

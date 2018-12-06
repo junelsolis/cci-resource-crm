@@ -12,7 +12,7 @@ class LoginController extends Controller
 
       $this->checkFirstLogin();         // check if this is the first login
 
-      $alreadyLoggedIn = $this->checkAlreadyLoggedIn();   
+      $alreadyLoggedIn = $this->checkAlreadyLoggedIn();
       if ($alreadyLoggedIn == true) {
         return redirect('/dashboard');
       }
@@ -48,7 +48,9 @@ class LoginController extends Controller
 
     private function checkFirstLogin() {
       /*  Check for presence of users in users table
-          If there are no users, create default admin user
+          If there are no users:
+            -- create default admin user
+            -- setup project status codes
       */
 
       $count = DB::table('users')->count();
@@ -70,6 +72,15 @@ class LoginController extends Controller
           'user_id' => $id,
           'role' => 'administrator',
           'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        // insert project status codes
+        DB::table('project_status')->insert([
+          [ 'status' => 'New' ],
+          [ 'status' => 'Quoted' ],
+          [ 'status' => 'Sold' ],
+          [ 'status' => 'Engineered' ],
+          [ 'status' => 'Lost']
         ]);
 
         return;
