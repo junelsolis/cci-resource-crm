@@ -60,9 +60,9 @@
     var linechart = new Chart(document.getElementById("line-chart"), {
       type: 'line',
       data: {
-        labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+        labels: ['Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
         datasets: [{
-            data: [86,114,106,106,107,111,133,221,783,2478],
+            data: [15000,3500,8000,10000,29000,9500,11000],
             label: "",
             borderColor: "#3e95cd",
             fill: false
@@ -81,41 +81,27 @@
     });
 
     var ctx = document.getElementById("myChart2").getContext('2d');
-    var myChart2 = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
+    var myChart2 = new Chart(document.getElementById("myChart2"), {
+      type: 'line',
+      data: {
+        labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
+        datasets: [{
+            data: [2500,9000,18000,7000,5000,15000,3500,8000,10000,29000,9500,11000],
+            label: "",
+            borderColor: "#3e95cd",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Sales (Last 12 months)'
         },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
+        legend: {
+          display: false,
         }
+      }
     });
 
 
