@@ -25,8 +25,11 @@ Route::get('/admin/user/{id}',  'AdminController@viewUser');
 Route::post('/admin/user/edit/{id}', 'AdminController@editUser');
 Route::get('/admin/user/reset/{id}', 'AdminController@resetPassword');
 
-// sales routes
+// inside sales routes
 Route::get('/inside-sales', 'InsideSalesController@showDashboard');
+
+// product sales routes
+Route::get('/product-sales', 'ProductSalesController@showDashboard');
 
 // executive routes
 Route::get('/executive', 'ExecController@showDashboard');
