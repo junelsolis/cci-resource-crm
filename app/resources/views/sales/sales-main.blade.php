@@ -133,13 +133,20 @@
             }]
         },
         options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
+          title: {
+            display: true,
+            text: 'Top 5 Clients'
+          },
+          legend: {
+            display: false,
+          },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
         }
     });
 </script>
