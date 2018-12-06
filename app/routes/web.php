@@ -19,15 +19,14 @@ Route::get('/dashboard/set-password', 'DashboardController@showSetPassword');
 Route::post('/dashboard/set-password', 'DashboardController@setPassword');
 
 // administrator routes
-Route::get('/administrator', 'AdminController@showDashboard');
-Route::post('/administrator/user/add', 'AdminController@addUser');
-Route::get('/administrator/user/{id}',  'AdminController@viewUser');
-Route::post('/administrator/user/edit/{id}', 'AdminController@editUser');
-Route::get('/administrator/user/reset/{id}', 'AdminController@resetPassword');
+Route::get('/admin', 'AdminController@showDashboard');
+Route::post('/admin/user/add', 'AdminController@addUser');
+Route::get('/admin/user/{id}',  'AdminController@viewUser');
+Route::post('/admin/user/edit/{id}', 'AdminController@editUser');
+Route::get('/admin/user/reset/{id}', 'AdminController@resetPassword');
 
 // sales routes
-Route::get('/sales', 'SalesController@showDashboard');
-Route::post('/sales/project/add', 'SalesController@addProject');
+Route::get('/service-sales', 'ServiceSalesController@showDashboard');
 
 // executive routes
 Route::get('/executive', 'ExecController@showDashboard');

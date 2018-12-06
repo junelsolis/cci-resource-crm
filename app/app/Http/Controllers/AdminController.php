@@ -43,7 +43,7 @@ class AdminController extends Controller
 
       $user = $this->createUser($name, $roles);
 
-      return redirect('/administrator')
+      return redirect('/admin')
         ->with('success', 'Username <strong>' . $user['username'] . '</strong> added. The temporary password is <strong>' . $user['password'] . '</strong>');
     }
     public function viewUser($id) {
@@ -75,7 +75,7 @@ class AdminController extends Controller
 
       $this->modifyUser($id, $username, $name, $roles);
 
-      return redirect('/administrator/user/'.$id)
+      return redirect('/admin/user/'.$id)
         ->with('success', 'Changes saved.');
     }
     public function resetPassword($id) {
@@ -84,7 +84,7 @@ class AdminController extends Controller
 
       $password = $this->modifyUserPassword($id);
 
-      return redirect('/administrator/user/'.$id)
+      return redirect('/admin/user/'.$id)
         ->with('success', 'Password changed. The temporary password is <strong>' . $password . '</strong>');
     }
 

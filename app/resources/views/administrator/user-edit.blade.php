@@ -27,7 +27,7 @@
             </div>
           </div>
 
-          <form method='post' action='/administrator/user/edit/{{ $user->id}}'>
+          <form method='post' action='/admin/user/edit/{{ $user->id}}'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
               <legend>
@@ -51,11 +51,17 @@
                 User Roles
               </legend>
 
-              <input name='roles[]' value='sales' type='checkbox'
+              <input name='roles[]' value='product-sales' type='checkbox'
                 <?php
-                  if (in_array('sales',$user->roles->toArray())) { echo 'checked'; }
+                  if (in_array('product-sales',$user->roles->toArray())) { echo 'checked'; }
                 ?>
-              /><label>Sales</label>
+              /><label>Product&nbsp;Sales</label>
+
+              <input name='roles[]' value='service-sales' type='checkbox'
+                <?php
+                  if (in_array('service-sales',$user->roles->toArray())) { echo 'checked'; }
+                ?>
+              /><label>Service&nbsp;Sales</label>
 
               <input name='roles[]' value='service' type='checkbox'
               <?php
@@ -81,7 +87,7 @@
               <legend>
                 Password Reset
               </legend>
-              <a href='/administrator/user/reset/{{ $user->id }}'><i class="fas fa-sync-alt"></i>&nbsp;Generate New Password</a>
+              <a href='/admin/user/reset/{{ $user->id }}'><i class="fas fa-sync-alt"></i>&nbsp;Generate New Password</a>
             </fieldset>
 
             @if ($errors->any())
@@ -144,7 +150,7 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->username }}</td>
                 <td>{{ $user->created_at }}</td>
-                <td><a href='/administrator/user/{{ $user->id}}'><i class="fas fa-edit"></i>&nbsp;Edit</a></td>
+                <td><a href='/admin/user/{{ $user->id}}'><i class="fas fa-edit"></i>&nbsp;Edit</a></td>
               </tr>
               @endforeach
             </tbody>

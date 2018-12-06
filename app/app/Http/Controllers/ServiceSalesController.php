@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
-class SalesController extends Controller
+class ServiceSalesController extends Controller
 {
 
   public function showDashboard() {
@@ -15,14 +15,14 @@ class SalesController extends Controller
 
     $userDetails = $this->getLoggedInUserDetails();
 
-    return view('sales/sales-main')
+    return view('service-sales/sales-main')
       ->with('userDetails', $userDetails);
   }
 
 
 
   private function checkLoggedIn() {
-    if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('sales')) {
+    if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('service-sales')) {
       return true;
     }
 
@@ -36,7 +36,7 @@ class SalesController extends Controller
     $user_id = session()->get('logged_in_user_id');     // get user id from session
     $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
 
-    $role = 'Sales';
+    $role = 'Service Sales';
 
     $collect = collect([
       'name' => $name,

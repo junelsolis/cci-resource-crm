@@ -18,16 +18,14 @@ class DashboardController extends Controller
       }
 
 
-
-
       $user_roles = session()->get('logged_in_user_roles');     // get user roles array stored in session
 
-      if ($user_roles->contains('sales')) {
-        return redirect('/sales');
+      if ($user_roles->contains('product-sales')) {
+        return redirect('/product-sales');
       }
 
-      if ($user_roles->contains('service')) {
-        return redirect('/service');
+      if ($user_roles->contains('service-sales')) {
+        return redirect('/service-sales');
       }
 
       if ($user_roles->contains('executive')) {
@@ -35,7 +33,7 @@ class DashboardController extends Controller
       }
 
       if ($user_roles->contains('administrator')) {
-        return redirect('/administrator');
+        return redirect('/admin');
       }
 
       return redirect('/');

@@ -14,21 +14,19 @@
           <ul class="menu">
             @foreach (session('logged_in_user_roles') as $role)
             <li>
-              <a href='/{{ $role }}'>
-                @if ($role == 'sales')
-                <i class="fas fa-dollar-sign"></i>&nbsp;
-                @endif
-                @if ($role == 'service')
-                <i class="fas fa-truck"></i>&nbsp;
-                @endif
-                @if ($role == 'executive')
-                <i class="fas fa-user-tie"></i>&nbsp;
-                @endif
-                @if ($role == 'administrator')
-                <i class="fas fa-server"></i>&nbsp;
-                @endif
-                {{ ucwords($role) }}
-              </a>
+              @if ($role == 'product-sales')
+              <a href='/product-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Product Sales</a>
+              @endif
+              @if ($role == 'service-sales')
+              <a href='/service-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Service Sales</a>
+              @endif
+              @if ($role == 'executive')
+              <a href='/exec'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>
+              @endif
+              @if ($role == 'administrator')
+              <a href='/admin'><i class='fas fa-server'></i>&nbsp;Administrator</a>
+              @endif
+
             </li>
             @endforeach
           </ul>

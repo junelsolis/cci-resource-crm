@@ -18,7 +18,7 @@
       <div class='cell medium-6 large-4'>
         <div class="card">
           <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
-          <form method='post' action='/administrator/user/add'>
+          <form method='post' action='/admin/user/add'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
               <legend>
@@ -32,11 +32,10 @@
                 Select Roles
               </legend>
 
-              <input id="checkbox12" name='roles[]' value='sales' type="checkbox"><label for="checkbox12">Sales</label><br />
-              <input id="checkbox22" name='roles[]' value='service' type="checkbox"><label for="checkbox22">Service</label><br />
-              <input id="checkbox32" name='roles[]' value='executive' type="checkbox"><label for="checkbox32">Executive</label><br />
-              <input id="checkbox33" name='roles[]' value='administrator' type="checkbox"><label for="checkbox33">System Administrator</label>
-
+              <input name='roles[]' value='product-sales' type='checkbox' /><label>Product&nbsp;Sales</label><br />
+              <input name='roles[]' value='service-sales' type='checkbox' /><label>Service&nbsp;Sales</label><br />
+              <input name='roles[]' value='executive' type='checkbox' /><label>Executive</label><br />
+              <input name='roles[]' value='administrator' type='checkbox' /><label>System Administrator</label>
             </fieldset>
 
             @if ($errors->any())
@@ -130,7 +129,7 @@
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->username }}</td>
                   <td>{{ $user->created_at }}</td>
-                  <td><a href='/administrator/user/{{ $user->id}}'><i class="fas fa-edit"></i></a></td>
+                  <td><a href='/admin/user/{{ $user->id}}'><i class="fas fa-edit"></i></a></td>
                 </tr>
                 @endforeach
               </tbody>

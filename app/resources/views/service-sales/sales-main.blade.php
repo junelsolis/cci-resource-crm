@@ -53,7 +53,7 @@
             </div>
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
-                <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+                <!-- <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li> -->
                 <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
               </ul>
             </div>
@@ -200,7 +200,7 @@
             </div>
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
-                <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+                <!-- <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li> -->
                 <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
               </ul>
             </div>
@@ -269,7 +269,7 @@
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: 'Top 5 Clients'
+            text: 'Project Counts (Last 12 Months)'
           },
           legend: {
             display: false,
