@@ -30,6 +30,7 @@ Route::get('/inside-sales', 'InsideSalesController@showDashboard');
 
 // product sales routes
 Route::get('/product-sales', 'ProductSalesController@showDashboard');
+Route::post('/product-sales/project/add', 'ProductSalesController@addProject');
 
 // executive routes
 Route::get('/executive', 'ExecController@showDashboard');

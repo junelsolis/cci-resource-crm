@@ -13,10 +13,15 @@ class ProductSalesController extends Controller
 
       $userDetails = $this->getLoggedInUserDetails();
       $insideSales = $this->getInsideSalesReps();
+      $projectStatusCodes = $this->getProjectStatusCodes();
 
       return view('product-sales/product-sales-main')
-        ->with('userDetails', $userDetails);
+        ->with('userDetails', $userDetails)
+        ->with('insideSales', $insideSales)
+        ->with('projectStatusCodes', $projectStatusCodes);
     }
+
+    public function addProject(Request $request) {}
 
     private function checkLoggedIn() {
       if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('product-sales')) {
@@ -25,6 +30,7 @@ class ProductSalesController extends Controller
 
       return false;
     }
+
     private function getLoggedInUserDetails() {
       /*  returns the user's full name
           and role
@@ -42,6 +48,7 @@ class ProductSalesController extends Controller
 
       return $collect;
     }
+
     private function getInsideSalesReps() {
       /*  Returns a collection of inside salespersons
       */
@@ -51,9 +58,20 @@ class ProductSalesController extends Controller
 
       $users = DB::table('users')
         ->whereIn('id', $sales)
+        ->orderBy('name')
         ->select('id', 'name')
         ->get();
 
       return $users;
+    }
+
+    private function getProjectStatusCodes() {
+      /*  Returns a collection of project status
+          including id and code
+      */
+
+      $codes = DB::table('project_status')->get();
+
+      return $codes;
     }
 }

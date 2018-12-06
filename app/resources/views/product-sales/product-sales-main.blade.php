@@ -59,30 +59,99 @@
             </div>
 
 
-            <div class='reveal' id='add-project-modal' data-reveal>
+            <div class='reveal large' id='add-project-modal' data-reveal>
               <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
               </button>
 
               <span><i class="fas fa-clipboard-list"></i>&nbsp;Add Project</span>
-              <form method='post' action='/sales/project/add'>
+              <form method='post' action='/product-sales/project/add'>
                 {{ csrf_field() }}
                 <fieldset class='fieldset'>
                   <legend>
                     Product Details
                   </legend>
                   <div class='grid-x grid-padding-x'>
-                    <div class='cell auto'>
+                    <div class='cell medium-4'>
+                      <label>Project Name</label>
+                      <input type='text' name='name' required />
+                    </div>
+                    <div class='cell medium-4'>
+                      <label>Manufacturer</label>
+                      <input type='text' name='manufacturer' />
+                    </div>
+                    <div class='cell medium-4'>
                       <label>Product</label>
                       <input type='text' name='product' required />
                     </div>
-                    <div class='cell auto'>
-                      <label>Manufacturer</label>
-                      <input type='text' name='manufacturer' required />
+                  </div>
+                </fieldset>
+
+                <fieldset class='fieldset'>
+                  <legend>
+                    Bid Information
+                  </legend>
+                  <div class='grid-x grid-padding-x'>
+                    <div class='cell medium-4'>
+                      <label>Bid Date</label>
+                      <input type='date' name='bid_date' required />
+                    </div>
+                    <div class='cell medium-4'>
+                      <label>Status</label>
+                      <select required>
+                        @foreach ($projectStatusCodes as $code)
+                        <option value='{{ $code->id }}'>{{ $code->status }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class='cell medium-4'>
+                      <label>Amount</label>
+                      <input type='number' name='amount' required placeholder='$' />
+                    </div>
+                    <div class='cell medium-4'>
+                      <label>Inside Sales</label>
+                      <select required>
+                        @foreach ($insideSales as $item)
+                        <option value='{{ $item->id }}'>{{ $item->name }}</option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
-
                 </fieldset>
+
+                <fieldset class='fieldset'>
+                  <legend>
+                    External Information
+                  </legend>
+                  <div class='grid-x grid-padding-x'>
+                    <div class='cell large-6'>
+                      <label>APC OPP ID</label>
+                      <input type='text' name='apc_opp_id' />
+                    </div>
+                    <div class='cell large-6'>
+                      <label>Invoice Link</label>
+                      <input type='text' name='invoice_link' />
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class='fieldset'>
+                  <legend>
+                    Additional Information
+                  </legend>
+                  <div class='grid-x grid-padding-x'>
+                    <div class='cell medium-6 large-4'>
+                      <label>Engineer</label>
+                      <input type='text' name='engineer' />
+                    </div>
+                    <div class='cell medium-6 large-4'>
+                      <label>Contractor</label>
+                      <input type='text' name='contractor' />
+                    </div>
+                  </div>
+                </fieldset>
+
+                <button type='submit' class='button button-primary'>Add Project</button>
               </form>
 
             </div>
