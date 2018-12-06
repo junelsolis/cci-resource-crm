@@ -34,9 +34,9 @@
           </ul>
         </li>
         <li>|</li>
-        <li><a href="#" title='Account Settings'><i class="fas fa-cog"></i>Settings</a></li>
+        <li><a href="#" title='Account Settings'><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
         <li>|</li>
-        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
       </ul>
     </div>
   </div>
