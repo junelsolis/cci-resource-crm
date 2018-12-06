@@ -33,7 +33,7 @@
               </legend>
 
               <input name='roles[]' value='product-sales' type='checkbox' /><label>Product&nbsp;Sales</label><br />
-              <input name='roles[]' value='service-sales' type='checkbox' /><label>Service&nbsp;Sales</label><br />
+              <input name='roles[]' value='inside-sales' type='checkbox' /><label>Inside&nbsp;Sales</label><br />
               <input name='roles[]' value='executive' type='checkbox' /><label>Executive</label><br />
               <input name='roles[]' value='administrator' type='checkbox' /><label>System Administrator</label>
             </fieldset>

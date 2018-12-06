@@ -17,8 +17,8 @@
               @if ($role == 'product-sales')
               <a href='/product-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Product Sales</a>
               @endif
-              @if ($role == 'service-sales')
-              <a href='/service-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Service Sales</a>
+              @if ($role == 'inside-sales')
+              <a href='/inside-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Inside Sales</a>
               @endif
               @if ($role == 'executive')
               <a href='/exec'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>

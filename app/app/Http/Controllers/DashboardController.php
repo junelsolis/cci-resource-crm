@@ -24,8 +24,8 @@ class DashboardController extends Controller
         return redirect('/product-sales');
       }
 
-      if ($user_roles->contains('service-sales')) {
-        return redirect('/service-sales');
+      if ($user_roles->contains('inside-sales')) {
+        return redirect('/inside-sales');
       }
 
       if ($user_roles->contains('executive')) {

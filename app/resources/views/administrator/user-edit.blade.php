@@ -55,25 +55,25 @@
                 <?php
                   if (in_array('product-sales',$user->roles->toArray())) { echo 'checked'; }
                 ?>
-              /><label>Product&nbsp;Sales</label>
+              /><label>Product&nbsp;Sales</label><br />
 
-              <input name='roles[]' value='service-sales' type='checkbox'
+              <input name='roles[]' value='inside-sales' type='checkbox'
                 <?php
-                  if (in_array('service-sales',$user->roles->toArray())) { echo 'checked'; }
+                  if (in_array('inside-sales',$user->roles->toArray())) { echo 'checked'; }
                 ?>
-              /><label>Service&nbsp;Sales</label>
+              /><label>Service&nbsp;Sales</label><br />
 
               <input name='roles[]' value='service' type='checkbox'
               <?php
                 if (in_array('service',$user->roles->toArray())) { echo 'checked'; }
               ?>
-              /><label>Service</label>
+              /><label>Service</label><br />
 
               <input name='roles[]' value='executive' type='checkbox'
               <?php
                 if (in_array('executive',$user->roles->toArray())) { echo 'checked'; }
               ?>
-              /><label>Executive</label>
+              /><label>Executive</label><br />
 
               <input name='roles[]' value='administrator' type='checkbox'
               <?php

@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Sales | Critical Components</title>
+    <title>Inside Sales | Critical Components</title>
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
@@ -94,102 +94,162 @@
             <table class="unstriped">
               <thead>
                 <tr>
-                  <th>Ship Date</th>
+                  <th>Name</th>
                   <th>Status</th>
+                  <th>Bid Date</th>
                   <th>Manufacturer</th>
                   <th>Product</th>
-                  <th>Amount</th>
-                  <th>APC ID</th>
                   <th>Inside Sales</th>
-                  <th>Engineer</th>
-                  <th>Contractor</th>
-                  <th>Notes</th>
+                  <th>Amount</th>
+                  <th>APC OPP ID</th>
+                  <th>Invoice</th>
+                  <th>Note</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Jan 3, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$6,000.00</td>
-                  <td>09874928</td>
-                  <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
-                </tr>
-                <tr>
-                  <td>Jan 15, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$3,000.00</td>
-                  <td>09874928</td>
-                  <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
-                </tr>
-                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
                   <td>Jan 20, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$4,000.00</td>
-                  <td>09874928</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
                   <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
                 </tr>
                 <tr>
-                  <td>Jan 15, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$7,000.00</td>
-                  <td>09874928</td>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
                   <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
                 </tr>
                 <tr>
-                  <td>Jan 15, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$7,000.00</td>
-                  <td>09874928</td>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
                   <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
                 </tr>
                 <tr>
-                  <td>Jan 15, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$7,000.00</td>
-                  <td>09874928</td>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
                   <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
                 </tr>
                 <tr>
-                  <td>Jan 15, 2019</td>
-                  <td>Engineered</td>
-                  <td>Metallurgy Inc.</td>
-                  <td>Right-angle clamps</td>
-                  <td>$7,000.00</td>
-                  <td>09874928</td>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
                   <td>SV</td>
-                  <td>Peter Barnes</td>
-                  <td>Jason Hayes</td>
-                  <td>This is a note</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
+                </tr>
+                <tr>
+                  <td>Apple Inc.</td>
+                  <td>Sold</td>
+                  <td>Jan 20, 2019</td>
+                  <td>Foxconn</td>
+                  <td>Transistors</td>
+                  <td>SV</td>
+                  <td>$32,000</td>
+                  <td>OP-341-987987</td>
+                  <td><a href='#'>http://somelinkhere.com</a></td>
+                  <td>Amount Changed</td>
                 </tr>
               </tbody>
             </table>

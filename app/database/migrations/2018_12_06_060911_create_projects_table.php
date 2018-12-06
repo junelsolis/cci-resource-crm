@@ -18,10 +18,9 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->tinyInteger('status_id');
             $table->date('bid_date');
-            $table->string('name');
             $table->string('manufacturer')->nullable();
             $table->string('product');
-            $table->integer('service_sales_id');
+            $table->integer('inside_sales_id');
             $table->integer('amount');
             $table->integer('apc_opp_id')->nullable();
             $table->string('invoice_link')->nullable();
