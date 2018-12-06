@@ -8,22 +8,35 @@
     <div id='right' class='cell medium-6'>
       <ul class="dropdown menu align-right align-middle" data-dropdown-menu>
         <li style='text-align:right;'><a href="#"><strong>{{ $userDetails['name'] }}</strong><br />{{ $userDetails['role'] }}</a></li>
-
+        <li>|</li>
         <li>
-          <a href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Go To Section</a>
+          <a id='section' href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Go To Section</a>
           <ul class="menu">
-            <!-- <li><a href="#">Administrator</a></li>
-            <li><a href="#">Sales</a></li>
-            <li><a href="#">Service</a></li>
-            <li><a href="#">Executive</a></li> -->
-
             @foreach (session('logged_in_user_roles') as $role)
-            <li><a href='/{{ $role }}'>{{ ucwords($role) }}</a></li>
+            <li>
+              <a href='/{{ $role }}'>
+                @if ($role == 'sales')
+                <i class="fas fa-dollar-sign"></i>&nbsp;
+                @endif
+                @if ($role == 'service')
+                <i class="fas fa-truck"></i>&nbsp;
+                @endif
+                @if ($role == 'executive')
+                <i class="fas fa-user-tie"></i>&nbsp;
+                @endif
+                @if ($role == 'administrator')
+                <i class="fas fa-server"></i>&nbsp;
+                @endif
+                {{ ucwords($role) }}
+              </a>
+            </li>
             @endforeach
           </ul>
         </li>
-        <li><a href="#" title='Account Settings'><i class="fas fa-cog"></i></a></li>
-        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i></a></li>
+        <li>|</li>
+        <li><a href="#" title='Account Settings'><i class="fas fa-cog"></i>Settings</a></li>
+        <li>|</li>
+        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i>Logout</a></li>
       </ul>
     </div>
   </div>
