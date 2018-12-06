@@ -11,3 +11,12 @@ body {
   margin-top: 10px;
   padding: 10px;
 }
+
+#upcoming-projects p {
+  font-size: 0.9em;
+  color: #505050;
+}
+
+#upcoming-projects span {
+  font-weight: bold;
+}

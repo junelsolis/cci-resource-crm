@@ -15,8 +15,8 @@
   @include('navbar')
   <body>
     <div class='grid-x'>
-      <div class='cell medium-6'>
-        <div class="card" style="width: 90%;">
+      <div class='cell medium-6 large-4'>
+        <div class="card">
           <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
           <form method='post' action='/administrator/user/add'>
             {{ csrf_field() }}
@@ -82,8 +82,8 @@
         </div>
       </div>
 
-      <div class='cell medium-6'>
-        <div class='card' style='width: 90%;'>
+      <div class='cell medium-6 large-5'>
+        <div class='card'>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
 
           <div class='grid-x grid-padding-x'>
@@ -113,7 +113,7 @@
             </div>
           </div>
         </div>
-        <div class="card" style="width: 90%;">
+        <div class="card">
           <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
           <br /><br />
           <div class="input-group">
@@ -123,26 +123,35 @@
             </div>
           </div>
 
-          <table class="unstriped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Created on</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($userDirectory as $user)
-              <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->username }}</td>
-                <td>{{ $user->created_at }}</td>
-                <td><a href='/administrator/user/{{ $user->id}}'><i class="fas fa-edit"></i>&nbsp;Edit</a></td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+          <div class='table-scroll'>
+            <table class="unstriped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Created on</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($userDirectory as $user)
+                <tr>
+                  <td>{{ $user->name }}</td>
+                  <td>{{ $user->username }}</td>
+                  <td>{{ $user->created_at }}</td>
+                  <td><a href='/administrator/user/{{ $user->id}}'><i class="fas fa-edit"></i></a></td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <div class='cell medium-6 large-3'>
+        <div class='card'>
+          <h5><strong><i class="fas fa-network-wired"></i>&nbsp;System Information</strong></h5>
         </div>
       </div>
     </div>

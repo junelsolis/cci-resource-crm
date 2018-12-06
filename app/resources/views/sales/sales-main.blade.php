@@ -16,11 +16,19 @@
   <body>
     <div id='main' class='grid-x'>
       <div class='cell medium-6 large-4'>
-        <div class='card'>
+        <div id='upcoming-projects' class='card'>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
+          <br />
+          <p>
+            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
+          </p>
         </div>
       </div>
-      <div class='cell medium-6 large-4'>
+      <div class='cell medium-6 large-8'>
         <div class='card'>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
         </div>

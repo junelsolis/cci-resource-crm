@@ -6,7 +6,9 @@
 }
 
 #navbar a {
-  color: #000A55;
+  /* color: #000A55; */
+  color: #464B69;
+
 }
 
 #navbar a:hover {
