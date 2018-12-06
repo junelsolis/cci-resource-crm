@@ -34,19 +34,17 @@ class AdminController extends Controller
       */
 
       $request->validate([
-        'username' => 'required|string',
         'name' => 'required|string',
         'roles' => 'required|array'
       ]);
 
-      $username = $request['username'];
       $name = $request['name'];
       $roles = $request['roles'];
 
-      $password = $this->createUser($username, $name, $roles);
+      $user = $this->createUser($name, $roles);
 
       return redirect('/administrator')
-        ->with('success', 'User added. The temporary password is <strong>' . $password . '</strong>');
+        ->with('success', 'Username <strong>' . $user['username'] . '</strong> added. The temporary password is <strong>' . $user['password'] . '</strong>');
     }
     public function viewUser($id) {
       if ($this->checkLoggedIn()) {}
@@ -117,9 +115,14 @@ class AdminController extends Controller
       return $collect;
     }
 
-    private function createUser($username, $name, $roles) {
-      $username = strtolower($username);
+    private function createUser($name, $roles) {
       $password = $this->randomPasswordString();
+
+      // create username string
+      $array = explode(" ", strtolower($name));
+      $firstInitial = substr($array[0],0,1);
+      $lastname = $array[1];
+      $username = $firstInitial . '.' . $lastname;
 
       // create user in user table
       $user_id = DB::table('users')->insertGetId([
@@ -139,7 +142,11 @@ class AdminController extends Controller
         ]);
       }
 
-      return $password;
+      $array = array(
+        'username' => $username,
+        'password' => $password
+      );
+      return $array;
     }
 
     private function modifyUser($id, $username, $name, $roles) {

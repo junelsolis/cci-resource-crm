@@ -24,17 +24,8 @@
               <legend>
                 User Details
               </legend>
-              <div class='grid-x grid-padding-x'>
-                <div class='cell small-6'>
-                  <label>Username</label>
-                  <input type='text' name='username' required />
-                </div>
-                <div class='cell small-6'>
-                  <label>Full Name</label>
-                  <input type='text' name='name' required />
-                </div>
-              </div>
-
+              <label>Full Name</label>
+              <input type='text' name='name' required />
             </fieldset>
             <fieldset class='fieldset'>
               <legend>
