@@ -27,3 +27,6 @@ Route::get('/administrator/user/reset/{id}', 'AdminController@resetPassword');
 
 // sales routes
 Route::get('/sales', 'SalesController@showDashboard');
+
+// executive routes
+Route::get('/executive', 'ExecController@showDashboard');

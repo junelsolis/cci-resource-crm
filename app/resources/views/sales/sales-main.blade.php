@@ -129,9 +129,9 @@
 
     var ctx = document.getElementById('quote-status').getContext('2d');
     var quoteStatus = new Chart(document.getElementById("quote-status"), {
-    type: 'doughnut',
+    type: 'bar',
     data: {
-      labels: ["Engineered", "Quoted", "Lost", "Sold","New"],
+      labels: ["Engineered", "Quoted", "Lost", "Sold",],
       datasets: [
         {
           backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
