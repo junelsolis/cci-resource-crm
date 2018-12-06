@@ -53,10 +53,41 @@
             </div>
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
-                <li><a href='#'><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+                <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
                 <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
               </ul>
             </div>
+
+
+            <div class='reveal' id='add-project-modal' data-reveal>
+              <button class="close-button" data-close aria-label="Close modal" type="button">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+              <span><i class="fas fa-clipboard-list"></i>&nbsp;Add Project</span>
+              <form method='post' action='/sales/project/add'>
+                {{ csrf_field() }}
+                <fieldset class='fieldset'>
+                  <legend>
+                    Product Details
+                  </legend>
+                  <div class='grid-x grid-padding-x'>
+                    <div class='cell auto'>
+                      <label>Product</label>
+                      <input type='text' name='product' required />
+                    </div>
+                    <div class='cell auto'>
+                      <label>Manufacturer</label>
+                      <input type='text' name='manufacturer' required />
+                    </div>
+                  </div>
+
+                </fieldset>
+              </form>
+
+            </div>
+
+
           </div>
           <br />
           <div class='table-scroll'>
@@ -64,6 +95,7 @@
               <thead>
                 <tr>
                   <th>Ship Date</th>
+                  <th>Status</th>
                   <th>Manufacturer</th>
                   <th>Product</th>
                   <th>Amount</th>
@@ -76,6 +108,7 @@
               <tbody>
                 <tr>
                   <td>Jan 3, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$6,000.00</td>
@@ -86,6 +119,7 @@
                 </tr>
                 <tr>
                   <td>Jan 15, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$3,000.00</td>
@@ -96,6 +130,7 @@
                 </tr>
                 <tr>
                   <td>Jan 20, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$4,000.00</td>
@@ -105,7 +140,8 @@
                   <td>This is a note</td>
                 </tr>
                 <tr>
-                  <td>Jan 315, 2019</td>
+                  <td>Jan 15, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
@@ -115,7 +151,8 @@
                   <td>This is a note</td>
                 </tr>
                 <tr>
-                  <td>Jan 315, 2019</td>
+                  <td>Jan 15, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
@@ -125,7 +162,8 @@
                   <td>This is a note</td>
                 </tr>
                 <tr>
-                  <td>Jan 315, 2019</td>
+                  <td>Jan 15, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
@@ -135,7 +173,8 @@
                   <td>This is a note</td>
                 </tr>
                 <tr>
-                  <td>Jan 315, 2019</td>
+                  <td>Jan 15, 2019</td>
+                  <td>Engineered</td>
                   <td>Metallurgy Inc.</td>
                   <td>Right-angle clamps</td>
                   <td>$7,000.00</td>
@@ -146,6 +185,17 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class='grid-x align-middle'>
+            <div class='cell medium-6 large-2'>
+              <a href='#top'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+            </div>
+            <div class='cell medium-6 large-10'>
+              <ul class='menu align-right'>
+                <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+                <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

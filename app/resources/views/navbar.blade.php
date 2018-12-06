@@ -1,5 +1,5 @@
 <div id='navbar'>
-  <div class='grid-x'>
+  <div id='top' class='grid-x'>
     <div class='cell medium-6'>
       <div id='logo'>
         <a href='/'><strong><i class="fas fa-home"></i>&nbsp;Critical Components CRM</strong></a>

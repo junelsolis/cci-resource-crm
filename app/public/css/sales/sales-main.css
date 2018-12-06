@@ -20,3 +20,9 @@ body {
 #upcoming-projects span {
   font-weight: bold;
 }
+
+#add-project-modal span {
+  font-weight: bold;
+  color: #000A55;
+  font-size: 1.2em;
+}
