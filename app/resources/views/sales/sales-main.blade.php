@@ -31,6 +31,7 @@
       <div class='cell medium-6 large-8'>
         <div class='card'>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
+          <p>numbers and charts go here</p>
         </div>
       </div>
       <div class='cell small-12'>
