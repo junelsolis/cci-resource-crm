@@ -10,7 +10,7 @@
         <li style='text-align:right;'><a href="#"><strong>{{ $userDetails['name'] }}</strong><br />{{ $userDetails['role'] }}</a></li>
 
         <li>
-          <a href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Change Section</a>
+          <a href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Go To Section</a>
           <ul class="menu">
             <!-- <li><a href="#">Administrator</a></li>
             <li><a href="#">Sales</a></li>
