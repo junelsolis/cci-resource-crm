@@ -21,11 +21,11 @@
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
           <p>
-            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 28, 2018</span>&nbsp;&mdash;&nbsp;Microsoft Corporation<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 04, 2019</span>&nbsp;&mdash;&nbsp;Metallurgy Inc &mdash; Right-angle clamps<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 06, 2019</span>&nbsp;&mdash;&nbsp;Apple Inc. &mdash; Transistors<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 13, 2019</span>&nbsp;&mdash;&nbsp;Microsoft Corp. &mdash; Transistors<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 21, 2019</span>&nbsp;&mdash;&nbsp;AMD &mdash;Silicon wafers<br />
+            <i class="fas fa-eye"></i>&nbsp;<span>January 24, 2019</span>&nbsp;&mdash;&nbsp;Intel &mdash;Silicon wafers<br />
           </p>
         </div>
       </div>
