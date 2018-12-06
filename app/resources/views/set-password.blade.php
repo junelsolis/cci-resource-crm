@@ -29,13 +29,34 @@
         <label>Confirm Password</label>
         <input type='password' name='confirmPassword' required />
         <button class='button button-primary expanded' type='submit'><i class="fas fa-sync-alt"></i>&nbsp;Change Password</button>
+
+        @if ($errors->any())
+          @foreach ($errors->all() as $error)
+          <div data-closable class="callout alert-callout-subtle warning radius">
+            <strong>Error</strong><br />{{ $error }}
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+              <span aria-hidden="true">⊗</span>
+            </button>
+          </div>
+          @endforeach
+        @endif
+
+        @if (session('error'))
+        <div data-closable class="callout alert-callout-subtle warning radius">
+          <strong>Error</strong><br />{{ session('error') }}
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">⊗</span>
+          </button>
+        </div>
+        @endif
       </form>
       <br /><br />
       <div style='text-align:left;padding-left:40px;'>
         <strong>Password Policy</strong><br />
         &dash; Minimum 10 characters<br />
         &dash; Uppercase AND lowercase required<br />
-        &dash; Must contain at least 1 number
+        &dash; Must contain at least 1 number<br />
+        &dash; Must contain at least 1 symbol
       </div>
     </div>
   </body>

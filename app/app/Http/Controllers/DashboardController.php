@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Hash;
 
 class DashboardController extends Controller
 {
@@ -42,6 +43,17 @@ class DashboardController extends Controller
     }
 
     public function showSetPassword() {
+      /*  check that a user is logged in.
+          if not, redirect to login page
+      */
+
+
+      if (session()->has('logged_in_user_id') && session()->has('logged_in_user_roles')) {}
+      else {
+        return redirect('/');
+      }
+
+
       $user_id = session('logged_in_user_id');
       $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
 
@@ -49,6 +61,33 @@ class DashboardController extends Controller
     }
 
     public function setPassword(Request $request) {
+      $request->validate([
+        'password' => 'min:10|case_diff|numbers|letters|symbols',
+        'confirmPassword' => 'required|string'
+      ]);
+
+      $password = $request['password'];
+      $confirmPassword = $request['confirmPassword'];
+
+      // check that both passwords match
+      if ($password != $confirmPassword) {
+        return back()->with('error', 'Both passwords must match.');
+      }
+
+      /*  if all checks pass, get user id from session,
+          then update password
+      */
+
+      $id = session('logged_in_user_id');
+
+      DB::table('users')->where('id', $id)->update([
+        'password' => Hash::make($password),
+        'change_password' => false,
+        'updated_at' => \Carbon\Carbon::now()
+      ]);
+
+      // redirect to dashboard controller
+      return redirect('/dashboard');
 
     }
 }
