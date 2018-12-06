@@ -18,7 +18,7 @@
       <div class='cell medium-6'>
         <div class="card" style="width: 90%;">
           <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
-          <form method='post' action='/admin/user/add'>
+          <form method='post' action='/administrator/user/add'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
               <legend>
