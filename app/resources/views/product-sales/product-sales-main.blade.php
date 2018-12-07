@@ -45,10 +45,10 @@
     </div>
 
     @endif
-    <div id='main' class='grid-x'>
+    <div id='main' class='grid-x' data-equalizer>
 
       <div class='cell medium-6 large-4'>
-        <div id='upcoming-projects' class='card' style='min-height:280px;'>
+        <div id='upcoming-projects' class='card' data-equalizer-watch>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
           <table class='unstriped'>
@@ -65,17 +65,17 @@
         </div>
       </div>
       <div class='cell medium-6 large-8'>
-        <div class='card' style='min-height:280px;'>
+        <div class='card'  data-equalizer-watch>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
           <div class='grid-x'>
             <div class='cell large-4'>
-              <canvas id="myChart2"></canvas>
+              <canvas id="myChart2" height="180px"></canvas>
             </div>
             <div class='cell large-4'>
-              <canvas id="myChart3"></canvas>
+              <canvas id="myChart3" height="180px"></canvas>
             </div>
             <div class='cell large-4'>
-              <canvas id='quote-status'></canvas>
+              <canvas id='quote-status' height="180px"></canvas>
             </div>
           </div>
         </div>
