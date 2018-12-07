@@ -6,7 +6,7 @@
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/sales/sales-main.css') }}" />
+    <link rel='stylesheet' href="{{ asset('css/product-sales/product-sales-main.css') }}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
@@ -73,7 +73,7 @@
                   </legend>
                   <div class='grid-x grid-padding-x'>
                     <div class='cell medium-4'>
-                      <label>Project Name</label>
+                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Project Name</label>
                       <input type='text' name='name' required />
                     </div>
                     <div class='cell medium-4'>
@@ -81,7 +81,7 @@
                       <input type='text' name='manufacturer' />
                     </div>
                     <div class='cell medium-4'>
-                      <label>Product</label>
+                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Product</label>
                       <input type='text' name='product' required />
                     </div>
                   </div>
@@ -93,11 +93,11 @@
                   </legend>
                   <div class='grid-x grid-padding-x'>
                     <div class='cell medium-4'>
-                      <label>Bid Date</label>
+                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Bid Date</label>
                       <input type='date' name='bid_date' required />
                     </div>
                     <div class='cell medium-4'>
-                      <label>Status</label>
+                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Status</label>
                       <select required>
                         @foreach ($projectStatusCodes as $code)
                         <option value='{{ $code->id }}'>{{ $code->status }}</option>
@@ -105,11 +105,11 @@
                       </select>
                     </div>
                     <div class='cell medium-4'>
-                      <label>Amount</label>
+                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Amount</label>
                       <input type='number' name='amount' required placeholder='$' />
                     </div>
                     <div class='cell medium-4'>
-                      <label>Inside Sales</label>
+                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Inside Sales</label>
                       <select required>
                         @foreach ($insideSales as $item)
                         <option value='{{ $item->id }}'>{{ $item->name }}</option>
@@ -151,7 +151,12 @@
                   </div>
                 </fieldset>
 
-                <button type='submit' class='button button-primary'>Add Project</button>
+                <div style='font-style:italic;'>
+                  Fields marked with "<span style='color: red;font-size:0.5em;position:relative;top:-3px;'><i class="fas fa-star-of-life"></i></span>" are required.
+                </div>
+                <br />
+                <button type='submit' class='button button-primary'><i class="fas fa-plus"></i>&nbsp;Add Project</button>
+
               </form>
 
             </div>
