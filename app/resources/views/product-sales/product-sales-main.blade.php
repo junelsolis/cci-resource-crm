@@ -16,6 +16,41 @@
   @include('navbar')
   <body>
     <div id='main' class='grid-x'>
+      <div class='cell small-12'>
+        @if ($errors->any())
+          <div class='card'>
+          <div data-closable class="callout alert-callout-subtle warning radius">
+            <strong>Error</strong><br />
+            @foreach ($errors->all() as $error)
+            {{ $error }}&nbsp;|&nbsp;
+            @endforeach
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+              <span aria-hidden="true">⊗</span>
+            </button>
+          </div>
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div data-closable class="callout alert-callout-subtle warning radius">
+          <strong>Error</strong><br />{{ session('error') }}
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">⊗</span>
+          </button>
+        </div>
+        @endif
+
+        @if (session('success'))
+        <div class='card'>
+          <div data-closable class="callout alert-callout-subtle success radius">
+            <strong>Success</strong><br />{!! session('success') !!}
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+              <span aria-hidden="true">⊗</span>
+            </button>
+          </div>
+        </div>
+        @endif
+      </div>
       <div class='cell medium-6 large-4'>
         <div id='upcoming-projects' class='card'>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
@@ -77,12 +112,12 @@
                       <input type='text' name='name' required />
                     </div>
                     <div class='cell medium-4'>
-                      <label>Manufacturer</label>
-                      <input type='text' name='manufacturer' />
-                    </div>
-                    <div class='cell medium-4'>
                       <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Product</label>
                       <input type='text' name='product' required />
+                    </div>
+                    <div class='cell medium-4'>
+                      <label>Manufacturer</label>
+                      <input type='text' name='manufacturer' />
                     </div>
                   </div>
                 </fieldset>
@@ -98,9 +133,10 @@
                     </div>
                     <div class='cell medium-4'>
                       <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Status</label>
-                      <select required>
+                      <select name='status_id' required>
+                        <option value="" selected disabled hidden>Select One</option>
                         @foreach ($projectStatusCodes as $code)
-                        <option name='status_id' value='{{ $code->id }}'>{{ $code->status }}</option>
+                        <option value='{{ $code->id }}'>{{ $code->status }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -110,9 +146,10 @@
                     </div>
                     <div class='cell medium-4'>
                       <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Inside Sales</label>
-                      <select required>
+                      <select name='inside_sales_id' required>
+                        <option value="" selected disabled hidden>Select One</option>
                         @foreach ($insideSales as $item)
-                        <option name='inside_sales_id' value='{{ $item->id }}'>{{ $item->name }}</option>
+                        <option value='{{ $item->id }}'>{{ $item->name }}</option>
                         @endforeach
                       </select>
                     </div>

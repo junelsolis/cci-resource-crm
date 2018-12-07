@@ -29,17 +29,17 @@ class ProductSalesController extends Controller
         'name' => 'required|string',
         'status_id' => 'required|integer',
         'bid_date' => 'required|date',
-        'manufacturer' => 'string',
+        'manufacturer' => 'nullable|string',
         'product' => 'required|string',
         'inside_sales_id' => 'required|integer',
         'amount' => 'required|numeric',
-        'apc_opp_id' => 'string',
-        'invoice_link' => 'string',
-        'engineer' => 'string',
-        'contractor' => 'string',
+        'apc_opp_id' => 'nullable|string',
+        'invoice_link' => 'nullable|string',
+        'engineer' => 'nullable|string',
+        'contractor' => 'nullable|string',
       ]);
 
-      return $request;
+      return redirect('/product-sales')->with('success', 'Test success message.');
     }
 
     private function checkLoggedIn() {
