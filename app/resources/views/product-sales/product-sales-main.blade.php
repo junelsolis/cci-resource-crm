@@ -16,16 +16,14 @@
   @include('navbar')
   <body>
     @if ($errors->any())
-    <div class='card'>
-      <div data-closable class="callout alert-callout-subtle warning radius">
-        <strong>Error</strong><br />
-        @foreach ($errors->all() as $error)
-        {{ $error }}&nbsp;|&nbsp;
-        @endforeach
-        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-          <span aria-hidden="true">⊗</span>
-        </button>
-      </div>
+    <div data-closable class="callout alert-callout-subtle warning radius">
+      <strong>Error</strong><br />
+      @foreach ($errors->all() as $error)
+      {{ $error }}&nbsp;|&nbsp;
+      @endforeach
+      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+        <span aria-hidden="true">⊗</span>
+      </button>
     </div>
     @endif
 
