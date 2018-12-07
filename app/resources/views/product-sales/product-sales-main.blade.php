@@ -48,20 +48,19 @@
     <div id='main' class='grid-x'>
 
       <div class='cell medium-6 large-4'>
-        <div id='upcoming-projects' class='card'>
+        <div id='upcoming-projects' class='card' style='min-height:260px;'>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
           <p>
-            <i class="fas fa-eye"></i>&nbsp;<span>January 04, 2019</span>&nbsp;&mdash;&nbsp;Metallurgy Inc &mdash; Right-angle clamps<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 06, 2019</span>&nbsp;&mdash;&nbsp;Apple Inc. &mdash; Transistors<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 13, 2019</span>&nbsp;&mdash;&nbsp;Microsoft Corp. &mdash; Transistors<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 21, 2019</span>&nbsp;&mdash;&nbsp;AMD &mdash;Silicon wafers<br />
-            <i class="fas fa-eye"></i>&nbsp;<span>January 24, 2019</span>&nbsp;&mdash;&nbsp;Intel &mdash;Silicon wafers<br />
+
+            @foreach ($upcomingProjects as $item)
+            <span>{{ $item->bid_date}}</span>&nbsp;&mdash;&nbsp;{{ $item->name }}<br />
+            @endforeach
           </p>
         </div>
       </div>
       <div class='cell medium-6 large-8'>
-        <div class='card'>
+        <div class='card' style='min-height:260px;'>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
           <div class='grid-x'>
             <div class='cell large-4'>
@@ -227,7 +226,7 @@
                 <tr>
                   <td>{{ $i->name }}</td>
                   <td>{{ $i->status->status }}</td>
-                  <td>{{ $i->bid_date }}</td>
+                  <td>{{ $i->bidDate }}</td>
                   <td>{{ $i->manufacturer }}</td>
                   <td>{{ $i->product }}</td>
                   <td>{{ $i->insideSales->name }}</td>

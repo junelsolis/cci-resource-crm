@@ -16,12 +16,14 @@ class ProductSalesController extends Controller
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
       $projects = $this->getAllProjects();
+      $upcomingProjects = $this->getUpcomingProjects($projects);
 
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
         ->with('projectStatusCodes', $projectStatusCodes)
-        ->with('projects', $projects);
+        ->with('projects', $projects)
+        ->with('upcomingProjects', $upcomingProjects);
     }
 
     public function addProject(Request $request) {
@@ -118,8 +120,8 @@ class ProductSalesController extends Controller
         $status = $allStatus->where('id', $project->status_id)->first();
         $project->status = $status;
 
-        $bid_date = date('m/d/y', strtotime($project->bid_date));
-        $project->bid_date = $bid_date;
+        $bidDate = date('m/d/y', strtotime($project->bid_date));
+        $project->bidDate = $bidDate;
 
         $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
         $project->insideSales = $insideSales;
@@ -131,7 +133,20 @@ class ProductSalesController extends Controller
     }
 
     private function getUpcomingProjects($projects) {
-      // $projects = $projects->sortBy('bid_date')->limit
+      $projects = $projects->sortBy('bid_date');
+      $now = Carbon::now('America/New_York');
+
+      foreach ($projects as $key => $item) {
+        $bid_date = new Carbon($item->bid_date);
+
+        if ($now->greaterThan($bid_date)) {
+          $projects->forget($key);
+        }
+
+        $item->bid_date = date('M d, Y', strtotime($item->bid_date));
+      }
+
+      return $projects;
     }
 
 
