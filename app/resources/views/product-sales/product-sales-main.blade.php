@@ -100,7 +100,7 @@
                       <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Status</label>
                       <select required>
                         @foreach ($projectStatusCodes as $code)
-                        <option value='{{ $code->id }}'>{{ $code->status }}</option>
+                        <option name='status_id' value='{{ $code->id }}'>{{ $code->status }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -112,7 +112,7 @@
                       <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Inside Sales</label>
                       <select required>
                         @foreach ($insideSales as $item)
-                        <option value='{{ $item->id }}'>{{ $item->name }}</option>
+                        <option name='inside_sales_id' value='{{ $item->id }}'>{{ $item->name }}</option>
                         @endforeach
                       </select>
                     </div>
@@ -149,6 +149,13 @@
                       <input type='text' name='contractor' />
                     </div>
                   </div>
+                </fieldset>
+
+                <fieldset class='fieldset'>
+                  <legend>
+                    Note
+                  </legend>
+                  <textarea name='note' width='100%'></textarea>
                 </fieldset>
 
                 <div style='font-style:italic;'>

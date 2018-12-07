@@ -21,7 +21,26 @@ class ProductSalesController extends Controller
         ->with('projectStatusCodes', $projectStatusCodes);
     }
 
-    public function addProject(Request $request) {}
+    public function addProject(Request $request) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      $request->validate([
+        'name' => 'required|string',
+        'status_id' => 'required|integer',
+        'bid_date' => 'required|date',
+        'manufacturer' => 'string',
+        'product' => 'required|string',
+        'inside_sales_id' => 'required|integer',
+        'amount' => 'required|numeric',
+        'apc_opp_id' => 'string',
+        'invoice_link' => 'string',
+        'engineer' => 'string',
+        'contractor' => 'string',
+      ]);
+
+      return $request;
+    }
 
     private function checkLoggedIn() {
       if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('product-sales')) {
@@ -73,5 +92,13 @@ class ProductSalesController extends Controller
       $codes = DB::table('project_status')->get();
 
       return $codes;
+    }
+
+    private function createProject($request) {
+      /*  takes in a HTTP request variable
+          and uses it to create a new project
+      */
+
+
     }
 }
