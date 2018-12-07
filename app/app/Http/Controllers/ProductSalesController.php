@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
 
 class ProductSalesController extends Controller
 {
@@ -113,9 +114,10 @@ class ProductSalesController extends Controller
       $invoice_link = $request['invoice_link'];
       $engineer = $request['engineer'];
       $contractor = $request['contractor'];
+      $note = $request['note'];
 
       // insert project into database
-      $id = DB::table('projects')->insert([
+      $project_id = DB::table('projects')->insertGetId([
         'name' => $name,
         'status_id' => $status_id,
         'bid_date' => $bid_date,
@@ -128,8 +130,32 @@ class ProductSalesController extends Controller
         'invoice_link' => $invoice_link,
         'engineer' => $engineer,
         'contractor' => $contractor,
-        'created_at' => \Carbon\Carbon::now(),
+        'created_at' => Carbon::now(),
       ]);
+
+      // insert project creation note
+      $now = Carbon::now();
+      $nowString = $now->format('D, M d, Y g:i:s a');
+      $creationNote = 'Project created by ' . session('logged_in_named') . ' on ' . $nowString;
+
+      DB::table('project_notes')->insert([
+        'project_id' => $project_id,
+        'last_updated_by_id' => $product_sales_id,
+        'note' => $creationNote,
+        'created_at' => $now
+      ]);
+
+      // if user placed a note, insert it
+      if (!empty($note)) {
+        DB::table('project_notes')->insert([
+          'project_id' => $project_id,
+          'last_updated_by_id' => $product_sales_id,
+          'note' => $note,
+          'created_at' => $now->addSecond()
+        ]);
+      }
+
+      return;
 
     }
 }
