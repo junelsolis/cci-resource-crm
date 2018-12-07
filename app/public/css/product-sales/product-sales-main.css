@@ -57,3 +57,10 @@ body {
   position: relative;
   top: -3px;
 }
+
+table thead {
+  font-size: 0.9em;
+}
+table tbody {
+  font-size: 0.8em;
+}

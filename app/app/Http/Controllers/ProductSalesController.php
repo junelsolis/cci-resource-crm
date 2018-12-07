@@ -15,11 +15,13 @@ class ProductSalesController extends Controller
       $userDetails = $this->getLoggedInUserDetails();
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
+      $projects = $this->getAllProjects();
 
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
-        ->with('projectStatusCodes', $projectStatusCodes);
+        ->with('projectStatusCodes', $projectStatusCodes)
+        ->with('projects', $projects);
     }
 
     public function addProject(Request $request) {
@@ -97,6 +99,43 @@ class ProductSalesController extends Controller
       return $codes;
     }
 
+    private function getAllProjects() {
+      /*  gets all projects associated with this user
+          along with associated notes for each project
+      */
+
+      $projects = DB::table('projects')
+        ->where('product_sales_id', session('logged_in_user_id'))->get();
+
+      $allNotes = DB::table('project_notes')->select('id', 'project_id', 'note')->orderBy('created_at', 'desc')->get();
+      $allStatus = DB::table('project_status')->select('id', 'status')->get();
+      $insideSalesReps = $this->getInsideSalesReps();
+
+      foreach ($projects as $project) {
+        $notes = $allNotes->where('project_id', $project->id);
+        $project->notes = $notes;
+
+        $status = $allStatus->where('id', $project->status_id)->first();
+        $project->status = $status;
+
+        $bid_date = date('m/d/y', strtotime($project->bid_date));
+        $project->bid_date = $bid_date;
+
+        $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
+        $project->insideSales = $insideSales;
+
+        $project->amount = '$' . number_format($project->amount);
+      }
+
+      return $projects;
+    }
+
+    private function getUpcomingProjects($projects) {
+      // $projects = $projects->sortBy('bid_date')->limit
+    }
+
+
+
     private function createProject($request) {
       /*  takes in a HTTP request variable
           and uses it to create a new project
@@ -136,7 +175,7 @@ class ProductSalesController extends Controller
       // insert project creation note
       $now = Carbon::now();
       $nowString = $now->format('D, M d, Y g:i:s a');
-      $creationNote = 'Project created by ' . session('logged_in_named') . ' on ' . $nowString;
+      $creationNote = 'Project created by ' . session('logged_in_name') . ' on ' . $nowString;
 
       DB::table('project_notes')->insert([
         'project_id' => $project_id,

@@ -61,13 +61,8 @@
                 <?php
                   if (in_array('inside-sales',$user->roles->toArray())) { echo 'checked'; }
                 ?>
-              /><label>Service&nbsp;Sales</label><br />
+              /><label>Inside&nbsp;Sales</label><br />
 
-              <input name='roles[]' value='service' type='checkbox'
-              <?php
-                if (in_array('service',$user->roles->toArray())) { echo 'checked'; }
-              ?>
-              /><label>Service</label><br />
 
               <input name='roles[]' value='executive' type='checkbox'
               <?php

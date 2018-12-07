@@ -43,7 +43,7 @@
         <span aria-hidden="true">⊗</span>
       </button>
     </div>
-    
+
     @endif
     <div id='main' class='grid-x'>
 
@@ -80,7 +80,7 @@
         <div class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
-              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Active Projects</strong></h5>
+              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
             </div>
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
@@ -205,7 +205,7 @@
           </div>
           <br />
           <div class='table-scroll'>
-            <table class="unstriped">
+            <table class="striped">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -217,22 +217,32 @@
                   <th>Amount</th>
                   <th>APC OPP ID</th>
                   <th>Invoice</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
                   <th>Note</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($projects as $i)
                 <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
+                  <td>{{ $i->name }}</td>
+                  <td>{{ $i->status->status }}</td>
+                  <td>{{ $i->bid_date }}</td>
+                  <td>{{ $i->manufacturer }}</td>
+                  <td>{{ $i->product }}</td>
+                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->apc_opp_id }}</td>
+                  <td>
+                    @if (isset($i->invoice_link))
+                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-file-invoice"></i></a>
+                    @endif
+                  </td>
+                  <td>{{ $i->engineer}}</td>
+                  <td>{{ $i->contractor }}</td>
+                  <td>{{ $i->notes->first()->note }}</td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
