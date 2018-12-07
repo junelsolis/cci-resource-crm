@@ -111,7 +111,7 @@ class LoginController extends Controller
 
         session([ 'logged_in_user_id' => $user->id ]);      // store user id in session variable
         session([ 'logged_in_user_roles' => $user_roles ]);       // store user roles in session variable
-
+        session([ 'logged_in_name' => $user->name ]);       // store user name in session variable
 
         return true;
       }
