@@ -12,6 +12,18 @@ body {
   padding: 10px;
 }
 
+.alert-callout-subtle.warning {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.alert-callout-subtle.success {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
 #upcoming-projects p {
   font-size: 0.9em;
   color: #505050;

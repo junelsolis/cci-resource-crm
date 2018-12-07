@@ -15,42 +15,41 @@
   </head>
   @include('navbar')
   <body>
-    <div id='main' class='grid-x'>
-      <div class='cell small-12'>
-        @if ($errors->any())
-          <div class='card'>
-          <div data-closable class="callout alert-callout-subtle warning radius">
-            <strong>Error</strong><br />
-            @foreach ($errors->all() as $error)
-            {{ $error }}&nbsp;|&nbsp;
-            @endforeach
-            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-              <span aria-hidden="true">⊗</span>
-            </button>
-          </div>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div data-closable class="callout alert-callout-subtle warning radius">
-          <strong>Error</strong><br />{{ session('error') }}
-          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-            <span aria-hidden="true">⊗</span>
-          </button>
-        </div>
-        @endif
-
-        @if (session('success'))
-        <div class='card'>
-          <div data-closable class="callout alert-callout-subtle success radius">
-            <strong>Success</strong><br />{!! session('success') !!}
-            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-              <span aria-hidden="true">⊗</span>
-            </button>
-          </div>
-        </div>
-        @endif
+    @if ($errors->any())
+    <div class='card'>
+      <div data-closable class="callout alert-callout-subtle warning radius">
+        <strong>Error</strong><br />
+        @foreach ($errors->all() as $error)
+        {{ $error }}&nbsp;|&nbsp;
+        @endforeach
+        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+          <span aria-hidden="true">⊗</span>
+        </button>
       </div>
+    </div>
+    @endif
+
+    @if (session('error'))
+    <div data-closable class="callout alert-callout-subtle warning radius">
+      <strong>Error</strong><br />{{ session('error') }}
+      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+        <span aria-hidden="true">⊗</span>
+      </button>
+    </div>
+    @endif
+
+    @if (session('success'))
+    <div class='card'>
+      <div data-closable class="callout alert-callout-subtle success radius">
+        <strong>Success</strong><br />{!! session('success') !!}
+        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+          <span aria-hidden="true">⊗</span>
+        </button>
+      </div>
+    </div>
+    @endif
+    <div id='main' class='grid-x'>
+
       <div class='cell medium-6 large-4'>
         <div id='upcoming-projects' class='card'>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
@@ -225,138 +224,6 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
-                <tr>
-                  <td>Apple Inc.</td>
-                  <td>Sold</td>
-                  <td>Jan 20, 2019</td>
-                  <td>Foxconn</td>
-                  <td>Transistors</td>
-                  <td>SV</td>
-                  <td>$32,000</td>
-                  <td>OP-341-987987</td>
-                  <td><a href='#'>http://somelinkhere.com</a></td>
-                  <td>Amount Changed</td>
-                </tr>
                 <tr>
                   <td>Apple Inc.</td>
                   <td>Sold</td>

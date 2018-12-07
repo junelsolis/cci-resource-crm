@@ -39,7 +39,9 @@ class ProductSalesController extends Controller
         'contractor' => 'nullable|string',
       ]);
 
-      return redirect('/product-sales')->with('success', 'Test success message.');
+      $this->createProject($request);
+
+      return redirect('/product-sales')->with('success', 'Project added');
     }
 
     private function checkLoggedIn() {
@@ -99,6 +101,35 @@ class ProductSalesController extends Controller
           and uses it to create a new project
       */
 
+      $name = $request['name'];
+      $status_id = $request['status_id'];
+      $bid_date = $request['bid_date'];
+      $manufacturer = $request['manufacturer'];
+      $product = $request['product'];
+      $product_sales_id = session('logged_in_user_id');
+      $inside_sales_id = $request['inside_sales_id'];
+      $amount = $request['amount'];
+      $apc_opp_id = $request['apc_opp_id'];
+      $invoice_link = $request['invoice_link'];
+      $engineer = $request['engineer'];
+      $contractor = $request['contractor'];
+
+      // insert project into database
+      $id = DB::table('projects')->insert([
+        'name' => $name,
+        'status_id' => $status_id,
+        'bid_date' => $bid_date,
+        'manufacturer' => $manufacturer,
+        'product' => $product,
+        'product_sales_id' => $product_sales_id,
+        'inside_sales_id' => $inside_sales_id,
+        'amount' => $amount,
+        'apc_opp_id' => $apc_opp_id,
+        'invoice_link' => $invoice_link,
+        'engineer' => $engineer,
+        'contractor' => $contractor,
+        'created_at' => \Carbon\Carbon::now(),
+      ]);
 
     }
 }
