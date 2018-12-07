@@ -48,19 +48,24 @@
     <div id='main' class='grid-x'>
 
       <div class='cell medium-6 large-4'>
-        <div id='upcoming-projects' class='card' style='min-height:260px;'>
+        <div id='upcoming-projects' class='card' style='min-height:280px;'>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
-          <p>
-
-            @foreach ($upcomingProjects as $item)
-            <span>{{ $item->bid_date}}</span>&nbsp;&mdash;&nbsp;{{ $item->name }}<br />
-            @endforeach
-          </p>
+          <table class='unstriped'>
+            <tbody>
+              @foreach ($upcomingProjects as $item)
+              <tr>
+                <td><strong>{{ $item->bid_date }}</strong></td>
+                <td>{{ $item->name}}</td>
+                <td>{{ $item->amount }}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
       <div class='cell medium-6 large-8'>
-        <div class='card' style='min-height:260px;'>
+        <div class='card' style='min-height:280px;'>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
           <div class='grid-x'>
             <div class='cell large-4'>

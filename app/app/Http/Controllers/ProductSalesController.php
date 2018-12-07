@@ -137,7 +137,7 @@ class ProductSalesController extends Controller
       $now = Carbon::now('America/New_York');
 
       foreach ($projects as $key => $item) {
-        $bid_date = new Carbon($item->bid_date);
+        $bid_date = new Carbon($item->bid_date, 'America/New_York');
 
         if ($now->greaterThan($bid_date)) {
           $projects->forget($key);
@@ -146,6 +146,7 @@ class ProductSalesController extends Controller
         $item->bid_date = date('M d, Y', strtotime($item->bid_date));
       }
 
+      $projects = $projects->take(5);
       return $projects;
     }
 

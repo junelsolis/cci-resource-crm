@@ -9,6 +9,7 @@ body {
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 10px;
+  margin-bottom: 20px;
   padding: 10px;
 }
 
@@ -60,6 +61,7 @@ body {
 
 table thead {
   font-size: 0.9em;
+  color: #464B69;
 }
 table tbody {
   font-size: 0.8em;
