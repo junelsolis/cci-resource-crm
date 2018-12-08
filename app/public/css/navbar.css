@@ -3,6 +3,7 @@
 #navbar {
   background-color: #F0F1F2;
   color: #464B69;
+  box-shadow: 0px 2px 1px lightgrey;
 }
 
 #navbar a {

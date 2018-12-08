@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <title>Product Sales | Critical Components</title>
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
@@ -259,6 +260,13 @@
                 </tr>
 
                 <script>
+
+                  $.ajaxSetup({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+
+                  });
 
                   $(document).ready(function() {
                     $('#{{$i->id}}-name').editable(
