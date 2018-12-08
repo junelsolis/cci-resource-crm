@@ -59,9 +59,70 @@ class ProjectController extends Controller
 
       return response('Project status changed',200);
     }
-    public function editBidDate(Request $request) {}
-    public function editManufacturer(Request $request) {}
-    public function editProduct(Request $request) {}
+    public function editBidDate(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'bid_date' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Bid date changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+
+    }
+    public function editManufacturer(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'manufacturer' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Manufacturer changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+
+
+    }
+    public function editProduct(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'product' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+    }
     public function editInsideSales(Request $request) {}
     public function editAmount(Request $request) {}
     public function eidtApcOppId(Request $request) {}
