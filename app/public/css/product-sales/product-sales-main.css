@@ -59,6 +59,10 @@ body {
   top: -3px;
 }
 
+#upcoming-projects td{
+  color: #464B69;
+
+}
 table thead {
   font-size: 0.9em;
   color: #464B69;

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Product Sales | Critical Components</title>
+
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
@@ -12,6 +13,12 @@
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
   </head>
   @include('navbar')
   <body>
@@ -166,7 +173,7 @@
                       <input type='text' name='apc_opp_id' />
                     </div>
                     <div class='cell large-6'>
-                      <label>Invoice Link</label>
+                      <label>Quote Link</label>
                       <input type='text' name='invoice_link' />
                     </div>
                   </div>
@@ -220,7 +227,7 @@
                   <th>Inside Sales</th>
                   <th>Amount</th>
                   <th>APC OPP ID</th>
-                  <th>Invoice</th>
+                  <th>Quote</th>
                   <th>Engineer</th>
                   <th>Contractor</th>
                   <th>Note</th>
@@ -229,23 +236,90 @@
               <tbody>
                 @foreach ($projects as $i)
                 <tr>
-                  <td>{{ $i->name }}</td>
-                  <td>{{ $i->status->status }}</td>
-                  <td>{{ $i->bidDate }}</td>
-                  <td>{{ $i->manufacturer }}</td>
-                  <td>{{ $i->product }}</td>
-                  <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i->amount }}</td>
-                  <td>{{ $i->apc_opp_id }}</td>
+                  <td id='{{$i->id}}-name'>{{ $i->name }}</td>
+                  <td id='{{$i->id}}-status'>{{ $i->status->status }}</td>
+                  <td id='{{$i->id}}-bidDate'>{{ $i->bidDate }}</td>
+                  <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
+                  <td id='{{$i->id}}-product'>{{ $i->product }}</td>
+                  <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                  <td id='{{$i->id}}-amount'>{{ $i->amount }}</td>
+                  <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td>
                     @if (isset($i->invoice_link))
                     <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-file-invoice"></i></a>
                     @endif
                   </td>
-                  <td>{{ $i->engineer}}</td>
-                  <td>{{ $i->contractor }}</td>
+                  <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
+                  <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
                   <td>{{ $i->notes->first()->note }}</td>
                 </tr>
+
+                <script>
+                  $(document).ready(function() {
+                    $('#{{$i->id}}-name').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/name',
+                        title: 'Enter Project Name'
+                      }
+                    );
+
+                    $('#{{$i->id}}-status').editable(
+                      {
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/status',
+                        title: 'Choose Status',
+
+                        value: {{ $i->status_id}},
+                          source: [
+                            @foreach ($projectStatusCodes as $code)
+                            { value: {{ $code->id }}, text: '{{ $code->status }}'},
+                            @endforeach
+                          ]
+                      }
+                    );
+
+                    $('#{{$i->id}}-bidDate').editable(
+                      {
+                        type: 'date',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/bid-date',
+                        title: 'Select Bid Date',
+
+                        format: 'yyyy-mm-dd',
+                        viewformat: 'mm/dd/yyyy',
+                        datepicker: {
+                          weekStart: 1
+                        }
+                      }
+                    );
+
+
+                    $('#{{$i->id}}-manufacturer').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/manufacturer',
+                        title: 'Enter Manufacturer'
+                      }
+                    );
+
+                    $('#{{$i->id}}-product').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/product',
+                        title: 'Enter Product Name'
+                      }
+                    );
+
+                  });
+
+
+                </script>
+
                 @endforeach
               </tbody>
             </table>
@@ -267,7 +341,11 @@
   </body>
   <script>
     $(document).foundation();
+    //$.fn.editable.defaults.mode = 'inline';
+
+
   </script>
+
   <script>
     var ctx = document.getElementById("myChart2").getContext('2d');
     var myChart2 = new Chart(document.getElementById("myChart2"), {

@@ -34,3 +34,15 @@ Route::post('/product-sales/project/add', 'ProductSalesController@addProject');
 
 // executive routes
 Route::get('/executive', 'ExecController@showDashboard');
+
+// project routes
+Route::post('/project/edit/name', 'ProjectController@editName');
+Route::post('/project/edit/status', 'ProjectController@editStatus');
+Route::post('/project/edit/bid-date', 'ProjectController@editBidDate');
+Route::post('/project/edit/manufacturer', 'ProjectController@editManufacturer');
+Route::post('/project/edit/product', 'ProjectController@editProduct');
+Route::post('/project/edit/inside-sales', 'ProjectController@editInsideSales');
+Route::post('/project/edit/amount', 'ProjectController@editAmount');
+Route::post('/project/edit/apc-opp-id', 'ProjectController@editApcOppId');
+Route::post('/project/edit/engineer', 'ProjectController@editEngineer');
+Route::post('/project/edit/contractor', 'ProjectController@editContractor');

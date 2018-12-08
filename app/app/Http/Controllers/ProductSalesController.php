@@ -18,6 +18,7 @@ class ProductSalesController extends Controller
       $projects = $this->getAllProjects();
       $upcomingProjects = $this->getUpcomingProjects($projects);
 
+
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
