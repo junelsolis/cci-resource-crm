@@ -165,7 +165,7 @@ class ProjectController extends Controller
       $value = $request['value'];
 
       DB::table('projects')->where('id', $id)->update([
-        'amount' => $amount,
+        'amount' => $value,
         'updated_at' => Carbon::now()
       ]);
 
@@ -240,7 +240,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Engineer changed by ' . session('logged_in_name'),
+        'note' => 'Contractor changed by ' . session('logged_in_name'),
         'created_at' => Carbon::now()
       ]);
     }
