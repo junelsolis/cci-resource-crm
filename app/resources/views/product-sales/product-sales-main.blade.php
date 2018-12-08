@@ -276,6 +276,7 @@
                         url: '/project/edit/name',
                         title: 'Enter Project Name',
                         disabled: true,
+                        name: 'name',
                       }
                     );
 
@@ -286,6 +287,7 @@
                         url: '/project/edit/status',
                         title: 'Choose Status',
                         disabled: true,
+                        name: 'status',
                         value: {{ $i->status_id}},
                           source: [
                             @foreach ($projectStatusCodes as $code)
@@ -302,6 +304,7 @@
                         url: '/project/edit/bid-date',
                         title: 'Select Bid Date',
                         disabled: true,
+                        name: 'bidDate',
                         format: 'yyyy-mm-dd',
                         viewformat: 'mm/dd/yyyy',
                         datepicker: {
@@ -318,6 +321,7 @@
                         url: '/project/edit/manufacturer',
                         title: 'Enter Manufacturer',
                         disabled: true,
+                        name: 'manufacturer',
                       }
                     );
 
@@ -328,6 +332,7 @@
                         url: '/project/edit/product',
                         title: 'Enter Product Name',
                         disabled: true,
+                        name: 'product',
                       }
                     );
 
@@ -339,6 +344,7 @@
                         title: 'Select Inside Sales Rep',
                         value: {{ $i->inside_sales_id }},
                         disabled: true,
+                        name: 'insideSales',
                         source: [
                           @foreach ($insideSales as $item)
                           { value: {{ $item->id }}, text: '{{ $item->name }}'},
@@ -354,6 +360,7 @@
                         url: '/project/edit/amount',
                         title: 'Enter Amount',
                         disabled: true,
+                        name: 'amount',
                       }
                     );
 
@@ -364,6 +371,7 @@
                         url: '/project/edit/apc-opp-id',
                         title: 'Enter APC OPP ID',
                         disabled: true,
+                        name: 'apcOppId',
                       }
                     );
 
@@ -374,6 +382,7 @@
                         url: '/project/edit/engineer',
                         title: 'Enter Engineer',
                         disabled: true,
+                        name: 'engineer',
                       }
                     );
 
@@ -384,6 +393,7 @@
                         url: '/project/edit/contractor',
                         title: 'Enter Contractor',
                         disabled: true,
+                        name: 'contractor',
                       }
                     );
 
