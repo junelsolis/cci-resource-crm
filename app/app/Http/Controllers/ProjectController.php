@@ -122,12 +122,128 @@ class ProjectController extends Controller
         'product' => $value,
         'updated_at' => Carbon::now()
       ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Product changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
     }
-    public function editInsideSales(Request $request) {}
-    public function editAmount(Request $request) {}
-    public function eidtApcOppId(Request $request) {}
-    public function editEngineer(Request $request) {}
-    public function editContractor(Request $request) {}
+    public function editInsideSales(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'inside_sales_id' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Inside Sales Representative changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+    }
+    public function editAmount(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'amount' => $amount,
+        'updated_at' => Carbon::now()
+      ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Amount changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+    }
+    public function editApcOppId(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'apc_opp_id' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'APC OPP ID changed by ' . session('logged_in_name')
+      ]);
+
+    }
+    public function editEngineer(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'engineer' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Engineer changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+    }
+    public function editContractor(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->update([
+        'contractor' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Engineer changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+    }
 
 
     private function checkAllowed() {
