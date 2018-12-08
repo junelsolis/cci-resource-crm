@@ -381,6 +381,7 @@
 
                   });
 
+                  // enable editing of row on click of toggle link
                   $('#{{$i->id}}-toggle').click(function(e) {
                     e.stopPropagation();
                     $('#{{$i->id}}-name').editable('toggleDisabled');
