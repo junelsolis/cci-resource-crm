@@ -260,8 +260,6 @@
 
                 <script>
 
-
-
                   $(document).ready(function() {
                     $('#{{$i->id}}-name').editable(
                       {
