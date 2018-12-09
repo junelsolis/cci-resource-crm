@@ -46,9 +46,7 @@ class ProjectController extends Controller
       ]);
 
       // insert project creation note
-      $now = Carbon::now();
-      $nowString = $now->format('D, M d, Y g:i:s a');
-      $creationNote = 'Project created by ' . session('logged_in_name') . ' on ' . $nowString;
+      $creationNote = 'Project created by ' . session('logged_in_name') . '.';
 
       DB::table('project_notes')->insert([
         'project_id' => $project_id,
