@@ -36,6 +36,7 @@ Route::post('/product-sales/project/add', 'ProductSalesController@addProject');
 Route::get('/executive', 'ExecController@showDashboard');
 
 // project routes
+Route::post('/project/add', 'ProjectController@addProject');
 Route::post('/project/edit/name', 'ProjectController@editName');
 Route::post('/project/edit/status', 'ProjectController@editStatus');
 Route::post('/project/edit/bid-date', 'ProjectController@editBidDate');

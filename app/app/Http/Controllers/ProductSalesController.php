@@ -28,29 +28,6 @@ class ProductSalesController extends Controller
         ->with('otherProjects', $otherProjects);
     }
 
-    public function addProject(Request $request) {
-      if ($this->checkLoggedIn()) {}
-      else { return redirect('/'); }
-
-      $request->validate([
-        'name' => 'required|string',
-        'status_id' => 'required|integer',
-        'bid_date' => 'required|date',
-        'manufacturer' => 'nullable|string',
-        'product' => 'required|string',
-        'inside_sales_id' => 'required|integer',
-        'amount' => 'required|numeric',
-        'apc_opp_id' => 'nullable|string',
-        'invoice_link' => 'nullable|string',
-        'engineer' => 'nullable|string',
-        'contractor' => 'nullable|string',
-      ]);
-
-      $this->createProject($request);
-
-      return redirect('/product-sales')->with('success', 'Project added');
-    }
-
     private function checkLoggedIn() {
       if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('product-sales')) {
         return true;
@@ -212,65 +189,4 @@ class ProductSalesController extends Controller
       return $projects;
     }
 
-    private function createProject($request) {
-      /*  takes in a HTTP request variable
-          and uses it to create a new project
-      */
-
-      $name = $request['name'];
-      $status_id = $request['status_id'];
-      $bid_date = $request['bid_date'];
-      $manufacturer = $request['manufacturer'];
-      $product = $request['product'];
-      $product_sales_id = session('logged_in_user_id');
-      $inside_sales_id = $request['inside_sales_id'];
-      $amount = $request['amount'];
-      $apc_opp_id = $request['apc_opp_id'];
-      $invoice_link = $request['invoice_link'];
-      $engineer = $request['engineer'];
-      $contractor = $request['contractor'];
-      $note = $request['note'];
-
-      // insert project into database
-      $project_id = DB::table('projects')->insertGetId([
-        'name' => $name,
-        'status_id' => $status_id,
-        'bid_date' => $bid_date,
-        'manufacturer' => $manufacturer,
-        'product' => $product,
-        'product_sales_id' => $product_sales_id,
-        'inside_sales_id' => $inside_sales_id,
-        'amount' => $amount,
-        'apc_opp_id' => $apc_opp_id,
-        'invoice_link' => $invoice_link,
-        'engineer' => $engineer,
-        'contractor' => $contractor,
-        'created_at' => Carbon::now(),
-      ]);
-
-      // insert project creation note
-      $now = Carbon::now();
-      $nowString = $now->format('D, M d, Y g:i:s a');
-      $creationNote = 'Project created by ' . session('logged_in_name') . ' on ' . $nowString;
-
-      DB::table('project_notes')->insert([
-        'project_id' => $project_id,
-        'last_updated_by_id' => $product_sales_id,
-        'note' => $creationNote,
-        'created_at' => $now
-      ]);
-
-      // if user placed a note, insert it
-      if (!empty($note)) {
-        DB::table('project_notes')->where('id', $id)->insert([
-          'project_id' => $project_id,
-          'last_updated_by_id' => $product_sales_id,
-          'note' => $note,
-          'created_at' => $now->addSecond()
-        ]);
-      }
-
-      return;
-
-    }
 }

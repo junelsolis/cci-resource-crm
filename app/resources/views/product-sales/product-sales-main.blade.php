@@ -111,7 +111,7 @@
               </button>
 
               <span><i class="fas fa-clipboard-list"></i>&nbsp;Add Project</span>
-              <form method='post' action='/product-sales/project/add'>
+              <form method='post' action='/project/add'>
                 {{ csrf_field() }}
                 <fieldset class='fieldset'>
                   <legend>
@@ -450,7 +450,7 @@
         <div class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
-              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Other Projects</strong></h5>
+              <h5><strong><i class="fas fa-users-cog"></i>&nbsp;Other Projects</strong></h5>
             </div>
           </div>
           <br />
