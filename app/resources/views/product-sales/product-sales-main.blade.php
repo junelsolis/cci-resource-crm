@@ -446,8 +446,40 @@
           </div>
         </div>
       </div>
+      <div class='cell small-12'>
+        <div class='card'>
+          <div class='grid-x align-middle'>
+            <div class='cell medium-6 large-2'>
+              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Other Projects</strong></h5>
+            </div>
+          </div>
+          <br />
+          <div class='table-scroll'>
+            <table class='striped'>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Bid Date</th>
+                  <th>Manufacturer</th>
+                  <th>Product</th>
+                  <th>Inside Sales</th>
+                  <th>Amount</th>
+                  <th>APC OPP ID</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
+  @include('footer')
   <script>
     $(document).foundation();
     //$.fn.editable.defaults.mode = 'inline';
