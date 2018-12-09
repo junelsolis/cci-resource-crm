@@ -117,7 +117,7 @@ class ProductSalesController extends Controller
           -- formatted amount
       */
 
-      $allNotes = DB::table('project_notes')->select('id','project_id','note','created_at')
+      $allNotes = DB::table('project_notes')->select('id','project_id','last_updated_by_id','note','created_at')
         ->orderBy('created_at', 'desc')->get();
 
       $allStatus = DB::table('project_status')->select('id','status')->get();
@@ -130,10 +130,20 @@ class ProductSalesController extends Controller
         $notes = $allNotes->where('project_id', $project->id);
 
         foreach ($notes as $note) {
+
+          // add formatted date to note
           $date = new Carbon($note->created_at);
           $date->setTimezone('America/New_York');
 
-          $note->date = $date->format('D, m/d/Y h:i:s a');;
+          $note->date = $date->format('D, m/d/Y h:i:s a');
+
+          // add note author name
+          $author = $insideSalesReps->where('id', $note->last_updated_by_id)->first();
+          if (empty($author)) {
+            $author = $productSalesReps->where('id', $note->last_updated_by_id)->first();
+          }
+
+          $note->author = $author->name;
         }
 
         $project->notes = $notes;

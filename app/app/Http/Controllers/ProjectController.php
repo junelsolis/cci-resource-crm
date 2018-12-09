@@ -46,7 +46,7 @@ class ProjectController extends Controller
       ]);
 
       // insert project creation note
-      $creationNote = 'Project created by ' . session('logged_in_name') . '.';
+      $creationNote = 'Project created.';
 
       DB::table('project_notes')->insert([
         'project_id' => $project_id,
@@ -93,7 +93,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Project name changed by ' . session('logged_in_name'),
+        'note' => 'Project name changed',
         'created_at' => Carbon::now()
       ]);
 
@@ -118,7 +118,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Status changed by ' . session('logged_in_name'),
+        'note' => 'Status changed.',
         'created_at' => Carbon::now()
       ]);
 
@@ -143,7 +143,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Bid date changed by ' . session('logged_in_name'),
+        'note' => 'Bid date changed.',
         'created_at' => Carbon::now()
       ]);
 
@@ -167,7 +167,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Manufacturer changed by ' . session('logged_in_name'),
+        'note' => 'Manufacturer changed.',
         'created_at' => Carbon::now()
       ]);
 
@@ -192,7 +192,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Product changed by ' . session('logged_in_name'),
+        'note' => 'Product changed.',
         'created_at' => Carbon::now()
       ]);
     }
@@ -215,7 +215,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Inside Sales Representative changed by ' . session('logged_in_name'),
+        'note' => 'Inside Sales Representative.',
         'created_at' => Carbon::now()
       ]);
     }
@@ -238,7 +238,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Amount changed by ' . session('logged_in_name'),
+        'note' => 'Amount changed.',
         'created_at' => Carbon::now()
       ]);
     }
@@ -260,7 +260,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'APC OPP ID changed by ' . session('logged_in_name')
+        'note' => 'APC OPP ID changed.',
       ]);
 
     }
@@ -283,7 +283,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Quote link changed by ' . session('logged_in_name'),
+        'note' => 'Quote link changed.',
         'created_at' => Carbon::now()
       ]);
 
@@ -308,7 +308,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Engineer changed by ' . session('logged_in_name'),
+        'note' => 'Engineer changed.',
         'created_at' => Carbon::now()
       ]);
     }
@@ -330,7 +330,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Contractor changed by ' . session('logged_in_name'),
+        'note' => 'Contractor changed.',
         'created_at' => Carbon::now()
       ]);
     }

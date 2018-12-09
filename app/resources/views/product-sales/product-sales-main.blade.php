@@ -263,14 +263,16 @@
                   <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                   </button>
-                  <h5>Project Notes &mdash; {{ $i->name }}</h5>
+                  <h3><strong>Project Notes</strong> &mdash; {{ $i->name }}</h3>
                   <br />
-                  <p style='padding:10px;'>
-                    @foreach ($i->notes as $note)
-                    &mdash;&nbsp;<strong style='color: #464B69;'>{{ $note->note }}</strong><span style='color:grey;'> on {{ $note->date }}</span><br />
-                    @endforeach
-                  </p>
-
+                  @foreach ($i->notes as $note)
+                  <div class="callout secondary">
+                    <h5>{{ $note->note }}</h5>
+                    <p style='color:grey;'>
+                      &mdash;&nbsp;<em>{{ $note->author }}</em> on {{ $note->date }}
+                    </p>
+                  </div>
+                  @endforeach
                 </div>
 
                 <script>
