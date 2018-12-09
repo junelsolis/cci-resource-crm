@@ -47,6 +47,7 @@ class ProjectController extends Controller
 
       // insert project creation note
       $creationNote = 'Project created.';
+      $now = Carbon::now();
 
       DB::table('project_notes')->insert([
         'project_id' => $project_id,
@@ -57,7 +58,7 @@ class ProjectController extends Controller
 
       // if user placed a note, insert it
       if (!empty($note)) {
-        DB::table('project_notes')->where('id', $id)->insert([
+        DB::table('project_notes')->insert([
           'project_id' => $project_id,
           'last_updated_by_id' => $product_sales_id,
           'note' => $note,
