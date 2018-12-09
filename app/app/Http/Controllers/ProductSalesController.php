@@ -99,7 +99,9 @@ class ProductSalesController extends Controller
       */
 
       $projects = DB::table('projects')
-        ->where('product_sales_id', session('logged_in_user_id'))->get();
+        ->where('product_sales_id', session('logged_in_user_id'))
+        ->orderBy('bid_date')
+        ->get();
 
       $projects = $this->expandProjectInfo($projects);
 
