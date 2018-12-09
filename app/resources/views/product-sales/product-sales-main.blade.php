@@ -435,7 +435,7 @@
           </div>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
-              <a href='#top'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+              <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
             </div>
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
@@ -458,6 +458,7 @@
             <table class='striped'>
               <thead>
                 <tr>
+                  <th>Sales Rep</th>
                   <th>Name</th>
                   <th>Status</th>
                   <th>Bid Date</th>
@@ -473,6 +474,7 @@
               <tbody>
                 @foreach ($otherProjects as $i)
                 <tr>
+                  <td>{{ $i->productSales->name }}</td>
                   <td>{{ $i->name }}</td>
                   <td>{{ $i->status->status }}</td>
                   <td>{{ $i->bidDate }}</td>
@@ -487,6 +489,11 @@
                 @endforeach
               </tbody>
             </table>
+          </div>
+          <div class='grid-x align-middle'>
+            <div class='cell medium-6 large-2'>
+              <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+            </div>
           </div>
         </div>
       </div>

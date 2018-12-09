@@ -70,6 +70,19 @@ class ProductSalesController extends Controller
       return $users;
     }
 
+    private function getProductSalesReps() {
+      $sales = DB::table('user_roles')->select('user_id','role')->where('role','product-sales')->distinct()->get();
+      $sales = $sales->pluck('user_id');
+
+      $users = DB::table('users')
+        ->whereIn('id', $sales)
+        ->orderBy('name')
+        ->select('id', 'name')
+        ->get();
+
+      return $users;
+    }
+
     private function getProjectStatusCodes() {
       /*  Returns a collection of project status
           including id and code
@@ -87,26 +100,6 @@ class ProductSalesController extends Controller
 
       $projects = DB::table('projects')
         ->where('product_sales_id', session('logged_in_user_id'))->get();
-
-      // $allNotes = DB::table('project_notes')->select('id', 'project_id', 'note')->orderBy('created_at', 'desc')->get();
-      // $allStatus = DB::table('project_status')->select('id', 'status')->get();
-      // $insideSalesReps = $this->getInsideSalesReps();
-      //
-      // foreach ($projects as $project) {
-      //   $notes = $allNotes->where('project_id', $project->id);
-      //   $project->notes = $notes;
-      //
-      //   $status = $allStatus->where('id', $project->status_id)->first();
-      //   $project->status = $status;
-      //
-      //   $bidDate = date('m/d/y', strtotime($project->bid_date));
-      //   $project->bidDate = $bidDate;
-      //
-      //   $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
-      //   $project->insideSales = $insideSales;
-      //
-      //   $project->amount = '$' . number_format($project->amount);
-      // }
 
       $projects = $this->expandProjectInfo($projects);
 
@@ -127,6 +120,7 @@ class ProductSalesController extends Controller
 
       $allStatus = DB::table('project_status')->select('id','status')->get();
       $insideSalesReps = $this->getInsideSalesReps();
+      $productSalesReps = $this->getProductSalesReps();
 
       // loop through projects
       foreach ($projects as $project) {
@@ -147,6 +141,10 @@ class ProductSalesController extends Controller
         $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
         $project->insideSales = $insideSales;
 
+        // append product sales rep
+        $productSales = $productSalesReps->where('id', $project->product_sales_id)->first();
+        $project->productSales = $productSales;
+
         // format amount
         $project->amount = '$' . number_format($project->amount);
 
@@ -161,7 +159,10 @@ class ProductSalesController extends Controller
           with the current user
       */
 
-      $projects = DB::table('projects')->where('product_sales_id','!=', session('logged_in_user_id'))->get();
+      $projects = DB::table('projects')
+        ->where('product_sales_id','!=', session('logged_in_user_id'))
+        ->orderBy('bid_date')
+        ->get();
 
       if ($projects->isEmpty()) { return NULL; }
 
