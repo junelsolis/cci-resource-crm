@@ -6,7 +6,6 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
@@ -17,6 +16,7 @@
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -219,7 +219,7 @@
           </div>
           <br />
           <div class='table-scroll'>
-            <table class="striped">
+            <table class="unstriped">
               <thead>
                 <tr>
                   <th></th>
@@ -416,7 +416,6 @@
 
 
                 </script>
-
                 @endforeach
               </tbody>
             </table>
