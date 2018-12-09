@@ -306,7 +306,7 @@
                         disabled: true,
                         name: 'bidDate',
                         format: 'yyyy-mm-dd',
-                        viewformat: 'mm/dd/yyyy',
+                        viewformat: 'mm/dd/yy',
                         datepicker: {
                           weekStart: 1
                         }

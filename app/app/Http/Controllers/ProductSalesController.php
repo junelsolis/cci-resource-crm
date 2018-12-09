@@ -203,7 +203,7 @@ class ProductSalesController extends Controller
 
       // if user placed a note, insert it
       if (!empty($note)) {
-        DB::table('project_notes')->insert([
+        DB::table('project_notes')->where('id', $id)->insert([
           'project_id' => $project_id,
           'last_updated_by_id' => $product_sales_id,
           'note' => $note,
