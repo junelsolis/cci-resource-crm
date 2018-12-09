@@ -128,6 +128,14 @@ class ProductSalesController extends Controller
       foreach ($projects as $project) {
         // append project notes
         $notes = $allNotes->where('project_id', $project->id);
+
+        foreach ($notes as $note) {
+          $date = new Carbon($note->created_at);
+          $date->setTimezone('America/New_York');
+
+          $note->date = $date->format('D, m/d/Y h:i:s a');;
+        }
+
         $project->notes = $notes;
 
         // append status name

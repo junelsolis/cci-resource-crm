@@ -216,7 +216,6 @@
 
             </div>
 
-
           </div>
           <br />
           <div class='table-scroll'>
@@ -257,8 +256,22 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td>{{ $i->notes->first()->note }}</td>
+                  <td><a data-open="{{$i->id}}-notes-modal"><i class="fas fa-book-open"></i>&nbsp;{{ $i->notes->first()->note }}</a></td>
                 </tr>
+
+                <div class='reveal' id='{{$i->id}}-notes-modal' data-reveal>
+                  <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h5>Project Notes &mdash; {{ $i->name }}</h5>
+                  <br />
+                  <p style='padding:10px;'>
+                    @foreach ($i->notes as $note)
+                    &mdash;&nbsp;<strong style='color: #464B69;'>{{ $note->note }}</strong><span style='color:grey;'> on {{ $note->date }}</span><br />
+                    @endforeach
+                  </p>
+
+                </div>
 
                 <script>
 
@@ -429,9 +442,12 @@
 
 
                 </script>
+
+
                 @endforeach
               </tbody>
             </table>
+
           </div>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
