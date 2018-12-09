@@ -471,7 +471,20 @@
                 </tr>
               </thead>
               <tbody>
-
+                @foreach ($otherProjects as $i)
+                <tr>
+                  <td>{{ $i->name }}</td>
+                  <td>{{ $i->status->status }}</td>
+                  <td>{{ $i->bidDate }}</td>
+                  <td>{{ $i->manufacturer}}</td>
+                  <td>{{ $i->product }}</td>
+                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->apc_opp_id }}</td>
+                  <td>{{ $i->engineer}}</td>
+                  <td>{{ $i->contractor}}</td>
+                </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

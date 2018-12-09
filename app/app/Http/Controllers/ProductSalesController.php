@@ -15,16 +15,17 @@ class ProductSalesController extends Controller
       $userDetails = $this->getLoggedInUserDetails();
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
-      $projects = $this->getAllProjects();
-      $upcomingProjects = $this->getUpcomingProjects($projects);
-
+      $ongoingProjects = $this->getAllProjects();
+      $upcomingProjects = $this->getUpcomingProjects($ongoingProjects);
+      $otherProjects = $this->getOtherProjects();
 
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
         ->with('projectStatusCodes', $projectStatusCodes)
-        ->with('projects', $projects)
-        ->with('upcomingProjects', $upcomingProjects);
+        ->with('projects', $ongoingProjects)
+        ->with('upcomingProjects', $upcomingProjects)
+        ->with('otherProjects', $otherProjects);
     }
 
     public function addProject(Request $request) {
@@ -110,27 +111,87 @@ class ProductSalesController extends Controller
       $projects = DB::table('projects')
         ->where('product_sales_id', session('logged_in_user_id'))->get();
 
-      $allNotes = DB::table('project_notes')->select('id', 'project_id', 'note')->orderBy('created_at', 'desc')->get();
-      $allStatus = DB::table('project_status')->select('id', 'status')->get();
+      // $allNotes = DB::table('project_notes')->select('id', 'project_id', 'note')->orderBy('created_at', 'desc')->get();
+      // $allStatus = DB::table('project_status')->select('id', 'status')->get();
+      // $insideSalesReps = $this->getInsideSalesReps();
+      //
+      // foreach ($projects as $project) {
+      //   $notes = $allNotes->where('project_id', $project->id);
+      //   $project->notes = $notes;
+      //
+      //   $status = $allStatus->where('id', $project->status_id)->first();
+      //   $project->status = $status;
+      //
+      //   $bidDate = date('m/d/y', strtotime($project->bid_date));
+      //   $project->bidDate = $bidDate;
+      //
+      //   $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
+      //   $project->insideSales = $insideSales;
+      //
+      //   $project->amount = '$' . number_format($project->amount);
+      // }
+
+      $projects = $this->expandProjectInfo($projects);
+
+      return $projects;
+    }
+
+    private function expandProjectInfo($projects) {
+      /*  takes a collection of projects
+          adds associated data including:
+          -- project status information
+          -- formatted bid date
+          -- name of inside sales rep
+          -- formatted amount
+      */
+
+      $allNotes = DB::table('project_notes')->select('id','project_id','note','created_at')
+        ->orderBy('created_at', 'desc')->get();
+
+      $allStatus = DB::table('project_status')->select('id','status')->get();
       $insideSalesReps = $this->getInsideSalesReps();
 
+      // loop through projects
       foreach ($projects as $project) {
+        // append project notes
         $notes = $allNotes->where('project_id', $project->id);
         $project->notes = $notes;
 
+        // append status name
         $status = $allStatus->where('id', $project->status_id)->first();
         $project->status = $status;
 
-        $bidDate = date('m/d/y', strtotime($project->bid_date));
+        // append formatted bid date
+        $bidDate = new Carbon($project->bid_date);
+        $bidDate = $bidDate->format('m/d/Y');
         $project->bidDate = $bidDate;
 
+        // append inside sales person
         $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
         $project->insideSales = $insideSales;
 
+        // format amount
         $project->amount = '$' . number_format($project->amount);
+
+
       }
 
       return $projects;
+
+    }
+    private function getOtherProjects() {
+      /*  get all other projects not associated
+          with the current user
+      */
+
+      $projects = DB::table('projects')->where('product_sales_id','!=', session('logged_in_user_id'))->get();
+
+      if ($projects->isEmpty()) { return NULL; }
+
+      $projects = $this->expandProjectInfo($projects);
+
+      return $projects;
+
     }
 
     private function getUpcomingProjects($projects) {
