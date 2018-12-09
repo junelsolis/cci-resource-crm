@@ -265,6 +265,13 @@
                   </button>
                   <h3><strong>Project Notes</strong> &mdash; {{ $i->name }}</h3>
                   <br />
+                  <!-- <i class="fas fa-plus"></i>&nbsp;Add Note -->
+                  <form method='post' action='/note/add/{{ $i->id }}'>
+                    {{ csrf_field() }}
+                    <textarea name='note' placeholder="Add Note"></textarea>
+                    <button type='submit' class='button button-primary' style='margin-top:10px;'><i class="fas fa-plus"></i>&nbsp;Add Note</button>
+                  </form>
+                  <br />
                   @foreach ($i->notes as $note)
                   <div class="callout secondary">
                     <h5>{{ $note->note }}</h5>

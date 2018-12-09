@@ -48,3 +48,6 @@ Route::post('/project/edit/apc-opp-id', 'ProjectController@editApcOppId');
 Route::post('/project/edit/quote', 'ProjectController@editQuote');
 Route::post('/project/edit/engineer', 'ProjectController@editEngineer');
 Route::post('/project/edit/contractor', 'ProjectController@editContractor');
+
+// note routes
+Route::post('/note/add/{project_id}', 'NoteController@addNote');
