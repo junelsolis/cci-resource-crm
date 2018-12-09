@@ -16,6 +16,7 @@
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
 
+
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
@@ -219,7 +220,7 @@
           </div>
           <br />
           <div class='table-scroll'>
-            <table class="unstriped">
+            <table class="striped">
               <thead>
                 <tr>
                   <th></th>
@@ -251,7 +252,7 @@
                   <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td>
                     @if (isset($i->invoice_link))
-                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-file-invoice"></i></a>
+                    <a id='{{$i->id}}-invoiceLink' href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-file-invoice"></i></a>
                     @endif
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
@@ -375,6 +376,17 @@
                       }
                     );
 
+                    $('#{{$i->id}}-invoiceLink').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/quote',
+                        title: 'Edit Quote',
+                        disabled: true,
+                        name: 'quote'
+                      }
+                    );
+
                     $('#{{$i->id}}-engineer').editable(
                       {
                         type: 'text',
@@ -410,6 +422,7 @@
                     $('#{{$i->id}}-insideSales').editable('toggleDisabled');
                     $('#{{$i->id}}-amount').editable('toggleDisabled');
                     $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
+                    $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
                     $('#{{$i->id}}-engineer').editable('toggleDisabled');
                     $('#{{$i->id}}-contractor').editable('toggleDisabled');
                   });

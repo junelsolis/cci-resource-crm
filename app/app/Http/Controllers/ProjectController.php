@@ -199,6 +199,31 @@ class ProjectController extends Controller
       ]);
 
     }
+
+    public function editQuote(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      DB::table('projects')->where('id', $id)->update([
+        'invoice_link' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Quote link changed by ' . session('logged_in_name'),
+        'created_at' => Carbon::now()
+      ]);
+
+    }
+
     public function editEngineer(Request $request) {
       $check = $this->checkAllowed();
       if ($check == false) {
@@ -232,7 +257,7 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      DB::table('projects')->update([
+      DB::table('projects')->where('id',$id)->update([
         'contractor' => $value,
         'updated_at' => Carbon::now()
       ]);

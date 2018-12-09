@@ -44,5 +44,6 @@ Route::post('/project/edit/product', 'ProjectController@editProduct');
 Route::post('/project/edit/inside-sales', 'ProjectController@editInsideSales');
 Route::post('/project/edit/amount', 'ProjectController@editAmount');
 Route::post('/project/edit/apc-opp-id', 'ProjectController@editApcOppId');
+Route::post('/project/edit/quote', 'ProjectController@editQuote');
 Route::post('/project/edit/engineer', 'ProjectController@editEngineer');
 Route::post('/project/edit/contractor', 'ProjectController@editContractor');

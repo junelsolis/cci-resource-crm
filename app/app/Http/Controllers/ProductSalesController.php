@@ -151,8 +151,6 @@ class ProductSalesController extends Controller
       return $projects;
     }
 
-
-
     private function createProject($request) {
       /*  takes in a HTTP request variable
           and uses it to create a new project
