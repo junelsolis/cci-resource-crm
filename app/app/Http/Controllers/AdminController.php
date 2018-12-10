@@ -79,14 +79,14 @@ class AdminController extends Controller
       return redirect('/admin/user/'.$id)
         ->with('success', 'Changes saved.');
     }
-    public function resetPassword($id) {
+    public function resetPassword(Request $request) {
       if ($this->checkLoggedIn()) {}
       else { return redirect('/'); }
 
-      $password = $this->modifyUserPassword($id);
+      $password = $this->modifyUserPassword($request['id']);
 
-      return redirect('/admin/user/'.$id)
-        ->with('success', 'Password changed. The temporary password is <strong>' . $password . '</strong>');
+      return redirect('/admin')
+        ->with('user-directory-success', 'Password changed. The temporary password is <strong>' . $password . '</strong>');
     }
 
 

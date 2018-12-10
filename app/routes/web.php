@@ -24,7 +24,7 @@ Route::get('/admin', 'AdminController@showDashboard');
 Route::post('/admin/user/add', 'AdminController@addUser');
 Route::get('/admin/user/{id}',  'AdminController@viewUser');
 Route::post('/admin/user/edit/{id}', 'AdminController@editUser');
-Route::get('/admin/user/reset/{id}', 'AdminController@resetPassword');
+Route::post('/admin/user/reset/{id}', 'AdminController@resetPassword');
 
 // inside sales routes
 Route::get('/inside-sales', 'InsideSalesController@showDashboard');

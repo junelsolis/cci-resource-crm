@@ -21,6 +21,14 @@
   </head>
   @include('navbar')
   <body>
+    @if (session('user-directory-success'))
+    <div data-closable class="callout alert-callout-subtle success radius">
+      <strong>Success</strong><br />{!! session('user-directory-success') !!}
+      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+        <span aria-hidden="true">⊗</span>
+      </button>
+    </div>
+    @endif
     <div class='grid-x'>
       <div class='cell large-6'>
         <div class='card'>
@@ -116,10 +124,10 @@
                       <td id='{{ $user->id}}-username'>{{ $user->username }}</td>
                       <td id='{{ $user->id}}-roles'>
                         @foreach ($user->roles as $role)
-                        &mdash;&nbsp;{{ $role->role }}<br />
+                        {{ $role->role }}<br />
                         @endforeach
                       </td>
-                      <td><i class="fas fa-sync-alt"></i>&nbsp;Reset Password</td>
+                      <td><a data-open='{{$user->id}}-password-modal'><i class="fas fa-sync-alt"></i>&nbsp;Reset Password</a></td>
                       <td id='{{ $user->id}}->lastLogin'>{{ $user->lastLogin }}</a></td>
                     </tr>
 
@@ -196,6 +204,23 @@
           </div>
         </div>
 
+
+        <!-- Modals -->
+        @foreach ($userDirectory as $user)
+        <div class='reveal' id='{{$user->id}}-password-modal' style='text-align: center;' data-reveal>
+          <h5 style="color:#707070;">Confirm password change for</h5>
+          <h3 style='font-weight:bolder;'>{{ $user->name}}</h3>
+          <br /><br />
+          <form action='/admin/user/reset/{{ $user->id }}' method='post'>
+            {{ csrf_field() }}
+            <div class='button-group align-center'>
+              <button type='submit' class='primary button'><i class="fas fa-sync"></i>&nbsp;Reset Password</button>
+              <button class='secondary button' data-close aria-label="Close modal">Cancel</button>
+            </div>
+          </form>
+
+        </div>
+        @endforeach
       </div>
     </div>
   </body>
