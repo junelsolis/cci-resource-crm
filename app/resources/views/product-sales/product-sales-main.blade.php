@@ -239,7 +239,7 @@
           </div>
           <br />
           <div class='table-scroll'>
-            <table class="striped">
+            <table class="unstriped">
               <thead>
                 <tr>
                   <th></th>
@@ -467,6 +467,17 @@
                     $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
                     $('#{{$i->id}}-engineer').editable('toggleDisabled');
                     $('#{{$i->id}}-contractor').editable('toggleDisabled');
+
+
+                    $('#{{$i->id}}-name').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-status').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-amount').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
                   });
 
 
@@ -500,7 +511,7 @@
           </div>
           <br />
           <div class='table-scroll'>
-            <table class='striped'>
+            <table class='unstriped'>
               <thead>
                 <tr>
                   <th>Sales Rep</th>

@@ -34,11 +34,3 @@ table tbody {
   font-size: 0.9em;
   color: #707070;
 }
-
-.edit-enabled {
-  font-style: italic !important;
-  font-weight: bolder !important;
-  text-decoration: underline !important;
-  text-decoration-style: dashed !important;
-  text-decoration-color: lightblue !important;
-}
