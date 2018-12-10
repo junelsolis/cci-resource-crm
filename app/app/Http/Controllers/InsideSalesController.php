@@ -15,7 +15,7 @@ class InsideSalesController extends Controller
 
     $userDetails = $this->getLoggedInUserDetails();
 
-    return view('inside-sales/sales-main')
+    return view('inside-sales/inside-sales-main')
       ->with('userDetails', $userDetails);
   }
 

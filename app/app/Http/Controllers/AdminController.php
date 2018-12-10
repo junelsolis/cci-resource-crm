@@ -123,7 +123,7 @@ class AdminController extends Controller
       $array = explode(" ", strtolower($name));
       $firstInitial = substr($array[0],0,1);
       $lastname = $array[1];
-      $username = $firstInitial . '.' . $lastname;
+      $username = $firstInitial . $lastname;
 
       // create user in user table
       $user_id = DB::table('users')->insertGetId([
