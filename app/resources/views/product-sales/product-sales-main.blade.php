@@ -110,7 +110,7 @@
         </div>
       </div>
       <div class='cell small-12'>
-        <div class='card'>
+        <div id='projects' class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
               <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
@@ -118,7 +118,7 @@
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
                 <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
-                <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
+                <li><input type='text' class='search' placeholder='Search Projects' /></li>
               </ul>
 
             </div>
@@ -237,7 +237,7 @@
 
           </div>
           <br />
-          <div id='projects' class='table-scroll'>
+          <div class='table-scroll'>
             <table class="unstriped">
               <thead>
                 <tr>
@@ -513,24 +513,30 @@
             <div class='cell medium-6 large-2'>
               <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
             </div>
-            <div class='cell medium-6 large-10'>
+            <!-- <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
                 <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
-                <li><a href='#'><i class="fas fa-search"></i>&nbsp;Search</a></li>
+                <li><input type='text' placeholder='Search for Project'/></li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
       <div class='cell small-12'>
-        <div class='card'>
+        <div id='other-projects' class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
               <h5><strong><i class="fas fa-users-cog"></i>&nbsp;Other Projects</strong></h5>
             </div>
+            <div class='cell medium-6 large-10'>
+              <ul class='menu align-right'>
+                <li><input type='text' class='search' placeholder='Search Projects' /></li>
+              </ul>
+
+            </div>
           </div>
           <br />
-          <div id='other-projects' class='table-scroll'>
+          <div class='table-scroll'>
             <table class='unstriped'>
               <thead>
                 <tr>
