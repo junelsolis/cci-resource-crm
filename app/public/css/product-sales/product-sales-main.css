@@ -60,11 +60,16 @@ body {
   font-size: 10px !important;
 }
 
-.reveal label span {
+
+.reveal label span i {
   color: red !important;
-  font-size: 0.5em !important;
+  font-size: 8px !important;
   position: relative;
-  top: -3px;
+  top: -2px;
+}
+
+.reveal span {
+
 }
 
 #upcoming-projects td{

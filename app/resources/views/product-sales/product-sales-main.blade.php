@@ -124,7 +124,7 @@
             </div>
 
 
-            <div class='reveal large' id='add-project-modal' data-reveal>
+            <div class='reveal' id='add-project-modal' data-reveal>
               <button class="close-button" data-close aria-label="Close modal" type="button">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -226,7 +226,7 @@
                 </fieldset>
 
                 <div style='font-style:italic;'>
-                  Fields marked with "<span style='color: red;font-size:0.5em;position:relative;top:-3px;'><i class="fas fa-star-of-life"></i></span>" are required.
+                  Fields marked with "<span style='color: red;font-size:9px;position:relative;top:-3px;'><i class="fas fa-star-of-life"></i></span>" are required.
                 </div>
                 <br />
                 <button type='submit' class='button button-primary'><i class="fas fa-plus"></i>&nbsp;Add Project</button>
