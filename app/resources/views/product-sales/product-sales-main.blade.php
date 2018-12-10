@@ -118,7 +118,7 @@
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
                 <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
-                <li><input type='text' class='search' placeholder='Search Projects' /></li>
+                <li><input type='text' class='search' placeholder='Search My Projects' /></li>
               </ul>
 
             </div>
@@ -530,7 +530,7 @@
             </div>
             <div class='cell medium-6 large-10'>
               <ul class='menu align-right'>
-                <li><input type='text' class='search' placeholder='Search Projects' /></li>
+                <li><input type='text' class='search' placeholder='Search Other Projects' /></li>
               </ul>
 
             </div>
