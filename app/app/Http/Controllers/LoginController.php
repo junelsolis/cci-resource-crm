@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -12,7 +13,7 @@ class LoginController extends Controller
 
       $this->checkFirstLogin();         // check if this is the first login
 
-      $alreadyLoggedIn = $this->checkAlreadyLoggedIn();   
+      $alreadyLoggedIn = $this->checkAlreadyLoggedIn();
       if ($alreadyLoggedIn == true) {
         return redirect('/dashboard');
       }
@@ -36,8 +37,50 @@ class LoginController extends Controller
         return back()->with('error', 'error');
       }
 
+
       return redirect('/dashboard');
 
+    }
+
+    public function changePassword(Request $request) {
+      $request->validate([
+        'currentPassword' => 'required|string',
+      ]);
+
+      $currentPassword = $request['currentPassword'];
+      $newPassword = $request['newPassword'];
+      $confirmNewPassword = $request['confirmNewPassword'];
+      $user_id = session('logged_in_user_id');
+
+      // confirm password matches DB;
+      $password = DB::table('users')
+        ->where('id', $user_id)
+        ->pluck('password')
+        ->first();
+
+      if (Hash::check($currentPassword, $password)) {}
+      else {
+        return back()->with('change-password-error', 'Invalid password.');
+      }
+
+      $request->validate([
+        'newPassword' => 'min:10|case_diff|numbers|letters|symbols',
+        'confirmNewPassword' => 'required|string',
+      ]);
+
+      // check both passwords are the same
+      if ($newPassword != $confirmNewPassword) {
+        return back()->with('change-password-error', 'Passwords do not match.');
+      }
+
+      // set new password in DB
+      DB::table('users')->where('id', $user_id)->update([
+        'password' => Hash::make($newPassword),
+        'updated_at' => Carbon::now()
+      ]);
+
+      return redirect(session('_previous')['url'])
+        ->with('success', 'Password changed.');
     }
 
     public function logout() {
@@ -48,7 +91,9 @@ class LoginController extends Controller
 
     private function checkFirstLogin() {
       /*  Check for presence of users in users table
-          If there are no users, create default admin user
+          If there are no users:
+            -- create default admin user
+            -- setup project status codes
       */
 
       $count = DB::table('users')->count();
@@ -70,6 +115,15 @@ class LoginController extends Controller
           'user_id' => $id,
           'role' => 'administrator',
           'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        // insert project status codes
+        DB::table('project_status')->insert([
+          [ 'status' => 'New' ],
+          [ 'status' => 'Quoted' ],
+          [ 'status' => 'Sold' ],
+          [ 'status' => 'Engineered' ],
+          [ 'status' => 'Lost']
         ]);
 
         return;
@@ -100,7 +154,12 @@ class LoginController extends Controller
 
         session([ 'logged_in_user_id' => $user->id ]);      // store user id in session variable
         session([ 'logged_in_user_roles' => $user_roles ]);       // store user roles in session variable
+        session([ 'logged_in_name' => $user->name ]);       // store user name in session variable
 
+        // record last login data
+        DB::table('users')->where('id', $user->id)->update([
+          'last_login' => Carbon::now()
+        ]);
 
         return true;
       }

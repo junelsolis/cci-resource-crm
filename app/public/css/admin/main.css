@@ -2,18 +2,35 @@ body {
   background-color: #F8F8F8;
 }
 
-.card {
-  margin: auto;
-  margin-top: 50px;
-  padding: 20px;
+#main {
+  padding-top: 50px;
 }
 
-.stat {
-  text-align: center;
+.card {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
 }
-.stat .value {
-  font-weight: bold;
+
+.alert-callout-subtle.warning {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
 }
-.stat .title {
-  font-size: 0.5em;
+
+.alert-callout-subtle.success {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+table thead {
+  font-size: 1em;
+  color: #464B69;
+}
+table tbody {
+  font-size: 0.9em;
+  color: #707070;
 }

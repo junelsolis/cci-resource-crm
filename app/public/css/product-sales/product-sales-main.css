@@ -1,0 +1,80 @@
+body {
+  background-color: #F8F8F8;
+}
+
+#main {
+  padding-top: 50px;
+}
+.card {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.alert-callout-subtle.warning {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.alert-callout-subtle.success {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+#upcoming-projects p {
+  font-size: 0.9em;
+  color: #505050;
+}
+
+#upcoming-projects span {
+  font-weight: bold;
+}
+
+#add-project-modal span {
+  font-weight: bold;
+  color: #000A55;
+  font-size: 1.2em;
+}
+
+.reveal {
+  background-color: #F8F8F8;
+
+}
+
+.reveal p {
+  font-size: 14px;
+}
+.reveal .fieldset {
+  background-color: white;
+}
+
+.reveal input {
+  background-color: white;
+}
+
+.reveal select {
+  font-size: 10px !important;
+}
+
+.reveal label span {
+  color: red !important;
+  font-size: 0.5em !important;
+  position: relative;
+  top: -3px;
+}
+
+#upcoming-projects td{
+  color: #464B69;
+
+}
+table thead {
+  font-size: 1em;
+  color: #464B69;
+}
+table tbody {
+  font-size: 0.9em;
+}

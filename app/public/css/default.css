@@ -1,7 +1,16 @@
 * {
   font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
 }
 
+html {
+  scroll-behavior: smooth;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none !important;
+}
 h1,h2,h3,h4,h5 {
   color: #000A55;
 }
@@ -28,6 +37,18 @@ h1,h2,h3,h4,h5 {
 
 
 legend {
-  color: #747896;
-  font-weight: bold;
+  color: #747896 !important;
+  font-size: 15px;
+  font-weight: bolder;
+  border: 0 !important;
+  width: max-content;
+}
+
+.edit-enabled {
+  font-style: italic !important;
+  font-weight: bold !important;
+  color: #707070 !important;
+  text-decoration: underline !important;
+  text-decoration-style: dashed !important;
+  text-decoration-color: lightblue !important;
 }

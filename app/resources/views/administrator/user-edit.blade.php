@@ -18,9 +18,15 @@
     <div class='grid-x'>
       <div class='cell medium-6'>
         <div id='user-card' class="card" style="width: 90%;">
-          <div>
-            <i class="fas fa-user"></i><h5>{{ $user->name }}</h5>
+          <div class='banner align-middle'>
+            <div>
+              <i class="fas fa-user"></i>
+            </div>
+            <div class='name'>
+              {{ $user->name }}
+            </div>
           </div>
+
           <form method='post' action='/admin/user/edit/{{ $user->id}}'>
             {{ csrf_field() }}
             <fieldset class='fieldset'>
@@ -45,23 +51,24 @@
                 User Roles
               </legend>
 
-              <input name='roles[]' value='sales' type='checkbox'
+              <input name='roles[]' value='product-sales' type='checkbox'
                 <?php
-                  if (in_array('sales',$user->roles->toArray())) { echo 'checked'; }
+                  if (in_array('product-sales',$user->roles->toArray())) { echo 'checked'; }
                 ?>
-              /><label>Sales</label>
+              /><label>Product&nbsp;Sales</label><br />
 
-              <input name='roles[]' value='service' type='checkbox'
-              <?php
-                if (in_array('service',$user->roles->toArray())) { echo 'checked'; }
-              ?>
-              /><label>Service</label>
+              <input name='roles[]' value='inside-sales' type='checkbox'
+                <?php
+                  if (in_array('inside-sales',$user->roles->toArray())) { echo 'checked'; }
+                ?>
+              /><label>Inside&nbsp;Sales</label><br />
+
 
               <input name='roles[]' value='executive' type='checkbox'
               <?php
                 if (in_array('executive',$user->roles->toArray())) { echo 'checked'; }
               ?>
-              /><label>Executive</label>
+              /><label>Executive</label><br />
 
               <input name='roles[]' value='administrator' type='checkbox'
               <?php
