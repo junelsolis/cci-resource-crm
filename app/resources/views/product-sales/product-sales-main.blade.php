@@ -74,18 +74,31 @@
           </table>
         </div>
       </div>
-      <div class='cell medium-6 large-8'>
+      <div class='cell medium-6 large-4'>
         <div class='card'  data-equalizer-watch>
-          <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
+          <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Sales</strong></h5>
           <div class='grid-x'>
-            <div class='cell large-4'>
+            <div class='cell large-6'>
               <canvas id="myChart2" height="180px"></canvas>
             </div>
-            <div class='cell large-4'>
-              <canvas id="myChart3" height="180px"></canvas>
+            <div class='cell large-6'>
+              <canvas id='projected-sales' height='180px'></canvas>
             </div>
-            <div class='cell large-4'>
+            <!-- <div class='cell large-4'>
               <canvas id='quote-status' height="180px"></canvas>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class='cell medium-12 large-4'>
+        <div class='card' data-equalizer-watch>
+          <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Projects</strong></h5>
+          <div class='grid-x'>
+            <div class='cell large-6'>
+              <canvas id="project-status" height="180px"></canvas>
+            </div>
+            <div class='cell large-6'>
+              <canvas id="myChart3" height="180px"></canvas>
             </div>
           </div>
         </div>
@@ -532,6 +545,7 @@
 
   </script>
 
+  <!-- charts -->
   <script>
     var ctx = document.getElementById("myChart2").getContext('2d');
     var myChart2 = new Chart(document.getElementById("myChart2"), {
@@ -559,14 +573,87 @@
     });
 
 
+    var ctx = document.getElementById("project-status").getContext('2d');
+    var projectStatus = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["New","Quoted","Sold","Engineered","Lost"],
+            datasets: [{
+                data: [11,13,9,8,15],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Project Status (Last 12 Months)'
+          },
+          legend: {
+            display: true,
+            position: 'left',
+          },
+        }
+    });
+
+    var ctx = document.getElementById("projected-sales").getContext('2d');
+    var myChart2 = new Chart(document.getElementById("projected-sales"), {
+      type: 'line',
+      data: {
+        labels: ['Dec','Jan','Feb','Mar','Apr','May'],
+        datasets: [{
+            data: [8600,7900,16000,7000,10000,12000],
+            label: "",
+            borderColor: "rgba(255,99,132,1)",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          text: 'Projected Sales (Next 6 months)'
+        },
+        legend: {
+          display: false,
+        }
+      }
+    });
+
+
+
+
     var ctx = document.getElementById("myChart3").getContext('2d');
     var myChart3 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
             datasets: [{
-                data: [50000,29000,15000,13500,12000],
+                data: [11,13,9,8,15,7,9,12,13,6,3,10],
                 backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -575,6 +662,12 @@
                     'rgba(255, 159, 64, 0.2)'
                 ],
                 borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
                     'rgba(255,99,132,1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
