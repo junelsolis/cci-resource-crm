@@ -15,6 +15,16 @@
   @include('navbar')
   <body>
     <div class='grid-x'>
+      <div class='cell large-6'>
+        <div class='card'>
+          <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
+        </div>
+      </div>
+      <div class='cell large-6'>
+        <div class='card'>
+          <h5><strong><i class="fas fa-network-wired"></i>&nbsp;System Information</strong></h5>
+        </div>
+      </div>
       <div class='cell medium-6 large-4'>
         <div class="card">
           <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
@@ -72,37 +82,7 @@
         </div>
       </div>
 
-      <div class='cell medium-6 large-5'>
-        <div class='card'>
-          <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Statistics</strong></h5>
 
-          <div class='grid-x grid-padding-x'>
-            <div class='stat cell auto'>
-              <div class='value'>
-                {{ $stats->totalUsers }}
-              </div>
-              <div class='title'>
-                Total Users
-              </div>
-            </div>
-            <div class='stat cell auto'>
-              <div class='value'>
-                2
-              </div>
-              <div class='title'>
-                Admins
-              </div>
-            </div>
-            <div class='stat cell auto'>
-              <div class='value'>
-                128
-              </div>
-              <div class='title'>
-                Projects
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="card">
           <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
           <br /><br />
@@ -136,12 +116,6 @@
             </table>
           </div>
 
-        </div>
-      </div>
-
-      <div class='cell medium-6 large-3'>
-        <div class='card'>
-          <h5><strong><i class="fas fa-network-wired"></i>&nbsp;System Information</strong></h5>
         </div>
       </div>
     </div>
