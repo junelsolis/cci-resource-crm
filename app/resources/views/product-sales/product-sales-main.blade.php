@@ -17,8 +17,7 @@
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
-
-
+    <script src="{{ asset('js/list.min.js') }}"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -238,44 +237,44 @@
 
           </div>
           <br />
-          <div class='table-scroll'>
+          <div id='projects' class='table-scroll'>
             <table class="unstriped">
               <thead>
                 <tr>
                   <th></th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Bid Date</th>
-                  <th>Manufacturer</th>
-                  <th>Product</th>
-                  <th>Inside Sales</th>
-                  <th>Amount</th>
-                  <th>APC OPP ID</th>
+                  <th class='sort' data-sort='name'>Name</th>
+                  <th class='sort' data-sort='status'>Status</th>
+                  <th class='sort' data-sort='bidDate'>Bid Date</th>
+                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
+                  <th class='sort' data-sort='product'>Product</th>
+                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
+                  <th class='sort' data-sort='amount'>Amount</th>
+                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
                   <th>Quote</th>
-                  <th>Engineer</th>
-                  <th>Contractor</th>
+                  <th class='sort' data-sort='engineer'>Engineer</th>
+                  <th class='sort' data-sort='contractor'>Contractor</th>
                   <th>Note</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class='list'>
                 @foreach ($projects as $i)
                 <tr>
                   <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
-                  <td id='{{$i->id}}-name'>{{ $i->name }}</td>
-                  <td id='{{$i->id}}-status'>{{ $i->status->status }}</td>
-                  <td id='{{$i->id}}-bidDate'>{{ $i->bidDate }}</td>
-                  <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
-                  <td id='{{$i->id}}-product'>{{ $i->product }}</td>
-                  <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
-                  <td id='{{$i->id}}-amount'>{{ $i->amount }}</td>
-                  <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
+                  <td class='name' id='{{$i->id}}-name'>{{ $i->name }}</td>
+                  <td class='status'  id='{{$i->id}}-status'>{{ $i->status->status }}</td>
+                  <td class='bidDate'  id='{{$i->id}}-bidDate'>{{ $i->bidDate }}</td>
+                  <td class='manufacturer'  id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
+                  <td class='product'  id='{{$i->id}}-product'>{{ $i->product }}</td>
+                  <td class='insideSales'  id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                  <td class='amount'  id='{{$i->id}}-amount'>{{ $i->amount }}</td>
+                  <td class='apcOppId'  id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td>
                     @if (isset($i->invoice_link))
                     <a id='{{$i->id}}-invoiceLink' href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-file-invoice"></i></a>
                     @endif
                   </td>
-                  <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
-                  <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
+                  <td class='engineer'  id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
+                  <td class='contractor'  id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
                   <td><a data-open="{{$i->id}}-notes-modal"><i class="fas fa-book-open"></i>&nbsp;{{ $i->notes->first()->note }}</a></td>
                 </tr>
 
@@ -311,6 +310,7 @@
 
                   });
 
+                  // setup editables
                   $(document).ready(function() {
                     $('#{{$i->id}}-name').editable(
                       {
@@ -486,6 +486,26 @@
 
                 @endforeach
               </tbody>
+
+              <!-- script for list.js on table -->
+              <script>
+                var options = {
+                  valueNames: [
+                    'name',
+                    'status',
+                    'bidDate',
+                    'manufacturer',
+                    'product',
+                    'insideSales',
+                    'amount',
+                    'apcOppId',
+                    'engineer',
+                    'contractor'
+                  ]
+                  };
+                var projectList = new List('projects', options);
+
+              </script>
             </table>
 
           </div>
@@ -510,40 +530,61 @@
             </div>
           </div>
           <br />
-          <div class='table-scroll'>
+          <div id='other-projects' class='table-scroll'>
             <table class='unstriped'>
               <thead>
                 <tr>
-                  <th>Sales Rep</th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Bid Date</th>
-                  <th>Manufacturer</th>
-                  <th>Product</th>
-                  <th>Inside Sales</th>
-                  <th>Amount</th>
-                  <th>APC OPP ID</th>
-                  <th>Engineer</th>
-                  <th>Contractor</th>
+                  <th class='sort' data-sort='salesRep'>Sales Rep</th>
+                  <th class='sort' data-sort='name'>Name</th>
+                  <th class='sort' data-sort='status'>Status</th>
+                  <th class='sort' data-sort='bidDate'>Bid Date</th>
+                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
+                  <th class='sort' data-sort='product'>Product</th>
+                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
+                  <th class='sort' data-sort='amount'>Amount</th>
+                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
+                  <th class='sort' data-sort='engineer'>Engineer</th>
+                  <th class='sort' data-sort='contractor'>Contractor</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class='list'>
                 @foreach ($otherProjects as $i)
                 <tr>
-                  <td>{{ $i->productSales->name }}</td>
-                  <td>{{ $i->name }}</td>
-                  <td>{{ $i->status->status }}</td>
-                  <td>{{ $i->bidDate }}</td>
-                  <td>{{ $i->manufacturer}}</td>
-                  <td>{{ $i->product }}</td>
-                  <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i->amount }}</td>
-                  <td>{{ $i->apc_opp_id }}</td>
-                  <td>{{ $i->engineer}}</td>
-                  <td>{{ $i->contractor}}</td>
+                  <td class='salesRep'>{{ $i->productSales->name }}</td>
+                  <td class='name'>{{ $i->name }}</td>
+                  <td class='status'>{{ $i->status->status }}</td>
+                  <td class='bidDate'>{{ $i->bidDate }}</td>
+                  <td class='manufacturer'>{{ $i->manufacturer}}</td>
+                  <td class='product'>{{ $i->product }}</td>
+                  <td class='insideSales'>{{ $i->insideSales->name }}</td>
+                  <td class='amount'>{{ $i->amount }}</td>
+                  <td class='apcOppId'>{{ $i->apc_opp_id }}</td>
+                  <td class='engineer'>{{ $i->engineer}}</td>
+                  <td class='contractor'>{{ $i->contractor}}</td>
                 </tr>
                 @endforeach
               </tbody>
+
+              <!-- script for list.js on table -->
+              <script>
+                var options = {
+                  valueNames: [
+                    'salesRep',
+                    'name',
+                    'status',
+                    'bidDate',
+                    'manufacturer',
+                    'product',
+                    'insideSales',
+                    'amount',
+                    'apcOppId',
+                    'engineer',
+                    'contractor'
+                  ]
+                  };
+                var otherProjectsList = new List('other-projects', options);
+
+              </script>
             </table>
           </div>
           <div class='grid-x align-middle'>
