@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -197,17 +198,37 @@ class AdminController extends Controller
       $currentUserId = session('logged_in_user_id');
 
       $users = DB::table('users')
-        ->select('id', 'username', 'name', 'created_at')
+        ->select('id','username','name','created_at','last_login')
         ->orderBy('name')
         ->where('id', '!=', $currentUserId)
         ->get();
 
+      $allUserRoles = DB::table('user_roles')->select('user_id','role')->get();
+
       foreach ($users as $user) {
+
+        // format created_at date
         $date = $user->created_at;
         $date = strtotime($date);
         $date = date('M d, Y', $date);
 
         $user->created_at = $date;
+
+        // format last login date
+        $date = new Carbon($user->last_login);
+        $date->setTimezone('America/New_York');
+        $user->lastLogin = $date->format('D, M d, Y H:i:s a');
+
+        // create array of user roles
+        $roles = $allUserRoles->where('user_id',$user->id);
+        foreach ($roles as $role) {
+          if ($role->role == 'product-sales') { $role->role = 'Product Sales'; }
+          if ($role->role == 'inside-sales') { $role->role = 'Inside Sales'; }
+          if ($role->role == 'executive') { $role->role = 'Executive'; }
+          if ($role->role == 'administrator') { $role->role = 'System Administrator'; }
+        }
+
+        $user->roles = $roles;
       }
 
       return $users;
