@@ -275,7 +275,7 @@
                   </td>
                   <td class='engineer'  id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td class='contractor'  id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a data-open="{{$i->id}}-notes-modal"><i class="fas fa-book-open"></i>&nbsp;{{ $i->notes->first()->note }}</a></td>
+                  <td><a data-open="{{$i->id}}-notes-modal" style='font-style:italic;color:rgba(54, 162, 235, 1);'>{{ $i->notes->first()->note }}</a></td>
                 </tr>
 
                 <div class='reveal' id='{{$i->id}}-notes-modal' data-reveal>
