@@ -37,6 +37,7 @@ class LoginController extends Controller
         return back()->with('error', 'error');
       }
 
+
       return redirect('/dashboard');
 
     }
@@ -154,6 +155,11 @@ class LoginController extends Controller
         session([ 'logged_in_user_id' => $user->id ]);      // store user id in session variable
         session([ 'logged_in_user_roles' => $user_roles ]);       // store user roles in session variable
         session([ 'logged_in_name' => $user->name ]);       // store user name in session variable
+
+        // record last login data
+        DB::table('users')->where('id', $user->id)->update([
+          'last_login' => Carbon::now()
+        ]);
 
         return true;
       }
