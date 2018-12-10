@@ -17,6 +17,7 @@ Route::get('/logout', 'LoginController@logout');
 Route::get('/dashboard', 'DashboardController@selectUserRole');
 Route::get('/dashboard/set-password', 'DashboardController@showSetPassword');
 Route::post('/dashboard/set-password', 'DashboardController@setPassword');
+Route::post('/change-password','LoginController@changePassword');
 
 // administrator routes
 Route::get('/admin', 'AdminController@showDashboard');

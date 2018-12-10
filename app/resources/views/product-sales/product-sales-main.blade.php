@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/product-sales/product-sales-main.css') }}" />
@@ -17,7 +19,6 @@
     <script src="{{ asset('js/Chart.min.js')}}"></script>
 
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -29,7 +30,7 @@
     <div data-closable class="callout alert-callout-subtle warning radius">
       <strong>Error</strong><br />
       @foreach ($errors->all() as $error)
-      {{ $error }}&nbsp;|&nbsp;
+      {{ $error }}<br />;
       @endforeach
       <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
         <span aria-hidden="true">⊗</span>
@@ -40,6 +41,15 @@
     @if (session('error'))
     <div data-closable class="callout alert-callout-subtle warning radius">
       <strong>Error</strong><br />{{ session('error') }}
+      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+        <span aria-hidden="true">⊗</span>
+      </button>
+    </div>
+    @endif
+
+    @if (session('change-password-error'))
+    <div data-closable class="callout alert-callout-subtle warning radius">
+      <strong>Error</strong><br />{{ session('change-password-error') }}
       <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
         <span aria-hidden="true">⊗</span>
       </button>
@@ -84,9 +94,6 @@
             <div class='cell large-6'>
               <canvas id='projected-sales' height='180px'></canvas>
             </div>
-            <!-- <div class='cell large-4'>
-              <canvas id='quote-status' height="180px"></canvas>
-            </div> -->
           </div>
         </div>
       </div>
@@ -95,7 +102,7 @@
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Projects</strong></h5>
           <div class='grid-x'>
             <div class='cell large-6'>
-              <canvas id="project-status" height="180px"></canvas>
+              <canvas id="projectStatus" height="180px"></canvas>
             </div>
             <div class='cell large-6'>
               <canvas id="myChart3" height="180px"></canvas>
@@ -573,7 +580,7 @@
     });
 
 
-    var ctx = document.getElementById("project-status").getContext('2d');
+    var ctx = document.getElementById("projectStatus").getContext('2d');
     var projectStatus = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -697,28 +704,6 @@
         }
     });
 
-    var ctx = document.getElementById('quote-status').getContext('2d');
-    var quoteStatus = new Chart(document.getElementById("quote-status"), {
-    type: 'bar',
-    data: {
-      labels: ["Engineered", "Quoted", "Lost", "Sold",],
-      datasets: [
-        {
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [80,106,3,180,6]
-        }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        text: 'Project Status'
-      }
-    }
-});
+
 </script>
 </html>
