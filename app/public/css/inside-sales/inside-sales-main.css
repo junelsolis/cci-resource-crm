@@ -26,3 +26,11 @@ body {
   color: #000A55;
   font-size: 1.2em;
 }
+
+table thead {
+  font-size: 1em;
+  color: #464B69;
+}
+table tbody {
+  font-size: 0.9em;
+}
