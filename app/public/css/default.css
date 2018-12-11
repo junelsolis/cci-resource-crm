@@ -52,3 +52,9 @@ legend {
   text-decoration-style: dashed !important;
   text-decoration-color: lightblue !important;
 }
+
+/* correct some bootstrap classes
+*/
+.row {
+  margin: auto;
+}

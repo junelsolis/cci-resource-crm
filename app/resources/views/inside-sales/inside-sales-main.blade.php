@@ -18,6 +18,10 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
+
   </head>
   @include('navbar')
   <body>
@@ -29,290 +33,298 @@
               <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Upcoming Projects</strong></h5>
             </div>
             <div class='cell medium-6 large-10'>
-              <ul class='menu align-right'>
+              <!-- <ul class='menu align-right'>
                 <li><input type='text' class='search'  placeholder='Search Project' /></li>
-              </ul>
+              </ul> -->
             </div>
           </div>
           <br />
-          <div class='table-scroll'>
-            <table class='unstriped'>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th class='sort' data-sort='name'>Name</th>
-                  <th class='sort' data-sort='status'>Status</th>
-                  <th class='sort' data-sort='bidDate' >Bid Date</th>
-                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
-                  <th class='sort' data-sort='product'>Product</th>
-                  <th class='sort' data-sort='productSales'>Product Sales</th>
-                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
-                  <th class='sort' data-sort='amount'>Amount</th>
-                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
-                  <th>Quote Link</th>
-                  <th class='sort' data-sort='engineer'>Engineer</th>
-                  <th class='sort' data-sort='contractor'>Contractor</th>
-                  <th>Note</th>
-                </tr>
-              </thead>
-              <tbody class='list'>
+          <div class='grid-x'>
+            <div class='table-scroll'>
+              <table id='upcoming-projects-table' class='unstriped'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th class='sort' data-sort='name'>Name</th>
+                    <th class='sort' data-sort='status'>Status</th>
+                    <th class='sort' data-sort='bidDate' >Bid Date</th>
+                    <th class='sort' data-sort='manufacturer'>Manufacturer</th>
+                    <th class='sort' data-sort='product'>Product</th>
+                    <th class='sort' data-sort='productSales'>Product Sales</th>
+                    <th class='sort' data-sort='insideSales'>Inside Sales</th>
+                    <th class='sort' data-sort='amount'>Amount</th>
+                    <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
+                    <th>Quote Link</th>
+                    <th class='sort' data-sort='engineer'>Engineer</th>
+                    <th class='sort' data-sort='contractor'>Contractor</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody class='list'>
+                  @foreach ($upcomingProjects as $i)
+                  <tr>
+                    <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
+                    <td class='name' id='{{ $i->id}}-name'>{{ $i->name}}</td>
+                    <td class='status' id='{{ $i->id}}-status' style='<?php
+                        if ($i->status->status == 'New') { echo 'background-color:rgba(243, 156, 18,0.2);color:rgb(243,156,18)';}
+                        if ($i->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
+                      ?>'>{{ $i->status->status }}</td>
+                    <td class='bidDate' id='{{ $i->id}}-bidDate' style='<?php
+                        if ($i->bidTiming == 'late') { echo 'color:red;';}
+                        if ($i->bidTiming == 'soon') { echo 'color:#f39c12;'; }
+                      ?>'>
+                      {{ $i->bidDate }}
+                    </td>
+                    <td class='manufacturer' id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
+                    <td class='product' id='{{ $i->id}}-product'>{{ $i->product }}</td>
+                    <td class='productSales' id='{{ $i->id}}-productSales'>{{ $i->productSales->name }}</td>
+                    <td class='insideSales' id='{{ $i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                    <td class='amount' id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
+                    <td class='apcOppId' id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
+                    <td></td>
+                    <td class='engineer' id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
+                    <td class='contractor' id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
+                    <td>{{ $i->notes->first()->note }}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+              <script>
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+
+                });
+
+                var options = {
+                  valueNames: [
+                    'name',
+                    'status',
+                    'bidDate',
+                    'manufacturer',
+                    'product',
+                    'productSales',
+                    'insideSales',
+                    'amount',
+                    'apcOppId',
+                    'engineer',
+                    'contractor',
+                  ],
+                };
+
+                var userList = new List('upcoming-projects', options);
+
+                $.fn.editable.defaults.mode = 'inline';
+
+                $(document).ready(function() {
+                  $('#upcoming-projects-table').DataTable();
+                });
+
                 @foreach ($upcomingProjects as $i)
-                <tr>
-                  <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
-                  <td class='name' id='{{ $i->id}}-name'>{{ $i->name}}</td>
-                  <td class='status' id='{{ $i->id}}-status' style='<?php
-                      if ($i->status->status == 'New') { echo 'background-color:rgba(243, 156, 18,0.2);color:rgb(243,156,18)';}
-                      if ($i->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
-                    ?>'>{{ $i->status->status }}</td>
-                  <td class='bidDate' id='{{ $i->id}}-bidDate' style='<?php
-                      if ($i->bidTiming == 'late') { echo 'color:red;';}
-                      if ($i->bidTiming == 'soon') { echo 'color:#f39c12;'; }
-                    ?>'>
-                    {{ $i->bidDate }}
-                  </td>
-                  <td class='manufacturer' id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
-                  <td class='product' id='{{ $i->id}}-product'>{{ $i->product }}</td>
-                  <td class='productSales' id='{{ $i->id}}-productSales'>{{ $i->productSales->name }}</td>
-                  <td class='insideSales' id='{{ $i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
-                  <td class='amount' id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
-                  <td class='apcOppId' id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
-                  <td></td>
-                  <td class='engineer' id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
-                  <td class='contractor' id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td>{{ $i->notes->first()->note }}</td>
-                </tr>
-
-                <script>
-
-                  // setup editables
-                  $(document).ready(function() {
-                    $('#{{$i->id}}-name').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/name',
-                        title: 'Enter Project Name',
-                        disabled: true,
-                        name: 'name',
-                      }
-                    );
-
-                    $('#{{$i->id}}-status').editable(
-                      {
-                        type: 'select',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/status',
-                        title: 'Choose Status',
-                        disabled: true,
-                        name: 'status',
-                        value: {{ $i->status_id}},
-                          source: [
-                            @foreach ($projectStatusCodes as $code)
-                            { value: {{ $code->id }}, text: '{{ $code->status }}'},
-                            @endforeach
-                          ]
-                      }
-                    );
-
-                    $('#{{$i->id}}-bidDate').editable(
-                      {
-                        type: 'date',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/bid-date',
-                        title: 'Select Bid Date',
-                        disabled: true,
-                        name: 'bidDate',
-                        format: 'yyyy-mm-dd',
-                        viewformat: 'mm/dd/yy',
-                        datepicker: {
-                          weekStart: 1
-                        }
-                      }
-                    );
+                // setup editables
+                $(document).ready(function() {
 
 
-                    $('#{{$i->id}}-manufacturer').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/manufacturer',
-                        title: 'Enter Manufacturer',
-                        disabled: true,
-                        name: 'manufacturer',
-                      }
-                    );
 
-                    $('#{{$i->id}}-product').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/product',
-                        title: 'Enter Product Name',
-                        disabled: true,
-                        name: 'product',
-                      }
-                    );
+                  $('#{{$i->id}}-name').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/name',
+                      title: 'Enter Project Name',
+                      disabled: true,
+                      name: 'name',
+                    }
+                  );
 
-                    $('#{{$i->id}}-productSales').editable(
-                      {
-                        type: 'select',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/product-sales',
-                        title: 'Select Product Sales Rep',
-                        value: {{ $i->product_sales_id }},
-                        disabled: true,
-                        name: 'productSales',
+                  $('#{{$i->id}}-status').editable(
+                    {
+                      type: 'select',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/status',
+                      title: 'Choose Status',
+                      disabled: true,
+                      name: 'status',
+                      value: {{ $i->status_id}},
                         source: [
-                          @foreach ($productSales as $item)
-                          { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                          @foreach ($projectStatusCodes as $code)
+                          { value: {{ $code->id }}, text: '{{ $code->status }}'},
                           @endforeach
                         ]
+                    }
+                  );
+
+                  $('#{{$i->id}}-bidDate').editable(
+                    {
+                      type: 'date',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/bid-date',
+                      title: 'Select Bid Date',
+                      disabled: true,
+                      name: 'bidDate',
+                      format: 'yyyy-mm-dd',
+                      viewformat: 'mm/dd/yy',
+                      datepicker: {
+                        weekStart: 1
                       }
-                    );
-
-                    $('#{{$i->id}}-insideSales').editable(
-                      {
-                        type: 'select',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/inside-sales',
-                        title: 'Select Inside Sales Rep',
-                        value: {{ $i->inside_sales_id }},
-                        disabled: true,
-                        name: 'insideSales',
-                        source: [
-                          @foreach ($insideSales as $item)
-                          { value: {{ $item->id }}, text: '{{ $item->name }}'},
-                          @endforeach
-                        ]
-                      }
-                    );
-
-                    $('#{{$i->id}}-amount').editable(
-                      {
-                        type: 'number',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/amount',
-                        title: 'Enter Amount',
-                        disabled: true,
-                        name: 'amount',
-                      }
-                    );
-
-                    $('#{{$i->id}}-apcOppId').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/apc-opp-id',
-                        title: 'Enter APC OPP ID',
-                        disabled: true,
-                        name: 'apcOppId',
-                      }
-                    );
-
-                    $('#{{$i->id}}-invoiceLink').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/quote',
-                        title: 'Edit Quote',
-                        disabled: true,
-                        name: 'quote'
-                      }
-                    );
-
-                    $('#{{$i->id}}-engineer').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/engineer',
-                        title: 'Enter Engineer',
-                        disabled: true,
-                        name: 'engineer',
-                      }
-                    );
-
-                    $('#{{$i->id}}-contractor').editable(
-                      {
-                        type: 'text',
-                        pk: {{ $i->id }},
-                        url: '/project/edit/contractor',
-                        title: 'Enter Contractor',
-                        disabled: true,
-                        name: 'contractor',
-                      }
-                    );
-
-                  });
-
-                  // enable editing of row on click of toggle link
-                  $('#{{$i->id}}-toggle').click(function(e) {
-                    e.stopPropagation();
-                    $('#{{$i->id}}-name').editable('toggleDisabled');
-                    $('#{{$i->id}}-status').editable('toggleDisabled');
-                    $('#{{$i->id}}-bidDate').editable('toggleDisabled');
-                    $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
-                    $('#{{$i->id}}-product').editable('toggleDisabled');
-                    $('#{{$i->id}}-productSales').editable('toggleDisabled');
-                    $('#{{$i->id}}-insideSales').editable('toggleDisabled');
-                    $('#{{$i->id}}-amount').editable('toggleDisabled');
-                    $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
-                    $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
-                    $('#{{$i->id}}-engineer').editable('toggleDisabled');
-                    $('#{{$i->id}}-contractor').editable('toggleDisabled');
+                    }
+                  );
 
 
-                    $('#{{$i->id}}-name').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-status').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-product').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-amount').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
-                    $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
-                  });
+                  $('#{{$i->id}}-manufacturer').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/manufacturer',
+                      title: 'Enter Manufacturer',
+                      disabled: true,
+                      name: 'manufacturer',
+                    }
+                  );
+
+                  $('#{{$i->id}}-product').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/product',
+                      title: 'Enter Product Name',
+                      disabled: true,
+                      name: 'product',
+                    }
+                  );
+
+                  $('#{{$i->id}}-productSales').editable(
+                    {
+                      type: 'select',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/product-sales',
+                      title: 'Select Product Sales Rep',
+                      value: {{ $i->product_sales_id }},
+                      disabled: true,
+                      name: 'productSales',
+                      source: [
+                        @foreach ($productSales as $item)
+                        { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                        @endforeach
+                      ]
+                    }
+                  );
+
+                  $('#{{$i->id}}-insideSales').editable(
+                    {
+                      type: 'select',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/inside-sales',
+                      title: 'Select Inside Sales Rep',
+                      value: {{ $i->inside_sales_id }},
+                      disabled: true,
+                      name: 'insideSales',
+                      source: [
+                        @foreach ($insideSales as $item)
+                        { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                        @endforeach
+                      ]
+                    }
+                  );
+
+                  $('#{{$i->id}}-amount').editable(
+                    {
+                      type: 'number',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/amount',
+                      title: 'Enter Amount',
+                      disabled: true,
+                      name: 'amount',
+                    }
+                  );
+
+                  $('#{{$i->id}}-apcOppId').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/apc-opp-id',
+                      title: 'Enter APC OPP ID',
+                      disabled: true,
+                      name: 'apcOppId',
+                    }
+                  );
+
+                  $('#{{$i->id}}-invoiceLink').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/quote',
+                      title: 'Edit Quote',
+                      disabled: true,
+                      name: 'quote'
+                    }
+                  );
+
+                  $('#{{$i->id}}-engineer').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/engineer',
+                      title: 'Enter Engineer',
+                      disabled: true,
+                      name: 'engineer',
+                    }
+                  );
+
+                  $('#{{$i->id}}-contractor').editable(
+                    {
+                      type: 'text',
+                      pk: {{ $i->id }},
+                      url: '/project/edit/contractor',
+                      title: 'Enter Contractor',
+                      disabled: true,
+                      name: 'contractor',
+                    }
+                  );
+
+                });
+
+                // enable editing of row on click of toggle link
+                $('#{{$i->id}}-toggle').click(function(e) {
+                  e.stopPropagation();
+                  $('#{{$i->id}}-name').editable('toggleDisabled');
+                  $('#{{$i->id}}-status').editable('toggleDisabled');
+                  $('#{{$i->id}}-bidDate').editable('toggleDisabled');
+                  $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
+                  $('#{{$i->id}}-product').editable('toggleDisabled');
+                  $('#{{$i->id}}-productSales').editable('toggleDisabled');
+                  $('#{{$i->id}}-insideSales').editable('toggleDisabled');
+                  $('#{{$i->id}}-amount').editable('toggleDisabled');
+                  $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
+                  $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
+                  $('#{{$i->id}}-engineer').editable('toggleDisabled');
+                  $('#{{$i->id}}-contractor').editable('toggleDisabled');
 
 
+                  $('#{{$i->id}}-name').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-status').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-amount').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
+                });
 
-                </script>
 
                 @endforeach
-              </tbody>
-            </table>
 
-            <script>
-              $.ajaxSetup({
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
 
-              });
 
-              $.fn.editable.defaults.mode = 'inline';
+              </script>
 
-              // setup list.js
-              var options = {
-                valueNames: [
-                  'name',
-                  'status',
-                  'bidDate',
-                  'manufacturer',
-                  'product',
-                  'productSales',
-                  'insideSales',
-                  'amount',
-                  'apcOppId',
-                  'engineer',
-                  'contractor',
-                ]
-              };
-
-              var userList = new List('upcoming-projects', options);
-
-            </script>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -343,7 +355,7 @@
 
 
       <div class='cell small-12'>
-        <div class='card'>
+        <div id='all-projects' class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
               <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;All Projects</strong></h5>
@@ -359,53 +371,81 @@
             <table class='unstriped'>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th >Bid Date</th>
-                  <th>Manufacturer</th>
-                  <th>Product</th>
-                  <th>Product Sales</th>
-                  <th>Inside Sales</th>
-                  <th>Amount</th>
-                  <th>APC OPP ID</th>
-                  <th>Quote Link</th>
-                  <th>Engineer</th>
-                  <th>Contractor</th>
+                  <th class='sort' data-sort='name'>Name</th>
+                  <th class='sort' data-sort='status'>Status</th>
+                  <th class='sort' data-sort='bidDate'>Bid Date</th>
+                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
+                  <th class='sort' data-sort='product'>Product</th>
+                  <th class='sort' data-sort='productSales'>Product Sales</th>
+                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
+                  <th class='sort' data-sort='amount'>Amount</th>
+                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
+                  <th class='sort' data-sort='quote'>Quote Link</th>
+                  <th class='sort' data-sort='engineer'>Engineer</th>
+                  <th class='sort' data-sort='contractor'>Contractor</th>
                   <th>Note</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class='list'>
                 @foreach ($allProjects as $i)
                 <tr>
-                  <td>{{ $i->name}}</td>
-                  <td style='<?php
+                  <td class='name'>{{ $i->name}}</td>
+                  <td class='status' style='<?php
                       if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
                       if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
                       if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
                       if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
                     ?>'>{{ $i->status->status }}</td>
-                  <td style='<?php
+                  <td class='bidDate' style='<?php
                       if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
                       if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
                     ?>'>
                     {{ $i->bidDate }}
                   </td>
-                  <td>{{ $i->manufacturer }}</td>
-                  <td>{{ $i->product }}</td>
-                  <td>{{ $i->productSales->name }}</td>
-                  <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i->amount }}</td>
-                  <td>{{ $i->apc_opp_id }}</td>
+                  <td class='manufacturer'>{{ $i->manufacturer }}</td>
+                  <td class='product'>{{ $i->product }}</td>
+                  <td class='productSales'>{{ $i->productSales->name }}</td>
+                  <td class='insideSales'>{{ $i->insideSales->name }}</td>
+                  <td class='amount'>{{ $i->amount }}</td>
+                  <td class='apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td></td>
-                  <td>{{ $i->engineer }}</td>
-                  <td>{{ $i->contractor }}</td>
+                  <td class='engineer'>{{ $i->engineer }}</td>
+                  <td class='contractor'>{{ $i->contractor }}</td>
                   <td>{{ $i->notes->first()->note }}</td>
                 </tr>
                 @endforeach
 
               </tbody>
             </table>
+
+            <ul class="pagination"></ul>
+            <script>
+              // setup list.js
+              var options = {
+                valueNames: [
+                  'name',
+                  'status',
+                  'bidDate',
+                  'manufacturer',
+                  'product',
+                  'productSales',
+                  'insideSales',
+                  'amount',
+                  'apcOppId',
+                  'engineer',
+                  'contractor',
+                ],
+                page: 5,
+                pagination: true
+              };
+
+              var userList = new List('all-projects', options);
+            </script>
+
+
           </div>
+
+
         </div>
       </div>
     </div>
