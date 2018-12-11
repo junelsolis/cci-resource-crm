@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Inside Sales | Critical Components</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/inside-sales/inside-sales-main.css') }}" />
@@ -13,7 +15,9 @@
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
     <script src="{{ asset('js/list.min.js') }}"></script>
-
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
   </head>
   @include('navbar')
   <body>
@@ -35,6 +39,7 @@
             <table class='unstriped'>
               <thead>
                 <tr>
+                  <th></th>
                   <th>Name</th>
                   <th>Status</th>
                   <th >Bid Date</th>
@@ -51,32 +56,235 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($upcomingProjects as $project)
+                @foreach ($upcomingProjects as $i)
                 <tr>
-                  <td>{{ $project->name}}</td>
-                  <td style='<?php
-                      if ($project->status->status == 'New') { echo 'background-color:rgba(243, 156, 18,0.2);color:rgb(243,156,18)';}
-                      if ($project->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
-                    ?>'>{{ $project->status->status }}</td>
-                  <td style='<?php
-                      if ($project->bidTiming == 'late') { echo 'color:red;';}
-                      if ($project->bidTiming == 'soon') { echo 'color:#f39c12;'; }
+                  <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
+                  <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
+                  <td id='{{ $i->id}}-status' style='<?php
+                      if ($i->status->status == 'New') { echo 'background-color:rgba(243, 156, 18,0.2);color:rgb(243,156,18)';}
+                      if ($i->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
+                    ?>'>{{ $i->status->status }}</td>
+                  <td id='{{ $i->id}}-bidDate' style='<?php
+                      if ($i->bidTiming == 'late') { echo 'color:red;';}
+                      if ($i->bidTiming == 'soon') { echo 'color:#f39c12;'; }
                     ?>'>
-                    {{ $project->bidDate }}
+                    {{ $i->bidDate }}
                   </td>
-                  <td>{{ $project->manufacturer }}</td>
-                  <td>{{ $project->product }}</td>
-                  <td>{{ $project->productSales->name }}</td>
-                  <td>{{ $project->insideSales->name }}</td>
-                  <td>{{ $project->amount }}</td>
-                  <td>{{ $project->apc_opp_id }}</td>
+                  <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
+                  <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
+                  <td id='{{ $i->id}}-productSales'>{{ $i->productSales->name }}</td>
+                  <td id='{{ $i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                  <td id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
+                  <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td></td>
-                  <td>{{ $project->engineer }}</td>
-                  <td>{{ $project->contractor }}</td>
-                  <td>{{ $project->notes->first()->note }}</td>
+                  <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
+                  <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
+                  <td>{{ $i->notes->first()->note }}</td>
                 </tr>
-                @endforeach
 
+                <script>
+
+                  $.ajaxSetup({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+
+                  });
+
+                  // setup editables
+                  $(document).ready(function() {
+                    $('#{{$i->id}}-name').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/name',
+                        title: 'Enter Project Name',
+                        disabled: true,
+                        name: 'name',
+                      }
+                    );
+
+                    $('#{{$i->id}}-status').editable(
+                      {
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/status',
+                        title: 'Choose Status',
+                        disabled: true,
+                        name: 'status',
+                        value: {{ $i->status_id}},
+                          source: [
+                            @foreach ($projectStatusCodes as $code)
+                            { value: {{ $code->id }}, text: '{{ $code->status }}'},
+                            @endforeach
+                          ]
+                      }
+                    );
+
+                    $('#{{$i->id}}-bidDate').editable(
+                      {
+                        type: 'date',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/bid-date',
+                        title: 'Select Bid Date',
+                        disabled: true,
+                        name: 'bidDate',
+                        format: 'yyyy-mm-dd',
+                        viewformat: 'mm/dd/yy',
+                        datepicker: {
+                          weekStart: 1
+                        }
+                      }
+                    );
+
+
+                    $('#{{$i->id}}-manufacturer').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/manufacturer',
+                        title: 'Enter Manufacturer',
+                        disabled: true,
+                        name: 'manufacturer',
+                      }
+                    );
+
+                    $('#{{$i->id}}-product').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/product',
+                        title: 'Enter Product Name',
+                        disabled: true,
+                        name: 'product',
+                      }
+                    );
+
+                    $('#{{$i->id}}-productSales').editable(
+                      {
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/product-sales',
+                        title: 'Select Product Sales Rep',
+                        value: {{ $i->product_sales_id }},
+                        disabled: true,
+                        name: 'productSales',
+                        source: [
+                          @foreach ($productSales as $item)
+                          { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                          @endforeach
+                        ]
+                      }
+                    );
+
+                    $('#{{$i->id}}-insideSales').editable(
+                      {
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/inside-sales',
+                        title: 'Select Inside Sales Rep',
+                        value: {{ $i->inside_sales_id }},
+                        disabled: true,
+                        name: 'insideSales',
+                        source: [
+                          @foreach ($insideSales as $item)
+                          { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                          @endforeach
+                        ]
+                      }
+                    );
+
+                    $('#{{$i->id}}-amount').editable(
+                      {
+                        type: 'number',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/amount',
+                        title: 'Enter Amount',
+                        disabled: true,
+                        name: 'amount',
+                      }
+                    );
+
+                    $('#{{$i->id}}-apcOppId').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/apc-opp-id',
+                        title: 'Enter APC OPP ID',
+                        disabled: true,
+                        name: 'apcOppId',
+                      }
+                    );
+
+                    $('#{{$i->id}}-invoiceLink').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/quote',
+                        title: 'Edit Quote',
+                        disabled: true,
+                        name: 'quote'
+                      }
+                    );
+
+                    $('#{{$i->id}}-engineer').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/engineer',
+                        title: 'Enter Engineer',
+                        disabled: true,
+                        name: 'engineer',
+                      }
+                    );
+
+                    $('#{{$i->id}}-contractor').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/contractor',
+                        title: 'Enter Contractor',
+                        disabled: true,
+                        name: 'contractor',
+                      }
+                    );
+
+                  });
+
+                  // enable editing of row on click of toggle link
+                  $('#{{$i->id}}-toggle').click(function(e) {
+                    e.stopPropagation();
+                    $('#{{$i->id}}-name').editable('toggleDisabled');
+                    $('#{{$i->id}}-status').editable('toggleDisabled');
+                    $('#{{$i->id}}-bidDate').editable('toggleDisabled');
+                    $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
+                    $('#{{$i->id}}-product').editable('toggleDisabled');
+                    $('#{{$i->id}}-productSales').editable('toggleDisabled');
+                    $('#{{$i->id}}-insideSales').editable('toggleDisabled');
+                    $('#{{$i->id}}-amount').editable('toggleDisabled');
+                    $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
+                    $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
+                    $('#{{$i->id}}-engineer').editable('toggleDisabled');
+                    $('#{{$i->id}}-contractor').editable('toggleDisabled');
+
+
+                    $('#{{$i->id}}-name').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-status').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-amount').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
+                  });
+
+
+                </script>
+
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -142,31 +350,31 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($allProjects as $project)
+                @foreach ($allProjects as $i)
                 <tr>
-                  <td>{{ $project->name}}</td>
+                  <td>{{ $i->name}}</td>
                   <td style='<?php
-                      if ($project->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
-                      if ($project->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
-                      if ($project->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
-                      if ($project->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
-                    ?>'>{{ $project->status->status }}</td>
+                      if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
+                      if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
+                      if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
+                      if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
+                    ?>'>{{ $i->status->status }}</td>
                   <td style='<?php
-                      if ($project->bidTiming == 'late' && ($project->status->status != 'Quoted') && ($project->status->status != 'Sold')) { echo 'color:red;';}
-                      if ($project->bidTiming == 'soon' && ($project->status->status != 'Quoted') && ($project->status->status != 'Sold')) { echo 'color:#f39c12;'; }
+                      if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
+                      if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
                     ?>'>
-                    {{ $project->bidDate }}
+                    {{ $i->bidDate }}
                   </td>
-                  <td>{{ $project->manufacturer }}</td>
-                  <td>{{ $project->product }}</td>
-                  <td>{{ $project->productSales->name }}</td>
-                  <td>{{ $project->insideSales->name }}</td>
-                  <td>{{ $project->amount }}</td>
-                  <td>{{ $project->apc_opp_id }}</td>
+                  <td>{{ $i->manufacturer }}</td>
+                  <td>{{ $i->product }}</td>
+                  <td>{{ $i->productSales->name }}</td>
+                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->apc_opp_id }}</td>
                   <td></td>
-                  <td>{{ $project->engineer }}</td>
-                  <td>{{ $project->contractor }}</td>
-                  <td>{{ $project->notes->first()->note }}</td>
+                  <td>{{ $i->engineer }}</td>
+                  <td>{{ $i->contractor }}</td>
+                  <td>{{ $i->notes->first()->note }}</td>
                 </tr>
                 @endforeach
 

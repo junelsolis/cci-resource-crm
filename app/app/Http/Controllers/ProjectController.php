@@ -197,6 +197,34 @@ class ProjectController extends Controller
         'created_at' => Carbon::now()
       ]);
     }
+
+    public function editProductSales(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $name = $request['name'];
+      $id = $request['pk'];
+      $value = $request['value'];
+
+      // update product sales id
+      DB::table('projects')->where('id', $id)->update([
+        'product_sales_id' => $value,
+        'updated_at' => Carbon::now()
+      ]);
+
+      // create note
+      DB::table('project_notes')->insert([
+        'project_id' => $id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => 'Changed Product Sales Representative.',
+        'created_at' => Carbon::now()
+      ]);
+
+    }
+
+
     public function editInsideSales(Request $request) {
       $check = $this->checkAllowed();
       if ($check == false) {
@@ -216,7 +244,7 @@ class ProjectController extends Controller
       DB::table('project_notes')->insert([
         'project_id' => $id,
         'last_updated_by_id' => session('logged_in_user_id'),
-        'note' => 'Inside Sales Representative.',
+        'note' => 'Changed Inside Sales Representative.',
         'created_at' => Carbon::now()
       ]);
     }
@@ -348,9 +376,8 @@ class ProjectController extends Controller
       // verify allowed to edit
       $logged_in_user_roles = session('logged_in_user_roles');
 
-      if ($logged_in_user_roles->contains('product-sales') || $logged_in_user_roles->contains('inside-sales')) {
-        return true;
-      }
+      if ($logged_in_user_roles->contains('product-sales')) { return true; }
+      if ($logged_in_user_roles->contains('inside-sales')) { return true; }
 
       session()->flush();
       return false;

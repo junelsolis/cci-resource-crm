@@ -15,11 +15,17 @@ class InsideSalesController extends Controller
 
 
     $userDetails = $this->getLoggedInUserDetails();
+    $insideSales = $this->getInsideSalesReps();
+    $productSales = $this->getProductSalesReps();
+    $projectStatusCodes = $this->getProjectStatusCodes();
     $upcomingProjects = $this->getUpcomingProjects();
     $allProjects = $this->getAllProjects();
 
     return view('inside-sales/inside-sales-main')
       ->with('userDetails', $userDetails)
+      ->with('insideSales', $insideSales)
+      ->with('productSales', $productSales)
+      ->with('projectStatusCodes', $projectStatusCodes)
       ->with('upcomingProjects', $upcomingProjects)
       ->with('allProjects', $allProjects);
   }
@@ -205,6 +211,17 @@ class InsideSalesController extends Controller
 
     return $projects;
   }
+
+  private function getProjectStatusCodes() {
+    /*  Returns a collection of project status
+        including id and code
+    */
+
+    $codes = DB::table('project_status')->get();
+
+    return $codes;
+  }
+
 
 
 }
