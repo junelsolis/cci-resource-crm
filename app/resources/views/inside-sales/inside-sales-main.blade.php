@@ -59,8 +59,8 @@
                       if ($project->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
                     ?>'>{{ $project->status->status }}</td>
                   <td style='<?php
-                      if ($project->bidTiming == 'late') { echo 'color:red;font-weight:bolder;';}
-                      if ($project->bidTiming == 'soon') { echo 'color:#ffbf00;font-weight:bolder'; }
+                      if ($project->bidTiming == 'late') { echo 'color:red;';}
+                      if ($project->bidTiming == 'soon') { echo 'color:#f39c12;'; }
                     ?>'>
                     {{ $project->bidDate }}
                   </td>
@@ -146,12 +146,14 @@
                 <tr>
                   <td>{{ $project->name}}</td>
                   <td style='<?php
-                      if ($project->status->status == 'New') { echo 'color:#f39c12;';}
-                      if ($project->status->status == 'Engineered') { echo 'color:#8e44ad;'; }
+                      if ($project->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
+                      if ($project->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
+                      if ($project->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
+                      if ($project->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
                     ?>'>{{ $project->status->status }}</td>
                   <td style='<?php
-                      if ($project->bidTiming == 'late') { echo 'color:red;font-weight:bolder;';}
-                      if ($project->bidTiming == 'soon') { echo 'color:#ffbf00;font-weight:bolder'; }
+                      if ($project->bidTiming == 'late' && ($project->status->status != 'Quoted') && ($project->status->status != 'Sold')) { echo 'color:red;';}
+                      if ($project->bidTiming == 'soon' && ($project->status->status != 'Quoted') && ($project->status->status != 'Sold')) { echo 'color:#f39c12;'; }
                     ?>'>
                     {{ $project->bidDate }}
                   </td>
