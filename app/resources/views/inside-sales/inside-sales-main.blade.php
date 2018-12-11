@@ -77,8 +77,20 @@
                     </td>
                     <td class='manufacturer' id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
                     <td class='product' id='{{ $i->id}}-product'>{{ $i->product }}</td>
-                    <td class='productSales' id='{{ $i->id}}-productSales'>{{ $i->productSales->name }}</td>
-                    <td class='insideSales' id='{{ $i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                    <td class='productSales' id='{{ $i->id}}-productSales'>
+                      <?php
+                        $array = explode(' ', $i->productSales->name);
+                        $name = substr($array[0],0,1) . ' ' . $array[1];
+                        echo $name;
+                      ?>
+                    </td>
+                    <td class='insideSales' id='{{ $i->id}}-insideSales'>
+                      <?php
+                        $array = explode(' ', $i->insideSales->name);
+                        $name = substr($array[0],0,1) . ' ' . $array[1];
+                        echo $name;
+                      ?>
+                    </td>
                     <td class='amount' id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
                     <td class='apcOppId' id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                     <td></td>

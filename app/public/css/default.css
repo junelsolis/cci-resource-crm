@@ -58,3 +58,9 @@ legend {
 .row {
   margin: auto;
 }
+
+/* customize some DataTables stuff
+*/
+.dataTables_info {
+  color: grey;
+}
