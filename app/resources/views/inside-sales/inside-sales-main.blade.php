@@ -84,13 +84,6 @@
 
                 <script>
 
-                  $.ajaxSetup({
-                    headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-
-                  });
-
                   // setup editables
                   $(document).ready(function() {
                     $('#{{$i->id}}-name').editable(
@@ -287,6 +280,18 @@
                 @endforeach
               </tbody>
             </table>
+
+            <script>
+              $.ajaxSetup({
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+
+              });
+
+              $.fn.editable.defaults.mode = 'inline';
+
+            </script>
           </div>
         </div>
       </div>
