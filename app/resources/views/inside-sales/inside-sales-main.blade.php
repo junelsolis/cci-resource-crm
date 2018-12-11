@@ -23,7 +23,7 @@
   <body>
     <div id='main' class='grid-x'>
       <div class='cell small-12'>
-        <div class='card'>
+        <div id='upcoming-projects' class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
               <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Upcoming Projects</strong></h5>
@@ -40,45 +40,45 @@
               <thead>
                 <tr>
                   <th></th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th >Bid Date</th>
-                  <th>Manufacturer</th>
-                  <th>Product</th>
-                  <th>Product Sales</th>
-                  <th>Inside Sales</th>
-                  <th>Amount</th>
-                  <th>APC OPP ID</th>
+                  <th class='sort' data-sort='name'>Name</th>
+                  <th class='sort' data-sort='status'>Status</th>
+                  <th class='sort' data-sort='bidDate' >Bid Date</th>
+                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
+                  <th class='sort' data-sort='product'>Product</th>
+                  <th class='sort' data-sort='productSales'>Product Sales</th>
+                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
+                  <th class='sort' data-sort='amount'>Amount</th>
+                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
                   <th>Quote Link</th>
-                  <th>Engineer</th>
-                  <th>Contractor</th>
+                  <th class='sort' data-sort='engineer'>Engineer</th>
+                  <th class='sort' data-sort='contractor'>Contractor</th>
                   <th>Note</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class='list'>
                 @foreach ($upcomingProjects as $i)
                 <tr>
                   <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
-                  <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
-                  <td id='{{ $i->id}}-status' style='<?php
+                  <td class='name' id='{{ $i->id}}-name'>{{ $i->name}}</td>
+                  <td class='status' id='{{ $i->id}}-status' style='<?php
                       if ($i->status->status == 'New') { echo 'background-color:rgba(243, 156, 18,0.2);color:rgb(243,156,18)';}
                       if ($i->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
                     ?>'>{{ $i->status->status }}</td>
-                  <td id='{{ $i->id}}-bidDate' style='<?php
+                  <td class='bidDate' id='{{ $i->id}}-bidDate' style='<?php
                       if ($i->bidTiming == 'late') { echo 'color:red;';}
                       if ($i->bidTiming == 'soon') { echo 'color:#f39c12;'; }
                     ?>'>
                     {{ $i->bidDate }}
                   </td>
-                  <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
-                  <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
-                  <td id='{{ $i->id}}-productSales'>{{ $i->productSales->name }}</td>
-                  <td id='{{ $i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
-                  <td id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
-                  <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
+                  <td class='manufacturer' id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
+                  <td class='product' id='{{ $i->id}}-product'>{{ $i->product }}</td>
+                  <td class='productSales' id='{{ $i->id}}-productSales'>{{ $i->productSales->name }}</td>
+                  <td class='insideSales' id='{{ $i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                  <td class='amount' id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
+                  <td class='apcOppId' id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td></td>
-                  <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
-                  <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
+                  <td class='engineer' id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
+                  <td class='contractor' id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
                   <td>{{ $i->notes->first()->note }}</td>
                 </tr>
 
@@ -275,6 +275,7 @@
                   });
 
 
+
                 </script>
 
                 @endforeach
@@ -290,6 +291,25 @@
               });
 
               $.fn.editable.defaults.mode = 'inline';
+
+              // setup list.js
+              var options = {
+                valueNames: [
+                  'name',
+                  'status',
+                  'bidDate',
+                  'manufacturer',
+                  'product',
+                  'productSales',
+                  'insideSales',
+                  'amount',
+                  'apcOppId',
+                  'engineer',
+                  'contractor',
+                ]
+              };
+
+              var userList = new List('upcoming-projects', options);
 
             </script>
           </div>
