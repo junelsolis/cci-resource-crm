@@ -1,6 +1,6 @@
 * {
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 html {
@@ -63,4 +63,8 @@ legend {
 */
 .dataTables_info {
   color: grey;
+}
+
+.current {
+  margin-top:0;
 }

@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>Inside Sales | Critical Components</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/inside-sales/inside-sales-main.css') }}" />
@@ -14,12 +16,10 @@
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
-    <script src="{{ asset('js/list.min.js') }}"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
+    <script src='{{ asset('js/bootstrap.min.css')}}'></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
 
   </head>
@@ -108,24 +108,6 @@
                   }
 
                 });
-
-                var options = {
-                  valueNames: [
-                    'name',
-                    'status',
-                    'bidDate',
-                    'manufacturer',
-                    'product',
-                    'productSales',
-                    'insideSales',
-                    'amount',
-                    'apcOppId',
-                    'engineer',
-                    'contractor',
-                  ],
-                };
-
-                var userList = new List('upcoming-projects', options);
 
                 $.fn.editable.defaults.mode = 'inline';
 
@@ -298,34 +280,34 @@
                 });
 
                 // enable editing of row on click of toggle link
-                $('#{{$i->id}}-toggle').click(function(e) {
-                  e.stopPropagation();
-                  $('#{{$i->id}}-name').editable('toggleDisabled');
-                  $('#{{$i->id}}-status').editable('toggleDisabled');
-                  $('#{{$i->id}}-bidDate').editable('toggleDisabled');
-                  $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
-                  $('#{{$i->id}}-product').editable('toggleDisabled');
-                  $('#{{$i->id}}-productSales').editable('toggleDisabled');
-                  $('#{{$i->id}}-insideSales').editable('toggleDisabled');
-                  $('#{{$i->id}}-amount').editable('toggleDisabled');
-                  $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
-                  $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
-                  $('#{{$i->id}}-engineer').editable('toggleDisabled');
-                  $('#{{$i->id}}-contractor').editable('toggleDisabled');
-
-
-                  $('#{{$i->id}}-name').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-status').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-product').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-amount').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
-                  $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
-                });
+                // $('#{{$i->id}}-toggle').click(function(e) {
+                //   e.stopPropagation();
+                //   $('#{{$i->id}}-name').editable('toggleDisabled');
+                //   $('#{{$i->id}}-status').editable('toggleDisabled');
+                //   $('#{{$i->id}}-bidDate').editable('toggleDisabled');
+                //   $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
+                //   $('#{{$i->id}}-product').editable('toggleDisabled');
+                //   $('#{{$i->id}}-productSales').editable('toggleDisabled');
+                //   $('#{{$i->id}}-insideSales').editable('toggleDisabled');
+                //   $('#{{$i->id}}-amount').editable('toggleDisabled');
+                //   $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
+                //   $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
+                //   $('#{{$i->id}}-engineer').editable('toggleDisabled');
+                //   $('#{{$i->id}}-contractor').editable('toggleDisabled');
+                //
+                //
+                //   $('#{{$i->id}}-name').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-status').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-amount').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
+                //   $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
+                // });
 
 
                 @endforeach
@@ -373,88 +355,69 @@
               <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;All Projects</strong></h5>
             </div>
             <div class='cell medium-6 large-10'>
-              <ul class='menu align-right'>
-                <li><input type='text' class='search'  placeholder='Search Project' /></li>
-              </ul>
+              
             </div>
           </div>
           <br />
           <div class='table-scroll'>
-            <table class='unstriped'>
+            <table id='all-projects-table' class='unstriped'>
               <thead>
                 <tr>
-                  <th class='sort' data-sort='name'>Name</th>
-                  <th class='sort' data-sort='status'>Status</th>
-                  <th class='sort' data-sort='bidDate'>Bid Date</th>
-                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
-                  <th class='sort' data-sort='product'>Product</th>
-                  <th class='sort' data-sort='productSales'>Product Sales</th>
-                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
-                  <th class='sort' data-sort='amount'>Amount</th>
-                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
-                  <th class='sort' data-sort='quote'>Quote Link</th>
-                  <th class='sort' data-sort='engineer'>Engineer</th>
-                  <th class='sort' data-sort='contractor'>Contractor</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Bid Date</th>
+                  <th>Manufacturer</th>
+                  <th>Product</th>
+                  <th>Product Sales</th>
+                  <th>Inside Sales</th>
+                  <th>Amount</th>
+                  <th>APC OPP ID</th>
+                  <th>Quote Link</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
                   <th>Note</th>
                 </tr>
               </thead>
-              <tbody class='list'>
+              <tbody>
                 @foreach ($allProjects as $i)
                 <tr>
-                  <td class='name'>{{ $i->name}}</td>
-                  <td class='status' style='<?php
+                  <td>{{ $i->name}}</td>
+                  <td style='<?php
                       if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
                       if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
                       if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
                       if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
                     ?>'>{{ $i->status->status }}</td>
-                  <td class='bidDate' style='<?php
+                  <td style='<?php
                       if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
                       if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
                     ?>'>
                     {{ $i->bidDate }}
                   </td>
-                  <td class='manufacturer'>{{ $i->manufacturer }}</td>
-                  <td class='product'>{{ $i->product }}</td>
-                  <td class='productSales'>{{ $i->productSales->name }}</td>
-                  <td class='insideSales'>{{ $i->insideSales->name }}</td>
-                  <td class='amount'>{{ $i->amount }}</td>
-                  <td class='apcOppId'>{{ $i->apc_opp_id }}</td>
+                  <td>{{ $i->manufacturer }}</td>
+                  <td>{{ $i->product }}</td>
+                  <td>{{ $i->productSales->name }}</td>
+                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->apc_opp_id }}</td>
                   <td></td>
-                  <td class='engineer'>{{ $i->engineer }}</td>
-                  <td class='contractor'>{{ $i->contractor }}</td>
+                  <td>{{ $i->engineer }}</td>
+                  <td>{{ $i->contractor }}</td>
                   <td>{{ $i->notes->first()->note }}</td>
                 </tr>
+
                 @endforeach
 
               </tbody>
             </table>
 
-            <ul class="pagination"></ul>
             <script>
-              // setup list.js
-              var options = {
-                valueNames: [
-                  'name',
-                  'status',
-                  'bidDate',
-                  'manufacturer',
-                  'product',
-                  'productSales',
-                  'insideSales',
-                  'amount',
-                  'apcOppId',
-                  'engineer',
-                  'contractor',
-                ],
-                page: 5,
-                pagination: true
-              };
-
-              var userList = new List('all-projects', options);
+              $(document).ready(function() {
+                $('#all-projects-table').DataTable( {
+                  "order": [[ 2, "desc" ]],
+                } );
+              } );
             </script>
-
-
           </div>
 
 
@@ -466,5 +429,7 @@
   <script>
     $(document).foundation();
   </script>
+
+
 
 </html>
