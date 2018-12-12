@@ -315,7 +315,7 @@
           <h5><strong><i class="fas fa-user-tie"></i>&nbsp;Product Salespersons</strong></h5>
           <br />
           <div class='table-scroll'>
-            <table class='unstriped'>
+            <table id='product-salespersons' class='unstriped'>
               <thead>
                 <tr>
                   <th>Name</th>
@@ -325,6 +325,21 @@
                   <th>Projects Sold</th>
                 </tr>
               </thead>
+              <tbody>
+                @foreach ($productSales as $i)
+                <tr>
+                  <td>{{ $i->name }}</td>
+                  <td>{{ $i->upcomingProjects->count() }}</td>
+                  <td>
+                    @if ($i->upcomingProjects->first())
+                    {{ $i->upcomingProjects->first()->bidDate}}
+                    @endif
+                  </td>
+                  <td>{{ $i->lostProjects->count() }}</td>
+                  <td>{{ $i->soldProjects->count() }}</td>
+                </tr>
+                @endforeach
+              </tbody>
             </table>
           </div>
         </div>
@@ -338,7 +353,7 @@
         <div id='all-projects' class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
-              <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;All Projects</strong></h5>
+              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;All Projects</strong></h5>
             </div>
             <div class='cell medium-6 large-10'>
 
@@ -368,9 +383,10 @@
               <tbody>
                 @foreach ($allProjects as $i)
                 <tr>
-                  <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
+                  <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a>
+                  </td>
                   <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
-                  <td id='{{$i->id}}->all-status' style='<?php
+                  <td id='{{$i->id}}-all-status' style='<?php
                       if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
                       if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
                       if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
@@ -400,201 +416,201 @@
             </table>
 
             <script>
-            @foreach ($allProjects as $i)
-            // setup editables
-            $(document).ready(function() {
+              @foreach ($allProjects as $i)
+              // setup editables
+              $(document).ready(function() {
 
 
-              $('#{{$i->id}}-all-name').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/name',
-                  title: 'Enter Project Name',
-                  disabled: true,
-                  name: 'name',
-                }
-              );
+                $('#{{$i->id}}-all-name').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/name',
+                    title: 'Enter Project Name',
+                    disabled: true,
+                    name: 'name',
+                  }
+                );
 
-              $('#{{$i->id}}-all-status').editable(
-                {
-                  type: 'select',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/status',
-                  title: 'Choose Status',
-                  disabled: true,
-                  name: 'status',
-                  value: {{ $i->status_id}},
+                $('#{{$i->id}}-all-status').editable(
+                  {
+                    type: 'select',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/status',
+                    title: 'Choose Status',
+                    disabled: true,
+                    name: 'status',
+                    value: {{ $i->status_id}},
+                      source: [
+                        @foreach ($projectStatusCodes as $code)
+                        { value: {{ $code->id }}, text: '{{ $code->status }}'},
+                        @endforeach
+                      ]
+                  }
+                );
+
+                $('#{{$i->id}}-all-bidDate').editable(
+                  {
+                    type: 'date',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/bid-date',
+                    title: 'Select Bid Date',
+                    disabled: true,
+                    name: 'bidDate',
+                    format: 'yyyy-mm-dd',
+                    viewformat: 'mm/dd/yy',
+                    datepicker: {
+                      weekStart: 1
+                    }
+                  }
+                );
+
+
+                $('#{{$i->id}}-all-manufacturer').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/manufacturer',
+                    title: 'Enter Manufacturer',
+                    disabled: true,
+                    name: 'manufacturer',
+                  }
+                );
+
+                $('#{{$i->id}}-all-product').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/product',
+                    title: 'Enter Product Name',
+                    disabled: true,
+                    name: 'product',
+                  }
+                );
+
+                $('#{{$i->id}}-all-productSales').editable(
+                  {
+                    type: 'select',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/product-sales',
+                    title: 'Select Product Sales Rep',
+                    value: {{ $i->product_sales_id }},
+                    disabled: true,
+                    name: 'productSales',
                     source: [
-                      @foreach ($projectStatusCodes as $code)
-                      { value: {{ $code->id }}, text: '{{ $code->status }}'},
+                      @foreach ($productSales as $item)
+                      { value: {{ $item->id }}, text: '{{ $item->name }}'},
                       @endforeach
                     ]
-                }
-              );
-
-              $('#{{$i->id}}-all-bidDate').editable(
-                {
-                  type: 'date',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/bid-date',
-                  title: 'Select Bid Date',
-                  disabled: true,
-                  name: 'bidDate',
-                  format: 'yyyy-mm-dd',
-                  viewformat: 'mm/dd/yy',
-                  datepicker: {
-                    weekStart: 1
                   }
-                }
-              );
+                );
+
+                $('#{{$i->id}}-all-insideSales').editable(
+                  {
+                    type: 'select',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/inside-sales',
+                    title: 'Select Inside Sales Rep',
+                    value: {{ $i->inside_sales_id }},
+                    disabled: true,
+                    name: 'insideSales',
+                    source: [
+                      @foreach ($insideSales as $item)
+                      { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                      @endforeach
+                    ]
+                  }
+                );
+
+                $('#{{$i->id}}-all-amount').editable(
+                  {
+                    type: 'number',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/amount',
+                    title: 'Enter Amount',
+                    disabled: true,
+                    name: 'amount',
+                  }
+                );
+
+                $('#{{$i->id}}-all-apcOppId').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/apc-opp-id',
+                    title: 'Enter APC OPP ID',
+                    disabled: true,
+                    name: 'apcOppId',
+                  }
+                );
+
+                $('#{{$i->id}}-all-invoiceLink').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/quote',
+                    title: 'Edit Quote',
+                    disabled: true,
+                    name: 'quote'
+                  }
+                );
+
+                $('#{{$i->id}}-all-engineer').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/engineer',
+                    title: 'Enter Engineer',
+                    disabled: true,
+                    name: 'engineer',
+                  }
+                );
+
+                $('#{{$i->id}}-all-contractor').editable(
+                  {
+                    type: 'text',
+                    pk: {{ $i->id }},
+                    url: '/project/edit/contractor',
+                    title: 'Enter Contractor',
+                    disabled: true,
+                    name: 'contractor',
+                  }
+                );
+
+              });
+
+              //enable editing of row on click of toggle link
+              $('#{{$i->id}}-all-toggle').click(function(e) {
+                e.stopPropagation();
+                $('#{{$i->id}}-all-name').editable('toggleDisabled');
+                $('#{{$i->id}}-all-status').editable('toggleDisabled');
+                $('#{{$i->id}}-all-bidDate').editable('toggleDisabled');
+                $('#{{$i->id}}-all-manufacturer').editable('toggleDisabled');
+                $('#{{$i->id}}-all-product').editable('toggleDisabled');
+                $('#{{$i->id}}-all-productSales').editable('toggleDisabled');
+                $('#{{$i->id}}-all-insideSales').editable('toggleDisabled');
+                $('#{{$i->id}}-all-amount').editable('toggleDisabled');
+                $('#{{$i->id}}-all-apcOppId').editable('toggleDisabled');
+                $('#{{$i->id}}-all-invoiceLink').editable('toggleDisabled');
+                $('#{{$i->id}}-all-engineer').editable('toggleDisabled');
+                $('#{{$i->id}}-all-contractor').editable('toggleDisabled');
 
 
-              $('#{{$i->id}}-all-manufacturer').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/manufacturer',
-                  title: 'Enter Manufacturer',
-                  disabled: true,
-                  name: 'manufacturer',
-                }
-              );
-
-              $('#{{$i->id}}-all-product').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/product',
-                  title: 'Enter Product Name',
-                  disabled: true,
-                  name: 'product',
-                }
-              );
-
-              $('#{{$i->id}}-all-productSales').editable(
-                {
-                  type: 'select',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/product-sales',
-                  title: 'Select Product Sales Rep',
-                  value: {{ $i->product_sales_id }},
-                  disabled: true,
-                  name: 'productSales',
-                  source: [
-                    @foreach ($productSales as $item)
-                    { value: {{ $item->id }}, text: '{{ $item->name }}'},
-                    @endforeach
-                  ]
-                }
-              );
-
-              $('#{{$i->id}}-all-insideSales').editable(
-                {
-                  type: 'select',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/inside-sales',
-                  title: 'Select Inside Sales Rep',
-                  value: {{ $i->inside_sales_id }},
-                  disabled: true,
-                  name: 'insideSales',
-                  source: [
-                    @foreach ($insideSales as $item)
-                    { value: {{ $item->id }}, text: '{{ $item->name }}'},
-                    @endforeach
-                  ]
-                }
-              );
-
-              $('#{{$i->id}}-all-amount').editable(
-                {
-                  type: 'number',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/amount',
-                  title: 'Enter Amount',
-                  disabled: true,
-                  name: 'amount',
-                }
-              );
-
-              $('#{{$i->id}}-all-apcOppId').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/apc-opp-id',
-                  title: 'Enter APC OPP ID',
-                  disabled: true,
-                  name: 'apcOppId',
-                }
-              );
-
-              $('#{{$i->id}}-all-invoiceLink').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/quote',
-                  title: 'Edit Quote',
-                  disabled: true,
-                  name: 'quote'
-                }
-              );
-
-              $('#{{$i->id}}-all-engineer').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/engineer',
-                  title: 'Enter Engineer',
-                  disabled: true,
-                  name: 'engineer',
-                }
-              );
-
-              $('#{{$i->id}}-all-contractor').editable(
-                {
-                  type: 'text',
-                  pk: {{ $i->id }},
-                  url: '/project/edit/contractor',
-                  title: 'Enter Contractor',
-                  disabled: true,
-                  name: 'contractor',
-                }
-              );
-
-            });
-
-            //enable editing of row on click of toggle link
-            $('#{{$i->id}}-all-toggle').click(function(e) {
-              e.stopPropagation();
-              $('#{{$i->id}}-all-name').editable('toggleDisabled');
-              $('#{{$i->id}}-all-status').editable('toggleDisabled');
-              $('#{{$i->id}}-all-bidDate').editable('toggleDisabled');
-              $('#{{$i->id}}-all-manufacturer').editable('toggleDisabled');
-              $('#{{$i->id}}-all-product').editable('toggleDisabled');
-              $('#{{$i->id}}-all-productSales').editable('toggleDisabled');
-              $('#{{$i->id}}-all-insideSales').editable('toggleDisabled');
-              $('#{{$i->id}}-all-amount').editable('toggleDisabled');
-              $('#{{$i->id}}-all-apcOppId').editable('toggleDisabled');
-              $('#{{$i->id}}-all-invoiceLink').editable('toggleDisabled');
-              $('#{{$i->id}}-all-engineer').editable('toggleDisabled');
-              $('#{{$i->id}}-all-contractor').editable('toggleDisabled');
+                $('#{{$i->id}}-all-name').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-status').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-bidDate').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-manufacturer').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-product').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-productSales').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-insideSales').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-amount').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-apcOppId').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-engineer').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-contractor').toggleClass('edit-enabled');
+              });
 
 
-              $('#{{$i->id}}-all-name').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-status').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-bidDate').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-manufacturer').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-product').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-productSales').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-insideSales').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-amount').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-apcOppId').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-engineer').toggleClass('edit-enabled');
-              $('#{{$i->id}}-all-contractor').toggleClass('edit-enabled');
-            });
-
-
-            @endforeach
+              @endforeach
 
             </script>
           </div>

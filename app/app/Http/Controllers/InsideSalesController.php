@@ -72,7 +72,6 @@ class InsideSalesController extends Controller
 
     return $users;
   }
-
   private function getProductSalesReps() {
     $sales = DB::table('user_roles')->select('user_id','role')->where('role','product-sales')->distinct()->get();
     $sales = $sales->pluck('user_id');
@@ -83,7 +82,55 @@ class InsideSalesController extends Controller
       ->select('id', 'name')
       ->get();
 
+
+    foreach ($users as $user) {
+      $lostProjects = $this->getProductSalesRepLostProjects($user->id);
+      $user->lostProjects = $lostProjects;
+
+      $soldProjects = $this->getProductSalesRepSoldProjects($user->id);
+      $user->soldProjects = $soldProjects;
+
+      $upcomingProjects = $this->getProductSalesRepUpcomingProjects($user->id);
+      $user->upcomingProjects = $upcomingProjects;
+    }
+
     return $users;
+  }
+  private function getProductSalesRepUpcomingProjects($product_sales_id) {
+    $now = Carbon::now();
+    $now->setTimezone('America/New_York');
+
+    $projects = DB::table('projects')
+      ->where('product_sales_id', $product_sales_id)
+      ->where('bid_date', '>=', $now)
+      ->orderBy('bid_date')
+      ->get();
+
+    foreach ($projects as $i) {
+      $date = new Carbon($i->bid_date);
+
+      $i->bidDate = $date->format('m/d/Y');
+    }
+
+    return $projects;
+  }
+  private function getProductSalesRepLostProjects($product_sales_id) {
+    $status_id = 5;
+    $projects = DB::table('projects')
+      ->where('product_sales_id', $product_sales_id)
+      ->where('status_id', $status_id)
+      ->get();
+
+    return $projects;
+  }
+  private function getProductSalesRepSoldProjects($product_sales_id) {
+    $status_id = 3;
+    $projects = DB::table('projects')
+      ->where('product_sales_id', $product_sales_id)
+      ->where('status_id', $status_id)
+      ->get();
+
+    return $projects;
   }
 
   private function expandProjectInfo($projects) {
@@ -221,6 +268,8 @@ class InsideSalesController extends Controller
 
     return $codes;
   }
+
+
 
 
 
