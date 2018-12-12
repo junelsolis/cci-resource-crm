@@ -18,6 +18,7 @@ class ProductSalesController extends Controller
       $ongoingProjects = $this->getAllProjects();
       $upcomingProjects = $this->getUpcomingProjects($ongoingProjects);
       $otherProjects = $this->getOtherProjects();
+      $chartData = $this->getChartData();
 
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
@@ -25,7 +26,8 @@ class ProductSalesController extends Controller
         ->with('projectStatusCodes', $projectStatusCodes)
         ->with('projects', $ongoingProjects)
         ->with('upcomingProjects', $upcomingProjects)
-        ->with('otherProjects', $otherProjects);
+        ->with('otherProjects', $otherProjects)
+        ->with('chartData', $chartData);
     }
 
     private function checkLoggedIn() {
@@ -228,6 +230,74 @@ class ProductSalesController extends Controller
 
       $projects = $projects->take(5);
       return $projects;
+    }
+    private function getChartData() {
+      /*  gathers all the data needed for charts
+      */
+
+      // get all projects over the last year
+      $now = Carbon::now();
+      $now->setTimezone('America/New_York');
+      $lastYear = $now->subYear();
+
+      $projects = DB::table('projects')
+        ->where('product_sales_id', session('logged_in_user_id'))
+        ->where('bid_date', '>=', $lastYear)
+        ->get();
+
+
+      // create array of months
+      $months = collect();
+      $index = 0;
+      $monthLoop = new Carbon('first day of this month');
+      $monthLoop->setTimezone('America/New_York');
+
+      while ($index <= 12) {
+
+        if ($index == 0) { $index++; continue;}
+
+        $date = new Carbon($monthLoop);
+        $date->setTimezone('America/New_York');
+        $date->subMonths($index);
+        $name = new Carbon($date);
+        $name = $name->format('M');
+
+        $collect = collect([ 'date' => $date, 'name' => $name]);
+        $months->push($collect);
+
+        $index++;
+      }
+
+      $months = $months->reverse();
+
+      $sales = collect();
+      foreach ($months as $month) {
+        $sum = 0;
+
+        foreach ($projects as $project) {
+          $bidDate = new Carbon($project->bid_date);
+          if ($project->status_id == 3 && $month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+            $sum += $project->amount;
+          }
+        }
+
+        $sales->push($sum);
+      }
+
+
+
+
+
+      // $chartData = collect([
+      //   'months' => $months->pluck('name'),
+      //   'salesYear' => $sales
+      // ]);
+
+      $chartData = collect();
+      $chartData->put('months', $months->pluck('name'));
+      $chartData->put('sales', $sales);
+
+      return $chartData;
     }
 
 }

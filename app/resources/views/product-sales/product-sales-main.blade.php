@@ -607,9 +607,10 @@
     var myChart2 = new Chart(document.getElementById("myChart2"), {
       type: 'line',
       data: {
-        labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
+        // labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
+        labels: {!! $chartData['months'] !!},
         datasets: [{
-            data: [2500,9000,18000,7000,5000,15000,3500,8000,10000,29000,9500,11000],
+            data: {!! $chartData['sales'] !!},
             label: "",
             borderColor: "#3e95cd",
             fill: false
