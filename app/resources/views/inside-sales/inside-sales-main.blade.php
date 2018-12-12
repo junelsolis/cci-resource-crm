@@ -27,6 +27,13 @@
   <body>
     <div id='main' class='grid-x'>
       <div class='cell small-12'>
+        <div class='card'>
+          <ul class='menu'>
+            <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class='cell small-12'>
         <div id='upcoming-projects' class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
