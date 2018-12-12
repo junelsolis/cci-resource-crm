@@ -407,8 +407,20 @@
                   </td>
                   <td id='{{$i->id}}-all-manufacturer'>{{ $i->manufacturer }}</td>
                   <td id='{{$i->id}}-all-product'>{{ $i->product }}</td>
-                  <td id='{{$i->id}}-all-productSales'>{{ $i->productSales->name }}</td>
-                  <td id='{{$i->id}}-all-insideSales'>{{ $i->insideSales->name }}</td>
+                  <td id='{{$i->id}}-all-productSales'>
+                    <?php
+                      $array = explode(' ', $i->productSales->name);
+                      $name = substr($array[0],0,1) . ' ' . $array[1];
+                      echo $name;
+                    ?>
+                  </td>
+                  <td id='{{$i->id}}-all-insideSales'>
+                    <?php
+                      $array = explode(' ', $i->insideSales->name);
+                      $name = substr($array[0],0,1) . ' ' . $array[1];
+                      echo $name;
+                    ?>
+                  </td>
                   <td id='{{$i->id}}-all-amount'>{{ $i->amount }}</td>
                   <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td></td>
