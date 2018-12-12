@@ -17,7 +17,7 @@
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
     <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
-    <script src='{{ asset('js/bootstrap.min.css')}}'></script>
+    <script src='{{ asset('js/bootstrap.min.js')}}'></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
@@ -39,24 +39,23 @@
             </div>
           </div>
           <br />
-          <div class='grid-x'>
-            <div class='table-scroll'>
+          <div class='table-scroll'>
               <table id='upcoming-projects-table' class='unstriped'>
                 <thead>
                   <tr>
                     <th></th>
-                    <th class='sort' data-sort='name'>Name</th>
-                    <th class='sort' data-sort='status'>Status</th>
-                    <th class='sort' data-sort='bidDate' >Bid Date</th>
-                    <th class='sort' data-sort='manufacturer'>Manufacturer</th>
-                    <th class='sort' data-sort='product'>Product</th>
-                    <th class='sort' data-sort='productSales'>Product Sales</th>
-                    <th class='sort' data-sort='insideSales'>Inside Sales</th>
-                    <th class='sort' data-sort='amount'>Amount</th>
-                    <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Bid Date</th>
+                    <th>Manufacturer</th>
+                    <th>Product</th>
+                    <th>Product Sales</th>
+                    <th>Inside Sales</th>
+                    <th>Amount</th>
+                    <th>APC OPP ID</th>
                     <th>Quote Link</th>
-                    <th class='sort' data-sort='engineer'>Engineer</th>
-                    <th class='sort' data-sort='contractor'>Contractor</th>
+                    <th>Engineer</th>
+                    <th>Contractor</th>
                     <th>Note</th>
                   </tr>
                 </thead>
@@ -102,23 +101,11 @@
                 </tbody>
               </table>
               <script>
-                $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-
-                });
-
                 $.fn.editable.defaults.mode = 'inline';
-
-                $(document).ready(function() {
-                  $('#upcoming-projects-table').DataTable();
-                });
 
                 @foreach ($upcomingProjects as $i)
                 // setup editables
                 $(document).ready(function() {
-
 
 
                   $('#{{$i->id}}-name').editable(
@@ -279,35 +266,35 @@
 
                 });
 
-                // enable editing of row on click of toggle link
-                // $('#{{$i->id}}-toggle').click(function(e) {
-                //   e.stopPropagation();
-                //   $('#{{$i->id}}-name').editable('toggleDisabled');
-                //   $('#{{$i->id}}-status').editable('toggleDisabled');
-                //   $('#{{$i->id}}-bidDate').editable('toggleDisabled');
-                //   $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
-                //   $('#{{$i->id}}-product').editable('toggleDisabled');
-                //   $('#{{$i->id}}-productSales').editable('toggleDisabled');
-                //   $('#{{$i->id}}-insideSales').editable('toggleDisabled');
-                //   $('#{{$i->id}}-amount').editable('toggleDisabled');
-                //   $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
-                //   $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
-                //   $('#{{$i->id}}-engineer').editable('toggleDisabled');
-                //   $('#{{$i->id}}-contractor').editable('toggleDisabled');
-                //
-                //
-                //   $('#{{$i->id}}-name').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-status').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-product').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-amount').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
-                //   $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
-                // });
+                //enable editing of row on click of toggle link
+                $('#{{$i->id}}-toggle').click(function(e) {
+                  e.stopPropagation();
+                  $('#{{$i->id}}-name').editable('toggleDisabled');
+                  $('#{{$i->id}}-status').editable('toggleDisabled');
+                  $('#{{$i->id}}-bidDate').editable('toggleDisabled');
+                  $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
+                  $('#{{$i->id}}-product').editable('toggleDisabled');
+                  $('#{{$i->id}}-productSales').editable('toggleDisabled');
+                  $('#{{$i->id}}-insideSales').editable('toggleDisabled');
+                  $('#{{$i->id}}-amount').editable('toggleDisabled');
+                  $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
+                  $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
+                  $('#{{$i->id}}-engineer').editable('toggleDisabled');
+                  $('#{{$i->id}}-contractor').editable('toggleDisabled');
+
+
+                  $('#{{$i->id}}-name').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-status').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-amount').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
+                });
 
 
                 @endforeach
@@ -317,7 +304,6 @@
               </script>
 
             </div>
-          </div>
 
         </div>
       </div>
@@ -355,7 +341,7 @@
               <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;All Projects</strong></h5>
             </div>
             <div class='cell medium-6 large-10'>
-              
+
             </div>
           </div>
           <br />
@@ -363,6 +349,7 @@
             <table id='all-projects-table' class='unstriped'>
               <thead>
                 <tr>
+                  <th></th>
                   <th>Name</th>
                   <th>Status</th>
                   <th>Bid Date</th>
@@ -381,28 +368,29 @@
               <tbody>
                 @foreach ($allProjects as $i)
                 <tr>
-                  <td>{{ $i->name}}</td>
-                  <td style='<?php
+                  <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
+                  <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
+                  <td id='{{$i->id}}->all-status' style='<?php
                       if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
                       if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
                       if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
                       if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
                     ?>'>{{ $i->status->status }}</td>
-                  <td style='<?php
+                  <td id='{{$i->id}}-all-bidDate' style='<?php
                       if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
                       if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
                     ?>'>
                     {{ $i->bidDate }}
                   </td>
-                  <td>{{ $i->manufacturer }}</td>
-                  <td>{{ $i->product }}</td>
-                  <td>{{ $i->productSales->name }}</td>
-                  <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i->amount }}</td>
-                  <td>{{ $i->apc_opp_id }}</td>
+                  <td id='{{$i->id}}-all-manufacturer'>{{ $i->manufacturer }}</td>
+                  <td id='{{$i->id}}-all-product'>{{ $i->product }}</td>
+                  <td id='{{$i->id}}-all-productSales'>{{ $i->productSales->name }}</td>
+                  <td id='{{$i->id}}-all-insideSales'>{{ $i->insideSales->name }}</td>
+                  <td id='{{$i->id}}-all-amount'>{{ $i->amount }}</td>
+                  <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td></td>
-                  <td>{{ $i->engineer }}</td>
-                  <td>{{ $i->contractor }}</td>
+                  <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
+                  <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
                   <td>{{ $i->notes->first()->note }}</td>
                 </tr>
 
@@ -412,22 +400,233 @@
             </table>
 
             <script>
-              $(document).ready(function() {
-                $('#all-projects-table').DataTable( {
-                  "order": [[ 2, "desc" ]],
-                } );
-              } );
+            @foreach ($allProjects as $i)
+            // setup editables
+            $(document).ready(function() {
+
+
+              $('#{{$i->id}}-all-name').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/name',
+                  title: 'Enter Project Name',
+                  disabled: true,
+                  name: 'name',
+                }
+              );
+
+              $('#{{$i->id}}-all-status').editable(
+                {
+                  type: 'select',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/status',
+                  title: 'Choose Status',
+                  disabled: true,
+                  name: 'status',
+                  value: {{ $i->status_id}},
+                    source: [
+                      @foreach ($projectStatusCodes as $code)
+                      { value: {{ $code->id }}, text: '{{ $code->status }}'},
+                      @endforeach
+                    ]
+                }
+              );
+
+              $('#{{$i->id}}-all-bidDate').editable(
+                {
+                  type: 'date',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/bid-date',
+                  title: 'Select Bid Date',
+                  disabled: true,
+                  name: 'bidDate',
+                  format: 'yyyy-mm-dd',
+                  viewformat: 'mm/dd/yy',
+                  datepicker: {
+                    weekStart: 1
+                  }
+                }
+              );
+
+
+              $('#{{$i->id}}-all-manufacturer').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/manufacturer',
+                  title: 'Enter Manufacturer',
+                  disabled: true,
+                  name: 'manufacturer',
+                }
+              );
+
+              $('#{{$i->id}}-all-product').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/product',
+                  title: 'Enter Product Name',
+                  disabled: true,
+                  name: 'product',
+                }
+              );
+
+              $('#{{$i->id}}-all-productSales').editable(
+                {
+                  type: 'select',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/product-sales',
+                  title: 'Select Product Sales Rep',
+                  value: {{ $i->product_sales_id }},
+                  disabled: true,
+                  name: 'productSales',
+                  source: [
+                    @foreach ($productSales as $item)
+                    { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                    @endforeach
+                  ]
+                }
+              );
+
+              $('#{{$i->id}}-all-insideSales').editable(
+                {
+                  type: 'select',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/inside-sales',
+                  title: 'Select Inside Sales Rep',
+                  value: {{ $i->inside_sales_id }},
+                  disabled: true,
+                  name: 'insideSales',
+                  source: [
+                    @foreach ($insideSales as $item)
+                    { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                    @endforeach
+                  ]
+                }
+              );
+
+              $('#{{$i->id}}-all-amount').editable(
+                {
+                  type: 'number',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/amount',
+                  title: 'Enter Amount',
+                  disabled: true,
+                  name: 'amount',
+                }
+              );
+
+              $('#{{$i->id}}-all-apcOppId').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/apc-opp-id',
+                  title: 'Enter APC OPP ID',
+                  disabled: true,
+                  name: 'apcOppId',
+                }
+              );
+
+              $('#{{$i->id}}-all-invoiceLink').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/quote',
+                  title: 'Edit Quote',
+                  disabled: true,
+                  name: 'quote'
+                }
+              );
+
+              $('#{{$i->id}}-all-engineer').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/engineer',
+                  title: 'Enter Engineer',
+                  disabled: true,
+                  name: 'engineer',
+                }
+              );
+
+              $('#{{$i->id}}-all-contractor').editable(
+                {
+                  type: 'text',
+                  pk: {{ $i->id }},
+                  url: '/project/edit/contractor',
+                  title: 'Enter Contractor',
+                  disabled: true,
+                  name: 'contractor',
+                }
+              );
+
+            });
+
+            //enable editing of row on click of toggle link
+            $('#{{$i->id}}-all-toggle').click(function(e) {
+              e.stopPropagation();
+              $('#{{$i->id}}-all-name').editable('toggleDisabled');
+              $('#{{$i->id}}-all-status').editable('toggleDisabled');
+              $('#{{$i->id}}-all-bidDate').editable('toggleDisabled');
+              $('#{{$i->id}}-all-manufacturer').editable('toggleDisabled');
+              $('#{{$i->id}}-all-product').editable('toggleDisabled');
+              $('#{{$i->id}}-all-productSales').editable('toggleDisabled');
+              $('#{{$i->id}}-all-insideSales').editable('toggleDisabled');
+              $('#{{$i->id}}-all-amount').editable('toggleDisabled');
+              $('#{{$i->id}}-all-apcOppId').editable('toggleDisabled');
+              $('#{{$i->id}}-all-invoiceLink').editable('toggleDisabled');
+              $('#{{$i->id}}-all-engineer').editable('toggleDisabled');
+              $('#{{$i->id}}-all-contractor').editable('toggleDisabled');
+
+
+              $('#{{$i->id}}-all-name').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-status').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-bidDate').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-manufacturer').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-product').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-productSales').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-insideSales').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-amount').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-apcOppId').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-engineer').toggleClass('edit-enabled');
+              $('#{{$i->id}}-all-contractor').toggleClass('edit-enabled');
+            });
+
+
+            @endforeach
+
             </script>
           </div>
-
-
         </div>
       </div>
     </div>
   </body>
   @include('footer')
   <script>
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+
+    });
+
     $(document).foundation();
+
+    $(document).ready(function() {
+
+      $('#upcoming-projects-table').DataTable( {
+        "order": [[ 2, 'desc']],
+        'pageLength': 10,
+      });
+
+
+      $('#all-projects-table').DataTable( {
+        "order": [[ 2, "desc" ]],
+        'pageLength': 25,
+      } );
+    } );
   </script>
 
 
