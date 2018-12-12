@@ -272,9 +272,13 @@
                       if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
                       if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
                       if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
-                      if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
+                      if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185);'; }
+                      if ($i->status->status == 'Lost') { echo 'background-color:rgba(44,62,80,0.2);color:rgb(44,62,80,1);';}
                     ?>'>{{ $i->status->status }}</td>
-                  <td id='{{$i->id}}-bidDate'>{{ $i->bidDate }}</td>
+                  <td id='{{$i->id}}-bidDate' style='<?php
+                      if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
+                      if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
+                    ?>'>{{ $i->bidDate }}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
                   <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
@@ -516,44 +520,44 @@
               <h5><strong><i class="fas fa-users-cog"></i>&nbsp;Other Projects</strong></h5>
             </div>
             <div class='cell medium-6 large-10'>
-              <ul class='menu align-right'>
+              <!-- <ul class='menu align-right'>
                 <li><input type='text' class='search' placeholder='Search Other Projects' /></li>
-              </ul>
+              </ul> -->
 
             </div>
           </div>
           <br />
           <div class='table-scroll'>
-            <table class='unstriped'>
+            <table id='other-projects-table' class='unstriped'>
               <thead>
                 <tr>
-                  <th class='sort' data-sort='salesRep'>Sales Rep</th>
-                  <th class='sort' data-sort='name'>Name</th>
-                  <th class='sort' data-sort='status'>Status</th>
-                  <th class='sort' data-sort='bidDate'>Bid Date</th>
-                  <th class='sort' data-sort='manufacturer'>Manufacturer</th>
-                  <th class='sort' data-sort='product'>Product</th>
-                  <th class='sort' data-sort='insideSales'>Inside Sales</th>
-                  <th class='sort' data-sort='amount'>Amount</th>
-                  <th class='sort' data-sort='apcOppId'>APC OPP ID</th>
-                  <th class='sort' data-sort='engineer'>Engineer</th>
-                  <th class='sort' data-sort='contractor'>Contractor</th>
+                  <th>Sales Rep</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Bid Date</th>
+                  <th>Manufacturer</th>
+                  <th>Product</th>
+                  <th>Inside Sales</th>
+                  <th>Amount</th>
+                  <th>APC OPP ID</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
                 </tr>
               </thead>
-              <tbody class='list'>
+              <tbody>
                 @foreach ($otherProjects as $i)
                 <tr>
-                  <td class='salesRep'>{{ $i->productSales->name }}</td>
-                  <td class='name'>{{ $i->name }}</td>
-                  <td class='status'>{{ $i->status->status }}</td>
-                  <td class='bidDate'>{{ $i->bidDate }}</td>
-                  <td class='manufacturer'>{{ $i->manufacturer}}</td>
-                  <td class='product'>{{ $i->product }}</td>
-                  <td class='insideSales'>{{ $i->insideSales->name }}</td>
-                  <td class='amount'>{{ $i->amount }}</td>
-                  <td class='apcOppId'>{{ $i->apc_opp_id }}</td>
-                  <td class='engineer'>{{ $i->engineer}}</td>
-                  <td class='contractor'>{{ $i->contractor}}</td>
+                  <td>{{ $i->productSales->name }}</td>
+                  <td>{{ $i->name }}</td>
+                  <td>{{ $i->status->status }}</td>
+                  <td>{{ $i->bidDate }}</td>
+                  <td>{{ $i->manufacturer}}</td>
+                  <td>{{ $i->product }}</td>
+                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->apc_opp_id }}</td>
+                  <td>{{ $i->engineer}}</td>
+                  <td>{{ $i->contractor}}</td>
                 </tr>
                 @endforeach
               </tbody>
@@ -584,7 +588,12 @@
     $(document).ready(function() {
 
       $('#my-projects-table').DataTable( {
-        "order": [[ 2, 'desc']],
+        "order": [[ 3, 'desc']],
+        'pageLength': 25,
+      });
+
+      $('#other-projects-table').DataTable( {
+        "order": [[ 3, 'desc']],
         'pageLength': 25,
       });
 
@@ -626,25 +635,24 @@
         data: {
             labels: ["New","Quoted","Sold","Engineered","Lost"],
             datasets: [{
-                data: [11,13,9,8,15],
+                data: [11,16,9,8,3],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-
+                    'rgba(243,156,18,0.6)',
+                    'rgba(41,128,185,0.6)',
+                    'rgba(39,174,96,0.6)',
+                    'rgba(142,68,173,0.6)',
+                    'rgba(44,62,80,0.6)',
                 ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-
-                ],
+                // borderColor: [
+                //   'rgba(243,156,18,1)',
+                //   'rgba(41,128,185,1)',
+                //   'rgba(39,174,96,1)',
+                //   'rgba(142,68,173,1)',
+                //   'rgba(44,62,80,1)',
+                // ],
                 borderWidth: 1
             }]
+
         },
         options: {
           maintainAspectRatio: false,
