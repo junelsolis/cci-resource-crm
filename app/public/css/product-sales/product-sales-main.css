@@ -40,6 +40,14 @@ body {
   font-size: 1.2em;
 }
 
+#add-project-modal form span i {
+  color: red !important;
+  font-size: 0.7em;
+  position: relative;
+  top: -3px;
+}
+
+
 .reveal {
   background-color: #F8F8F8;
 
@@ -61,7 +69,7 @@ body {
 }
 
 
-.reveal label span i {
+/* .reveal label span i {
   color: red !important;
   font-size: 8px !important;
   position: relative;
@@ -70,16 +78,12 @@ body {
 
 .reveal span {
 
-}
+} */
 
 #upcoming-projects td{
   color: #464B69;
 
 }
 table thead {
-  font-size: 1em;
   color: #464B69;
-}
-table tbody {
-  font-size: 0.9em;
 }

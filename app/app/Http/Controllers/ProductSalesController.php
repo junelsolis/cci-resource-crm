@@ -69,7 +69,6 @@ class ProductSalesController extends Controller
 
       return $users;
     }
-
     private function getProductSalesReps() {
       $sales = DB::table('user_roles')->select('user_id','role')->where('role','product-sales')->distinct()->get();
       $sales = $sales->pluck('user_id');
@@ -109,23 +108,66 @@ class ProductSalesController extends Controller
     }
 
     private function expandProjectInfo($projects) {
-      /*  takes a collection of projects
-          adds associated data including:
-          -- project status information
-          -- formatted bid date
-          -- name of inside sales rep
-          -- formatted amount
+      /*  Take a collection of projects
+          and expand their information
       */
 
-      $allNotes = DB::table('project_notes')->select('id','project_id','last_updated_by_id','note','created_at')
-        ->orderBy('created_at', 'desc')->get();
+      $allStatus = DB::table('project_status')->get();
+      $allInsideSales = $this->getInsideSalesReps();
+      $allProductSales = $this->getProductSalesReps();
+      $allNotes = DB::table('project_notes')->orderBy('created_at','desc')->get();
 
-      $allStatus = DB::table('project_status')->select('id','status')->get();
-      $insideSalesReps = $this->getInsideSalesReps();
-      $productSalesReps = $this->getProductSalesReps();
 
-      // loop through projects
+      $now = Carbon::today();
+      $now->setTimezone('America/New_York');
+
+      $nextDay = Carbon::today();
+      $nextDay->setTimezone('America/New_York');
+      $nextDay->addDay();
+
+      $nextWeek = Carbon::today();
+      $nextWeek->setTimezone('America/New_York');
+      $nextWeek->addWeek();
+
       foreach ($projects as $project) {
+
+        // assign status
+        $status = $allStatus->where('id', $project->status_id)->first();
+        $project->status = $status;
+
+        // format bid date
+        $bidDate = new Carbon($project->bid_date);
+        $date = $bidDate->format('m/d/Y');
+        $project->bidDate = $date;
+
+        // add bid timing
+        if ($bidDate->lessThan($now)) {
+          $bidTiming = 'late';
+          $project->bidTiming = $bidTiming;
+        }
+
+        else if (($bidDate->greaterThanOrEqualTo($now)) && ($bidDate->lessThanOrEqualto($nextWeek))) {
+          $bidTiming = 'soon';
+          $project->bidTiming = $bidTiming;
+        }
+
+        else {
+          $bidTiming = 'ontime';
+          $project->bidTiming = $bidTiming;
+        }
+
+        // add product sales person
+        $productSales = $allProductSales->where('id', $project->product_sales_id)->first();
+
+        $project->productSales = $productSales;
+
+        // add inside sales person
+        $insideSales = $allInsideSales->where('id', $project->inside_sales_id)->first();
+        $project->insideSales = $insideSales;
+
+        // format amount
+        $project->amount = '$' . number_format($project->amount);
+
         // append project notes
         $notes = $allNotes->where('project_id', $project->id);
 
@@ -138,37 +180,15 @@ class ProductSalesController extends Controller
           $note->date = $date->format('D, m/d/Y h:i:s a');
 
           // add note author name
-          $author = $insideSalesReps->where('id', $note->last_updated_by_id)->first();
+          $author = $allInsideSales->where('id', $note->last_updated_by_id)->first();
           if (empty($author)) {
-            $author = $productSalesReps->where('id', $note->last_updated_by_id)->first();
+            $author = $allProductSales->where('id', $note->last_updated_by_id)->first();
           }
 
           $note->author = $author->name;
         }
 
         $project->notes = $notes;
-
-        // append status name
-        $status = $allStatus->where('id', $project->status_id)->first();
-        $project->status = $status;
-
-        // append formatted bid date
-        $bidDate = new Carbon($project->bid_date);
-        $bidDate = $bidDate->format('m/d/Y');
-        $project->bidDate = $bidDate;
-
-        // append inside sales person
-        $insideSales = $insideSalesReps->where('id', $project->inside_sales_id)->first();
-        $project->insideSales = $insideSales;
-
-        // append product sales rep
-        $productSales = $productSalesReps->where('id', $project->product_sales_id)->first();
-        $project->productSales = $productSales;
-
-        // format amount
-        $project->amount = '$' . number_format($project->amount);
-
-
       }
 
       return $projects;
