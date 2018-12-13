@@ -291,14 +291,16 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a data-open="{{$i->id}}-notes-modal" style='font-style:italic;color:rgba(54, 162, 235, 1);'>{{ $i->notes->first()->note }}</a></td>
+                  <td><a data-open="{{$i->id}}-notes-modal" style='font-style:italic;color:rgba(54, 162, 235, 1);'>{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
+
+
 
                 <div class='reveal' id='{{$i->id}}-notes-modal' data-reveal>
                   <button class="close-button" data-close aria-label="Close modal" type="button">
                     <span aria-hidden="true">&times;</span>
                   </button>
-                  <h3><strong>Project Notes</strong> &mdash; {{ $i->name }}</h3>
+                  <h4><strong>Project Notes</strong> &mdash; {{ $i->name }}</h4>
                   <br />
                   <!-- <i class="fas fa-plus"></i>&nbsp;Add Note -->
                   <form method='post' action='/note/add/{{ $i->id }}'>
@@ -308,10 +310,11 @@
                   </form>
                   <br />
                   @foreach ($i->notes as $note)
-                  <div class="callout secondary">
-                    <h5>{{ $note->note }}</h5>
+                  <div class="note-card">
+                    <span>{!! nl2br($note->note) !!}</span>
+                    <br /><br />
                     <p style='color:grey;'>
-                      &mdash;&nbsp;<em>{{ $note->author }}</em> on {{ $note->date }}
+                      <strong>{{ $note->author }}</strong> on {{ $note->date }}
                     </p>
                   </div>
                   @endforeach
@@ -594,7 +597,7 @@
 
       $('#other-projects-table').DataTable( {
         // "order": [[ 3, 'desc']],
-        'pageLength': 25,
+        'pageLength': 10,
       });
 
     });
@@ -741,7 +744,7 @@
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: 'Project Counts (up to 12 months ago)'
+            text: 'Project Counts (Last 12 months)'
           },
           legend: {
             display: false,
