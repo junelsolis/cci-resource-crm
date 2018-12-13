@@ -139,7 +139,7 @@ class ProductSalesController extends Controller
 
         // format bid date
         $bidDate = new Carbon($project->bid_date);
-        $date = $bidDate->format('m/d/Y');
+        $date = $bidDate->format('Y-m-d');
         $project->bidDate = $date;
 
         // add bid timing

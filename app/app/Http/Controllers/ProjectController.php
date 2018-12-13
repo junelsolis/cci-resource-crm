@@ -28,6 +28,13 @@ class ProjectController extends Controller
       $contractor = $request['contractor'];
       $note = $request['note'];
 
+
+      // make sure link starts with http
+      if (starts_with('http://', $invoice_link) == false && starts_with('https://', $invoice_link) == false) {
+        $invoice_link = 'http://'. $invoice_link;
+      }
+
+
       // insert project into database
       $project_id = DB::table('projects')->insertGetId([
         'name' => $name,
@@ -303,6 +310,11 @@ class ProjectController extends Controller
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      // make sure link starts with http
+      if (starts_with('http://', $value) == false && starts_with('https://', $value) == false) {
+        $value = 'http://'. $value;
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'invoice_link' => $value,
