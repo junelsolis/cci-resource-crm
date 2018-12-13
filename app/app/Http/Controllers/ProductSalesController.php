@@ -408,12 +408,28 @@ class ProductSalesController extends Controller
       $projectStatus->push($collect);
 
 
+      // create project counts
+      $projectCounts = collect();
+      foreach ($months as $month) {
+        $count = 0;
+
+        foreach ($projects as $project) {
+          $bidDate = new Carbon($project->bid_date);
+          if ($month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+            $count++;
+          }
+        }
+
+        $projectCounts->push($count);
+      }
+
       $chartData = collect();
       $chartData->put('months', $months->pluck('name'));
       $chartData->put('nextSixMonths', $nextSixMonths->pluck('name'));
       $chartData->put('sales', $sales);
       $chartData->put('projectedSales', $projectedSales);
       $chartData->put('projectStatus', $projectStatus);
+      $chartData->put('projectCounts', $projectCounts);
 
       return $chartData;
     }

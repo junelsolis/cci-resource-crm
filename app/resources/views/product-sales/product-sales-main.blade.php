@@ -104,7 +104,7 @@
               <canvas id="projectStatus" height="180px"></canvas>
             </div>
             <div class='cell large-6'>
-              <canvas id="myChart3" height="180px"></canvas>
+              <canvas id="projectCounts" height="180px"></canvas>
             </div>
           </div>
         </div>
@@ -276,8 +276,8 @@
                       if ($i->status->status == 'Lost') { echo 'background-color:rgba(44,62,80,0.2);color:rgb(44,62,80,1);';}
                     ?>'>{{ $i->status->status }}</td>
                   <td id='{{$i->id}}-bidDate' style='<?php
-                      if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
-                      if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
+                      if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'color:red;';}
+                      if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'color:#f39c12;'; }
                     ?>'>{{ $i->bidDate }}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
@@ -686,7 +686,7 @@
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: 'Project Status (Last 12 Months)'
+            text: 'Project Status (Up to last 12 months)'
           },
           legend: {
             display: true,
@@ -699,13 +699,13 @@
 
 
 
-    var ctx = document.getElementById("myChart3").getContext('2d');
+    var ctx = document.getElementById("projectCounts").getContext('2d');
     var myChart3 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+            labels: {!! $chartData['months'] !!},
             datasets: [{
-                data: [11,13,9,8,15,7,9,12,13,6,3,10],
+                data: {!! $chartData['projectCounts'] !!},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
