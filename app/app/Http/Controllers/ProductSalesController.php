@@ -327,11 +327,93 @@ class ProductSalesController extends Controller
         $projectedSales->push($sum);
       }
 
+      // create projects data over last 12 months
+      $projectStatus = collect();
+      $now = Carbon::now();
+      $now->setTimezone('America/New_York');
+
+      // count new projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 1) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'New');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Quoted projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 2) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Quoted');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Sold projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 3) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Sold');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Engineered projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 4) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Engineered');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Lost projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 5) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Lost');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+
       $chartData = collect();
       $chartData->put('months', $months->pluck('name'));
       $chartData->put('nextSixMonths', $nextSixMonths->pluck('name'));
       $chartData->put('sales', $sales);
       $chartData->put('projectedSales', $projectedSales);
+      $chartData->put('projectStatus', $projectStatus);
 
       return $chartData;
     }

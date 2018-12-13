@@ -660,9 +660,10 @@
     var projectStatus = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ["New","Quoted","Sold","Engineered","Lost"],
+            // labels: ["New","Quoted","Sold","Engineered","Lost"],
+            labels: {!! $chartData['projectStatus']->pluck('name') !!},
             datasets: [{
-                data: [11,16,9,8,3],
+                data: {!! $chartData['projectStatus']->pluck('count') !!},
                 backgroundColor: [
                     'rgba(243,156,18,0.6)',
                     'rgba(41,128,185,0.6)',
@@ -740,7 +741,7 @@
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: 'Project Counts (Last 12 Months)'
+            text: 'Project Counts (up to 12 months ago)'
           },
           legend: {
             display: false,
