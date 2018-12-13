@@ -88,7 +88,7 @@
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;Sales</strong></h5>
           <div class='grid-x'>
             <div class='cell large-6'>
-              <canvas id="myChart2" height="180px"></canvas>
+              <canvas id="chart2" height="180px"></canvas>
             </div>
             <div class='cell large-6'>
               <canvas id='projected-sales' height='180px'></canvas>
@@ -588,12 +588,12 @@
     $(document).ready(function() {
 
       $('#my-projects-table').DataTable( {
-        "order": [[ 3, 'desc']],
+        // "order": [[ 3, 'desc']],
         'pageLength': 25,
       });
 
       $('#other-projects-table').DataTable( {
-        "order": [[ 3, 'desc']],
+        // "order": [[ 3, 'desc']],
         'pageLength': 25,
       });
 
@@ -603,8 +603,8 @@
 
   <!-- charts -->
   <script>
-    var ctx = document.getElementById("myChart2").getContext('2d');
-    var myChart2 = new Chart(document.getElementById("myChart2"), {
+    var ctx = document.getElementById("chart2").getContext('2d');
+    var chart2 = new Chart(document.getElementById("chart2"), {
       type: 'line',
       data: {
         // labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
@@ -622,6 +622,32 @@
         title: {
           display: true,
           text: 'Sales (Last 12 months)'
+        },
+        legend: {
+          display: false,
+        }
+      }
+    });
+
+
+    var ctx = document.getElementById("projected-sales").getContext('2d');
+    var myChart2 = new Chart(document.getElementById("projected-sales"), {
+      type: 'line',
+      data: {
+        labels: {!! $chartData['nextSixMonths'] !!},
+        datasets: [{
+            data: {!! $chartData['projectedSales'] !!},
+            label: "",
+            borderColor: "rgba(255,99,132,1)",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          text: 'Projected Sales (Next 6 months)'
         },
         legend: {
           display: false,
@@ -668,30 +694,6 @@
         }
     });
 
-    var ctx = document.getElementById("projected-sales").getContext('2d');
-    var myChart2 = new Chart(document.getElementById("projected-sales"), {
-      type: 'line',
-      data: {
-        labels: ['Dec','Jan','Feb','Mar','Apr','May'],
-        datasets: [{
-            data: [8600,7900,16000,7000,10000,12000],
-            label: "",
-            borderColor: "rgba(255,99,132,1)",
-            fill: false
-          }
-        ]
-      },
-      options: {
-        maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: 'Projected Sales (Next 6 months)'
-        },
-        legend: {
-          display: false,
-        }
-      }
-    });
 
 
 

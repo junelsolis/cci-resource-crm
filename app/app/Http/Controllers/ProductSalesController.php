@@ -101,7 +101,7 @@ class ProductSalesController extends Controller
 
       $projects = DB::table('projects')
         ->where('product_sales_id', session('logged_in_user_id'))
-        ->orderBy('bid_date')
+        ->orderBy('bid_date', 'desc')
         ->get();
 
       $projects = $this->expandProjectInfo($projects);
@@ -203,7 +203,7 @@ class ProductSalesController extends Controller
 
       $projects = DB::table('projects')
         ->where('product_sales_id','!=', session('logged_in_user_id'))
-        ->orderBy('bid_date')
+        ->orderBy('bid_date','desc')
         ->get();
 
       if ($projects->isEmpty()) { return NULL; }
@@ -270,6 +270,8 @@ class ProductSalesController extends Controller
 
       $months = $months->reverse();
 
+
+      // create sales data
       $sales = collect();
       foreach ($months as $month) {
         $sum = 0;
@@ -285,17 +287,51 @@ class ProductSalesController extends Controller
       }
 
 
+      // create next six months
+      $nextSixMonths = collect();
+      $index = 0;
+      $monthLoop = new Carbon('first day of this month');
+      $monthLoop->setTimezone('America/New_York');
+
+      while ($index <= 6) {
+
+        if ($index == 0) { $index++; continue;}
+
+        $date = new Carbon($monthLoop);
+        $date->setTimezone('America/New_York');
+        $date->addMonths($index);
+        $name = new Carbon($date);
+        $name = $name->format('M');
+
+        $collect = collect([ 'date' => $date, 'name' => $name]);
+        $nextSixMonths->push($collect);
+
+        $index++;
+      }
 
 
+      // create projected sales
+      $projectedSales = collect();
+      foreach ($nextSixMonths as $month) {
+        $sum = 0;
 
-      // $chartData = collect([
-      //   'months' => $months->pluck('name'),
-      //   'salesYear' => $sales
-      // ]);
+        foreach ($projects as $project) {
+          if ($project->status_id != 5) {
+            $bidDate = new Carbon($project->bid_date);
+            if (($month['date'])->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+              $sum += $project->amount;
+            }
+          }
+        }
+
+        $projectedSales->push($sum);
+      }
 
       $chartData = collect();
       $chartData->put('months', $months->pluck('name'));
+      $chartData->put('nextSixMonths', $nextSixMonths->pluck('name'));
       $chartData->put('sales', $sales);
+      $chartData->put('projectedSales', $projectedSales);
 
       return $chartData;
     }
