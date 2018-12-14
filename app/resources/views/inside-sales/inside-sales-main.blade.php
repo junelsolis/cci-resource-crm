@@ -344,9 +344,9 @@
           ?>
           @foreach ($i->notes as $note)
           <?php
-            if ($colorSwitcher >= 5) { $colorSwitcher = 0; }
+            if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
 
-            if ($colorSwitcher <= 4) {
+            if ($colorSwitcher <= 1) {
               if ($colorSwitcher == 0) {
                 $color = 'style=\'background-color:rgba(46,204,113,0.1)\';';
               }
@@ -355,17 +355,17 @@
                 $color = 'style=\'background-color:rgba(241,196,15,0.1)\';';
               }
 
-              if ($colorSwitcher == 2) {
-                $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
-              }
-
-              if ($colorSwitcher == 3) {
-                $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
-              }
-
-              if ($colorSwitcher == 4) {
-                $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
-              }
+              // if ($colorSwitcher == 2) {
+              //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
+              // }
+              //
+              // if ($colorSwitcher == 3) {
+              //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
+              // }
+              //
+              // if ($colorSwitcher == 4) {
+              //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
+              // }
 
               $colorSwitcher++;
             }

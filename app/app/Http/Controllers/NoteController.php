@@ -34,8 +34,14 @@ class NoteController extends Controller
       // retrieve project
       $project = DB::table('projects')->where('id', $project_id)->first();
 
+      // check if user is member of inside sales
+      $checkInsideSales = DB::table('user_roles')->where('user_id', $user_id)->where('role', 'inside-sales')->first();
+      $isInsideSales = false;
+      if (empty($checkInsideSales)) {}
+      else { $isInsideSales = true; }
+
       // check if allowed to add note for project
-      if (($project->product_sales_id != $user_id) && ($project->inside_sales_id != $user_id)) {
+      if (($project->product_sales_id != $user_id) && ($isInsideSales == false)) {
         return false;
       }
 
