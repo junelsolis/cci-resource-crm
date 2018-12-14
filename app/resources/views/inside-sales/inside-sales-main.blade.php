@@ -105,7 +105,7 @@
                     </td>
                     <td id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
                     <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
-                    <td id='{{ $i->id}}->invoiceLink'>
+                    <td id='{{ $i->id}}-invoiceLink'>
                       @if (isset($i->invoice_link))
                       <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
                       @endif
@@ -309,6 +309,7 @@
                   $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
                   $('#{{$i->id}}-amount').toggleClass('edit-enabled');
                   $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-invoiceLink').toggleClass('edit-enabled');
                   $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
                   $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
                 });
