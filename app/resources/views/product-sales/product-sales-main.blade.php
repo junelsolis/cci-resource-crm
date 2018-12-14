@@ -306,7 +306,7 @@
                   <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td id='{{$i->id}}-invoiceLink' >
                     @if (isset($i->invoice_link))
-                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-file-invoice"></i></a>
+                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
                     @endif
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
