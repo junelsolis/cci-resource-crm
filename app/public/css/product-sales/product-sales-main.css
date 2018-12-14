@@ -27,7 +27,7 @@ body {
 
 #upcoming-projects p {
   font-size: 0.9em;
-  color: #505050;
+  /* color: #505050; */
 }
 
 #upcoming-projects span {
@@ -94,7 +94,9 @@ body {
   color: #464B69;
 }
 
-
+#other-projects td {
+  color: #707070;
+}
 
 table thead {
   color: #464B69;

@@ -70,3 +70,27 @@ legend {
 .current {
   margin-top:0;
 }
+
+
+
+/* classes for project status */
+.status-new {
+  background-color: rgba(243,156,18,0.2) !important;
+  color: rgb(243,156,18) !important;
+}
+.status-engineered {
+  background-color: rgba(142,68,173,0.2) !important;
+  color: rgb(142,68,173) !important;
+}
+.status-sold {
+  background-color: rgba(39,174,96,0.2) !important;
+  color: rgb(39,174,96) !important;
+}
+.status-quoted {
+  background-color: rgba(41,128,185,0.2) !important;
+  color: rgb(41,128,185) !important;
+}
+.status-lost {
+  background-color: rgba(44,62,80,0.2) !important;
+  color:rgb(44,62,80) !important;
+}

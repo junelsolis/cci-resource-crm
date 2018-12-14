@@ -2,7 +2,7 @@
   <div class='grid-x'>
     <div class='cell medium-6'>
       <div id='logo'>
-        <a href='/'><strong><i class="fas fa-home"></i>&nbsp;Critical Components CRM</strong></a>
+        <a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a>
       </div>
     </div>
     <div id='right' class='cell medium-6'>

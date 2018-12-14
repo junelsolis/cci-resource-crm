@@ -20,6 +20,7 @@ class ProductSalesController extends Controller
       $otherProjects = $this->getOtherProjects();
       $chartData = $this->getChartData();
 
+
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
@@ -218,6 +219,8 @@ class ProductSalesController extends Controller
       $projects = $projects->sortBy('bid_date');
       $now = Carbon::now('America/New_York');
 
+      $allStatus = DB::table('project_status')->get();
+
       foreach ($projects as $key => $item) {
         $bid_date = new Carbon($item->bid_date, 'America/New_York');
 
@@ -225,10 +228,16 @@ class ProductSalesController extends Controller
           $projects->forget($key);
         }
 
-        $item->bid_date = date('M d, Y', strtotime($item->bid_date));
+        $item->bidDate = date('M d, Y', strtotime($item->bid_date));
+
+        // assign status
+        $status = $allStatus->where('id', $item->status_id)->first();
+        $item->status = $status;
       }
 
       $projects = $projects->take(5);
+
+
       return $projects;
     }
     private function getChartData() {
