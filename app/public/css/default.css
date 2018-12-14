@@ -102,3 +102,9 @@ legend {
 .bidTiming-soon {
   color: #f39c12 !important;
 }
+
+/* classes for projects tables */
+.table-note {
+  font-style: italic;
+  color: rgb(54,162,235);
+}

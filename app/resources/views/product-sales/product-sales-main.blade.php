@@ -297,7 +297,7 @@
                     <?php
                         if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
                         if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                      ?>
+                    ?>
                   >{{ $i->bidDate}}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
@@ -311,7 +311,7 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a data-open="{{$i->id}}-notes-modal" style='font-style:italic;color:rgba(54, 162, 235, 1);'>{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a data-open="{{$i->id}}-notes-modal" class='table-note'>{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
 

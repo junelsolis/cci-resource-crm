@@ -70,39 +70,49 @@
                   @foreach ($upcomingProjects as $i)
                   <tr>
                     <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
-                    <td class='name' id='{{ $i->id}}-name'>{{ $i->name}}</td>
-                    <td class='status' id='{{ $i->id}}-status' style='<?php
-                        if ($i->status->status == 'New') { echo 'background-color:rgba(243, 156, 18,0.2);color:rgb(243,156,18)';}
-                        if ($i->status->status == 'Engineered') { echo 'background-color:rgba(155, 89, 182, 0.2);color:rgb(155,89,182);'; }
-                      ?>'>{{ $i->status->status }}</td>
-                    <td class='bidDate' id='{{ $i->id}}-bidDate' style='<?php
-                        if ($i->bidTiming == 'late') { echo 'color:red;';}
-                        if ($i->bidTiming == 'soon') { echo 'color:#f39c12;'; }
-                      ?>'>
-                      {{ $i->bidDate }}
+                    <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
+                    <td id='{{ $i->id}}-status'
+                      <?php
+                        if ($i->status->status == 'New') { echo 'class=\'status-new\''; }
+                        if ($i->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                        if ($i->status->status == 'Sold') { echo 'class=\'status-sold\''; }
+                        if ($i->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                        if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+                      ?>
+                    >{{ $i->status->status }}</td>
+                    <td id='{{ $i->id}}-bidDate'
+                      <?php
+                          if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                    >{{ $i->bidDate }}
                     </td>
-                    <td class='manufacturer' id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
-                    <td class='product' id='{{ $i->id}}-product'>{{ $i->product }}</td>
-                    <td class='productSales' id='{{ $i->id}}-productSales'>
+                    <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
+                    <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
+                    <td id='{{ $i->id}}-productSales'>
                       <?php
                         $array = explode(' ', $i->productSales->name);
                         $name = substr($array[0],0,1) . ' ' . $array[1];
                         echo $name;
                       ?>
                     </td>
-                    <td class='insideSales' id='{{ $i->id}}-insideSales'>
+                    <td id='{{ $i->id}}-insideSales'>
                       <?php
                         $array = explode(' ', $i->insideSales->name);
                         $name = substr($array[0],0,1) . ' ' . $array[1];
                         echo $name;
                       ?>
                     </td>
-                    <td class='amount' id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
-                    <td class='apcOppId' id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
-                    <td></td>
-                    <td class='engineer' id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
-                    <td class='contractor' id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                    <td>{{ $i->notes->first()->note }}</td>
+                    <td id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
+                    <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
+                    <td id='{{ $i->id}}->invoiceLink'>
+                      @if (isset($i->invoice_link))
+                      <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
+                      @endif
+                    </td>
+                    <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
+                    <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
+                    <td><a class='table-note'>{{ str_limit($i->notes->first()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -426,7 +436,7 @@
                   <td></td>
                   <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                   <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                  <td>{{ $i->notes->first()->note }}</td>
+                  <td><a class='table-note'>{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
                 @endforeach
@@ -652,13 +662,13 @@
     $(document).ready(function() {
 
       $('#upcoming-projects-table').DataTable( {
-        "order": [[ 2, 'desc']],
+        "order": [[ 3, 'asc']],
         'pageLength': 10,
       });
 
 
       $('#all-projects-table').DataTable( {
-        "order": [[ 2, "desc" ]],
+        "order": [[ 3, "desc" ]],
         'pageLength': 25,
       } );
     } );
