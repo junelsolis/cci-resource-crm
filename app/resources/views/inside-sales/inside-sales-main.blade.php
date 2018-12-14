@@ -333,7 +333,7 @@
 
           <form method='post' action='/note/add/{{ $i->id }}'>
             {{ csrf_field() }}
-            <i class="fas fa-plus"></i>&nbsp;Add Note<br />
+            <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
             <textarea name='note' required placeholder='Type note here...'></textarea>
             <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save Note</button>
           </form>
@@ -706,9 +706,49 @@
         <!-- divs for off-canvas project information -->
         @foreach ($allProjects as $i)
         <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
-          <h5><span>Project:</span>&nbsp;{{ $i->name }}</h5><br /><br />
+          <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
+          <br /><br />
+
+          <form method='post' action='/note/add/{{ $i->id }}'>
+            {{ csrf_field() }}
+            <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+            <textarea name='note' required placeholder='Type note here...'></textarea>
+            <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save Note</button>
+          </form>
+          <br />
+          <?php
+            $colorSwitcher = 0;
+            $color = '';
+          ?>
           @foreach ($i->notes as $note)
-          <div class="note-card">
+          <?php
+            if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+
+            if ($colorSwitcher <= 1) {
+              if ($colorSwitcher == 0) {
+                $color = 'style=\'background-color:rgba(46,204,113,0.1)\';';
+              }
+
+              if ($colorSwitcher == 1) {
+                $color = 'style=\'background-color:rgba(241,196,15,0.1)\';';
+              }
+
+              // if ($colorSwitcher == 2) {
+              //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
+              // }
+              //
+              // if ($colorSwitcher == 3) {
+              //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
+              // }
+              //
+              // if ($colorSwitcher == 4) {
+              //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
+              // }
+
+              $colorSwitcher++;
+            }
+          ?>
+          <div class="note-card" <?php echo $color; ?>>
             <span>{!! nl2br($note->note) !!}</span>
             <br /><br />
             <p style='color:grey;'>
@@ -716,6 +756,7 @@
             </p>
           </div>
           @endforeach
+          <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
         </div>
         @endforeach
       </div>
