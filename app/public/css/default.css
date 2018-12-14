@@ -94,3 +94,11 @@ legend {
   background-color: rgba(44,62,80,0.2) !important;
   color:rgb(44,62,80) !important;
 }
+
+/* classes for project timing */
+.bidTiming-late {
+  color: red !important;
+}
+.bidTiming-soon {
+  color: #f39c12 !important;
+}

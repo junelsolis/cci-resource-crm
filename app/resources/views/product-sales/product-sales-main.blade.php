@@ -74,7 +74,11 @@
             <tbody>
               @foreach ($upcomingProjects as $item)
               <tr>
-                <td><strong>{{ $item->bidDate }}</strong></td>
+                <td
+                  <?php
+                    if ($item->bidTiming == 'late' && ($item->status->status != 'Quoted') && ($item->status->status != 'Sold') && ($item->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                    if ($item->bidTiming == 'soon' && ($item->status->status != 'Quoted') && ($item->status->status != 'Sold') && ($item->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                  ?>><strong>{{ $item->bidDate }}</strong></td>
                 <td
                   <?php
                     if ($item->status->status == 'New') { echo 'class=\'status-new\''; }
@@ -289,10 +293,12 @@
                       if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
                     ?>
                   >{{ $i->status->status }}</td>
-                  <td id='{{$i->id}}-bidDate' style='<?php
-                      if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'color:red;';}
-                      if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'color:#f39c12;'; }
-                    ?>'>{{ $i->bidDate }}</td>
+                  <td id='{{$i->id}}-bidDate'
+                    <?php
+                        if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                        if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                  >{{ $i->bidDate}}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
                   <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
