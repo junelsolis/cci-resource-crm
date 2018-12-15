@@ -16,10 +16,9 @@ class ProductSalesController extends Controller
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
       $ongoingProjects = $this->getAllProjects();
-      $upcomingProjects = $this->getUpcomingProjects($ongoingProjects);
+      $upcomingProjects = $this->getUpcomingProjects();
       $otherProjects = $this->getOtherProjects();
       $chartData = $this->getChartData();
-
 
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
@@ -215,11 +214,13 @@ class ProductSalesController extends Controller
 
     }
 
-    private function getUpcomingProjects($projects) {
-      $projects = $projects->sortBy('bid_date');
+    private function getUpcomingProjects() {
+      $projects = DB::table('projects')->orderBy('bid_date', 'desc')->limit(10)->get();
       $now = Carbon::now('America/New_York');
 
       $allStatus = DB::table('project_status')->get();
+
+      $projects = $this->expandProjectInfo($projects);
 
       foreach ($projects as $key => $item) {
         $bid_date = new Carbon($item->bid_date, 'America/New_York');
