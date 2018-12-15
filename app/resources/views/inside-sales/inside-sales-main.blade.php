@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Inside Sales | Critical Components</title>
+    <title>Inside Sales | CCI Tracker</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
@@ -654,7 +654,11 @@
                   </td>
                   <td id='{{$i->id}}-all-amount'>{{ $i->amount }}</td>
                   <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
-                  <td></td>
+                  <td id='{{ $i->id}}-all-invoiceLink'>
+                    @if (isset($i->invoice_link))
+                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
+                    @endif
+                  </td>
                   <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                   <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
                   <td><a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
@@ -855,6 +859,7 @@
                 $('#{{$i->id}}-all-insideSales').toggleClass('edit-enabled');
                 $('#{{$i->id}}-all-amount').toggleClass('edit-enabled');
                 $('#{{$i->id}}-all-apcOppId').toggleClass('edit-enabled');
+                $('#{{$i->id}}-all-invoiceLink')
                 $('#{{$i->id}}-all-engineer').toggleClass('edit-enabled');
                 $('#{{$i->id}}-all-contractor').toggleClass('edit-enabled');
               });

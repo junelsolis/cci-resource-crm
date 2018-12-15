@@ -11,8 +11,16 @@ body {
   background-color: #F8F8F8;
 }
 
+#main {
+  padding-top: 40px;
+}
 table {
   font-size: 13px;
+
+  thead {
+    font-size: 1em;
+    color: #464B69;
+  }
 }
 
 a {
