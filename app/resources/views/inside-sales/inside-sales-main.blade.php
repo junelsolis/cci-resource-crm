@@ -4,14 +4,10 @@
     <meta charset="utf-8">
     <title>Inside Sales | CCI Tracker</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/inside-sales/inside-sales-main.css') }}" />
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
@@ -28,7 +24,7 @@
   <body>
     <!-- Off-canvas content -->
     <!-- add project div -->
-    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas>
+    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
       <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
       <br />
       <form method='post' action='/project/add'>
@@ -119,7 +115,7 @@
 
     <!-- divs for off-canvas project information -->
     @foreach ($upcomingProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas data-auto-focus="false">
       <button class="close-button" aria-label="Close menu" type="button" data-close>
         <span aria-hidden="true">&times;</span>
       </button>
@@ -130,7 +126,7 @@
         {{ csrf_field() }}
         <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
         <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save Note</button>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
       <br />
       <?php
@@ -248,7 +244,7 @@
 
       </div>
       <div class='cell small-12'>
-        <div id='upcoming-projects' class='card'>
+        <div class='card'>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
               <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Upcoming Projects</strong></h5>
@@ -897,7 +893,7 @@
 
       $('#all-projects-table').DataTable( {
         "order": [[ 3, "desc" ]],
-        'pageLength': 25,
+        'pageLength': 10,
       } );
     } );
   </script>
