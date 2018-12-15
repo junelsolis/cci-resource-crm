@@ -38,7 +38,7 @@
       </ul>
 
       <div class="reveal" id="settings-modal" data-reveal>
-        <h3>Account Settings</h3>
+        <h5><strong>Account Settings</strong></h5>
         <button class="close-button" data-close aria-label="Close modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
