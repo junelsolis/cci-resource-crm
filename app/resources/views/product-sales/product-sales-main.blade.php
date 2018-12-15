@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
-    <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
+    <link rel=stylesheet href="{{ asset('css/app.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
     <link rel='stylesheet' href="{{ asset('css/product-sales/product-sales-main.css') }}" />
