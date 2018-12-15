@@ -276,7 +276,7 @@
                     <th>Note</th>
                   </tr>
                 </thead>
-                <tbody class='list'>
+                <tbody>
                   @foreach ($upcomingProjects as $i)
                   <tr>
                     <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>

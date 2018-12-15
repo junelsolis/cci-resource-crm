@@ -64,7 +64,211 @@
     </div>
 
     @endif
-    <div id='main' class='grid-x' data-equalizer>
+
+
+    <!-- Off-canvas content -->
+    <!-- add project div -->
+    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
+      <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
+      <br />
+      <form method='post' action='/project/add'>
+        {{ csrf_field() }}
+        <fieldset class='fieldset'>
+          <legend>
+            Project Details
+          </legend>
+
+          <label>Project Name<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='name' required />
+
+          <label>Product<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='product' required />
+
+          <label>Manufacturer</label>
+          <input type='text' name='manufacturer' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Bid Information
+          </legend>
+
+          <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='date' name='bid_date' required />
+
+          <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='status_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($projectStatusCodes as $code)
+            <option value='{{ $code->id }}'>{{ $code->status }}</option>
+            @endforeach
+          </select>
+
+          <label>Amount<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='number' name='amount' required placeholder='$' />
+
+          <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='inside_sales_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($insideSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            External Information
+          </legend>
+            <label>APC OPP ID</label>
+            <input type='text' name='apc_opp_id' />
+
+            <label>Quote Link</label>
+            <input type='text' name='invoice_link' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Additional Information
+          </legend>
+            <label>Engineer</label>
+            <input type='text' name='engineer' />
+
+            <label>Contractor</label>
+            <input type='text' name='contractor' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Note
+          </legend>
+          <textarea name='note' width='100%' placeholder='Optional note...'></textarea>
+        </fieldset>
+
+        <button type='submit' class='primary button align-right'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+    </div>
+
+    <!-- divs for off-canvas project information -->
+    @foreach ($upcomingProjects as $i)
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas data-auto-focus="false">
+      <button class="close-button" aria-label="Close menu" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
+      <br /><br />
+
+      <form method='post' action='/note/add/{{ $i->id }}'>
+        {{ csrf_field() }}
+        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <textarea name='note' required placeholder='Type note here...'></textarea>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+      <br />
+      <?php
+        $colorSwitcher = 0;
+        $color = '';
+      ?>
+      @foreach ($i->notes as $note)
+      <?php
+        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+
+        if ($colorSwitcher <= 1) {
+          if ($colorSwitcher == 0) {
+            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
+          }
+
+          if ($colorSwitcher == 1) {
+            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
+          }
+
+          // if ($colorSwitcher == 2) {
+          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 3) {
+          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 4) {
+          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
+          // }
+
+          $colorSwitcher++;
+        }
+      ?>
+      <div class="note-card" <?php echo $color; ?>>
+        <span>{!! nl2br($note->note) !!}</span>
+        <br /><br />
+        <p style='color:grey;'>
+          <strong>{{ $note->author }}</strong> on {{ $note->date }}
+        </p>
+      </div>
+      @endforeach
+      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
+    </div>
+    @endforeach
+
+
+    <!-- divs for off-canvas project information -->
+    @foreach ($projects as $i)
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
+      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
+      <br /><br />
+
+      <form method='post' action='/note/add/{{ $i->id }}'>
+        {{ csrf_field() }}
+        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <textarea name='note' required placeholder='Type note here...'></textarea>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+      <br />
+      <?php
+        $colorSwitcher = 0;
+        $color = '';
+      ?>
+      @foreach ($i->notes as $note)
+      <?php
+        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+
+        if ($colorSwitcher <= 1) {
+          if ($colorSwitcher == 0) {
+            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
+          }
+
+          if ($colorSwitcher == 1) {
+            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
+          }
+
+          // if ($colorSwitcher == 2) {
+          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 3) {
+          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 4) {
+          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
+          // }
+
+          $colorSwitcher++;
+        }
+      ?>
+      <div class="note-card" <?php echo $color; ?>>
+        <span>{!! nl2br($note->note) !!}</span>
+        <br /><br />
+        <p style='color:grey;'>
+          <strong>{{ $note->author }}</strong> on {{ $note->date }}
+        </p>
+      </div>
+      @endforeach
+      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
+    </div>
+    @endforeach
+
+
+    <div id='main' class='grid-x off-canvas-content' data-off-canvas-content data-equalizer>
 
       <div class='cell medium-6 large-4'>
         <div id='upcoming-projects' class='card' data-equalizer-watch>
@@ -130,7 +334,7 @@
       <div class='cell small-12'>
         <div class='card'>
           <ul class='menu align-center'>
-            <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+            <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
           </ul>
         </div>
       </div>
@@ -147,116 +351,7 @@
             </div>
 
 
-            <div class='reveal' id='add-project-modal' data-reveal>
-              <button class="close-button" data-close aria-label="Close modal" type="button">
-                <span aria-hidden="true">&times;</span>
-              </button>
-
-              <span><i class="fas fa-clipboard-list"></i>&nbsp;Add Project</span>
-              <form method='post' action='/project/add'>
-                {{ csrf_field() }}
-                <fieldset class='fieldset'>
-                  <legend>
-                    Product Details
-                  </legend>
-                  <div class='grid-x grid-padding-x'>
-                    <div class='cell medium-4'>
-                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Project Name</label>
-                      <input type='text' name='name' required />
-                    </div>
-                    <div class='cell medium-4'>
-                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Product</label>
-                      <input type='text' name='product' required />
-                    </div>
-                    <div class='cell medium-4'>
-                      <label>Manufacturer</label>
-                      <input type='text' name='manufacturer' />
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset class='fieldset'>
-                  <legend>
-                    Bid Information
-                  </legend>
-                  <div class='grid-x grid-padding-x'>
-                    <div class='cell medium-4'>
-                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Bid Date</label>
-                      <input type='date' name='bid_date' required />
-                    </div>
-                    <div class='cell medium-4'>
-                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Status</label>
-                      <select name='status_id' required>
-                        <option value="" selected disabled hidden>Select One</option>
-                        @foreach ($projectStatusCodes as $code)
-                        <option value='{{ $code->id }}'>{{ $code->status }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <div class='cell medium-4'>
-                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Amount</label>
-                      <input type='number' name='amount' required placeholder='$' />
-                    </div>
-                    <div class='cell medium-4'>
-                      <label><span><i class="fas fa-star-of-life"></i>&nbsp;</span>Inside Sales</label>
-                      <select name='inside_sales_id' required>
-                        <option value="" selected disabled hidden>Select One</option>
-                        @foreach ($insideSales as $item)
-                        <option value='{{ $item->id }}'>{{ $item->name }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset class='fieldset'>
-                  <legend>
-                    External Information
-                  </legend>
-                  <div class='grid-x grid-padding-x'>
-                    <div class='cell large-6'>
-                      <label>APC OPP ID</label>
-                      <input type='text' name='apc_opp_id' />
-                    </div>
-                    <div class='cell large-6'>
-                      <label>Quote Link</label>
-                      <input type='text' name='invoice_link' />
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset class='fieldset'>
-                  <legend>
-                    Additional Information
-                  </legend>
-                  <div class='grid-x grid-padding-x'>
-                    <div class='cell medium-6 large-4'>
-                      <label>Engineer</label>
-                      <input type='text' name='engineer' />
-                    </div>
-                    <div class='cell medium-6 large-4'>
-                      <label>Contractor</label>
-                      <input type='text' name='contractor' />
-                    </div>
-                  </div>
-                </fieldset>
-
-                <fieldset class='fieldset'>
-                  <legend>
-                    Note
-                  </legend>
-                  <textarea name='note' width='100%'></textarea>
-                </fieldset>
-
-                <div style='font-style:italic;'>
-                  Fields marked with "<span style='color: red;font-size:9px;position:relative;top:-3px;'><i class="fas fa-star-of-life"></i></span>" are required.
-                </div>
-                <br />
-                <button type='submit' class='button button-primary'><i class="fas fa-plus"></i>&nbsp;Add Project</button>
-
-              </form>
-
-            </div>
+            
 
           </div>
           <br />
@@ -311,7 +406,7 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a data-open="{{$i->id}}-notes-modal" class='table-note'>{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
 

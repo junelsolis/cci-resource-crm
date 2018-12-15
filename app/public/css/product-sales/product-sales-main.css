@@ -48,24 +48,7 @@ body {
 }
 
 
-.reveal {
-  background-color: #F8F8F8;
-}
 
-.reveal p {
-  font-size: 14px;
-}
-.reveal .fieldset {
-  background-color: white;
-}
-
-.reveal input {
-  background-color: white;
-}
-
-.reveal select {
-  font-size: 10px !important;
-}
 
 
 /* for notes modal */
