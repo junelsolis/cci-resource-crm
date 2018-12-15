@@ -19,7 +19,14 @@ class ProjectController extends Controller
       $bid_date = $request['bid_date'];
       $manufacturer = $request['manufacturer'];
       $product = $request['product'];
-      $product_sales_id = session('logged_in_user_id');
+
+      /*  If product_sales_id is given in request, use that. Otherwise, use logged
+          in user's
+      */
+      $product_sales_id = NULL;
+      if (empty($request['product_sales_id']) == false) { $product_sales_id = $request['product_sales_id']; }
+      else { $product_sales_id = session('logged_in_user_id'); }
+
       $inside_sales_id = $request['inside_sales_id'];
       $amount = $request['amount'];
       $apc_opp_id = $request['apc_opp_id'];
@@ -30,7 +37,7 @@ class ProjectController extends Controller
 
 
       // make sure link starts with http
-      if (starts_with('http://', $invoice_link) == false && starts_with('https://', $invoice_link) == false) {
+      if ((empty($invoice_link) == false) && starts_with('http://', $invoice_link) == false && starts_with('https://', $invoice_link) == false) {
         $invoice_link = 'http://'. $invoice_link;
       }
 
@@ -58,7 +65,7 @@ class ProjectController extends Controller
 
       DB::table('project_notes')->insert([
         'project_id' => $project_id,
-        'last_updated_by_id' => $product_sales_id,
+        'last_updated_by_id' => session('logged_in_user_id'),
         'note' => $creationNote,
         'created_at' => $now
       ]);
@@ -67,7 +74,7 @@ class ProjectController extends Controller
       if (!empty($note)) {
         DB::table('project_notes')->insert([
           'project_id' => $project_id,
-          'last_updated_by_id' => $product_sales_id,
+          'last_updated_by_id' => session('logged_in_user_id'),
           'note' => $note,
           'created_at' => $now->addSecond()
         ]);

@@ -1,75 +1,8 @@
-* {
-  font-family: 'Montserrat', sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-  font-size: 14px;
-}
-
-table {
-  font-size: 13px;
-}
-a {
-  text-decoration: none !important;
-}
-h1,h2,h3,h4,h5 {
-  color: #000A55;
-}
-
-.button-primary {
-  background-color: #2B6BAC;
-  text-transform: uppercase;
-}
-
-.input-group-button input {
-  background-color: #2b6bac;
-}
-.alert-callout-subtle.warning {
-  background: #e6e6e6;
-  color: #8a8a8a;
-  border-left: 0.3125rem solid #ffae00;
-}
-
-.alert-callout-subtle.success {
-  background: #e6e6e6;
-  color: #8a8a8a;
-  border-left: 0.3125rem solid #3adb76;
-}
 
 
-legend {
-  color: #747896 !important;
-  font-size: 15px;
-  font-weight: bolder;
-  border: 0 !important;
-  width: max-content;
-}
 
-.edit-enabled {
-  font-style: italic !important;
-  font-weight: bold !important;
-  color: #707070 !important;
-  text-decoration: underline !important;
-  text-decoration-style: dashed !important;
-  text-decoration-color: lightblue !important;
-}
 
-/* correct some bootstrap classes
-*/
-.row {
-  margin: auto;
-}
 
-/* customize some DataTables stuff
-*/
-.dataTables_info {
-  color: grey;
-}
-
-.current {
-  margin-top:0;
-}
 
 
 

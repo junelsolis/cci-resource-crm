@@ -1,3 +1,101 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  // font-size: 14px;
+}
+
+body {
+  background-color: #F8F8F8;
+}
+
+table {
+  font-size: 13px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+h1,h2,h3,h4,h5 {
+  color: #000A55;
+}
+
+legend {
+  color: #747896;
+  font-size: 14px;
+  font-weight: bolder;
+  border: 0;
+  width: max-content;
+}
+
+input {
+  border-radius: 3px !important;
+}
+
+select {
+  border-radius: 3px !important;
+}
+
+/* display cards */
+.card {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.button-primary {
+  background-color: #2B6BAC;
+  text-transform: uppercase;
+}
+
+.input-group-button input {
+  background-color: #2b6bac;
+}
+.alert-callout-subtle.warning {
+  background: #e6e6e6;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #ffae00;
+}
+
+.alert-callout-subtle.success {
+  background: #e6e6e6;
+  color: #8a8a8a;
+  border-left: 0.3125rem solid #3adb76;
+}
+
+/* for table rows that are toggled editable */
+.edit-enabled {
+  font-style: italic !important;
+  font-weight: bold !important;
+  color: #707070 !important;
+  text-decoration: underline !important;
+  text-decoration-style: dashed !important;
+  text-decoration-color: lightblue !important;
+}
+
+/* correct some bootstrap classes
+*/
+.row {
+  margin: auto;
+}
+
+/* customize some DataTables stuff
+*/
+.dataTables_info {
+  color: grey;
+}
+
+.current {
+  margin-top:0;
+}
+
+
+
+
 /* project status classes */
 .status-new {
   background-color: rgba(243,156,18,0.2);
@@ -52,7 +150,6 @@
 
   h4 {
     color: #707070;
-
     span {
       font-weight: bold;
     }
@@ -70,12 +167,12 @@
     line-height: 1;
   }
 
-  span {
-    color: #707070;
-    font-weight: normal;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
+  // span {
+  //   color: #707070;
+  //   font-weight: normal;
+  //   font-size: 14px;
+  //   margin-bottom: 10px;
+  // }
 }
 
 
@@ -86,4 +183,23 @@
   padding-bottom: 50px;
   padding-left: 15px;
   padding-right: 15px;
+
+  .fieldset {
+    background-color: white;
+  }
+
+  label {
+    color: #707070;
+    font-size: 12px;
+  }
+  h4 {
+    color: #707070;
+    font-weight: bold;
+  }
+
+  span {
+    padding-left: 4px;
+    color: #e74c3c;
+    font-size: 8px;
+  }
 }

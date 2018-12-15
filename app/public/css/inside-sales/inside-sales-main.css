@@ -1,16 +1,9 @@
-body {
-  background-color: #F8F8F8;
-}
+
 
 #main {
   padding-top: 50px;
 }
-.card {
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 10px;
-  padding: 10px;
-}
+
 
 #upcoming-projects p {
   font-size: 0.9em;

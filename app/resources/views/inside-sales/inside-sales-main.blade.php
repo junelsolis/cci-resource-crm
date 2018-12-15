@@ -29,7 +29,92 @@
     <!-- Off-canvas content -->
     <!-- add project div -->
     <div class='off-canvas position-left add-project' id='add-project' data-off-canvas>
-      add project here
+      <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
+      <br />
+      <form method='post' action='/project/add'>
+        {{ csrf_field() }}
+        <fieldset class='fieldset'>
+          <legend>
+            Project Details
+          </legend>
+
+          <label>Project Name<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='name' required />
+
+          <label>Product<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='product' required />
+
+          <label>Manufacturer</label>
+          <input type='text' name='manufacturer' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Bid Information
+          </legend>
+
+          <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='date' name='bid_date' required />
+
+          <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='status_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($projectStatusCodes as $code)
+            <option value='{{ $code->id }}'>{{ $code->status }}</option>
+            @endforeach
+          </select>
+
+          <label>Amount<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='number' name='amount' required placeholder='$' />
+
+          <label>Product Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='product_sales_id' required>
+            <option value='' selected disabled hidden>Select One</option>
+            @foreach ($productSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+
+          <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='inside_sales_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($insideSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            External Information
+          </legend>
+            <label>APC OPP ID</label>
+            <input type='text' name='apc_opp_id' />
+
+            <label>Quote Link</label>
+            <input type='text' name='invoice_link' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Additional Information
+          </legend>
+            <label>Engineer</label>
+            <input type='text' name='engineer' />
+
+            <label>Contractor</label>
+            <input type='text' name='contractor' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Note
+          </legend>
+          <textarea name='note' width='100%' placeholder='Optional note...'></textarea>
+        </fieldset>
+
+        <button type='submit' class='primary button align-right'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
     </div>
 
     <!-- divs for off-canvas project information -->
@@ -156,7 +241,7 @@
       <div class='cell small-12'>
         <div class='card'>
           <ul class='menu'>
-            <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+            <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;New Project</a></li>
           </ul>
         </div>
 
