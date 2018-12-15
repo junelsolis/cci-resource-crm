@@ -110,18 +110,23 @@ legend {
 }
 
 
-/* class for project information */
+/* classes for project information */
 .project-info {
-  background-color: white;
+  /* background-color: white; */
+  background-color: #F8F8F8;
   width: 23vw;
-  box-shadow: 0 0 0px #707070 !important;
+  /* box-shadow: 0 0 0px #707070 !important;
   -moz-box-shadow: 0 0 0px #707070 !important;
-  -webkit-box-shadow: 0 0 0px #707070 !important;
+  -webkit-box-shadow: 0 0 0px #707070 !important; */
   padding-top: 100px;
   padding-bottom: 50px;
   padding-left: 15px;
   padding-right: 15px;
 
+}
+
+.project-info .close-button {
+  top: 100px !important;
 }
 
 .project-info h4 {
@@ -152,6 +157,15 @@ legend {
   margin-bottom: 10px;
 }
 
+/* classes for adding project */
+.add-project {
+  background-color: #F8F8F8;
+  width: 23vw;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 
 /* Medium only */

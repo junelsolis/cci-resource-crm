@@ -25,13 +25,141 @@
   </head>
   @include('navbar')
   <body>
-    <div id='main' class='grid-x'>
+    <!-- Off-canvas content -->
+    <!-- add project div -->
+    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas>
+      add project here
+    </div>
+
+    <!-- divs for off-canvas project information -->
+    @foreach ($upcomingProjects as $i)
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
+      <button class="close-button" aria-label="Close menu" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
+      <br /><br />
+
+      <form method='post' action='/note/add/{{ $i->id }}'>
+        {{ csrf_field() }}
+        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <textarea name='note' required placeholder='Type note here...'></textarea>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save Note</button>
+      </form>
+      <br />
+      <?php
+        $colorSwitcher = 0;
+        $color = '';
+      ?>
+      @foreach ($i->notes as $note)
+      <?php
+        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+
+        if ($colorSwitcher <= 1) {
+          if ($colorSwitcher == 0) {
+            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
+          }
+
+          if ($colorSwitcher == 1) {
+            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
+          }
+
+          // if ($colorSwitcher == 2) {
+          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 3) {
+          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 4) {
+          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
+          // }
+
+          $colorSwitcher++;
+        }
+      ?>
+      <div class="note-card" <?php echo $color; ?>>
+        <span>{!! nl2br($note->note) !!}</span>
+        <br /><br />
+        <p style='color:grey;'>
+          <strong>{{ $note->author }}</strong> on {{ $note->date }}
+        </p>
+      </div>
+      @endforeach
+      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
+    </div>
+    @endforeach
+
+
+    <!-- divs for off-canvas project information -->
+    @foreach ($allProjects as $i)
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
+      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
+      <br /><br />
+
+      <form method='post' action='/note/add/{{ $i->id }}'>
+        {{ csrf_field() }}
+        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <textarea name='note' required placeholder='Type note here...'></textarea>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+      <br />
+      <?php
+        $colorSwitcher = 0;
+        $color = '';
+      ?>
+      @foreach ($i->notes as $note)
+      <?php
+        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+
+        if ($colorSwitcher <= 1) {
+          if ($colorSwitcher == 0) {
+            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
+          }
+
+          if ($colorSwitcher == 1) {
+            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
+          }
+
+          // if ($colorSwitcher == 2) {
+          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 3) {
+          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
+          // }
+          //
+          // if ($colorSwitcher == 4) {
+          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
+          // }
+
+          $colorSwitcher++;
+        }
+      ?>
+      <div class="note-card" <?php echo $color; ?>>
+        <span>{!! nl2br($note->note) !!}</span>
+        <br /><br />
+        <p style='color:grey;'>
+          <strong>{{ $note->author }}</strong> on {{ $note->date }}
+        </p>
+      </div>
+      @endforeach
+      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
+    </div>
+    @endforeach
+
+
+
+    <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
       <div class='cell small-12'>
         <div class='card'>
           <ul class='menu'>
-            <li><a href='#' data-open="add-project-modal"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+            <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
           </ul>
         </div>
+
+
       </div>
       <div class='cell small-12'>
         <div id='upcoming-projects' class='card'>
@@ -325,62 +453,7 @@
 
         </div>
 
-        <!-- divs for off-canvas project information -->
-        @foreach ($upcomingProjects as $i)
-        <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
-          <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
-          <br /><br />
 
-          <form method='post' action='/note/add/{{ $i->id }}'>
-            {{ csrf_field() }}
-            <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-            <textarea name='note' required placeholder='Type note here...'></textarea>
-            <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save Note</button>
-          </form>
-          <br />
-          <?php
-            $colorSwitcher = 0;
-            $color = '';
-          ?>
-          @foreach ($i->notes as $note)
-          <?php
-            if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-
-            if ($colorSwitcher <= 1) {
-              if ($colorSwitcher == 0) {
-                $color = 'style=\'background-color:rgba(46,204,113,0.1)\';';
-              }
-
-              if ($colorSwitcher == 1) {
-                $color = 'style=\'background-color:rgba(241,196,15,0.1)\';';
-              }
-
-              // if ($colorSwitcher == 2) {
-              //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
-              // }
-              //
-              // if ($colorSwitcher == 3) {
-              //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
-              // }
-              //
-              // if ($colorSwitcher == 4) {
-              //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
-              // }
-
-              $colorSwitcher++;
-            }
-          ?>
-          <div class="note-card" <?php echo $color; ?>>
-            <span>{!! nl2br($note->note) !!}</span>
-            <br /><br />
-            <p style='color:grey;'>
-              <strong>{{ $note->author }}</strong> on {{ $note->date }}
-            </p>
-          </div>
-          @endforeach
-          <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-        </div>
-        @endforeach
       </div>
 
 
@@ -707,62 +780,7 @@
           </div>
         </div>
 
-        <!-- divs for off-canvas project information -->
-        @foreach ($allProjects as $i)
-        <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
-          <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
-          <br /><br />
 
-          <form method='post' action='/note/add/{{ $i->id }}'>
-            {{ csrf_field() }}
-            <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-            <textarea name='note' required placeholder='Type note here...'></textarea>
-            <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-          </form>
-          <br />
-          <?php
-            $colorSwitcher = 0;
-            $color = '';
-          ?>
-          @foreach ($i->notes as $note)
-          <?php
-            if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-
-            if ($colorSwitcher <= 1) {
-              if ($colorSwitcher == 0) {
-                $color = 'style=\'background-color:rgba(46,204,113,0.1)\';';
-              }
-
-              if ($colorSwitcher == 1) {
-                $color = 'style=\'background-color:rgba(241,196,15,0.1)\';';
-              }
-
-              // if ($colorSwitcher == 2) {
-              //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
-              // }
-              //
-              // if ($colorSwitcher == 3) {
-              //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
-              // }
-              //
-              // if ($colorSwitcher == 4) {
-              //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
-              // }
-
-              $colorSwitcher++;
-            }
-          ?>
-          <div class="note-card" <?php echo $color; ?>>
-            <span>{!! nl2br($note->note) !!}</span>
-            <br /><br />
-            <p style='color:grey;'>
-              <strong>{{ $note->author }}</strong> on {{ $note->date }}
-            </p>
-          </div>
-          @endforeach
-          <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-        </div>
-        @endforeach
       </div>
     </div>
   </body>
