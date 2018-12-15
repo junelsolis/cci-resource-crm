@@ -151,3 +151,20 @@ legend {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+
+
+/* Medium only */
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .project-info {
+    width: 50vw;
+  }
+}
+
+
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+  .project-info {
+    width: 100vw;
+  }
+}
