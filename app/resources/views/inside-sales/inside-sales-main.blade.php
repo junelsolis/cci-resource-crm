@@ -461,17 +461,21 @@
                   <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a>
                   </td>
                   <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
-                  <td id='{{$i->id}}-all-status' style='<?php
-                      if ($i->status->status == 'New') { echo 'background-color:rgba(243,156,18,0.2);color:rgba(243,156,18);';}
-                      if ($i->status->status == 'Engineered') { echo 'background-color:rgba(142,68,173,0.2);color:rgb(142,68,173);'; }
-                      if ($i->status->status == 'Sold' ) { echo 'background-color:rgba(39,174,96,0.2);color:rgba(39,174,96,1.0);'; }
-                      if ($i->status->status == 'Quoted') { echo 'background-color:rgba(41,128,185,0.2);color:rgb(41,128,185)'; }
-                    ?>'>{{ $i->status->status }}</td>
-                  <td id='{{$i->id}}-all-bidDate' style='<?php
-                      if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:red;';}
-                      if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold')) { echo 'color:#f39c12;'; }
-                    ?>'>
-                    {{ $i->bidDate }}
+                  <td id='{{$i->id}}-all-status'
+                    <?php
+                      if ($i->status->status == 'New') { echo 'class=\'status-new\''; }
+                      if ($i->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                      if ($i->status->status == 'Sold') { echo 'class=\'status-sold\''; }
+                      if ($i->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                      if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+                    ?>
+                  >{{ $i->status->status }}</td>
+                  <td id='{{$i->id}}-all-bidDate'
+                    <?php
+                        if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                        if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                    ?>
+                  >{{ $i->bidDate }}
                   </td>
                   <td id='{{$i->id}}-all-manufacturer'>{{ $i->manufacturer }}</td>
                   <td id='{{$i->id}}-all-product'>{{ $i->product }}</td>
@@ -713,7 +717,7 @@
             {{ csrf_field() }}
             <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
             <textarea name='note' required placeholder='Type note here...'></textarea>
-            <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save Note</button>
+            <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
           </form>
           <br />
           <?php
