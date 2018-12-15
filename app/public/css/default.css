@@ -114,7 +114,7 @@ legend {
 .project-info {
   /* background-color: white; */
   background-color: #F8F8F8;
-  width: 23vw;
+  /* width: 23vw; */
   /* box-shadow: 0 0 0px #707070 !important;
   -moz-box-shadow: 0 0 0px #707070 !important;
   -webkit-box-shadow: 0 0 0px #707070 !important; */
@@ -160,7 +160,7 @@ legend {
 /* classes for adding project */
 .add-project {
   background-color: #F8F8F8;
-  width: 23vw;
+  /* width: 23vw; */
   padding-top: 100px;
   padding-bottom: 50px;
   padding-left: 15px;
@@ -171,7 +171,7 @@ legend {
 /* Medium only */
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
   .project-info {
-    width: 50vw;
+    /* width: 50vw; */
   }
 }
 
@@ -179,6 +179,6 @@ legend {
 /* Small only */
 @media screen and (max-width: 39.9375em) {
   .project-info {
-    width: 100vw;
+    /* width: 100vw; */
   }
 }
