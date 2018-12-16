@@ -13,11 +13,7 @@
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
-    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
-    <!-- <script src='{{ asset('js/bootstrap.min.js')}}'></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
 
   </head>
   @include('navbar')
@@ -333,6 +329,81 @@
 
 
         </script>
+      </div>
+      <div class='cell small-12'>
+        <div class='card'>
+          <div class='table-scoll'>
+            <table id='projects-table' class='unstriped display'>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Bid Date</th>
+                  <th>Manufacturer</th>
+                  <th>Product</th>
+                  <th>Product Sales</th>
+                  <th>Inside Sales</th>
+                  <th>Amount</th>
+                  <th>APC OPP ID</th>
+                  <th>Quote Link</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
+                  <th>Note</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($projects as $i)
+                <tr>
+                  <td></td>
+                  <td>{{ $i->name }}</td>
+                  <td
+                    <?php
+                      if ($i->status->status == 'New') { echo 'class=\'status-new\''; }
+                      if ($i->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                      if ($i->status->status == 'Sold') { echo 'class=\'status-sold\''; }
+                      if ($i->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                      if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+                    ?>
+                  >{{ $i->status->status }}</td>
+                  <td
+                    <?php
+                        if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                        if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                    ?>
+                  >{{ $i->bidDate }}</td>
+                  <td>{{ $i->manufacturer }}</td>
+                  <td>{{ $i->product }}</td>
+                  <td>{{ $i->productSales->name }}</td>
+                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->apc_opp_id }}</td>
+                  <td>
+                    @if (isset($i->invoice_link))
+                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
+                    @endif
+                  </td>
+                  <td>{{ $i->engineer}}</td>
+                  <td>{{ $i->contractor }}</td>
+                  <td>
+                    <a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+
+            <!-- initialize projects table js -->
+            <script>
+              $(document).ready(function() {
+                $('#projects-table').DataTable( {
+                  "order": [[ 3, 'desc']],
+                  'pageLength': 10,
+                });
+              });
+            </script>
+          </div>
+        </div>
       </div>
 
 
