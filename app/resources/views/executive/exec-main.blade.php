@@ -27,7 +27,7 @@
       <!-- SALES SECTION -->
       <div class='cell small-12'>
         <div class='card'>
-          <h5><strong>Sales</strong></h5>
+          <h5><strong><i class="fas fa-users"></i>&nbsp;Sales</strong></h5>
 
           <div class='grid-x'>
             <div class='cell medium-4'>
@@ -139,44 +139,207 @@
           <div class='card'>
             <div class='grid-x'>
               <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:rgba(255,99,132,1);font-size:40px;font-weight:bold;'>$1,750,300</span><br />
+                <span style='color:rgba(255,99,132,1);font-size:30px;font-weight:bold;'>$1,750,300</span><br />
                 Sales Over Past 12 Months
               </div>
               <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:#3e95cd;font-size:40px;font-weight:bold;'>$2,350,300</span><br />
+                <span style='color:#3e95cd;font-size:30px;font-weight:bold;'>$2,350,300</span><br />
                 Projected Sales (Next 6 Months)
               </div>
               <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:rgba(189, 195, 199,1.0);font-size:40px;font-weight:bold;'>$175,000</span><br />
+                <span style='color:rgba(189, 195, 199,1.0);font-size:30px;font-weight:bold;'>$175,000</span><br />
                 Bids Lost (Last 12 Months)
               </div>
             </div>
         </div>
+
       </div>
 
       <!-- PROJECTS SECTIONS -->
       <div class='cell small-12'>
         <div class='card'>
-          <h5><strong>Projects</strong></h5>
+          <h5><strong><i class="fas fa-users"></i>&nbsp;Projects</strong></h5>
           <div class='grid-x'>
             <div class='cell medium-4'>
-              Project Counts (Last 12 months)
+              <canvas id="project-counts"></canvas>
             </div>
             <div class='cell medium-4'>
-              Project status
+              <canvas id="project-status"></canvas>
             </div>
             <div class='cell medium-4'>
-              Top Grossing Projects (Last 12 months)
+              <canvas id='top-projects'></canvas>
             </div>
           </div>
         </div>
+
+        <!-- javascript for projects charts -->
+        <script>
+          var ctx = document.getElementById("project-counts").getContext('2d');
+          var projectCounts = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                  datasets: [{
+                      data: [33,21,32,18,25,43,33,21,28,35,29,14],
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)',
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)',
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: 'Project Counts (Last 12 months)'
+                },
+                legend: {
+                  display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+              }
+          });
+
+
+
+          var ctx = document.getElementById("project-status").getContext('2d');
+          var projectStatus = new Chart(ctx, {
+              type: 'doughnut',
+              data: {
+                  // labels: ["New","Quoted","Sold","Engineered","Lost"],
+                  labels: ['New','Quoted','Engineered','Sold','Lost'],
+                  datasets: [{
+                      data: [32,57,24,72,28],
+                      backgroundColor: [
+                          'rgba(243,156,18,0.6)',
+                          'rgba(41,128,185,0.6)',
+                          'rgba(39,174,96,0.6)',
+                          'rgba(142,68,173,0.6)',
+                          'rgba(44,62,80,0.6)',
+                      ],
+                      // borderColor: [
+                      //   'rgba(243,156,18,1)',
+                      //   'rgba(41,128,185,1)',
+                      //   'rgba(39,174,96,1)',
+                      //   'rgba(142,68,173,1)',
+                      //   'rgba(44,62,80,1)',
+                      // ],
+                      borderWidth: 1
+                  }]
+
+              },
+              options: {
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: 'Project Status (Up to last 12 months)'
+                },
+                legend: {
+                  display: true,
+                  position: 'right',
+                },
+              }
+          });
+
+
+          var ctx = document.getElementById("top-projects").getContext('2d');
+          var projectCounts = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: ['Microsoft','Acme','Massive Dynamics','Hersheys','AMD'],
+                  datasets: [{
+                      data: [60000,45000,42300,29000,26000],
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)',
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)',
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: 'Top Projects (Last 12 months)'
+                },
+                legend: {
+                  display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+              }
+          });
+
+
+
+        </script>
       </div>
 
 
       <!-- PEOPLE SECTION -->
       <div class='cell small-12'>
         <div class='card'>
-          <h5><strong>People</strong></h5>
+          <h5><strong><i class="fas fa-users"></i>&nbsp;People</strong></h5>
         </div>
       </div>
     </div>
