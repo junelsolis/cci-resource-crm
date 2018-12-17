@@ -1,7 +1,12 @@
 
-@import "~foundation-sites/scss/foundation.scss";
+// Settings
+@import "vendor/zurb/foundation/scss/settings/settings";
+// Foundation
+@import "vendor/zurb/foundation/scss/foundation";
+// Everything
 @include foundation-everything(true);
 @import "site-default.scss";
+@import "login.scss";
 
 
 .navbar-laravel {

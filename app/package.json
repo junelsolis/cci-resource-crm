@@ -13,15 +13,21 @@
         "axios": "^0.18",
         "cross-env": "^5.1",
         "foundation-sites": "^6.5.1",
+        "gulp-sass": "^4.0.2",
         "jquery": "^3.2",
-        "laravel-mix": "^2.0",
+        "laravel-mix": "^4.0.8",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
+        "resolve-url-loader": "^2.3.1",
+        "sass-loader": "^7.1.0",
         "vue": "^2.5.17"
     },
     "dependencies": {
-        "ajv": "^6.6.1",
+        "ajv": "^6.6.2",
+        "gulp": "^4.0.0",
         "imagemin": "^6.0.0",
+        "node-sass": "^4.11.0",
+        "sass": "^1.15.2",
         "what-input": "^5.1.3"
     }
 }

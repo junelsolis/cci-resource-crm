@@ -1,8 +1,9 @@
 body {
   height: 100vh;
+  background-color: #2b6bac;
 }
 
-#main {
+/* #main {
   max-width: 500px;
   min-height: 500px;
   position: relative;
@@ -15,4 +16,4 @@ body {
 #main form {
   max-width: 350px;
   margin: auto;
-}
+} */
