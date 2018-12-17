@@ -166,21 +166,21 @@
       </form>
       <br />
       <?php
-        $colorSwitcher = 0;
-        $color = '';
+        // $colorSwitcher = 0;
+        // $color = '';
       ?>
       @foreach ($i->notes as $note)
       <?php
-        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-
-        if ($colorSwitcher <= 1) {
-          if ($colorSwitcher == 0) {
-            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-          }
-
-          if ($colorSwitcher == 1) {
-            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-          }
+        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+        //
+        // if ($colorSwitcher <= 1) {
+        //   if ($colorSwitcher == 0) {
+        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
+        //   }
+        //
+        //   if ($colorSwitcher == 1) {
+        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
+        //   }
 
           // if ($colorSwitcher == 2) {
           //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
@@ -194,10 +194,10 @@
           //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
           // }
 
-          $colorSwitcher++;
-        }
+          // $colorSwitcher++;
+        // }
       ?>
-      <div class="note-card" <?php echo $color; ?>>
+      <div class="note-card">
         <span>{!! nl2br($note->note) !!}</span>
         <br /><br />
         <p style='color:grey;'>
@@ -224,21 +224,21 @@
       </form>
       <br />
       <?php
-        $colorSwitcher = 0;
-        $color = '';
+        // $colorSwitcher = 0;
+        // $color = '';
       ?>
       @foreach ($i->notes as $note)
       <?php
-        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-
-        if ($colorSwitcher <= 1) {
-          if ($colorSwitcher == 0) {
-            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-          }
-
-          if ($colorSwitcher == 1) {
-            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-          }
+        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
+        //
+        // if ($colorSwitcher <= 1) {
+        //   if ($colorSwitcher == 0) {
+        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
+        //   }
+        //
+        //   if ($colorSwitcher == 1) {
+        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
+        //   }
 
           // if ($colorSwitcher == 2) {
           //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
@@ -252,10 +252,10 @@
           //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
           // }
 
-          $colorSwitcher++;
-        }
+        //   $colorSwitcher++;
+        // }
       ?>
-      <div class="note-card" <?php echo $color; ?>>
+      <div class="note-card">
         <span>{!! nl2br($note->note) !!}</span>
         <br /><br />
         <p style='color:grey;'>
@@ -351,7 +351,7 @@
             </div>
 
 
-            
+
 
           </div>
           <br />

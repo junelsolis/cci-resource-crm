@@ -8034,11 +8034,12 @@ select {
 /* classes for project information */
 
 .project-info {
-  background-color: white;
+  background-color: #2c3e50;
   padding-top: 100px;
   padding-bottom: 50px;
   padding-left: 15px;
   padding-right: 15px;
+  color: white;
 }
 
 .project-info .close-button {
@@ -8046,7 +8047,7 @@ select {
 }
 
 .project-info h4 {
-  color: #707070;
+  color: white;
 }
 
 .project-info h4 span {
@@ -8063,6 +8064,8 @@ select {
   padding: 8px 10px 0px 10px;
   margin-bottom: 10px;
   line-height: 1;
+  background-color: white;
+  color: #707070;
 }
 
 /* classes for adding project */
@@ -8097,7 +8100,7 @@ select {
 
 .login {
   height: 100vh;
-  background-color: #2B6BAC;
+  background-color: #2c3e50;
 }
 
 .login .login-box {
@@ -8112,7 +8115,7 @@ select {
   text-align: center;
   padding: 20px;
   border-radius: 6px;
-  box-shadow: 0px 2px 2px 3px rgba(67, 77, 87, 0.4);
+  box-shadow: 0px 2px 2px 3px rgba(0, 0, 0, 0.4);
 }
 
 .login .login-box form {

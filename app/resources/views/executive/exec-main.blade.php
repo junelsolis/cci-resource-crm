@@ -20,10 +20,11 @@
   <body>
 
     <!-- off-canvas divs -->
+    @if ($projects->isNotEmpty())
     @foreach ($projects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
-      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
-      <br /><br />
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas  data-auto-focus="false">
+      <h4><span>{{ $i->name }}</span></h4>
+      <br />
 
       <form method='post' action='/note/add/{{ $i->id }}'>
         {{ csrf_field() }}
@@ -32,29 +33,10 @@
         <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
       <br />
-      <?php
-        $colorSwitcher = 0;
-        $color = '';
-      ?>
-      @foreach ($i->notes as $note)
-      <?php
-        if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-
-        if ($colorSwitcher <= 1) {
-          if ($colorSwitcher == 0) {
-            $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-          }
-
-          if ($colorSwitcher == 1) {
-            $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-          }
-          $colorSwitcher++;
-        }
-      ?>
       <div class="note-card" <?php echo $color; ?>>
         <span>{!! nl2br($note->note) !!}</span>
         <br /><br />
-        <p style='color:grey;'>
+        <p>
           <strong>{{ $note->author }}</strong> on {{ $note->date }}
         </p>
       </div>
@@ -62,6 +44,7 @@
       <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
     </div>
     @endforeach
+    @endif
 
     <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
 
