@@ -6735,17 +6735,17 @@ a.thumbnail image {
 
 @media print, screen and (min-width: 40em) {
   .position-left {
-    width: 300px;
-    -webkit-transform: translateX(-300px);
-            transform: translateX(-300px);
+    width: 400px;
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px);
   }
 }
 
 @media print, screen and (min-width: 64em) {
   .position-left {
-    width: 350px;
-    -webkit-transform: translateX(-350px);
-            transform: translateX(-350px);
+    width: 400px;
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px);
   }
 }
 
@@ -6756,15 +6756,15 @@ a.thumbnail image {
 
 @media print, screen and (min-width: 40em) {
   .off-canvas-content .off-canvas.position-left {
-    -webkit-transform: translateX(-300px);
-            transform: translateX(-300px);
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px);
   }
 }
 
 @media print, screen and (min-width: 64em) {
   .off-canvas-content .off-canvas.position-left {
-    -webkit-transform: translateX(-350px);
-            transform: translateX(-350px);
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px);
   }
 }
 
@@ -6780,15 +6780,15 @@ a.thumbnail image {
 
 @media print, screen and (min-width: 40em) {
   .off-canvas-content.is-open-left.has-transition-push {
-    -webkit-transform: translateX(300px);
-            transform: translateX(300px);
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
   }
 }
 
 @media print, screen and (min-width: 64em) {
   .off-canvas-content.is-open-left.has-transition-push {
-    -webkit-transform: translateX(350px);
-            transform: translateX(350px);
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
   }
 }
 
@@ -6808,17 +6808,17 @@ a.thumbnail image {
 
 @media print, screen and (min-width: 40em) {
   .position-right {
-    width: 300px;
-    -webkit-transform: translateX(300px);
-            transform: translateX(300px);
+    width: 400px;
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
   }
 }
 
 @media print, screen and (min-width: 64em) {
   .position-right {
-    width: 350px;
-    -webkit-transform: translateX(350px);
-            transform: translateX(350px);
+    width: 400px;
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
   }
 }
 
@@ -6829,15 +6829,15 @@ a.thumbnail image {
 
 @media print, screen and (min-width: 40em) {
   .off-canvas-content .off-canvas.position-right {
-    -webkit-transform: translateX(300px);
-            transform: translateX(300px);
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
   }
 }
 
 @media print, screen and (min-width: 64em) {
   .off-canvas-content .off-canvas.position-right {
-    -webkit-transform: translateX(350px);
-            transform: translateX(350px);
+    -webkit-transform: translateX(400px);
+            transform: translateX(400px);
   }
 }
 
@@ -6853,15 +6853,15 @@ a.thumbnail image {
 
 @media print, screen and (min-width: 40em) {
   .off-canvas-content.is-open-right.has-transition-push {
-    -webkit-transform: translateX(-300px);
-            transform: translateX(-300px);
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px);
   }
 }
 
 @media print, screen and (min-width: 64em) {
   .off-canvas-content.is-open-right.has-transition-push {
-    -webkit-transform: translateX(-350px);
-            transform: translateX(-350px);
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px);
   }
 }
 
@@ -6966,11 +6966,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-left {
-    margin-left: 300px;
+    margin-left: 400px;
   }
 
   .position-left.reveal-for-medium ~ .off-canvas-content {
-    margin-left: 300px;
+    margin-left: 400px;
   }
 
   .position-right.reveal-for-medium {
@@ -6991,11 +6991,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-right {
-    margin-right: 300px;
+    margin-right: 400px;
   }
 
   .position-right.reveal-for-medium ~ .off-canvas-content {
-    margin-right: 300px;
+    margin-right: 400px;
   }
 
   .position-top.reveal-for-medium {
@@ -7016,11 +7016,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-top {
-    margin-top: 300px;
+    margin-top: 400px;
   }
 
   .position-top.reveal-for-medium ~ .off-canvas-content {
-    margin-top: 300px;
+    margin-top: 400px;
   }
 
   .position-bottom.reveal-for-medium {
@@ -7041,11 +7041,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-bottom {
-    margin-bottom: 300px;
+    margin-bottom: 400px;
   }
 
   .position-bottom.reveal-for-medium ~ .off-canvas-content {
-    margin-bottom: 300px;
+    margin-bottom: 400px;
   }
 }
 
@@ -7068,11 +7068,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-left {
-    margin-left: 350px;
+    margin-left: 400px;
   }
 
   .position-left.reveal-for-large ~ .off-canvas-content {
-    margin-left: 350px;
+    margin-left: 400px;
   }
 
   .position-right.reveal-for-large {
@@ -7093,11 +7093,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-right {
-    margin-right: 350px;
+    margin-right: 400px;
   }
 
   .position-right.reveal-for-large ~ .off-canvas-content {
-    margin-right: 350px;
+    margin-right: 400px;
   }
 
   .position-top.reveal-for-large {
@@ -7118,11 +7118,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-top {
-    margin-top: 350px;
+    margin-top: 400px;
   }
 
   .position-top.reveal-for-large ~ .off-canvas-content {
-    margin-top: 350px;
+    margin-top: 400px;
   }
 
   .position-bottom.reveal-for-large {
@@ -7143,11 +7143,11 @@ a.thumbnail image {
   }
 
   .off-canvas-content.has-reveal-bottom {
-    margin-bottom: 350px;
+    margin-bottom: 400px;
   }
 
   .position-bottom.reveal-for-large ~ .off-canvas-content {
-    margin-bottom: 350px;
+    margin-bottom: 400px;
   }
 }
 
@@ -8096,6 +8096,38 @@ select {
   padding-left: 4px;
   color: #e74c3c;
   font-size: 8px;
+}
+
+.person-info {
+  background-color: #d1d8e0;
+  padding-top: 100px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.person-info .user-icon {
+  text-align: center;
+}
+
+.person-info .user-icon i {
+  font-size: 60px;
+}
+
+.person-info .user-icon h4 {
+  color: #707070;
+  font-weight: bold;
+}
+
+.person-info .stat-sales {
+  color: #ff6384;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.person-info .stat-projectd {
+  color: #3e95cd;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .login {

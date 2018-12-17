@@ -18,35 +18,6 @@
   </head>
   @include('navbar')
   <body>
-
-    <!-- off-canvas divs -->
-    @if ($projects->isNotEmpty())
-    @foreach ($projects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas  data-auto-focus="false">
-      <h4><span>{{ $i->name }}</span></h4>
-      <br />
-
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-      @foreach ($i->notes as $note)
-      <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
-    @endforeach
-    @endif
-
     <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
 
       <!-- SALES SECTION -->
@@ -452,12 +423,107 @@
       <div class='cell small-12'>
         <div class='card'>
           <h5><strong><i class="fas fa-users"></i>&nbsp;People</strong></h5>
+          <div class='table-scroll'>
+            <table id='product-sales-table' class='unstriped display'>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Upcoming Projects</th>
+                  <th>Sold Projects (Last 12 Months)</th>
+                  <th>Lost Projects (Last 12 Months)</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if ($productSalesReps)
+                @foreach ($productSalesReps as $i)
+                <tr>
+                  <td><a data-toggle='{{ $i->id }}-person-info'><i class="fas fa-exclamation-circle"></i></a></td>
+                  <td>{{ $i->name }}</td>
+                  <td>{{ $i->upcomingProjects->count() }}</td>
+                  <td>{{ $i->soldProjects->count() }}</td>
+                  <td>{{ $i->lostProjects->count() }}</td>
+                </tr>
+                @endforeach
+                @endif
+              </tbody>
+            </table>
+
+            <!-- initialize product sales table js -->
+            <script>
+              $(document).ready(function() {
+                $('#product-sales-table').DataTable( {
+                  "order": [[ 1, 'asc']],
+                  'pageLength': 10,
+                });
+              });
+            </script>
+          </div>
         </div>
+
       </div>
     </div>
 
 
+    <!-- OFF-CANVAS DIVS -->
+    <!-- project notes -->
+    @if ($projects->isNotEmpty())
+    @foreach ($projects as $i)
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas  data-auto-focus="false">
+      <h4><span>{{ $i->name }}</span></h4>
+      <br />
 
+      <form method='post' action='/note/add/{{ $i->id }}'>
+        {{ csrf_field() }}
+        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <textarea name='note' required placeholder='Type note here...'></textarea>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+      <br />
+      @foreach ($i->notes as $note)
+      <div class="note-card">
+        <span>{!! nl2br($note->note) !!}</span>
+        <br /><br />
+        <p>
+          <strong>{{ $note->author }}</strong> on {{ $note->date }}
+        </p>
+      </div>
+      @endforeach
+      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
+    </div>
+    @endforeach
+    @endif
+
+    <!-- salesperson info -->
+    @if ($productSalesReps)
+    @foreach ($productSalesReps as $i)
+    <div class='off-canvas position-left person-info' id='{{$i->id}}-person-info' data-off-canvas data-auto-focus='false'>
+      <div class='user-icon'>
+        <i class="fas fa-user-circle"></i><br />
+        <h4>{{ $i->name }}</h4>
+      </div>
+
+      <!-- sales stats -->
+      <div class='grid-x'>
+        <div class='cell small-12'>
+          <span class='title'>Sales History</span>
+        </div>
+        <div class='cell small-6'>
+          sales last 12 months
+        </div>
+        <div class='cell small-6'>
+          projected sales (next 6 months)
+        </div>
+        <div class='cell small-6'>
+          sales chart
+        </div>
+        <div class='cell small-6'>
+          projected sales chart
+        </div>
+      </div>
+    </div>
+    @endforeach
+    @endif
 
   </body>
   @include('footer')

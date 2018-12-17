@@ -218,3 +218,38 @@ select {
     font-size: 8px;
   }
 }
+
+// classes for person info
+.person-info {
+  background-color: #d1d8e0;
+  padding-top: 100px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .user-icon {
+
+    text-align: center;
+
+    i {
+      font-size: 60px;
+    }
+
+    h4 {
+      color: #707070;
+      font-weight: bold;
+    }
+  }
+
+  .stat-sales {
+    color: rgba(255,99,132,1);
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .stat-projectd {
+    color: #3e95cd;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+}
