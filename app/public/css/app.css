@@ -8111,23 +8111,36 @@ select {
 
 .person-info .user-icon i {
   font-size: 60px;
+  color: #2d3436;
 }
 
 .person-info .user-icon h4 {
-  color: #707070;
+  color: #2d3436;
+  font-weight: bold;
+}
+
+.person-info .title {
+  color: #2d3f36;
   font-weight: bold;
 }
 
 .person-info .stat-sales {
+  text-align: center;
   color: #ff6384;
   font-size: 20px;
   font-weight: bold;
 }
 
-.person-info .stat-projectd {
+.person-info .stat-projected {
+  text-align: center;
   color: #3e95cd;
   font-size: 20px;
   font-weight: bold;
+}
+
+.person-info .stat-title {
+  text-align: center;
+  color: #2d3436;
 }
 
 .login {

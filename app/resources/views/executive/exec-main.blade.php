@@ -330,6 +330,7 @@
 
         </script>
       </div>
+      <!-- table for projects -->
       <div class='cell small-12'>
         <div class='card'>
           <div class='table-scoll'>
@@ -502,26 +503,134 @@
         <i class="fas fa-user-circle"></i><br />
         <h4>{{ $i->name }}</h4>
       </div>
-
+      <br /><br />
       <!-- sales stats -->
       <div class='grid-x'>
         <div class='cell small-12'>
           <span class='title'>Sales History</span>
         </div>
         <div class='cell small-6'>
-          sales last 12 months
+          <span class='stat-sales'>$85,000</span><br />
+          <span class='stat-title'>Sales (Last 12 Months)</span>
         </div>
         <div class='cell small-6'>
-          projected sales (next 6 months)
+          <span class='stat-projected'>$65,500</span><br />
+          <span class='stat-title'>Project Sales (Next 6 Months)</span>
         </div>
-        <div class='cell small-6'>
-          sales chart
+        <div class='cell small-12'>
+          <canvas id="{{$i->id}}-sales-chart"></canvas>
         </div>
-        <div class='cell small-6'>
-          projected sales chart
+        <div class='cell small-12'>
+          <canvas id='{{$i->id}}-projected-sales-chart'></canvas>
+        </div>
+        <div class='cell small-12'>
+          <canvas id='{{$i->id}}-project-status'></canvas>
         </div>
       </div>
     </div>
+
+    <!-- charts for each salesperson -->
+    <script>
+      var personctx = document.getElementById('{{$i->id}}-sales-chart').getContext('2d');
+      var salesChart = new Chart(personctx, {
+        type: 'line',
+        data: {
+          labels: [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'
+          ],
+          datasets: [{
+            data: [
+              40000, 35000, 20000, 80000, 65000, 44000, 38000, 24000, 75000, 60000, 28000, 74000
+            ],
+            borderColor: "rgba(255,99,132,1)",
+            fill: true,
+            backgroundColor: "rgba(255,99,132,0.2)"
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Sales (Last 12 months)'
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+
+
+
+      var personctx = document.getElementById('{{$i->id}}-projected-sales-chart').getContext('2d');
+      var projectSalesChart = new Chart(personctx, {
+        type: 'line',
+        data: {
+          labels: [
+            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'
+          ],
+          datasets: [{
+            data: [
+              68000, 47000, 33000, 70000, 65000, 44000
+            ],
+            borderColor: '#3e95cd',
+            fill: true,
+            backgroundColor: 'rgba(62,149,205,0.2)'
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Projected Sales (Next 6 Months)'
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+
+
+
+      var personctx = document.getElementById("{{$i->id}}-project-status").getContext('2d');
+      var projectStatus = new Chart(personctx, {
+          type: 'doughnut',
+          data: {
+              // labels: ["New","Quoted","Sold","Engineered","Lost"],
+              labels: ['New','Quoted','Engineered','Sold','Lost'],
+              datasets: [{
+                  data: [32,57,24,72,28],
+                  backgroundColor: [
+                      'rgba(243,156,18,0.6)',
+                      'rgba(41,128,185,0.6)',
+                      'rgba(39,174,96,0.6)',
+                      'rgba(142,68,173,0.6)',
+                      'rgba(44,62,80,0.6)',
+                  ],
+                  // borderColor: [
+                  //   'rgba(243,156,18,1)',
+                  //   'rgba(41,128,185,1)',
+                  //   'rgba(39,174,96,1)',
+                  //   'rgba(142,68,173,1)',
+                  //   'rgba(44,62,80,1)',
+                  // ],
+                  borderWidth: 1
+              }]
+
+          },
+          options: {
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: 'Project Status (Up to last 12 months)'
+            },
+            legend: {
+              display: true,
+              position: 'right',
+            },
+          }
+      });
+
+    </script>
     @endforeach
     @endif
 

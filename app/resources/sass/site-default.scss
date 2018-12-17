@@ -232,24 +232,36 @@ select {
 
     i {
       font-size: 60px;
+      color: #2d3436;
     }
 
     h4 {
-      color: #707070;
+      color: #2d3436;
       font-weight: bold;
     }
   }
 
+  .title {
+    color: #2d3f36;
+    font-weight: bold;
+  }
   .stat-sales {
+    text-align: center;
     color: rgba(255,99,132,1);
     font-size: 20px;
     font-weight: bold;
   }
 
-  .stat-projectd {
+  .stat-projected {
+    text-align: center;
     color: #3e95cd;
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .stat-title {
+    text-align: center;
+    color: #2d3436;
   }
 
 }
