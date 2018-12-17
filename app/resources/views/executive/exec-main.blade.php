@@ -33,7 +33,8 @@
         <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
       <br />
-      <div class="note-card" <?php echo $color; ?>>
+      @foreach ($i->notes as $note)
+      <div class="note-card">
         <span>{!! nl2br($note->note) !!}</span>
         <br /><br />
         <p>
