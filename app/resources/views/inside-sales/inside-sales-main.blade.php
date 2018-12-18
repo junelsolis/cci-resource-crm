@@ -321,9 +321,19 @@
               <script>
                 $.fn.editable.defaults.mode = 'inline';
 
+                $(document).ready(function() {
+                  $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+                  $('#upcoming-projects-table').DataTable( {
+                    "order": [[ 3, 'asc']],
+                    'pageLength': 10,
+                  });
+                });
+
                 @foreach ($upcomingProjects as $i)
                 // setup editables
                 $(document).ready(function() {
+
 
 
                   $('#{{$i->id}}-name').editable(
@@ -657,9 +667,20 @@
             </table>
 
             <script>
+
+              $(document).ready(function() {
+                $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+                $('#all-projects-table').DataTable( {
+                  "order": [[ 3, "desc" ]],
+                  'pageLength': 10,
+                } );
+              });
+
               @foreach ($allProjects as $i)
               // setup editables
               $(document).ready(function() {
+
 
 
                 $('#{{$i->id}}-all-name').editable(
@@ -876,18 +897,9 @@
 
     $(document).ready(function() {
 
-      $('#upcoming-projects-table').DataTable( {
-        $.fn.dataTable.moment( 'MM/DD/YYYY' );
-        "order": [[ 3, 'asc']],
-        'pageLength': 10,
-      });
 
 
-      $('#all-projects-table').DataTable( {
-        $.fn.dataTable.moment( 'MM/DD/YYYY' );
-        "order": [[ 3, "desc" ]],
-        'pageLength': 10,
-      } );
+
     } );
   </script>
 
