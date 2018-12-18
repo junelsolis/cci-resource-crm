@@ -139,7 +139,7 @@ class ProductSalesController extends Controller
 
         // format bid date
         $bidDate = new Carbon($project->bid_date);
-        $date = $bidDate->format('Y-m-d');
+        $date = $bidDate->format('m/d/Y');
         $project->bidDate = $date;
 
         // add bid timing
@@ -215,7 +215,10 @@ class ProductSalesController extends Controller
     }
 
     private function getUpcomingProjects() {
-      $projects = DB::table('projects')->orderBy('bid_date', 'desc')->limit(10)->get();
+      $projects = DB::table('projects')
+        ->where('product_sales_id', session('logged_in_user_id'))
+        ->orderBy('bid_date','desc')->get();
+
       $now = Carbon::now('America/New_York');
 
       $allStatus = DB::table('project_status')->get();
@@ -225,9 +228,24 @@ class ProductSalesController extends Controller
       foreach ($projects as $key => $item) {
         $bid_date = new Carbon($item->bid_date, 'America/New_York');
 
+        $status = $item->status_id;
+
         if ($now->greaterThan($bid_date)) {
+
+          if ($status == 1 || $status == 4) {
+
+            $item->bidDate = date('M d, Y', strtotime($item->bid_date));
+
+            // assign status
+            $status = $allStatus->where('id', $item->status_id)->first();
+            $item->status = $status;
+            
+            continue;
+          }
+
           $projects->forget($key);
         }
+
 
         $item->bidDate = date('M d, Y', strtotime($item->bid_date));
 
@@ -236,10 +254,12 @@ class ProductSalesController extends Controller
         $item->status = $status;
       }
 
+      $projects = $projects->reverse();
       $projects = $projects->take(5);
 
-
       return $projects;
+
+
     }
     private function getChartData() {
       /*  gathers all the data needed for charts
