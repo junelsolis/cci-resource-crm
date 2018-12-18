@@ -165,62 +165,7 @@
     @endforeach
 
 
-    <!-- divs for off-canvas project information -->
-    @foreach ($allProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
-      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
-      <br /><br />
 
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-      <?php
-        // $colorSwitcher = 0;
-        // $color = '';
-      ?>
-      @foreach ($i->notes as $note)
-      <?php
-        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-        //
-        // if ($colorSwitcher <= 1) {
-        //   if ($colorSwitcher == 0) {
-        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-        //   }
-        //
-        //   if ($colorSwitcher == 1) {
-        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-        //   }
-
-          // if ($colorSwitcher == 2) {
-          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
-          // }
-          //
-          // if ($colorSwitcher == 3) {
-          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
-          // }
-          //
-          // if ($colorSwitcher == 4) {
-          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
-          // }
-
-        //   $colorSwitcher++;
-        // }
-      ?>
-      <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
-    @endforeach
 
 
 
@@ -231,9 +176,9 @@
             <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;New Project</a></li>
           </ul>
         </div>
-
-
       </div>
+
+      <!-- upcoming projects section -->
       <div class='cell small-12'>
         <div class='card'>
           <div class='grid-x align-middle'>
@@ -540,7 +485,7 @@
       </div>
 
 
-
+      <!-- product sales persons section -->
       <div class='cell small-12'>
         <div class='card'>
           <h5><strong><i class="fas fa-user-tie"></i>&nbsp;Product Salespersons</strong></h5>
@@ -579,7 +524,7 @@
       </div>
 
 
-
+      <!-- all projects section -->
       <div class='cell small-12'>
         <div id='all-projects' class='card'>
           <div class='grid-x align-middle'>
@@ -619,11 +564,11 @@
                   <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
                   <td id='{{$i->id}}-all-status'
                     <?php
-                      if ($i->status->status == 'New') { echo 'class=\'status-new\''; }
-                      if ($i->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                      if ($i->status->status == 'Sold') { echo 'class=\'status-sold\''; }
-                      if ($i->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                      if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+                      if ($i->status->status == 'New') { echo ' class=\'status-new\''; }
+                      if ($i->status->status == 'Engineered') { echo ' class=\'status-engineered\''; }
+                      if ($i->status->status == 'Sold') { echo ' class=\'status-sold\''; }
+                      if ($i->status->status == 'Quoted') { echo ' class=\'status-quoted\''; }
+                      if ($i->status->status == 'Lost') { echo ' class=\'status-lost\''; }
                     ?>
                   >{{ $i->status->status }}</td>
                   <td id='{{$i->id}}-all-bidDate'
@@ -658,7 +603,7 @@
                   </td>
                   <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                   <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
                 @endforeach
@@ -720,7 +665,7 @@
                     disabled: true,
                     name: 'bidDate',
                     format: 'yyyy-mm-dd',
-                    viewformat: 'mm/dd/yy',
+                    viewformat: 'mm/dd/yyyy',
                     datepicker: {
                       weekStart: 1
                     }
@@ -882,6 +827,51 @@
 
       </div>
     </div>
+
+    <!-- divs for off-canvas project information -->
+    @foreach ($allProjects as $i)
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-all-projects-info" data-off-canvas data-auto-focus="false">
+      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
+      <br /><br />
+
+      <form method='post' action='/note/add/{{ $i->id }}'>
+        {{ csrf_field() }}
+        <textarea name='note' required placeholder='Type note here...'></textarea>
+        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+      <br />
+
+      @foreach ($i->notes as $note)
+      <div class="note-card">
+        <a id='edit-note-{{$note->id}}'><i class="fas fa-pen"></i></a>&nbsp;<span id='note-{{$note->id}}'>{!! nl2br($note->note) !!}</span>
+        <br /><br />
+        <p>
+          <strong>{{ $note->author }}</strong> on {{ $note->date }}
+        </p>
+
+        <!-- javascript for note editing -->
+        <script>
+
+          $('#edit-note-{{$note->id}}').click(function() {
+            var edit = $('#note-{{$note->id}}');
+            if (edit.attr('contenteditable') == 'true') {
+              edit.attr('contenteditable', 'false');
+            } else {
+              edit.attr('contenteditable', 'true');
+              $('#note-{{$note->id}}').focus();
+            }
+          });
+
+        </script>
+      </div>
+      @endforeach
+      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
+    </div>
+    @endforeach
+
+
+
+
   </body>
   @include('footer')
   <script>
@@ -894,13 +884,6 @@
     });
 
     $(document).foundation();
-
-    $(document).ready(function() {
-
-
-
-
-    } );
   </script>
 
 
