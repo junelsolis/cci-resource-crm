@@ -7991,33 +7991,34 @@ select {
 
 .status-new {
   background-color: rgba(243, 156, 18, 0.2);
-  color: #f39c12;
+  color: #f39c12 !important;
 }
 
 .status-engineered {
   background-color: rgba(142, 68, 173, 0.2);
-  color: #8e44ad;
+  color: #8e44ad !important;
 }
 
 .status-sold {
   background-color: rgba(39, 174, 96, 0.2);
-  color: #27ae60;
+  color: #27ae60 !important;
 }
 
 .status-quoted {
   background-color: rgba(41, 128, 185, 0.2);
-  color: #2980b9;
+  color: #2980b9 !important;
 }
 
 .status-lost {
   background-color: rgba(44, 62, 80, 0.2);
-  color: #2c3e50;
+  color: #2c3e50 !important;
 }
 
 /* classes for project timing */
 
 .bidTiming-late {
   color: red !important;
+  font-weight: bolder;
 }
 
 .bidTiming-soon {

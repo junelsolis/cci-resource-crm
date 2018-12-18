@@ -163,7 +163,7 @@ class InsideSalesController extends Controller
 
       // format bid date
       $bidDate = new Carbon($project->bid_date);
-      $date = $bidDate->format('Y-m-d');
+      $date = $bidDate->format('d/m/Y');
       $project->bidDate = $date;
 
       // add bid timing

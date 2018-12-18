@@ -213,7 +213,7 @@
 
     <!-- divs for off-canvas project information -->
     @foreach ($projects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas>
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas  data-auto-focus="false">
       <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
       <br /><br />
 

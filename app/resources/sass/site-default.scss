@@ -107,29 +107,30 @@ select {
 /* project status classes */
 .status-new {
   background-color: rgba(243,156,18,0.2);
-  color: rgb(243,156,18);
+  color: rgb(243,156,18) !important;
 }
 .status-engineered {
   background-color: rgba(142,68,173,0.2);
-  color: rgb(142,68,173);
+  color: rgb(142,68,173) !important;
 }
 .status-sold {
   background-color: rgba(39,174,96,0.2);
-  color: rgb(39,174,96);
+  color: rgb(39,174,96) !important;
 }
 .status-quoted {
   background-color: rgba(41,128,185,0.2);
-  color: rgb(41,128,185);
+  color: rgb(41,128,185) !important;
 }
 .status-lost {
   background-color: rgba(44,62,80,0.2);
-  color:rgb(44,62,80);
+  color:rgb(44,62,80) !important;
 }
 
 
 /* classes for project timing */
 .bidTiming-late {
   color: red !important;
+  font-weight: bolder;
 }
 .bidTiming-soon {
   color: #f39c12 !important;

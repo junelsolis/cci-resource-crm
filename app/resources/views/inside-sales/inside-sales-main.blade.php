@@ -17,7 +17,10 @@
     <script src='{{ asset('js/bootstrap.min.js')}}'></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
+    <script src='//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js'></script>
+
 
   </head>
   @include('navbar')
@@ -874,12 +877,14 @@
     $(document).ready(function() {
 
       $('#upcoming-projects-table').DataTable( {
+        $.fn.dataTable.moment( 'MM/DD/YYYY' );
         "order": [[ 3, 'asc']],
         'pageLength': 10,
       });
 
 
       $('#all-projects-table').DataTable( {
+        $.fn.dataTable.moment( 'MM/DD/YYYY' );
         "order": [[ 3, "desc" ]],
         'pageLength': 10,
       } );
