@@ -1,11 +1,11 @@
 <div id='navbar'>
   <div class='grid-x'>
-    <div class='cell medium-6'>
+    <div class='cell medium-3'>
       <div id='logo'>
         <a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a>
       </div>
     </div>
-    <div id='right' class='cell medium-6'>
+    <div id='right' class='cell medium-9'>
       <ul class="dropdown menu align-right align-middle" data-dropdown-menu>
         <li style='text-align:right;'><a href="#"><strong>{{ $userDetails['name'] }}</strong><br />{{ $userDetails['role'] }}</a></li>
         <li>|</li>

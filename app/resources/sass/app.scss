@@ -6,6 +6,7 @@
 // Everything
 @include foundation-everything(true);
 @import "site-default.scss";
+@import "navbar.scss";
 @import "login.scss";
 @import "header-footer.scss";
 
