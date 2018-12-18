@@ -150,123 +150,60 @@
       </form>
     </div>
 
-    <!-- divs for off-canvas project information -->
-    @foreach ($upcomingProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas data-auto-focus="false">
-      <button class="close-button" aria-label="Close menu" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
-      <br /><br />
 
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-      <?php
-        // $colorSwitcher = 0;
-        // $color = '';
-      ?>
-      @foreach ($i->notes as $note)
-      <?php
-        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-        //
-        // if ($colorSwitcher <= 1) {
-        //   if ($colorSwitcher == 0) {
-        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-        //   }
-        //
-        //   if ($colorSwitcher == 1) {
-        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-        //   }
-
-          // if ($colorSwitcher == 2) {
-          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
-          // }
-          //
-          // if ($colorSwitcher == 3) {
-          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
-          // }
-          //
-          // if ($colorSwitcher == 4) {
-          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
-          // }
-
-          // $colorSwitcher++;
-        // }
-      ?>
-      <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
-        <p style='color:grey;'>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
-    @endforeach
 
 
     <!-- divs for off-canvas project information -->
     @foreach ($projects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas  data-auto-focus="false">
-      <h4><span>Project:</span>&nbsp;{{ $i->name }}</h4>
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-projects-info" data-off-canvas data-auto-focus="false">
+      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
       <br /><br />
 
       <form method='post' action='/note/add/{{ $i->id }}'>
         {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <input type='hidden' name='editable' value='true' />
         <textarea name='note' required placeholder='Type note here...'></textarea>
         <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
       <br />
-      <?php
-        // $colorSwitcher = 0;
-        // $color = '';
-      ?>
+
       @foreach ($i->notes as $note)
-      <?php
-        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-        //
-        // if ($colorSwitcher <= 1) {
-        //   if ($colorSwitcher == 0) {
-        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-        //   }
-        //
-        //   if ($colorSwitcher == 1) {
-        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-        //   }
-
-          // if ($colorSwitcher == 2) {
-          //   $color = 'style=\'background-color:rgba(155,89,182,0.1)\';';
-          // }
-          //
-          // if ($colorSwitcher == 3) {
-          //   $color = 'style=\'background-color:rgba(231,76,60,0.1)\';';
-          // }
-          //
-          // if ($colorSwitcher == 4) {
-          //   $color = 'style=\'background-color:rgba(241, 196, 15,0.1)\';';
-          // }
-
-        //   $colorSwitcher++;
-        // }
-      ?>
       <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
-        <p style='color:grey;'>
+        @if ($note->userIsAuthor == true && $note->editable == true)
+        <script>
+
+          $(document).ready(function() {
+            $('#note-{{$note->id}}').editable({
+              type: 'textarea',
+              url: '/note/edit/{{$note->id}}',
+              title: 'Edit Note',
+              rows: 10,
+              pk: {{$note->id}},
+              disabled: true
+            });
+
+            $('#{{$note->id}}-note-edit-toggle').click(function(e) {
+              e.stopPropagation();
+              $('#note-{{$note->id}}').editable('toggleDisabled');
+            });
+
+          });
+        </script>
+        <a id='{{$note->id}}-note-edit-toggle' ><i class="fas fa-pen"></i></a>&nbsp;
+        @endif
+        <span id='note-{{$note->id}}'>{!! $note->note !!}</span><br /><br />
+        <p>
           <strong>{{ $note->author }}</strong> on {{ $note->date }}
         </p>
+
+        <!-- javascript for note editing -->
+
       </div>
       @endforeach
       <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
     </div>
     @endforeach
+
 
 
     <div id='main' class='grid-x off-canvas-content' data-off-canvas-content data-equalizer>
@@ -346,14 +283,6 @@
             <div class='cell medium-6 large-2'>
               <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
             </div>
-            <div class='cell medium-6 large-10'>
-
-
-            </div>
-
-
-
-
           </div>
           <br />
           <div class='table-scroll'>
@@ -407,7 +336,7 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
 

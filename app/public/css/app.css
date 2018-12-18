@@ -8064,6 +8064,7 @@ select {
   border-radius: 3px;
   padding: 8px 10px 0px 10px;
   margin-bottom: 10px;
+  line-height: 1;
   color: #707070;
 }
 
