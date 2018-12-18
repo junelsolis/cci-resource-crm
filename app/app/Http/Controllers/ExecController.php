@@ -87,7 +87,7 @@ class ExecController extends Controller
 
       return $users;
     }
-    
+
     private function getProductSalesRepUpcomingProjects($product_sales_id) {
       $now = Carbon::now();
       $now->setTimezone('America/New_York');
@@ -176,7 +176,7 @@ class ExecController extends Controller
 
         // format bid date
         $bidDate = new Carbon($project->bid_date);
-        $date = $bidDate->format('Y-m-d');
+        $date = $bidDate->format('m/d/Y');
         $project->bidDate = $date;
 
         // add bid timing

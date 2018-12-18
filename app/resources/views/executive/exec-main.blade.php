@@ -13,7 +13,10 @@
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
+    <script src='//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js'></script>
+
 
   </head>
   @include('navbar')
@@ -409,6 +412,9 @@
             <!-- initialize projects table js -->
             <script>
               $(document).ready(function() {
+
+                $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
                 $('#projects-table').DataTable( {
                   "order": [[ 3, 'desc']],
                   'pageLength': 10,
@@ -606,13 +612,13 @@
                       'rgba(142,68,173,0.6)',
                       'rgba(44,62,80,0.6)',
                   ],
-                  // borderColor: [
-                  //   'rgba(243,156,18,1)',
-                  //   'rgba(41,128,185,1)',
-                  //   'rgba(39,174,96,1)',
-                  //   'rgba(142,68,173,1)',
-                  //   'rgba(44,62,80,1)',
-                  // ],
+                  borderColor: [
+                    'rgba(243,156,18,1)',
+                    'rgba(41,128,185,1)',
+                    'rgba(39,174,96,1)',
+                    'rgba(142,68,173,1)',
+                    'rgba(44,62,80,1)',
+                  ],
                   borderWidth: 1
               }]
 
