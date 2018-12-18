@@ -162,6 +162,8 @@ class ProjectController extends Controller
         'created_at' => Carbon::now()
       ]);
 
+      return response('Bid date changed.',200);
+
     }
     public function editManufacturer(Request $request) {
       $check = $this->checkAllowed();

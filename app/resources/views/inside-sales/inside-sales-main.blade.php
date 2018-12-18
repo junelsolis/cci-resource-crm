@@ -311,6 +311,7 @@
 
                   $('#{{$i->id}}-bidDate').editable(
                     {
+                      container: 'body',
                       type: 'date',
                       pk: {{ $i->id }},
                       url: '/project/edit/bid-date',
@@ -658,6 +659,7 @@
 
                 $('#{{$i->id}}-all-bidDate').editable(
                   {
+                    container: 'body',
                     type: 'date',
                     pk: {{ $i->id }},
                     url: '/project/edit/bid-date',
@@ -836,6 +838,7 @@
 
       <form method='post' action='/note/add/{{ $i->id }}'>
         {{ csrf_field() }}
+        <input type='hidden' name='editable' value='true' />
         <textarea name='note' required placeholder='Type note here...'></textarea>
         <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
@@ -843,26 +846,35 @@
 
       @foreach ($i->notes as $note)
       <div class="note-card">
-        <a id='edit-note-{{$note->id}}'><i class="fas fa-pen"></i></a>&nbsp;<span id='note-{{$note->id}}'>{!! nl2br($note->note) !!}</span>
-        <br /><br />
+        @if ($note->userIsAuthor == true && $note->editable == true)
+        <script>
+
+          $(document).ready(function() {
+            $('#note-{{$note->id}}').editable({
+              type: 'textarea',
+              url: '/note/edit/{{$note->id}}',
+              title: 'Edit Note',
+              rows: 10,
+              pk: {{$note->id}},
+              disabled: true
+            });
+
+            $('#{{$note->id}}-note-edit-toggle').click(function(e) {
+              e.stopPropagation();
+              $('#note-{{$note->id}}').editable('toggleDisabled');
+            });
+
+          });
+        </script>
+        <a id='{{$note->id}}-note-edit-toggle' ><i class="fas fa-pen"></i></a>&nbsp;
+        @endif
+        <span id='note-{{$note->id}}'>{!! nl2br($note->note) !!}</span><br /><br />
         <p>
           <strong>{{ $note->author }}</strong> on {{ $note->date }}
         </p>
 
         <!-- javascript for note editing -->
-        <script>
 
-          $('#edit-note-{{$note->id}}').click(function() {
-            var edit = $('#note-{{$note->id}}');
-            if (edit.attr('contenteditable') == 'true') {
-              edit.attr('contenteditable', 'false');
-            } else {
-              edit.attr('contenteditable', 'true');
-              $('#note-{{$note->id}}').focus();
-            }
-          });
-
-        </script>
       </div>
       @endforeach
       <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>

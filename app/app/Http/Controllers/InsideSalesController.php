@@ -200,10 +200,18 @@ class InsideSalesController extends Controller
       foreach ($notes as $note) {
 
         // add formatted date to note
-        $date = new Carbon($note->created_at);
-        $date->setTimezone('America/New_York');
+        if ($note->updated_at) {
+          $date = new Carbon($note->updated_at);
+          $date->setTimezone('America/New_York');
 
-        $note->date = $date->format('D, m/d/Y h:i:s a');
+          $note->date = $date->format('D, m/d/Y h:i a');
+        } else {
+          $date = new Carbon($note->created_at);
+          $date->setTimezone('America/New_York');
+
+          $note->date = $date->format('D, m/d/Y h:i a');
+        }
+
 
         // add note author name
         $author = $allInsideSales->where('id', $note->last_updated_by_id)->first();
@@ -212,6 +220,15 @@ class InsideSalesController extends Controller
         }
 
         $note->author = $author->name;
+
+        // add userIsAuthor boolean
+        if ($note->last_updated_by_id == session('logged_in_user_id')) {
+          $note->userIsAuthor = true;
+        } else {
+          $note->userIsAuthor = false;
+        }
+
+
       }
 
       $project->notes = $notes;
