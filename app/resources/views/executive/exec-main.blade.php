@@ -180,9 +180,9 @@
           var projectCounts = new Chart(ctx, {
               type: 'bar',
               data: {
-                  labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                  labels: {!! $chartData['months'] !!},
                   datasets: [{
-                      data: [33,21,32,18,25,43,33,21,28,35,29,14],
+                      data: {!! $chartData['projectCounts'] !!},
                       backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
                           'rgba(54, 162, 235, 0.2)',
@@ -239,10 +239,9 @@
           var projectStatus = new Chart(ctx, {
               type: 'doughnut',
               data: {
-                  // labels: ["New","Quoted","Sold","Engineered","Lost"],
-                  labels: ['New','Quoted','Engineered','Sold','Lost'],
+                  labels: {!! $chartData['projectStatus']->pluck('name') !!},
                   datasets: [{
-                      data: [32,57,24,72,28],
+                      data: {!! $chartData['projectStatus']->pluck('count') !!},
                       backgroundColor: [
                           'rgba(243,156,18,0.6)',
                           'rgba(41,128,185,0.6)',
@@ -277,11 +276,11 @@
 
           var ctx = document.getElementById("top-projects").getContext('2d');
           var projectCounts = new Chart(ctx, {
-              type: 'bar',
+              type: 'horizontalBar',
               data: {
-                  labels: ['Microsoft','Acme','Massive Dynamics','Hersheys','AMD'],
+                  labels: {!! $chartData['topProjects']->take(10)->pluck('name') !!},
                   datasets: [{
-                      data: [60000,45000,42300,29000,26000],
+                      data: {!! $chartData['topProjects']->take(10)->pluck('amount') !!},
                       backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
                           'rgba(54, 162, 235, 0.2)',

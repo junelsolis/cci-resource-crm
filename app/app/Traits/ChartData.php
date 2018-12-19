@@ -15,6 +15,9 @@ trait ChartData {
       $sales = $this->calculateSales($projects);
       $projectedSales = $this->calculateProjectedSales($projects);
       $lostBids = $this->calculateLostBids($projects);
+      $projectStatus = $this->countProjectStatus($projects);
+      $projectCounts = $this->countProjectsByMonth($projects);
+      $topProjects = $this->projectsByAmount($projects);
 
 
       // collect things together
@@ -24,6 +27,9 @@ trait ChartData {
       $chartData->put('sales', $sales);
       $chartData->put('projectedSales', $projectedSales);
       $chartData->put('lostBids', $lostBids);
+      $chartData->put('projectStatus', $projectStatus);
+      $chartData->put('projectCounts', $projectCounts);
+      $chartData->put('topProjects', $topProjects);
 
       return $chartData;
 
@@ -37,133 +43,19 @@ trait ChartData {
 
       // sales data
       $sales = $this->calculateSales($projects);
-      // foreach ($months as $month) {
-      //   $sum = 0;
-      //
-      //   foreach ($projects as $project) {
-      //     $bidDate = new Carbon($project->bid_date);
-      //     if ($project->status_id == 3 && $month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
-      //       $sum += $project->amount;
-      //     }
-      //   }
-      //
-      //   $sales->push($sum);
-      // }
 
       // projected sales
       $projectedSales = $this->calculateProjectedSales($projects);
-      // foreach ($nextSixMonths as $month) {
-      //   $sum = 0;
-      //
-      //   foreach ($projects as $project) {
-      //     if ($project->status_id != 5) {
-      //       $bidDate = new Carbon($project->bid_date);
-      //       if (($month['date'])->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
-      //         $sum += $project->amount;
-      //       }
-      //     }
-      //   }
-      //
-      //   $projectedSales->push($sum);
-      // }
 
 
       // projects data over last 12 months
-      $projectStatus = collect();
-      $now = Carbon::now();
-      $now->setTimezone('America/New_York');
-
-      // count new projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 1) {
-          $count++;
-        }
-      }
-
-      $collect = collect();
-      $collect->put('name', 'New');
-      $collect->put('count', $count);
-      $projectStatus->push($collect);
-
-      // count Quoted projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 2) {
-          $count++;
-        }
-      }
-
-      $collect = collect();
-      $collect->put('name', 'Quoted');
-      $collect->put('count', $count);
-      $projectStatus->push($collect);
-
-      // count Sold projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 3) {
-          $count++;
-        }
-      }
-
-      $collect = collect();
-      $collect->put('name', 'Sold');
-      $collect->put('count', $count);
-      $projectStatus->push($collect);
-
-      // count Engineered projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 4) {
-          $count++;
-        }
-      }
-
-      $collect = collect();
-      $collect->put('name', 'Engineered');
-      $collect->put('count', $count);
-      $projectStatus->push($collect);
-
-      // count Lost projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 5) {
-          $count++;
-        }
-      }
-
-      $collect = collect();
-      $collect->put('name', 'Lost');
-      $collect->put('count', $count);
-      $projectStatus->push($collect);
+      $projectStatus = $this->countProjectsByMonth($projects);
 
 
       // create project counts
-      $projectCounts = collect();
-      foreach ($months as $month) {
-        $count = 0;
+      $projectCounts = $this->countProjectStatus($projects);
 
-        foreach ($projects as $project) {
-          $bidDate = new Carbon($project->bid_date);
-          if ($month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
-            $count++;
-          }
-        }
-
-        $projectCounts->push($count);
-      }
-
+      // gather everything up
       $chartData = collect();
       $chartData->put('months', $months->pluck('name'));
       $chartData->put('nextSixMonths', $nextSixMonths->pluck('name'));
@@ -273,6 +165,116 @@ trait ChartData {
       return $lost;
     }
 
+    private function countProjectsByMonth($projects) {
+
+      $months = $this->createMonths();
+
+      $projectCounts = collect();
+      foreach ($months as $month) {
+        $count = 0;
+
+        foreach ($projects as $project) {
+          $bidDate = new Carbon($project->bid_date);
+          if ($month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+            $count++;
+          }
+        }
+
+        $projectCounts->push($count);
+      }
+
+      return $projectCounts;
+    }
+
+    private function countProjectStatus($projects) {
+      $projectStatus = collect();
+      $now = Carbon::now();
+      $now->setTimezone('America/New_York');
+
+      // count new projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 1) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'New');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Quoted projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 2) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Quoted');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Sold projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 3) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Sold');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Engineered projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 4) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Engineered');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      // count Lost projects
+      $count = 0;
+
+      foreach ($projects as $project) {
+        $bidDate = new Carbon($project->bid_date);
+        if ($project->status_id == 5) {
+          $count++;
+        }
+      }
+
+      $collect = collect();
+      $collect->put('name', 'Lost');
+      $collect->put('count', $count);
+      $projectStatus->push($collect);
+
+      return $projectStatus;
+    }
+
+    private function projectsByAmount($projects) {
+      $projects = $projects->sortByDesc('amount');
+
+      return $projects;
+    }
+
     private function createMonths() {
       /*  create an array of months
       */
@@ -281,14 +283,14 @@ trait ChartData {
       $months = collect();
       $index = 0;
       $monthLoop = new Carbon('first day of this month');
-      $monthLoop->setTimezone('America/New_York');
+      //$monthLoop->setTimezone('America/New_York');
 
       while ($index <= 12) {
 
         if ($index == 0) { $index++; continue;}
 
         $date = new Carbon($monthLoop);
-        $date->setTimezone('America/New_York');
+        //$date->setTimezone('America/New_York');
         $date->subMonths($index);
         $name = new Carbon($date);
         $name = $name->format('M');
