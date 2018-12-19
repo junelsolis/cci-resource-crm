@@ -50,13 +50,9 @@
           var salesPastYear = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: [
-                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'
-              ],
+              labels: {!! $chartData['months'] !!},
               datasets: [{
-                data: [
-                  40000, 35000, 20000, 80000, 65000, 44000, 38000, 24000, 75000, 60000, 28000, 74000
-                ],
+                data: {!! $chartData['sales'] !!},
                 borderColor: "rgba(255,99,132,1)",
                 fill: true,
                 backgroundColor: "rgba(255,99,132,0.2)"
@@ -80,13 +76,9 @@
           var projectedSales = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: [
-                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'
-              ],
+              labels: {!! $chartData['nextSixMonths'] !!},
               datasets: [{
-                data: [
-                  68000, 47000, 33000, 70000, 65000, 44000
-                ],
+                data: {!! $chartData['projectedSales'] !!},
                 borderColor: '#3e95cd',
                 fill: true,
                 backgroundColor: 'rgba(62,149,205,0.2)'
@@ -110,13 +102,9 @@
           var lostBids = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: [
-                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'
-              ],
+              labels: {!! $chartData['months'] !!},
               datasets: [{
-                data: [
-                  40000, 35000, 20000, 80000, 65000, 44000, 38000, 24000, 75000, 60000, 28000, 74000
-                ],
+                data: {!! $chartData['lostBids'] !!},
                 borderColor: "rgba(189, 195, 199,0.2)",
                 fill: true,
                 backgroundColor: "rgba(189, 195, 199,0.2)"
@@ -141,15 +129,27 @@
           <div class='card'>
             <div class='grid-x'>
               <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:rgba(255,99,132,1);font-size:30px;font-weight:bold;'>$1,750,300</span><br />
+                <span style='color:rgba(255,99,132,1);font-size:30px;font-weight:bold;'>
+                  <?php
+                    echo '$' . number_format($chartData['sales']->sum());
+                  ?>
+                </span><br />
                 Sales Over Past 12 Months
               </div>
               <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:#3e95cd;font-size:30px;font-weight:bold;'>$2,350,300</span><br />
+                <span style='color:#3e95cd;font-size:30px;font-weight:bold;'>
+                  <?php
+                    echo '$' . number_format($chartData['projectedSales']->sum());
+                   ?>
+                </span><br />
                 Projected Sales (Next 6 Months)
               </div>
               <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:rgba(189, 195, 199,1.0);font-size:30px;font-weight:bold;'>$175,000</span><br />
+                <span style='color:rgba(189, 195, 199,1.0);font-size:30px;font-weight:bold;'>
+                  <?php
+                    echo '$' . number_format($chartData['lostBids']->sum());
+                  ?>
+                </span><br />
                 Bids Lost (Last 12 Months)
               </div>
             </div>
@@ -677,7 +677,7 @@
       }
 
     });
-    
+
     $(document).foundation();
   </script>
 </html>

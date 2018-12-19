@@ -15,6 +15,7 @@ class ProductSalesController extends Controller
     use ProjectData;
     use PeopleData;
     use ChartData;
+    
     public function showDashboard() {
       if ($this->checkLoggedIn()) {}
       else { return redirect('/'); }

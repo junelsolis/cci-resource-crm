@@ -6,7 +6,28 @@ use Carbon\Carbon;
 
 trait ChartData {
 
-    protected function execCharts() {}
+    protected function execCharts() {
+      $projects = $this->allProjects();
+
+      $months = $this->createMonths();
+      $nextSixMonths = $this->createNextSixMonths();
+
+      $sales = $this->calculateSales($projects);
+      $projectedSales = $this->calculateProjectedSales($projects);
+      $lostBids = $this->calculateLostBids($projects);
+
+
+      // collect things together
+      $chartData = collect();
+      $chartData->put('months', $months->pluck('name'));
+      $chartData->put('nextSixMonths', $nextSixMonths->pluck('name'));
+      $chartData->put('sales', $sales);
+      $chartData->put('projectedSales', $projectedSales);
+      $chartData->put('lostBids', $lostBids);
+
+      return $chartData;
+
+    }
     protected function productSalesCharts($product_sales_id) {
       $projects = $this->getProductSalesProjects($product_sales_id);
 
@@ -15,36 +36,36 @@ trait ChartData {
       $nextSixMonths = $this->createNextSixMonths();
 
       // sales data
-      $sales = collect();
-      foreach ($months as $month) {
-        $sum = 0;
-
-        foreach ($projects as $project) {
-          $bidDate = new Carbon($project->bid_date);
-          if ($project->status_id == 3 && $month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
-            $sum += $project->amount;
-          }
-        }
-
-        $sales->push($sum);
-      }
+      $sales = $this->calculateSales($projects);
+      // foreach ($months as $month) {
+      //   $sum = 0;
+      //
+      //   foreach ($projects as $project) {
+      //     $bidDate = new Carbon($project->bid_date);
+      //     if ($project->status_id == 3 && $month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+      //       $sum += $project->amount;
+      //     }
+      //   }
+      //
+      //   $sales->push($sum);
+      // }
 
       // projected sales
-      $projectedSales = collect();
-      foreach ($nextSixMonths as $month) {
-        $sum = 0;
-
-        foreach ($projects as $project) {
-          if ($project->status_id != 5) {
-            $bidDate = new Carbon($project->bid_date);
-            if (($month['date'])->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
-              $sum += $project->amount;
-            }
-          }
-        }
-
-        $projectedSales->push($sum);
-      }
+      $projectedSales = $this->calculateProjectedSales($projects);
+      // foreach ($nextSixMonths as $month) {
+      //   $sum = 0;
+      //
+      //   foreach ($projects as $project) {
+      //     if ($project->status_id != 5) {
+      //       $bidDate = new Carbon($project->bid_date);
+      //       if (($month['date'])->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+      //         $sum += $project->amount;
+      //       }
+      //     }
+      //   }
+      //
+      //   $projectedSales->push($sum);
+      // }
 
 
       // projects data over last 12 months
@@ -155,7 +176,17 @@ trait ChartData {
 
     }
 
+    protected function allProjects() {
+      $now = Carbon::now();
+      $now->setTimezone('America/New_York');
+      $lastYear = $now->subYear();
 
+      $projects = DB::table('projects')
+        ->where('bid_date','>=', $lastYear)
+        ->get();
+
+      return $projects;
+    }
     private function getProductSalesProjects($product_sales_id) {
       /*  gets all projects belonging to a product salesperson
           within the last 12 months
@@ -172,6 +203,74 @@ trait ChartData {
 
       return $projects;
 
+    }
+
+    private function calculateSales($projects) {
+      /*  sums up sales data for every month
+      */
+      $months = $this->createMonths();
+
+      $sales = collect();
+      foreach ($months as $month) {
+        $sum = 0;
+
+        foreach ($projects as $project) {
+          $bidDate = new Carbon($project->bid_date);
+          if ($project->status_id == 3 && $month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+            $sum += $project->amount;
+          }
+        }
+
+        $sales->push($sum);
+      }
+
+      return $sales;
+
+
+    }
+
+    private function calculateProjectedSales($projects) {
+
+      $nextSixMonths = $this->createNextSixMonths();
+
+      $projectedSales = collect();
+      foreach ($nextSixMonths as $month) {
+        $sum = 0;
+
+        foreach ($projects as $project) {
+          if ($project->status_id != 5) {
+            $bidDate = new Carbon($project->bid_date);
+            if (($month['date'])->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+              $sum += $project->amount;
+            }
+          }
+        }
+
+        $projectedSales->push($sum);
+      }
+
+      return $projectedSales;
+    }
+
+    private function calculateLostBids($projects) {
+      $months = $this->createMonths();
+
+      $lost = collect();
+
+      foreach ($months as $month) {
+        $sum = 0;
+
+        foreach ($projects as $project) {
+          $bidDate = new Carbon($project->bid_date);
+          if ($project->status_id == 5 && $month['date']->isSameMonth($bidDate) && $month['date']->isSameYear($bidDate)) {
+            $sum += $project->amount;
+          }
+        }
+
+        $lost->push($sum);
+      }
+
+      return $lost;
     }
 
     private function createMonths() {
