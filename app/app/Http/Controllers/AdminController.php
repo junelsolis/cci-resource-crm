@@ -18,6 +18,9 @@ class AdminController extends Controller
       $userDirectory = $this->getUserDirectory();
       $stats = $this->getStats();
 
+      // set session key
+      session(['current_section' => 'admin']);
+
       return view('administrator/main')
         ->with('userDetails', $userDetails)
         ->with('userDirectory', $userDirectory)

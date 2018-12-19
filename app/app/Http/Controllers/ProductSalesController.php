@@ -28,6 +28,9 @@ class ProductSalesController extends Controller
       $otherProjects = $this->getOtherProjects();
       $chartData = $this->productSalesCharts(session('logged_in_user_id'));
 
+      // set session key
+      session(['current_section' => 'product-sales']);
+
       return view('product-sales/product-sales-main')
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)

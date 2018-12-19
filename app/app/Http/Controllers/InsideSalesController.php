@@ -18,6 +18,8 @@ class InsideSalesController extends Controller
     if ($this->checkLoggedIn()) {}
     else { return redirect('/'); }
 
+    // set session key
+    session(['current_section' => 'inside-sales']);
 
     $userDetails = $this->getLoggedInUserDetails();
     $insideSales = $this->getInsideSalesReps();

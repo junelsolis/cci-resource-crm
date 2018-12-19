@@ -3,7 +3,7 @@
     <div class='cell medium-6'>
       <ul id='logo' class='menu'>
         <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a></li>
-        @if (strpos(url()->current(), 'executive'))
+        @if (session('current_section') == 'executive')
         <li><a href='#sales'>Sales</a></li>
         <li><a href='#projects'>Projects</a></li>
         <li><a href='#people'>People</a></li>

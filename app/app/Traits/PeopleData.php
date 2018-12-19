@@ -31,15 +31,27 @@ trait PeopleData {
       ->get();
 
 
+    $now = Carbon::now();
+    $now->setTimezone('America/New_York');
+    $lastYear = $now->subYear();
+
+    $projects = DB::table('projects')
+      ->where('bid_date', '>=', $lastYear)
+      ->orderBy('bid_date')
+      ->get();
+
     foreach ($users as $user) {
-      $lostProjects = $this->getProductSalesRepLostProjects($user->id);
+      $lostProjects = $this->getProductSalesRepLostProjects($user->id, $projects);
       $user->lostProjects = $lostProjects;
 
-      $soldProjects = $this->getProductSalesRepSoldProjects($user->id);
+      $soldProjects = $this->getProductSalesRepSoldProjects($user->id, $projects);
       $user->soldProjects = $soldProjects;
 
-      $upcomingProjects = $this->getProductSalesRepUpcomingProjects($user->id);
+      $upcomingProjects = $this->getProductSalesRepUpcomingProjects($user->id, $projects);
       $user->upcomingProjects = $upcomingProjects;
+
+      $chartData = $this->productSalesCharts($user->id);
+      $user->chartData = $chartData;
     }
 
     return $users;
@@ -56,15 +68,15 @@ trait PeopleData {
 
     return $execs;
   }
-  protected function getProductSalesRepUpcomingProjects($product_sales_id) {
+
+  private function getProductSalesRepUpcomingProjects($product_sales_id, $projects) {
     $now = Carbon::now();
     $now->setTimezone('America/New_York');
 
-    $projects = DB::table('projects')
+    $projects = $projects
       ->where('product_sales_id', $product_sales_id)
       ->where('bid_date', '>=', $now)
-      ->orderBy('bid_date')
-      ->get();
+      ->sortBy('bid_date');
 
     foreach ($projects as $i) {
       $date = new Carbon($i->bid_date);
@@ -74,22 +86,37 @@ trait PeopleData {
 
     return $projects;
   }
-  protected function getProductSalesRepLostProjects($product_sales_id) {
+
+  private function getProductSalesRepLostProjects($product_sales_id, $projects) {
     $status_id = 5;
-    $projects = DB::table('projects')
+    $projects = $projects
       ->where('product_sales_id', $product_sales_id)
-      ->where('status_id', $status_id)
-      ->get();
+      ->where('status_id', $status_id);
 
     return $projects;
   }
-  protected function getProductSalesRepSoldProjects($product_sales_id) {
+
+  private function getProductSalesRepSoldProjects($product_sales_id, $projects) {
     $status_id = 3;
-    $projects = DB::table('projects')
+    $projects = $projects
       ->where('product_sales_id', $product_sales_id)
-      ->where('status_id', $status_id)
-      ->get();
+      ->where('status_id', $status_id);
 
     return $projects;
   }
+
+  // private function productSalesRepSales($product_sales_id, $projects) {
+  //   $projects = $projects
+  //     ->where('product_sales_id', $product_sales_id)
+  //     ->where('status_id', 3);
+  //
+  //   $sum = 0;
+  //
+  //   foreach ($projects as $i) {
+  //     $sum += $i->amount;
+  //   }
+  //
+  //   return $sum;
+  // }
+
 }

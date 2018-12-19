@@ -29,7 +29,7 @@
       <!-- SALES SECTION -->
       <div id='sales' class='cell small-12'>
         <div class='card'>
-          <h5><strong><i class="fas fa-users"></i>&nbsp;Sales</strong></h5>
+          <h5><strong><i class="fas fa-dollar-sign"></i>&nbsp;Sales</strong></h5>
 
           <div class='grid-x'>
             <div class='cell medium-4'>
@@ -160,7 +160,7 @@
       <!-- PROJECTS SECTIONS -->
       <div id='projects' class='cell small-12'>
         <div class='card' style='padding-bottom: 50px;'>
-          <h5><strong><i class="fas fa-users"></i>&nbsp;Projects</strong></h5>
+          <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Projects</strong></h5>
           <div class='grid-x'>
             <div class='cell medium-4'>
               <canvas id="project-counts"></canvas>
@@ -439,8 +439,10 @@
                   <th></th>
                   <th>Name</th>
                   <th>Upcoming Projects</th>
-                  <th>Sold Projects (Last 12 Months)</th>
-                  <th>Lost Projects (Last 12 Months)</th>
+                  <th>Projects Sold (Last 12 Months)</th>
+                  <th>Sales (Last 12 Months)</th>
+                  <th>Projected Sales (Next 6 Months)</th>
+                  <th>Bids Lost (Last 12 Months)</th>
                 </tr>
               </thead>
               <tbody>
@@ -451,6 +453,8 @@
                   <td>{{ $i->name }}</td>
                   <td>{{ $i->upcomingProjects->count() }}</td>
                   <td>{{ $i->soldProjects->count() }}</td>
+                  <td>${{ number_format($i->chartData['sales']->sum()) }}</td>
+                  <td>${{ number_format($i->chartData['projectedSales']->sum()) }}</td>
                   <td>{{ $i->lostProjects->count() }}</td>
                 </tr>
                 @endforeach
@@ -542,12 +546,12 @@
           <span class='title'>Sales History</span>
         </div>
         <div class='cell small-6'>
-          <span class='stat-sales'>$85,000</span><br />
-          <span class='stat-title'>Sales (Last 12 Months)</span>
+          <span class='stat-sales'>${{ number_format($i->chartData['sales']->sum()) }}</span><br />
+          <span class='stat-title'>Sales (Last 12 mo)</span>
         </div>
         <div class='cell small-6'>
-          <span class='stat-projected'>$65,500</span><br />
-          <span class='stat-title'>Project Sales (Next 6 Months)</span>
+          <span class='stat-projected'>${{ number_format($i->chartData['projectedSales']->sum()) }}</span><br />
+          <span class='stat-title'>Projected Sales (6 mo)</span>
         </div>
         <div class='cell small-12'>
           <canvas id="{{$i->id}}-sales-chart"></canvas>
@@ -567,13 +571,9 @@
       var salesChart = new Chart(personctx, {
         type: 'line',
         data: {
-          labels: [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep','Oct','Nov','Dec'
-          ],
+          labels: {!! $i->chartData['months'] !!},
           datasets: [{
-            data: [
-              40000, 35000, 20000, 80000, 65000, 44000, 38000, 24000, 75000, 60000, 28000, 74000
-            ],
+            data: {!! $i->chartData['sales'] !!},
             borderColor: "rgba(255,99,132,1)",
             fill: true,
             backgroundColor: "rgba(255,99,132,0.2)"
@@ -597,13 +597,9 @@
       var projectSalesChart = new Chart(personctx, {
         type: 'line',
         data: {
-          labels: [
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'
-          ],
+          labels: {!! $i->chartData['nextSixMonths'] !!},
           datasets: [{
-            data: [
-              68000, 47000, 33000, 70000, 65000, 44000
-            ],
+            data: {!! $i->chartData['projectedSales'] !!},
             borderColor: '#3e95cd',
             fill: true,
             backgroundColor: 'rgba(62,149,205,0.2)'
@@ -627,10 +623,9 @@
       var projectStatus = new Chart(personctx, {
           type: 'doughnut',
           data: {
-              // labels: ["New","Quoted","Sold","Engineered","Lost"],
-              labels: ['New','Quoted','Engineered','Sold','Lost'],
+              labels: {!! $i->chartData['projectCounts']->pluck('name') !!},
               datasets: [{
-                  data: [32,57,24,72,28],
+                  data: {!! $i->chartData['projectCounts']->pluck('count') !!},
                   backgroundColor: [
                       'rgba(243,156,18,0.6)',
                       'rgba(41,128,185,0.6)',

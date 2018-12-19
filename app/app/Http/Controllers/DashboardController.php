@@ -21,18 +21,22 @@ class DashboardController extends Controller
       $user_roles = session()->get('logged_in_user_roles');     // get user roles array stored in session
 
       if ($user_roles->contains('product-sales')) {
+        session(['current_section' => 'product-sales']);
         return redirect('/product-sales');
       }
 
       if ($user_roles->contains('inside-sales')) {
+        session(['current_section' => 'inside-sales']);
         return redirect('/inside-sales');
       }
 
       if ($user_roles->contains('executive')) {
+        session(['current_section' => 'executive']);
         return redirect('/executive');
       }
 
       if ($user_roles->contains('administrator')) {
+        session(['current_section' => 'admin']);
         return redirect('/admin');
       }
 

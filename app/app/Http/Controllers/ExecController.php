@@ -25,6 +25,9 @@ class ExecController extends Controller
       $insideSalesReps = $this->getInsideSalesReps();
       $allProjects = $this->getAllProjects();
       $chartData = $this->execCharts();
+      
+      // set session key
+      session(['current_section' => 'executive']);
 
       return view('executive/exec-main')
         ->with('userDetails', $userDetails)
