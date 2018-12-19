@@ -3,14 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Product Sales | Critical Components</title>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
-    <!-- <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/default.css') }}" /> -->
-    <!-- <link rel='stylesheet' href="{{ asset('css/product-sales/product-sales-main.css') }}" /> -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
@@ -269,19 +265,22 @@
       </div>
 
 
-      <div class='cell small-12'>
+      <!-- <div class='cell small-12'>
         <div class='card'>
           <ul class='menu align-center'>
             <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
           </ul>
         </div>
-      </div>
+      </div> -->
 
       <div class='cell small-12'>
         <div id='projects' class='card'>
           <div class='grid-x align-middle'>
-            <div class='cell medium-6 large-2'>
+            <div class='cell small-6'>
               <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
+            </div>
+            <div class='cell small-6' style='text-align:right;'>
+              <a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a>
             </div>
           </div>
           <br />

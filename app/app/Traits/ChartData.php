@@ -48,12 +48,12 @@ trait ChartData {
       $projectedSales = $this->calculateProjectedSales($projects);
 
 
-      // projects data over last 12 months
-      $projectStatus = $this->countProjectsByMonth($projects);
+      // project status counts
+      $projectStatus = $this->countProjectStatus($projects);
 
 
-      // create project counts
-      $projectCounts = $this->countProjectStatus($projects);
+      // project counts last 12 months
+      $projectCounts = $this->countProjectsByMonth($projects);
 
       // gather everything up
       $chartData = collect();

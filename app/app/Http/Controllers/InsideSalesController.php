@@ -7,12 +7,14 @@ use DB;
 use Carbon\Carbon;
 use App\Traits\ProjectData;
 use App\Traits\PeopleData;
+use App\Traits\ChartData;
 
 class InsideSalesController extends Controller
 {
 
   use ProjectData;
   use PeopleData;
+  use ChartData;
 
   public function showDashboard() {
     if ($this->checkLoggedIn()) {}

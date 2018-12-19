@@ -8,6 +8,13 @@
         <li><a href='#projects'>Projects</a></li>
         <li><a href='#people'>People</a></li>
         @endif
+
+        @if (session('current_section') == 'product-sales')
+        <li><a href='/product-sales'>Dashboard</a></li>
+        <li><a href=''>Sales</a></li>
+        <li><a href=''>Stats</a></li>
+        <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+        @endif
       </ul>
     </div>
     <div id='right' class='cell medium-6'>
