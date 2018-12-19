@@ -28,7 +28,7 @@ class NoteController extends Controller
 
       }
 
-      else if ($editable == true) {
+      else if ($editable == 1) {
         DB::table('project_notes')->insert([
           'project_id' => $project_id,
           'last_updated_by_id' => $user_id,
@@ -44,9 +44,10 @@ class NoteController extends Controller
 
 
     public function editNote(Request $request) {
-      $check = $this->checkIsAuthorAndEditable($request['id']);
+      // $check = $this->checkIsAuthorAndEditable($request['pk']);
+      // if ($check == false) { return redirect('/'); }
 
-      $note_id = $request['id'];
+      $note_id = $request['pk'];
       $value = $request['value'];
 
       // retrieve note
@@ -56,7 +57,7 @@ class NoteController extends Controller
       if ($value == $note->note) {
         return;
       }
-
+      
       DB::table('project_notes')->where('id', $note_id)->update([
         'note' => $value,
         'updated_at' => Carbon::now()

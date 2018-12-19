@@ -44,6 +44,18 @@ trait PeopleData {
 
     return $users;
   }
+  protected function getExecs() {
+    $execs = DB::table('user_roles')->select('user_id','role')->where('role','executive')->distinct()->get();
+    $execs = $execs->pluck('user_id');
+
+    $execs = DB::table('users')
+      ->whereIn('id', $execs)
+      ->orderBy('name')
+      ->select('id', 'name')
+      ->get();
+
+    return $execs;
+  }
   protected function getProductSalesRepUpcomingProjects($product_sales_id) {
     $now = Carbon::now();
     $now->setTimezone('America/New_York');

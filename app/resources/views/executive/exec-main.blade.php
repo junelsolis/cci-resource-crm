@@ -13,6 +13,9 @@
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
+    <script src='{{ asset('js/bootstrap.min.js')}}'></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js'></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
     <script src='//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js'></script>
@@ -474,32 +477,56 @@
 
     <!-- OFF-CANVAS DIVS -->
     <!-- project notes -->
-    @if ($projects->isNotEmpty())
+    <!-- divs for off-canvas project information -->
     @foreach ($projects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas  data-auto-focus="false">
-      <h4><span>{{ $i->name }}</span></h4>
-      <br />
+    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas data-auto-focus="false">
+      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
+      <br /><br />
 
       <form method='post' action='/note/add/{{ $i->id }}'>
         {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
+        <input type='hidden' name='editable' value='1' />
         <textarea name='note' required placeholder='Type note here...'></textarea>
         <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
       <br />
+
       @foreach ($i->notes as $note)
       <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
+        @if ($note->userIsAuthor == true && $note->editable == true)
+        <script>
+
+          $(document).ready(function() {
+            $('#note-{{$note->id}}').editable({
+              type: 'textarea',
+              url: '/note/edit/{{$note->id}}',
+              title: 'Edit Note',
+              rows: 10,
+              pk: {{$note->id}},
+              disabled: true
+            });
+
+            $('#{{$note->id}}-note-edit-toggle').click(function(e) {
+              e.stopPropagation();
+              $('#note-{{$note->id}}').editable('toggleDisabled');
+            });
+
+          });
+        </script>
+        <a id='{{$note->id}}-note-edit-toggle' ><i class="fas fa-pen"></i></a>&nbsp;
+        @endif
+        <span id='note-{{$note->id}}'>{!! nl2br($note->note) !!}</span><br /><br />
         <p>
           <strong>{{ $note->author }}</strong> on {{ $note->date }}
         </p>
+
+        <!-- javascript for note editing -->
+
       </div>
       @endforeach
       <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
     </div>
     @endforeach
-    @endif
 
     <!-- salesperson info -->
     @if ($productSalesReps)
@@ -643,6 +670,14 @@
   </body>
   @include('footer')
   <script>
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+
+    });
+    
     $(document).foundation();
   </script>
 </html>

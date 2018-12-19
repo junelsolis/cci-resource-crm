@@ -13,6 +13,8 @@ trait ProjectData {
     $allStatus = DB::table('project_status')->get();
     $allInsideSales = $this->getInsideSalesReps();
     $allProductSales = $this->getProductSalesReps();
+    $allExecs = $this->getExecs();
+
     $allNotes = DB::table('project_notes')->orderBy('created_at','desc')->get();
 
 
@@ -85,10 +87,16 @@ trait ProjectData {
         }
 
 
-        // add note author name
+        /*  add note author name
+            look in inside sales, product sales, and execs
+        */
+
         $author = $allInsideSales->where('id', $note->last_updated_by_id)->first();
         if (empty($author)) {
           $author = $allProductSales->where('id', $note->last_updated_by_id)->first();
+          if (empty($author)) {
+            $author = $allExecs->where('id', $note->last_updated_by_id)->first();
+          }
         }
 
         $note->author = $author->name;
