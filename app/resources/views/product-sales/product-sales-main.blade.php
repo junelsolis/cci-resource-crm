@@ -659,13 +659,13 @@
     var chart2 = new Chart(document.getElementById("chart2"), {
       type: 'line',
       data: {
-        // labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
         labels: {!! $chartData['months'] !!},
         datasets: [{
             data: {!! $chartData['sales'] !!},
             label: "",
-            borderColor: "#3e95cd",
-            fill: false
+            borderColor: "rgba(255,99,132,1)",
+            fill: true,
+            backgroundColor: "rgba(255,99,132,0.2)"
           }
         ]
       },
@@ -690,8 +690,9 @@
         datasets: [{
             data: {!! $chartData['projectedSales'] !!},
             label: "",
-            borderColor: "rgba(255,99,132,1)",
-            fill: false
+            borderColor: "#3e95cd",
+            fill: true,
+            backgroundColor: 'rgba(62,149,205,0.2)'
           }
         ]
       },

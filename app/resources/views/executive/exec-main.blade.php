@@ -449,7 +449,7 @@
                 @if ($productSalesReps)
                 @foreach ($productSalesReps as $i)
                 <tr>
-                  <td><a data-toggle='{{ $i->id }}-person-info'><i class="fas fa-exclamation-circle"></i></a></td>
+                  <td><a data-toggle='{{ $i->id }}-person-info'><i class="fas fa-info-circle"></i></a></td>
                   <td>{{ $i->name }}</td>
                   <td>{{ $i->upcomingProjects->count() }}</td>
                   <td>{{ $i->soldProjects->count() }}</td>
@@ -623,9 +623,9 @@
       var projectStatus = new Chart(personctx, {
           type: 'doughnut',
           data: {
-              labels: {!! $i->chartData['projectCounts']->pluck('name') !!},
+              labels: {!! $i->chartData['projectStatus']->pluck('name') !!},
               datasets: [{
-                  data: {!! $i->chartData['projectCounts']->pluck('count') !!},
+                  data: {!! $i->chartData['projectStatus']->pluck('count') !!},
                   backgroundColor: [
                       'rgba(243,156,18,0.6)',
                       'rgba(41,128,185,0.6)',

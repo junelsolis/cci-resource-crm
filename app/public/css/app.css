@@ -8235,11 +8235,13 @@ select {
 
 .footer {
   margin-top: 50px;
-  min-height: 200px;
+  min-height: 150px;
   background-color: #222f3e;
   padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 10px;
-  color: white;
+  color: #bdc3c7;
 }
 
 .footer h5 {
