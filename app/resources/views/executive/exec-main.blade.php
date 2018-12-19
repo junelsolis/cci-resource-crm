@@ -159,7 +159,7 @@
 
       <!-- PROJECTS SECTIONS -->
       <div class='cell small-12'>
-        <div class='card'>
+        <div class='card' style='padding-bottom: 50px;'>
           <h5><strong><i class="fas fa-users"></i>&nbsp;Projects</strong></h5>
           <div class='grid-x'>
             <div class='cell medium-4'>
@@ -278,9 +278,9 @@
           var projectCounts = new Chart(ctx, {
               type: 'horizontalBar',
               data: {
-                  labels: {!! $chartData['topProjects']->take(10)->pluck('name') !!},
+                  labels: {!! $chartData['topProjects']->take(6)->pluck('name') !!},
                   datasets: [{
-                      data: {!! $chartData['topProjects']->take(10)->pluck('amount') !!},
+                      data: {!! $chartData['topProjects']->take(6)->pluck('amount') !!},
                       backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
                           'rgba(54, 162, 235, 0.2)',
