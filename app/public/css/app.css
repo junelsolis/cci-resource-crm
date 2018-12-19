@@ -8037,7 +8037,7 @@ select {
 /* classes for project information */
 
 .project-info {
-  background-color: white;
+  background-color: #576574;
   padding-top: 100px;
   padding-bottom: 50px;
   padding-left: 15px;
@@ -8050,7 +8050,7 @@ select {
 }
 
 .project-info h4 {
-  color: #707070;
+  color: white;
 }
 
 .project-info h4 span {
@@ -8062,7 +8062,7 @@ select {
 }
 
 .project-info .note-card {
-  background-color: rgba(241, 196, 15, 0.1);
+  background-color: white;
   border-radius: 3px;
   padding: 8px 10px 0px 10px;
   margin-bottom: 10px;
