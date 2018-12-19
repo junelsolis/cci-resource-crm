@@ -1,16 +1,23 @@
 <div id='navbar'>
   <div class='grid-x'>
-    <div class='cell medium-3'>
-      <div id='logo'>
-        <a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a>
-      </div>
+    <div class='cell medium-6'>
+      <ul id='logo' class='menu'>
+        <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a></li>
+        @if (strpos(url()->current(), 'executive'))
+        <li><a href='#sales'>Sales</a></li>
+        <li><a href='#projects'>Projects</a></li>
+        <li><a href='#people'>People</a></li>
+        @endif
+      </ul>
     </div>
-    <div id='right' class='cell medium-9'>
+    <div id='right' class='cell medium-6'>
       <ul class="dropdown menu align-right align-middle" data-dropdown-menu>
         <li style='text-align:right;'><a href="#"><strong>{{ $userDetails['name'] }}</strong><br />{{ $userDetails['role'] }}</a></li>
-        <li>|</li>
+        <!-- <li>|</li> -->
         <li>
-          <a id='section' href="#"><i class="fas fa-angle-double-down"></i>&nbsp; Go To Section</a>
+          @if (session('logged_in_user_roles')->count() > 1)
+          <a id='section' href="#"><i class="fas fa-angle-double-down"></i>&nbsp;Section</a>
+          @endif
           <ul class="menu">
             @foreach (session('logged_in_user_roles') as $role)
             <li>
@@ -31,10 +38,10 @@
             @endforeach
           </ul>
         </li>
-        <li>|</li>
-        <li><a data-open="settings-modal" title='Account Settings'><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
-        <li>|</li>
-        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
+        <!-- <li>|</li> -->
+        <li><a data-open="settings-modal" title='Account Settings'><i class="fas fa-cog"></i>&nbsp;</a></li>
+        <!-- <li>|</li> -->
+        <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i>&nbsp;</a></li>
       </ul>
 
       <div class="reveal" id="settings-modal" data-reveal>

@@ -27,7 +27,7 @@
     <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
 
       <!-- SALES SECTION -->
-      <div class='cell small-12'>
+      <div id='sales' class='cell small-12'>
         <div class='card'>
           <h5><strong><i class="fas fa-users"></i>&nbsp;Sales</strong></h5>
 
@@ -158,7 +158,7 @@
       </div>
 
       <!-- PROJECTS SECTIONS -->
-      <div class='cell small-12'>
+      <div id='projects' class='cell small-12'>
         <div class='card' style='padding-bottom: 50px;'>
           <h5><strong><i class="fas fa-users"></i>&nbsp;Projects</strong></h5>
           <div class='grid-x'>
@@ -429,7 +429,7 @@
 
 
       <!-- PEOPLE SECTION -->
-      <div class='cell small-12'>
+      <div id='people' class='cell small-12'>
         <div class='card'>
           <h5><strong><i class="fas fa-users"></i>&nbsp;People</strong></h5>
           <div class='table-scroll'>
