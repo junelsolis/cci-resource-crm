@@ -189,23 +189,27 @@ select {
 
 /* classes for adding project */
 .add-project {
-  // background-color: #F8F8F8;
-  background-color: white;
+  background-color: #576574;
   padding-top: 100px;
   padding-bottom: 50px;
   padding-left: 15px;
   padding-right: 15px;
 
-  .fieldset {
-    background-color: white;
-  }
+  // .fieldset {
+  //   background-color: white;
+  // }
 
+  .fieldset {
+    legend {
+      color: #c8d6e5;
+    }
+  }
   label {
-    color: #707070;
+    color: white;
     font-size: 12px;
   }
   h4 {
-    color: #707070;
+    color: white;
     font-weight: bold;
   }
 

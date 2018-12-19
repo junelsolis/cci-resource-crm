@@ -8073,24 +8073,24 @@ select {
 /* classes for adding project */
 
 .add-project {
-  background-color: white;
+  background-color: #576574;
   padding-top: 100px;
   padding-bottom: 50px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.add-project .fieldset {
-  background-color: white;
+.add-project .fieldset legend {
+  color: #c8d6e5;
 }
 
 .add-project label {
-  color: #707070;
+  color: white;
   font-size: 12px;
 }
 
 .add-project h4 {
-  color: #707070;
+  color: white;
   font-weight: bold;
 }
 
