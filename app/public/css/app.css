@@ -7885,6 +7885,8 @@ html {
 
 body {
   background-color: #F8F8F8;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: none;
 }
 
 #main {
