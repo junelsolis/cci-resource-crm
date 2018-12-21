@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Product Sales | Critical Components</title>
+    <title>Product Sales | CCI POST</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
@@ -302,7 +302,7 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
 

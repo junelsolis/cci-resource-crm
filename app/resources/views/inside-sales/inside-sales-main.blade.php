@@ -2,18 +2,16 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Inside Sales | CCI Tracker</title>
+    <title>Inside Sales | CCI POST</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
-    <!-- <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" /> -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
-    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
     <script src='{{ asset('js/bootstrap.min.js')}}'></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -117,7 +115,9 @@
     </div>
 
     <!-- divs for off-canvas project information -->
-
+    @foreach ($upcomingProjects as $i)
+      @include('upcoming-project-info')
+    @endforeach
 
 
 
@@ -213,13 +213,13 @@
                     </td>
                     <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
                     <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                    <td><a class='table-note' data-toggle="{{$i->id}}-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                    <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
               </table>
               <script>
-                $.fn.editable.defaults.mode = 'inline';
+                // $.fn.editable.defaults.mode = 'inline';
 
                 $(document).ready(function() {
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
@@ -559,7 +559,7 @@
                   </td>
                   <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                   <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
                 @endforeach
@@ -786,11 +786,6 @@
     </div>
 
     <!-- divs for off-canvas project information -->
-
-    @foreach ($upcomingProjects as $i)
-      @include('project-info')
-    @endforeach
-
     @foreach ($allProjects as $i)
       @include('project-info')
     @endforeach
