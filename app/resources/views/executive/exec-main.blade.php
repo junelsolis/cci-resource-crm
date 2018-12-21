@@ -335,6 +335,30 @@
 
         </script>
       </div>
+
+      <!-- more project stats -->
+      <div class='cell small-12'>
+        <div class='card'>
+          <div class='grid-x'>
+            <div class='cell medium-2'>
+              <span class='stat'>38</span><br />
+              <spn class='stat-title'>Upcoming Projects</spn>
+            </div>
+            <div class='cell medium-2'>
+              <span class='stat'>44</span><br />
+              <span class='stat-title'>Quoted Projects</span>
+            </div>
+            <div class='cell medium-2'>
+              <span class='stat'>11</span><br />
+              <span class='stat-title'>Lost Projects</span>
+            </div>
+            <div class='cell medium-2'>
+              <span class='stat'>44</span><br />
+              <span class='stat-title'>Total Projects (Last 12 mo)</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- table for projects -->
       <div class='cell small-12'>
         <div class='card'>
