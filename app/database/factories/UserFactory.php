@@ -20,6 +20,5 @@ $factory->define(App\User::class, function (Faker $faker) {
         'name' => $faker->name,
         'password' => Hash::make($faker->password),
         'change_password' => true,
-        'created_at' => Carbon::now()
     ];
 });

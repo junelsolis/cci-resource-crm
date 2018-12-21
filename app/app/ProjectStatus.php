@@ -8,7 +8,7 @@ class ProjectStatus extends Model
 {
 
     public function projects() {
-      $this->hasMany('App\Project','id', 'status_id');
+      $this->hasMany('App\Project','status_id', 'id');
     }
     protected $table = 'project_status';
 

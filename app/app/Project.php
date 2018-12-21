@@ -11,15 +11,15 @@ class Project extends Model
 {
 
     public function status() {
-      return $this->hasOne('App\ProjectStatus','id','status_id');
+      return $this->belongsTo('App\ProjectStatus','status_id', 'id');
     }
 
     public function productSales() {
-      return $this->hasOne('App\User','id','product_sales_id');
+      return $this->belongsTo('App\User','product_sales_id', 'id');
     }
 
     public function insideSales() {
-      return $this->hasMany('App\User', 'id', 'inside_sales_id');
+      return $this->belongsTo('App\User', 'inside_sales_id', 'id');
     }
 
     public function notes() {
