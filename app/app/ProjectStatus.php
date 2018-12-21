@@ -12,5 +12,5 @@ class ProjectStatus extends Model
     }
     protected $table = 'project_status';
 
-    protected $fillable = ['status'];
+    protected $fillable = ['id','status'];
 }
