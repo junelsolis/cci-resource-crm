@@ -3,17 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Set Password | Critical Components</title>
-    <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" />
-    <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/set-password.css') }}" />
+    <link rel=stylesheet href="{{ asset('css/app.css') }}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
   </head>
-  <body>
-    <div id='main'>
+  <body class='set-password'>
+    <div class='form-box'>
       <img src='{{ asset('images/logo.png') }}' />
       <br /><br />
       <div id='welcome'>

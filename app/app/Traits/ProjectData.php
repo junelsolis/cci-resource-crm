@@ -121,16 +121,28 @@ trait ProjectData {
     /*  gets all upcoming projects
         and adds data
     */
-
+    $status_ids = [1,2,4];
     // get all projects except those sold or lost
     $projects = DB::table('projects')
       ->orderBy('bid_date')
-      ->where([
-        ['status_id', '!=', 2],
-        ['status_id', '!=', 3],
-        ['status_id', '!=', 5]
-      ])
+      // ->where([
+      //   ['status_id', '!=', 2],
+      //   ['status_id', '!=', 3],
+      //   ['status_id', '!=', 5]
+      // ])
+      ->whereIn('status_id', $status_ids)
       ->get();
+
+    // only projects that are ahead of today, and not sold
+    $now = Carbon::now();
+    foreach ($projects as $key => $project) {
+      // project bid date is ahead or same day and not quoted
+      if (new Carbon($project->bid_date)) {}
+      else if ($project->status == 1 || $project->status == 4) {}
+      else {
+        $projects->forget($key);
+      }
+    }
 
     $projects = $this->expandProjectInfo($projects);
 

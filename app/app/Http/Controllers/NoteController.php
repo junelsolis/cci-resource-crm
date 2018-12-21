@@ -10,7 +10,7 @@ class NoteController extends Controller
 {
 
     public function addNote(Request $request) {
-      $check = $this->checkAllowedToAdd($request['project_id']);
+      $check = $this->checkAllowedToAddOrDelete($request['project_id']);
       if ($check == false) { return redirect('/'); }
 
       $project_id = $request['project_id'];
@@ -18,7 +18,8 @@ class NoteController extends Controller
       $note = $request['note'];
       $editable = $request['editable'];
 
-      if (empty($editable)) {
+
+      if ($editable !== 'true') {
         DB::table('project_notes')->insert([
           'project_id' => $project_id,
           'last_updated_by_id' => $user_id,
@@ -28,7 +29,7 @@ class NoteController extends Controller
 
       }
 
-      else if ($editable == 1) {
+      else if ($editable == 'true') {
         DB::table('project_notes')->insert([
           'project_id' => $project_id,
           'last_updated_by_id' => $user_id,
@@ -57,7 +58,7 @@ class NoteController extends Controller
       if ($value == $note->note) {
         return;
       }
-      
+
       DB::table('project_notes')->where('id', $note_id)->update([
         'note' => $value,
         'updated_at' => Carbon::now()
@@ -66,8 +67,34 @@ class NoteController extends Controller
       return response('Note edited.',200);
     }
 
+    public function deleteNote(Request $request) {
+      $check = $this->checkAllowedToDelete($request['id']);
+      if ($check == false) { return redirect('/'); }
 
-    private function checkAllowedToAdd($project_id) {
+      // delete note from db
+      DB::table('project_notes')->where('id', $request['id'])->delete();
+
+      // return to previous view
+      return redirect(session('_previous')['url']);
+    }
+
+    private function checkAllowedToDelete($note_id) {
+
+      // retrieve note
+      $note = DB::table('project_notes')->where('id', $note_id)->first();
+
+      // get current user
+      $user = session('logged_in_user_id');
+
+      // check
+      if ($user !== $note->last_updated_by_id) {
+        return $false;
+      }
+
+      return true;
+
+    }
+    private function checkAllowedToAddOrDelete($project_id) {
 
       // retrieve project
       $project = DB::table('projects')->where('id', $project_id)->first();

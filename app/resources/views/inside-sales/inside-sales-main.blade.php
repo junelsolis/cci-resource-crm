@@ -2,18 +2,16 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Inside Sales | CCI Tracker</title>
+    <title>Inside Sales | CCI POST</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
-    <!-- <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" /> -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
-    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
     <script src='{{ asset('js/bootstrap.min.js')}}'></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -118,50 +116,7 @@
 
     <!-- divs for off-canvas project information -->
     @foreach ($upcomingProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas data-auto-focus="false">
-      <button class="close-button" aria-label="Close menu" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4><span>{{ $i->name }}</span></h4>
-      <br /><br />
-
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-      <?php
-        // $colorSwitcher = 0;
-        // $color = '';
-      ?>
-      @foreach ($i->notes as $note)
-      <?php
-        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-        //
-        // if ($colorSwitcher <= 1) {
-        //   if ($colorSwitcher == 0) {
-        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-        //   }
-        //
-        //   if ($colorSwitcher == 1) {
-        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-        //   }
-        //
-        //   $colorSwitcher++;
-        // }
-      ?>
-      <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
+      @include('upcoming-project-info')
     @endforeach
 
 
@@ -258,13 +213,13 @@
                     </td>
                     <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
                     <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                    <td><a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                    <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
               </table>
               <script>
-                $.fn.editable.defaults.mode = 'inline';
+                // $.fn.editable.defaults.mode = 'inline';
 
                 $(document).ready(function() {
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
@@ -832,53 +787,7 @@
 
     <!-- divs for off-canvas project information -->
     @foreach ($allProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-all-projects-info" data-off-canvas data-auto-focus="false">
-      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
-      <br /><br />
-
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <input type='hidden' name='editable' value='true' />
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-
-      @foreach ($i->notes as $note)
-      <div class="note-card">
-        @if ($note->userIsAuthor == true && $note->editable == true)
-        <script>
-
-          $(document).ready(function() {
-            $('#note-{{$note->id}}').editable({
-              type: 'textarea',
-              url: '/note/edit/{{$note->id}}',
-              title: 'Edit Note',
-              rows: 10,
-              pk: {{$note->id}},
-              disabled: true
-            });
-
-            $('#{{$note->id}}-note-edit-toggle').click(function(e) {
-              e.stopPropagation();
-              $('#note-{{$note->id}}').editable('toggleDisabled');
-            });
-
-          });
-        </script>
-        <a id='{{$note->id}}-note-edit-toggle' ><i class="fas fa-pen"></i></a>&nbsp;
-        @endif
-        <span id='note-{{$note->id}}'>{!! nl2br($note->note) !!}</span><br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-
-        <!-- javascript for note editing -->
-
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
+      @include('project-info')
     @endforeach
 
 

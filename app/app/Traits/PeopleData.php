@@ -105,6 +105,8 @@ trait PeopleData {
     return $projects;
   }
 
+
+
   // private function productSalesRepSales($product_sales_id, $projects) {
   //   $projects = $projects
   //     ->where('product_sales_id', $product_sales_id)
