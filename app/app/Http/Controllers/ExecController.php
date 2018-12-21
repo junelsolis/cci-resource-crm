@@ -24,8 +24,9 @@ class ExecController extends Controller
       $productSalesReps = $this->getProductSalesReps();
       $insideSalesReps = $this->getInsideSalesReps();
       $allProjects = $this->getAllProjects();
+      $projectStatusCodes = $this->getProjectStatusCodes();
       $chartData = $this->execCharts();
-      
+
       // set session key
       session(['current_section' => 'executive']);
 
@@ -33,7 +34,9 @@ class ExecController extends Controller
         ->with('userDetails', $userDetails)
         ->with('productSalesReps', $productSalesReps)
         ->with('projects', $allProjects)
-        ->with('chartData', $chartData);
+        ->with('chartData', $chartData)
+        ->with('projectStatusCodes', $projectStatusCodes)
+        ->with('insideSales', $insideSalesReps);
     }
 
     private function getLoggedInUserDetails() {
@@ -52,6 +55,16 @@ class ExecController extends Controller
       ]);
 
       return $collect;
+    }
+
+    private function getProjectStatusCodes() {
+      /*  Returns a collection of project status
+          including id and code
+      */
+
+      $codes = DB::table('project_status')->get();
+
+      return $codes;
     }
 
     private function checkLoggedIn() {

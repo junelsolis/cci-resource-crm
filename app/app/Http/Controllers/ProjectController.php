@@ -89,14 +89,16 @@ class ProjectController extends Controller
     }
 
     public function editName(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
+
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       // modify name
       DB::table('projects')->where('id', $id)->update([
@@ -115,14 +117,16 @@ class ProjectController extends Controller
       return response('Name changed.', 200);
     }
     public function editStatus(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
+
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'status_id' => $value,
@@ -140,14 +144,15 @@ class ProjectController extends Controller
       return response('Project status changed',200);
     }
     public function editBidDate(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'bid_date' => $value,
@@ -166,14 +171,16 @@ class ProjectController extends Controller
 
     }
     public function editManufacturer(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
+
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'manufacturer' => $value,
@@ -191,14 +198,15 @@ class ProjectController extends Controller
 
     }
     public function editProduct(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'product' => $value,
@@ -215,14 +223,15 @@ class ProjectController extends Controller
     }
 
     public function editProductSales(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       // update product sales id
       DB::table('projects')->where('id', $id)->update([
@@ -242,14 +251,16 @@ class ProjectController extends Controller
 
 
     public function editInsideSales(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
+
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'inside_sales_id' => $value,
@@ -265,14 +276,16 @@ class ProjectController extends Controller
       ]);
     }
     public function editAmount(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
+
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'amount' => $value,
@@ -288,14 +301,15 @@ class ProjectController extends Controller
       ]);
     }
     public function editApcOppId(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'apc_opp_id' => $value,
@@ -311,14 +325,15 @@ class ProjectController extends Controller
     }
 
     public function editQuote(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       // make sure link starts with http
       if (starts_with('http://', $value) == false && starts_with('https://', $value) == false) {
@@ -340,14 +355,15 @@ class ProjectController extends Controller
     }
 
     public function editEngineer(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id', $id)->update([
         'engineer' => $value,
@@ -363,14 +379,15 @@ class ProjectController extends Controller
       ]);
     }
     public function editContractor(Request $request) {
-      $check = $this->checkAllowed();
-      if ($check == false) {
-        return response('Error 2700',404);
-      }
 
       $name = $request['name'];
       $id = $request['pk'];
       $value = $request['value'];
+
+      $check = $this->checkAllowed($id);
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
 
       DB::table('projects')->where('id',$id)->update([
         'contractor' => $value,
@@ -386,7 +403,7 @@ class ProjectController extends Controller
     }
 
 
-    private function checkAllowed() {
+    private function checkAllowed($project_id) {
       // verify logged in
       if (session()->has('logged_in_user_id')) {}
         else {
@@ -394,11 +411,16 @@ class ProjectController extends Controller
         return false;
       }
 
+      // get project
+      $project = DB::table('projects')->where('id', $project_id)->first();
+
       // verify allowed to edit
       $logged_in_user_roles = session('logged_in_user_roles');
 
-      if ($logged_in_user_roles->contains('product-sales')) { return true; }
       if ($logged_in_user_roles->contains('inside-sales')) { return true; }
+      if ($logged_in_user_roles->contains('executive')) { return true; }
+
+      if ($logged_in_user_roles->contains('product-sales') && $project->product_sales_id == session('logged_in_user_id')) { return true; }
 
       session()->flush();
       return false;
