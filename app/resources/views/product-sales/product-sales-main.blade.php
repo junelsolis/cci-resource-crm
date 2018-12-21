@@ -146,58 +146,9 @@
       </form>
     </div>
 
-
-
-
     <!-- divs for off-canvas project information -->
     @foreach ($projects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-projects-info" data-off-canvas data-auto-focus="false">
-      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
-      <br /><br />
-
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <input type='hidden' name='editable' value='true' />
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-
-      @foreach ($i->notes as $note)
-      <div class="note-card">
-        @if ($note->userIsAuthor == true && $note->editable == true)
-        <script>
-
-          $(document).ready(function() {
-            $('#note-{{$note->id}}').editable({
-              type: 'textarea',
-              url: '/note/edit/{{$note->id}}',
-              title: 'Edit Note',
-              rows: 10,
-              pk: {{$note->id}},
-              disabled: true
-            });
-
-            $('#{{$note->id}}-note-edit-toggle').click(function(e) {
-              e.stopPropagation();
-              $('#note-{{$note->id}}').editable('toggleDisabled');
-            });
-
-          });
-        </script>
-        <a id='{{$note->id}}-note-edit-toggle' ><i class="fas fa-pen"></i></a>&nbsp;
-        @endif
-        <span id='note-{{$note->id}}'>{!! $note->note !!}</span><br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-
-        <!-- javascript for note editing -->
-
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
+      @include('project-info')
     @endforeach
 
 

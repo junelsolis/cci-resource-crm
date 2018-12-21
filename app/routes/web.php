@@ -54,6 +54,7 @@ Route::post('/project/edit/contractor', 'ProjectController@editContractor');
 // note routes
 Route::post('/note/add/{project_id}', 'NoteController@addNote');
 Route::post('/note/edit/{id}', 'NoteController@editNote');
+Route::get('/note/delete/{id}', 'NoteController@deleteNote');
 
 // user routes
 Route::post('/user/edit/name', 'UserController@editName');

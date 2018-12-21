@@ -117,52 +117,7 @@
     </div>
 
     <!-- divs for off-canvas project information -->
-    @foreach ($upcomingProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-info" data-off-canvas data-auto-focus="false">
-      <button class="close-button" aria-label="Close menu" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4><span>{{ $i->name }}</span></h4>
-      <br /><br />
 
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <!-- <i class="fas fa-plus"></i>&nbsp;Add Note<br /> -->
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-      <?php
-        // $colorSwitcher = 0;
-        // $color = '';
-      ?>
-      @foreach ($i->notes as $note)
-      <?php
-        // if ($colorSwitcher >= 2) { $colorSwitcher = 0; }
-        //
-        // if ($colorSwitcher <= 1) {
-        //   if ($colorSwitcher == 0) {
-        //     $color = 'style=\'background-color:rgba(46,204,113,0.4)\';';
-        //   }
-        //
-        //   if ($colorSwitcher == 1) {
-        //     $color = 'style=\'background-color:rgba(241,196,15,0.4)\';';
-        //   }
-        //
-        //   $colorSwitcher++;
-        // }
-      ?>
-      <div class="note-card">
-        <span>{!! nl2br($note->note) !!}</span>
-        <br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
-    @endforeach
 
 
 
@@ -258,7 +213,7 @@
                     </td>
                     <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
                     <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                    <td><a class='table-note' data-toggle="{{$i->id}}-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                    <td><a class='table-note' data-toggle="{{$i->id}}-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -604,7 +559,7 @@
                   </td>
                   <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                   <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
                 </tr>
 
                 @endforeach
@@ -831,54 +786,13 @@
     </div>
 
     <!-- divs for off-canvas project information -->
+
+    @foreach ($upcomingProjects as $i)
+      @include('project-info')
+    @endforeach
+
     @foreach ($allProjects as $i)
-    <div class="off-canvas position-right project-info" id="{{$i->id}}-all-projects-info" data-off-canvas data-auto-focus="false">
-      <h4><span>{{ $i->name }}</span>&nbsp;</h4>
-      <br /><br />
-
-      <form method='post' action='/note/add/{{ $i->id }}'>
-        {{ csrf_field() }}
-        <input type='hidden' name='editable' value='true' />
-        <textarea name='note' required placeholder='Type note here...'></textarea>
-        <button type='submit' class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-      <br />
-
-      @foreach ($i->notes as $note)
-      <div class="note-card">
-        @if ($note->userIsAuthor == true && $note->editable == true)
-        <script>
-
-          $(document).ready(function() {
-            $('#note-{{$note->id}}').editable({
-              type: 'textarea',
-              url: '/note/edit/{{$note->id}}',
-              title: 'Edit Note',
-              rows: 10,
-              pk: {{$note->id}},
-              disabled: true
-            });
-
-            $('#{{$note->id}}-note-edit-toggle').click(function(e) {
-              e.stopPropagation();
-              $('#note-{{$note->id}}').editable('toggleDisabled');
-            });
-
-          });
-        </script>
-        <a id='{{$note->id}}-note-edit-toggle' ><i class="fas fa-pen"></i></a>&nbsp;
-        @endif
-        <span id='note-{{$note->id}}'>{!! nl2br($note->note) !!}</span><br /><br />
-        <p>
-          <strong>{{ $note->author }}</strong> on {{ $note->date }}
-        </p>
-
-        <!-- javascript for note editing -->
-
-      </div>
-      @endforeach
-      <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
-    </div>
+      @include('project-info')
     @endforeach
 
 
