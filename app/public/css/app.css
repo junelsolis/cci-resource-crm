@@ -8248,6 +8248,31 @@ select {
   color: white;
 }
 
+.set-password {
+  height: 100vh;
+  background-color: #2c3e50;
+}
+
+.set-password .form-box {
+  background-color: white;
+  max-width: 400px;
+  min-height: 400px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.set-password .form-box form {
+  max-width: 350px;
+  margin: auto;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
