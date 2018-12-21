@@ -265,3 +265,16 @@ select {
   }
 
 }
+
+// standalone stats
+.stat {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.stat-title {
+  text-align: center;
+  color: #707070;
+  font-weight: bolder;
+}

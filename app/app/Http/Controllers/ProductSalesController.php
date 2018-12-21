@@ -23,7 +23,8 @@ class ProductSalesController extends Controller
       $userDetails = $this->getLoggedInUserDetails();
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
-      $ongoingProjects = $this->getUserProjects();
+      $allProjects = $this->getUserProjects();
+      $ongoingProjects = $this->getOngoingProjects();
       $upcomingProjects = $this->getUserUpcomingProjects();
       $otherProjects = $this->getOtherProjects();
       $chartData = $this->productSalesCharts(session('logged_in_user_id'));
@@ -35,7 +36,8 @@ class ProductSalesController extends Controller
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
         ->with('projectStatusCodes', $projectStatusCodes)
-        ->with('projects', $ongoingProjects)
+        ->with('projects', $allProjects)
+        ->with('ongoingProjects', $ongoingProjects)
         ->with('upcomingProjects', $upcomingProjects)
         ->with('otherProjects', $otherProjects)
         ->with('chartData', $chartData);
@@ -158,6 +160,18 @@ class ProductSalesController extends Controller
       return $projects;
 
 
+    }
+
+    private function getOngoingProjects() {
+
+      $status_ids = [1,2,4];
+
+      $projects = DB::table('projects')
+        ->where('product_sales_id', session('logged_in_user_id'))
+        ->whereIn('status_id', $status_ids)
+        ->get();
+
+      return $projects;
     }
 
 }

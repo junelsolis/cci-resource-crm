@@ -264,14 +264,30 @@
         </div>
       </div>
 
-
-      <!-- <div class='cell small-12'>
+      <!-- some project-related stats here -->
+      <div class='cell small-12'>
         <div class='card'>
-          <ul class='menu align-center'>
-            <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
-          </ul>
+          <div class='grid-x'>
+
+            <div class='cell medium-3'>
+              <span class='stat' style='color:rgba(243,156,18,0.6);'>{{ $ongoingProjects->count() }}</span><br />
+              <span class='stat-title'>Ongoing Projects</span>
+            </div>
+            <div class='cell medium-3'>
+              <span class='stat' style='color:rgba(39,174,96,0.6);'>{{ $projects->count() }}</span><br />
+              <span class='stat-title'>Total Projects (Last 12 mo)</span>
+            </div>
+            <div class='cell medium-3'>
+              <span class='stat' style='color:rgba(255,99,132,1);'>${{ number_format($chartData['sales']->sum()) }}</span><br />
+              <span class='stat-title'>Sales (Last 12 mo)</span>
+            </div>
+            <div class='cell medium-3'>
+              <span class='stat' style='color:#3e95cd;'>${{ number_format($chartData['projectedSales']->sum()) }}</span><br />
+              <span class='stat-title'>Projected Sales (Next 6 mo)</span>
+            </div>
+          </div>
         </div>
-      </div> -->
+      </div>
 
       <div class='cell small-12'>
         <div id='projects' class='card'>
