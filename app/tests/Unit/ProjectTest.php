@@ -41,6 +41,7 @@ class ProjectTest extends TestCase
       $this->project = factory('App\Project')->create([
         'status_id' => 1,
         'bid_date' => Carbon::now(),
+        'amount' => 6000,
         'product_sales_id' => $this->productSalesUser->id,
         'inside_sales_id' => $this->insideSalesUser->id,
       ]);
@@ -51,8 +52,6 @@ class ProjectTest extends TestCase
         'last_updated_by_id' => $this->productSalesUser->id,
         'note' => 'Project added. This is a note.',
       ]);
-
-
 
 
     }
@@ -73,10 +72,14 @@ class ProjectTest extends TestCase
     /** @test */
     public function a_project_has_inside_sales() {
 
-      $this->project->insideSales();
-
       $this->assertNotNull($this->project->insideSales);
       $this->assertTrue(is_string($this->project->insideSales->name));
+    }
+
+    /** @test */
+    public function a_project_has_notes() {
+      $this->assertNotNull($this->project->notes);
+      $this->assertSame('Project added. This is a note.', $this->project->notes->first()->note);
     }
 
 }
