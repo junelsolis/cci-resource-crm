@@ -47,6 +47,7 @@ class User extends Model
         ->orderBy('bid_date','desc')->get();
 
       $now = Carbon::now();
+      $now->setTimezone('America/New_York');
 
       foreach ($projects as $key => $item) {
         $bid_date = new Carbon($item->bid_date);

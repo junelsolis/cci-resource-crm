@@ -40,6 +40,7 @@ class ProductSalesController extends Controller
       session(['current_section' => 'product-sales']);
 
       return view('product-sales/product-sales-main')
+        ->with('user', $user)
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
         ->with('projectStatusCodes', $projectStatusCodes)

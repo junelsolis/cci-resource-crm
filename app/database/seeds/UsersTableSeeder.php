@@ -19,7 +19,6 @@ class UsersTableSeeder extends Seeder
           'username' => 'jsmith',
           'name' => 'John Smith',
           'password' => Hash::make('ccipassword'),
-          'change_password' => false
         ]);
 
         DB::table('user_roles')->insert([
@@ -34,7 +33,6 @@ class UsersTableSeeder extends Seeder
           'username' => 'esimmons',
           'name' => 'Ella Simmons',
           'password' => Hash::make('ccipassword'),
-          'change_password' => false
         ]);
 
         DB::table('user_roles')->insert([
@@ -49,7 +47,6 @@ class UsersTableSeeder extends Seeder
           'username' => 'rharris',
           'name' => 'Richard Harris',
           'password' => Hash::make('ccipassword'),
-          'change_password' => false
         ]);
     }
 }

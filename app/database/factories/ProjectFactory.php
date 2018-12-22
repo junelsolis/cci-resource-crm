@@ -7,7 +7,7 @@ $factory->define(App\Project::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'status_id' => 1,
-        'bid_date' => Carbon::now(),
+        'bid_date' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = '+6 months', $timezone = null),
         'manufacturer' => $faker->company,
         'product' => 'product',
         'product_sales_id' => rand(1,120),
