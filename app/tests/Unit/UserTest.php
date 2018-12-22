@@ -56,8 +56,9 @@ class UserTest extends TestCase
     /** @test */
     public function a_user_has_roles() {
 
-      $this->assertNotNull($this->user->roles());
       $this->assertCount(2,$this->user->roles());
+      $this->assertTrue(in_array('product-sales', $this->user->roles()));
+      $this->assertTrue(in_array('executive', $this->user->roles()));
 
     }
 

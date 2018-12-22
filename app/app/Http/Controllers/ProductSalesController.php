@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
+use App\User;
+
 use App\Traits\ProjectData;
 use App\Traits\PeopleData;
 use App\Traits\ChartData;
@@ -16,9 +18,13 @@ class ProductSalesController extends Controller
     use PeopleData;
     use ChartData;
 
+    private $user;
+
     public function showDashboard() {
       if ($this->checkLoggedIn()) {}
       else { return redirect('/'); }
+
+      $this->user = User::where('id',session('logged_in_user_id'))->first();
 
       $userDetails = $this->getLoggedInUserDetails();
       $insideSales = $this->getInsideSalesReps();
@@ -28,6 +34,7 @@ class ProductSalesController extends Controller
       $upcomingProjects = $this->getUserUpcomingProjects();
       $otherProjects = $this->getOtherProjects();
       $chartData = $this->productSalesCharts(session('logged_in_user_id'));
+
 
       // set session key
       session(['current_section' => 'product-sales']);
@@ -56,13 +63,13 @@ class ProductSalesController extends Controller
           and role
       */
 
-      $user_id = session()->get('logged_in_user_id');     // get user id from session
-      $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
+      // $user_id = session()->get('logged_in_user_id');     // get user id from session
+      $this->user = User::find(session('logged_in_user_id'))->first();
 
       $role = 'Product Sales';
 
       $collect = collect([
-        'name' => $name,
+        'name' => $this->user->name,
         'role' => $role
       ]);
 

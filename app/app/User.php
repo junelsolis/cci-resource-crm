@@ -13,9 +13,14 @@ class User extends Model
 {
 
     public function roles() {
-      $roles = DB::table('user_roles')->where('user_id', $this->id)->select('user_id','role')->get();
 
-      return $roles;
+      $array = array();
+      $roles = DB::table('user_roles')->where('user_id', $this->id)->select('role')->get();
+
+      foreach ($roles as $i) {
+        $array[] = $i->role;
+      }
+      return $array;
     }
 
     public function productSalesProjects() {
