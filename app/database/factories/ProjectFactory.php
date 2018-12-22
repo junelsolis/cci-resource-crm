@@ -12,7 +12,7 @@ $factory->define(App\Project::class, function (Faker $faker) {
         'product' => 'product',
         'product_sales_id' => rand(1,120),
         'inside_sales_id' => rand(1,120),
-        'amount' => 10000,
+        'amount' => rand(6000,100000),
         'apc_opp_id' => rand(10000,99999),
         'invoice_link' => $faker->url,
         'engineer' => $faker->name,

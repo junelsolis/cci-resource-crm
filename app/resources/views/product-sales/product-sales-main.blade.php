@@ -311,7 +311,11 @@
                   </td>
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td>
+                    @if (count($i->notes) >= 1)
+                    <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a>
+                    @endif
+                  </td>
                 </tr>
 
 

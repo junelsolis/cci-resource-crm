@@ -11,6 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // create project status
+        DB::table('project_status')->insert([
+          ['id' => 1, 'status' => 'New'],
+          ['id' => 2, 'status' => 'Quoted'],
+          ['id' => 3, 'status' => 'Sold'],
+          ['id' => 4, 'status' => 'Engineered'],
+          ['id' => 5, 'status' => 'Lost']
+        ]);
+
+        $this->call(UsersTableSeeder::class);
+        $this->call(ProjectsTableSeeder::class);
     }
 }
