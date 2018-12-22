@@ -159,6 +159,7 @@
         <div id='upcoming-projects' class='card' data-equalizer-watch>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
+          @if (count($upcomingProjects) > 0)
           <table class='unstriped'>
             <tbody>
               @foreach ($upcomingProjects as $item)
@@ -186,6 +187,14 @@
               @endforeach
             </tbody>
           </table>
+          @else
+          <div style='text-align:center;'>
+            You have no upcoming projects.<br /><br />
+            <a style='font-size:18px;' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a>
+          </div>
+
+          @endif
+
         </div>
       </div>
       <div class='cell medium-6 large-4'>
@@ -562,6 +571,7 @@
                 </tr>
               </thead>
               <tbody>
+                @if ($otherProjects)
                 @foreach ($otherProjects as $i)
                 <tr>
                   <td>{{ $i->productSales->name }}</td>
@@ -577,6 +587,7 @@
                   <td>{{ $i->contractor}}</td>
                 </tr>
                 @endforeach
+                @endif
               </tbody>
 
             </table>

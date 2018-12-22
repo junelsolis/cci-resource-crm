@@ -64,7 +64,7 @@ class ProductSalesController extends Controller
       */
 
       // $user_id = session()->get('logged_in_user_id');     // get user id from session
-      $this->user = User::find(session('logged_in_user_id'))->first();
+      $this->user = User::find(session('logged_in_user_id'));
 
       $role = 'Product Sales';
 
