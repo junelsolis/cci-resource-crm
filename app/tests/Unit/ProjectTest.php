@@ -40,7 +40,7 @@ class ProjectTest extends TestCase
 
       $this->project = factory('App\Project')->create([
         'status_id' => 1,
-        'bid_date' => Carbon::now(),
+        'bid_date' => new Carbon('first day of September 2018'),
         'amount' => 6000,
         'product_sales_id' => $this->productSalesUser->id,
         'inside_sales_id' => $this->insideSalesUser->id,
@@ -81,5 +81,60 @@ class ProjectTest extends TestCase
       $this->assertNotNull($this->project->notes);
       $this->assertSame('Project added. This is a note.', $this->project->notes->first()->note);
     }
+
+    /** @test */
+    public function a_project_has_formatted_bid_date() {
+
+      $this->assertSame('09/01/2018', $this->project->formattedBidDate());
+    }
+
+    /** @test */
+    public function a_project_has_formatted_amount() {
+      $this->assertSame('$6,000', $this->project->formattedAmount());
+    }
+
+    /** @test */
+    public function a_project_calculates_bid_timing() {
+
+      $soon = factory('App\Project',5)->create([
+        'bid_date' => Carbon::tomorrow()
+      ]);
+
+      $nextWeek = Carbon::today();
+      $nextWeek->addDays(8);
+
+      $nextWeek = factory('App\Project')->create([
+        'bid_date' => $nextWeek
+      ]);
+
+      $nextMonth = factory('App\Project')->create([
+        'bid_date' => new Carbon('next month')
+      ]);
+
+      $late = factory('App\Project',2)->create([
+        'bid_date' => Carbon::yesterday()
+
+      ]);
+
+      $ontime_quoted = factory('App\Project', 3)->create([
+        'bid_date' => Carbon::yesterday(),
+        'status_id' => 2
+      ]);
+
+      $ontime_engineered = factory('App\Project', 6)->create([
+        'bid_date' => Carbon::yesterday(),
+        'status_id' => 4
+      ]);
+
+
+      $this->assertTrue($nextWeek->bidTiming() == 'ontime');
+      $this->assertTrue($nextMonth->bidTiming() == 'ontime');
+
+      $this->assertTrue($soon[4]->bidTiming() == 'soon');
+      $this->assertTrue($late[1]->bidTiming() == 'late');
+
+      $this->assertTrue($ontime_quoted->first()->bidTiming() == 'ontime');
+    }
+
 
 }
