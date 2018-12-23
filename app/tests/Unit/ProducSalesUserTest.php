@@ -115,4 +115,43 @@ class ProducSalesUserTest extends TestCase
 
 
 
+    /** @test */
+    public function a_user_has_ongoing_projects() {
+      // 1,2,4 New, Quoted, Engineered
+
+      factory('App\Project',10)->create([
+        'product_sales_id' => 22,
+        'status_id' => 1,
+        'bid_date' => Carbon::now()->addDays(rand(0,10))
+      ]);
+
+      factory('App\Project',15)->create([
+        'product_sales_id' => 22,
+        'status_id' => 2,
+        'bid_date' => Carbon::now()->addDays(rand(1,10))
+      ]);
+
+      factory('App\Project',10)->create([
+        'product_sales_id' => 22,
+        'status_id' => 2,
+        'bid_date' =>  Carbon::now()->subDays(rand(1,30))
+      ]);
+
+      factory('App\Project',20)->create([
+        'product_sales_id' => 22,
+        'status_id' => 4,
+        'bid_date' => Carbon::now()->addDays(rand(0,10))
+      ]);
+
+      factory('App\Project',15)->create([
+        'product_sales_id' => 22,
+        'status_id' => 4,
+        'bid_date' => Carbon::now()->subDays(rand(1,30))
+      ]);
+
+      $this->assertTrue($this->user->ongoingProjects()->count() == 70);
+    }
+
+
+
 }

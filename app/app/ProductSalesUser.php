@@ -59,4 +59,15 @@ class ProductSalesUser extends User
 
       return $projects;
     }
+
+    public function ongoingProjects() {
+      $status_ids = [1,2,4];
+
+      $projects = Project::where('product_sales_id', $this->id)
+        ->whereIn('status_id', $status_ids)
+        ->get();
+
+        
+      return $projects;
+    }
 }

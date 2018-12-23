@@ -30,12 +30,7 @@ class ProductSalesController extends Controller
       $projectStatusCodes = $this->getProjectStatusCodes();
 
       $projectsThisYear = $user->projectsThisYear();
-      foreach ($projectsThisYear as $i) {
-
-
-      }
-
-      $ongoingProjects = $this->getOngoingProjects();
+      $ongoingProjects = $user->ongoingProjects();
       $upcomingProjects = $user->upcomingProjects();
 
       $otherProjects = $this->getOtherProjects();
@@ -176,16 +171,16 @@ class ProductSalesController extends Controller
 
     }
 
-    private function getOngoingProjects() {
-
-      $status_ids = [1,2,4];
-
-      $projects = DB::table('projects')
-        ->where('product_sales_id', session('logged_in_user_id'))
-        ->whereIn('status_id', $status_ids)
-        ->get();
-
-      return $projects;
-    }
+    // private function getOngoingProjects() {
+    //
+    //   $status_ids = [1,2,4];
+    //
+    //   $projects = DB::table('projects')
+    //     ->where('product_sales_id', session('logged_in_user_id'))
+    //     ->whereIn('status_id', $status_ids)
+    //     ->get();
+    //
+    //   return $projects;
+    // }
 
 }
