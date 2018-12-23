@@ -41,7 +41,7 @@
     <br />
     @endif
     <p>
-      <strong>{{ $note->author->name }}</strong> on {{ $note->formattedDate() }}
+      <strong>{{ $note->author()->name }}</strong> on {{ $note->formattedDate() }}
     </p>
 
   </div>

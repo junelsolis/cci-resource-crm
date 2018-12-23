@@ -41,7 +41,7 @@ class ProjectNoteTest extends TestCase
   /** @test */
   public function a_note_has_an_author() {
 
-    $this->assertTrue($this->project->notes->first()->author()->first()->name == 'Woodrow Wilson');
+    $this->assertTrue($this->project->notes->first()->author()->name == 'Woodrow Wilson');
   }
 
   /** @test */

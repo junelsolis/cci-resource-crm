@@ -15,11 +15,11 @@ class ProjectNote extends Model
     public $author;
 
     public function project() {
-      return $this->belongsTo('App\Project','project_id','id');
+      return $this->belongsTo('App\Project','project_id','id')->first();
     }
 
     public function author() {
-      return $this->belongsTo('App\User','last_updated_by_id', 'id');
+      return $this->hasOne('App\User','id', 'last_updated_by_id')->first();
 
     }
 
