@@ -17,6 +17,21 @@ class Project extends Model
     public $formattedAmount;
     public $bidTiming;
 
+    public static function boot() {
+
+      parent::boot();
+
+      self::created(function($model){
+        $note = new ProjectNote([
+          'project_id' => $model->id,
+          'note' => 'Project created.',
+          'last_updated_by_id' => session('logged_in_user_id'),
+        ]);
+
+        $note->save();
+      });
+    }
+
 
     public function status() {
       $status = ProjectStatus::find($this->status_id);

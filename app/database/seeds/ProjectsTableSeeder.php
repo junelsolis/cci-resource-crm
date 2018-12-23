@@ -15,7 +15,8 @@ class ProjectsTableSeeder extends Seeder
     public function run()
     {
 
-
+        session(['logged_in_user_id' => 2]);
+        
         factory('App\Project', 5)->create([
           'product_sales_id' => 2,
           // 'inside_sales_id' => 3,
