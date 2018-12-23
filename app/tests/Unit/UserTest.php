@@ -62,18 +62,5 @@ class UserTest extends TestCase
 
     }
 
-    /** @test */
-    public function a_user_can_have_product_sales_projects() {
-      $this->assertCount(1,$this->user->productSalesProjects());
-      $this->assertTrue($this->project1->product_sales_id == 3);
-    }
-
-    /** @test */
-    public function a_user_can_have_inside_sales_projects() {
-
-      $this->assertCount(1, $this->user->insideSalesProjects());
-      $this->assertTrue($this->project2->inside_sales_id == 3);
-    }
-
 
 }

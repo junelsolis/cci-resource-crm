@@ -59,7 +59,7 @@ class ProjectTest extends TestCase
     /** @test */
     public function a_project_has_a_status() {
 
-      $this->assertSame('New', $this->project->status->status);
+      $this->assertSame('New', $this->project->status()->status);
       $this->assertEquals($this->project->status->id, 1);
     }
 

@@ -159,7 +159,7 @@
           @if ($upcomingProjects->count() > 0)
           <table class='unstriped'>
             <tbody>
-              @foreach ($upcomingProjects as $item)
+              @foreach ($upcomingProjects->take(5) as $item)
               <tr>
                 <td
                   <?php

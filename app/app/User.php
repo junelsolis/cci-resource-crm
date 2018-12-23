@@ -24,13 +24,13 @@ class User extends Model
     }
 
 
-    public function insideSalesProjects() {
-
-      $projects = DB::table('projects')->where('inside_sales_id', $this->id)->get();
-
-      return $projects;
-
-    }
+    // public function insideSalesProjects() {
+    //
+    //   $projects = DB::table('projects')->where('inside_sales_id', $this->id)->get();
+    //
+    //   return $projects;
+    //
+    // }
 
 
     // public function upcomingProjects() {

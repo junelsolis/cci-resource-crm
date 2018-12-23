@@ -28,8 +28,8 @@ class ProductSalesUser extends User
 
       $projects = Project::where('product_sales_id', $this->id)
         ->where([
-          [ 'status_id', '!=', 3],
-          [ 'status_id', '!=', 5]
+          [ 'status_id', '!=', 3],  // Sold
+          [ 'status_id', '!=', 5]   // Lost
         ])
         ->where('bid_date', '>=', $thisYear)
         ->orderBy('bid_date')->get();
@@ -55,7 +55,7 @@ class ProductSalesUser extends User
       }
 
       $projects = $projects->reverse();
-      $projects = $projects->take(5);
+      //$projects = $projects->take(5);
 
       return $projects;
     }
