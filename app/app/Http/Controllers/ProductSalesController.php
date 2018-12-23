@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
-use App\User;
+use App\ProductSalesUser;
 
 use App\Traits\ProjectData;
 use App\Traits\PeopleData;
@@ -18,20 +18,26 @@ class ProductSalesController extends Controller
     use PeopleData;
     use ChartData;
 
-    private $user;
 
     public function showDashboard() {
       if ($this->checkLoggedIn()) {}
       else { return redirect('/'); }
 
-      $this->user = User::where('id',session('logged_in_user_id'))->first();
+      $user = ProductSalesUser::where('id',session('logged_in_user_id'))->first();
 
       $userDetails = $this->getLoggedInUserDetails();
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
-      $allProjects = $this->getUserProjects();
+
+      $projectsThisYear = $user->projectsThisYear();
+      foreach ($projectsThisYear as $i) {
+
+
+      }
+
       $ongoingProjects = $this->getOngoingProjects();
-      $upcomingProjects = $this->getUserUpcomingProjects();
+      $upcomingProjects = $user->upcomingProjects();
+
       $otherProjects = $this->getOtherProjects();
       $chartData = $this->productSalesCharts(session('logged_in_user_id'));
 
@@ -44,7 +50,7 @@ class ProductSalesController extends Controller
         ->with('userDetails', $userDetails)
         ->with('insideSales', $insideSales)
         ->with('projectStatusCodes', $projectStatusCodes)
-        ->with('projects', $allProjects)
+        ->with('projects', $projectsThisYear)
         ->with('ongoingProjects', $ongoingProjects)
         ->with('upcomingProjects', $upcomingProjects)
         ->with('otherProjects', $otherProjects)
@@ -65,7 +71,7 @@ class ProductSalesController extends Controller
       */
 
       // $user_id = session()->get('logged_in_user_id');     // get user id from session
-      $this->user = User::find(session('logged_in_user_id'));
+      $this->user = ProductSalesUser::find(session('logged_in_user_id'));
 
       $role = 'Product Sales';
 

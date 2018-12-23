@@ -146,10 +146,7 @@
       </form>
     </div>
 
-    <!-- divs for off-canvas project information -->
-    @foreach ($projects as $i)
-      @include('project-info')
-    @endforeach
+
 
 
 
@@ -159,26 +156,26 @@
         <div id='upcoming-projects' class='card' data-equalizer-watch>
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
-          @if (count($upcomingProjects) > 0)
+          @if ($upcomingProjects->count() > 0)
           <table class='unstriped'>
             <tbody>
               @foreach ($upcomingProjects as $item)
               <tr>
                 <td
                   <?php
-                    if ($item->bidTiming == 'late' && ($item->status->status != 'Quoted') && ($item->status->status != 'Sold') && ($item->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                    if ($item->bidTiming == 'soon' && ($item->status->status != 'Quoted') && ($item->status->status != 'Sold') && ($item->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                  ?>><strong>{{ $item->bidDate }}</strong></td>
+                    if ($item->bidTiming() == 'late' && ($i->status()->status != 'Quoted') && ($i->status()->status != 'Sold') && ($item->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                    if ($item->bidTiming() == 'soon' && ($i->status()->status != 'Quoted') && ($i->status()->status != 'Sold') && ($i->status()->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                  ?>><strong>{{ $item->formattedBidDate() }}</strong></td>
                 <td
                   <?php
-                    if ($item->status->status == 'New') { echo 'class=\'status-new\''; }
-                    if ($item->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                    if ($item->status->status == 'Sold') { echo 'class=\'status-sold\''; }
-                    if ($item->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                    if ($item->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+                    if ($item->status()->status == 'New') { echo 'class=\'status-new\''; }
+                    if ($item->status()->status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                    if ($item->status()->status == 'Sold') { echo 'class=\'status-sold\''; }
+                    if ($item->status()->status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                    if ($item->status()->status == 'Lost') { echo 'class=\'status-lost\''; }
                   ?>
                 >
-                  {{ $item->status->status}}
+                  {{ $item->status()->status}}
                 </td>
 
                 <td>{{ $item->name}}</td>
@@ -249,6 +246,7 @@
         </div>
       </div>
 
+      <!-- My Projects -->
       <div class='cell small-12'>
         <div id='projects' class='card'>
           <div class='grid-x align-middle'>
@@ -280,29 +278,32 @@
                 </tr>
               </thead>
               <tbody>
+                @if ($projects->count() > 0)
                 @foreach ($projects as $i)
                 <tr>
                   <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
                   <td id='{{$i->id}}-name'>{{ $i->name }}</td>
                   <td id='{{$i->id}}-status'
                     <?php
-                      if ($i->status->status == 'New') { echo 'class=\'status-new\''; }
-                      if ($i->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                      if ($i->status->status == 'Sold') { echo 'class=\'status-sold\''; }
-                      if ($i->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                      if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+
+                      $status = $i->status()->status;
+                      if ($status == 'New') { echo 'class=\'status-new\''; }
+                      if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                      if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                      if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                      if ($status == 'Lost') { echo 'class=\'status-lost\''; }
                     ?>
-                  >{{ $i->status->status }}</td>
+                  >{{ $status }}</td>
                   <td id='{{$i->id}}-bidDate'
                     <?php
-                        if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                        if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                        if ($i->bidTiming == 'late' && ($i->status != 'Quoted') && ($i->status != 'Sold') && ($i->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                        if ($i->bidTiming == 'soon' && ($i->status != 'Quoted') && ($i->status != 'Sold') && ($i->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                     ?>
-                  >{{ $i->bidDate}}</td>
+                  >{{ $i->formattedBidDate() }}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
                   <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
-                  <td id='{{$i->id}}-amount'>{{ $i->amount }}</td>
+                  <td id='{{$i->id}}-amount'>{{ $i->formattedAmount() }}</td>
                   <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td id='{{$i->id}}-invoiceLink' >
                     @if (isset($i->invoice_link))
@@ -312,37 +313,11 @@
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
                   <td>
-                    @if (count($i->notes) >= 1)
+                    @if ($i->notes->isNotEmpty())
                     <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a>
                     @endif
                   </td>
                 </tr>
-
-
-
-                <div class='reveal' id='{{$i->id}}-notes-modal' data-reveal>
-                  <button class="close-button" data-close aria-label="Close modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4><strong>Project Notes</strong> &mdash; {{ $i->name }}</h4>
-                  <br />
-                  <!-- <i class="fas fa-plus"></i>&nbsp;Add Note -->
-                  <form method='post' action='/note/add/{{ $i->id }}'>
-                    {{ csrf_field() }}
-                    <textarea name='note' placeholder="Add Note"></textarea>
-                    <button type='submit' class='button button-primary' style='margin-top:10px;'><i class="fas fa-plus"></i>&nbsp;Add Note</button>
-                  </form>
-                  <br />
-                  @foreach ($i->notes as $note)
-                  <div class="note-card">
-                    <span>{!! nl2br($note->note) !!}</span>
-                    <br /><br />
-                    <p style='color:grey;'>
-                      <strong>{{ $note->author }}</strong> on {{ $note->date }}
-                    </p>
-                  </div>
-                  @endforeach
-                </div>
 
                 <script>
 
@@ -520,9 +495,8 @@
 
 
                 </script>
-
-
                 @endforeach
+                @endif
               </tbody>
 
             </table>
@@ -604,6 +578,14 @@
         </div>
       </div>
     </div>
+
+
+
+
+    <!-- divs for off-canvas project information -->
+    @foreach ($projects as $i)
+      @include('project-info')
+    @endforeach
   </body>
   @include('footer')
   <script>

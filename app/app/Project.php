@@ -7,15 +7,25 @@ use App\ProjectNote;
 use App\User;
 use App\ProjectStatus;
 use Carbon\Carbon;
+// use DB;
 
 class Project extends Model
 {
 
+    public $status;
+    public $formattedBidDate;
+    public $formattedAmount;
+    public $bidTiming;
+
+
     public function status() {
-      return $this->belongsTo('App\ProjectStatus','status_id', 'id');
+      $status = ProjectStatus::find($this->status_id);
+      $this->status = $status;
+      return $status;
     }
 
     public function productSales() {
+
       return $this->belongsTo('App\User','product_sales_id', 'id');
     }
 
@@ -30,8 +40,9 @@ class Project extends Model
     public function formattedBidDate() {
       $bid_date = $this->bid_date;
       $bid_date = new \Carbon\Carbon($bid_date);
-
       $format = $bid_date->format('m/d/Y');
+
+      $this->formattedBidDate = $format;
 
       return $format;
     }
@@ -39,6 +50,7 @@ class Project extends Model
     public function formattedAmount() {
       $format = '$' . number_format($this->amount);
 
+      $this->formattedAmount = $format;
       return $format;
     }
 
@@ -55,14 +67,12 @@ class Project extends Model
       if ($bidDate->lessThan($now) && ($this->status_id == 1 || $this->status_id == 4)) {
         $bidTiming = 'late';
         $this->bidTiming = $bidTiming;
-
         return $bidTiming;
       }
 
       else if (($bidDate->greaterThanOrEqualTo($now)) && ($bidDate->lessThanOrEqualto($nextWeek))) {
         $bidTiming = 'soon';
         $this->bidTiming = $bidTiming;
-
         return $bidTiming;
 
       }
@@ -70,7 +80,6 @@ class Project extends Model
       else {
         $bidTiming = 'ontime';
         $this->bidTiming = $bidTiming;
-
         return $bidTiming;
 
       }

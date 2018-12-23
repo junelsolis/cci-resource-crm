@@ -10,7 +10,8 @@
   </form>
   <br />
 
-  @foreach ($i->notes as $note)
+  @if (isset($i->notes))
+  @foreach ($i->notes->all() as $note)
   <div class="note-card">
 
     <span id='note-{{$note->id}}-all-projects'>{!! $note->note !!}</span><br /><br />
@@ -45,6 +46,7 @@
 
   </div>
   @endforeach
+  @endif
   <span style='color:lightgrey;font-style:italic;text-align:center'>---- End ----</span>
 
 </div>
