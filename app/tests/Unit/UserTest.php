@@ -31,6 +31,8 @@ class UserTest extends TestCase
         'password' => Hash::make('thisIsThePassword1234'),
       ]);
 
+      session(['logged_in_user_id' => 3]);
+
       // insert roles
       DB::table('user_roles')->insert([
         ['user_id' => $this->user->id, 'role' => 'product-sales'],

@@ -23,6 +23,8 @@ class ProducSalesUserTest extends TestCase
     public function setUp() {
       parent::setUp();
 
+      session(['logged_in_user_id' => 22]);
+
       // create product sales user
       $this->user = factory('App\ProductSalesUser')->create([
         'id' => 22,

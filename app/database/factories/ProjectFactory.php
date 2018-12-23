@@ -17,6 +17,5 @@ $factory->define(App\Project::class, function (Faker $faker) {
         'invoice_link' => $faker->url,
         'engineer' => $faker->name,
         'contractor' => $faker->name,
-        'created_at' => Carbon::now()
     ];
 });

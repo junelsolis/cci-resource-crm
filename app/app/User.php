@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Project;
+use App\ProjectNote;
 use DB;
 
 use Carbon\Carbon;
@@ -21,6 +22,10 @@ class User extends Model
         $array[] = $i->role;
       }
       return $array;
+    }
+
+    public function notes() {
+      return $this->hasMany('App\ProjectNote','id','last_updated_by_id');
     }
 
 
