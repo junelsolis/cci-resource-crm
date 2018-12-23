@@ -28,11 +28,12 @@ class ProductSalesUser extends User
 
       $projects = Project::where('product_sales_id', $this->id)
         ->where([
+          // [ 'status_id', '!=', 2],
           [ 'status_id', '!=', 3],  // Sold
           [ 'status_id', '!=', 5]   // Lost
         ])
         ->where('bid_date', '>=', $thisYear)
-        ->orderBy('bid_date')->get();
+        ->orderBy('bid_date','desc')->get();
 
       $now = Carbon::now();
       $now->setTimezone('America/New_York');
@@ -49,7 +50,7 @@ class ProductSalesUser extends User
             continue;
           }
 
-          $projects->forget($key);
+          else { $projects->forget($key); }
         }
 
       }
@@ -67,7 +68,13 @@ class ProductSalesUser extends User
         ->whereIn('status_id', $status_ids)
         ->get();
 
-        
+
+      return $projects;
+    }
+
+    public function otherProjects() {
+      $projects = Project::where('product_sales_id', '!=', $this->id)->get();
+
       return $projects;
     }
 }

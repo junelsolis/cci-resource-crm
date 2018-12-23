@@ -96,44 +96,71 @@ class ProjectTest extends TestCase
     /** @test */
     public function a_project_calculates_bid_timing() {
 
-      $soon = factory('App\Project',5)->create([
-        'bid_date' => Carbon::tomorrow()
+      //soon projects
+      factory('App\Project',5)->create([
+        'bid_date' => Carbon::tomorrow(),
+        'status_id' => 1
       ]);
 
-      $nextWeek = Carbon::today();
-      $nextWeek->addDays(8);
-
-      $nextWeek = factory('App\Project')->create([
-        'bid_date' => $nextWeek
+      factory('App\Project',5)->create([
+        'bid_date' => Carbon::now()->addDays(rand(2,6)),
+        'status_id' => 4
       ]);
 
-      $nextMonth = factory('App\Project')->create([
-        'bid_date' => new Carbon('next month')
+      // late projects
+      factory('App\Project',2)->create([
+        'bid_date' => Carbon::yesterday(),
+        'status_id' => 1
       ]);
 
-      $late = factory('App\Project',2)->create([
-        'bid_date' => Carbon::yesterday()
-
+      factory('App\Project',2)->create([
+        'bid_date' => Carbon::now()->subMonths(rand(1,5)),
+        'status_id' => 4
       ]);
 
-      $ontime_quoted = factory('App\Project', 3)->create([
+      // ontime quoted projects
+      factory('App\Project', 3)->create([
         'bid_date' => Carbon::yesterday(),
         'status_id' => 2
       ]);
 
-      $ontime_engineered = factory('App\Project', 6)->create([
-        'bid_date' => Carbon::yesterday(),
+      factory('App\Project', 5)->create([
+        'bid_date' => Carbon::now()->subWeek(rand(1,5)),
+        'status_id' => 2
+      ]);
+
+      // ontime engineered
+      factory('App\Project', 3)->create([
+        'bid_date' => Carbon::now()->addDays(rand(10,20)),
         'status_id' => 4
       ]);
 
+      $projects = Project::all();
 
-      $this->assertTrue($nextWeek->bidTiming() == 'ontime');
-      $this->assertTrue($nextMonth->bidTiming() == 'ontime');
 
-      $this->assertTrue($soon[4]->bidTiming() == 'soon');
-      $this->assertTrue($late[1]->bidTiming() == 'late');
+      $late = collect();
+      $soon = collect();
+      $ontime = collect();
 
-      $this->assertTrue($ontime_quoted->first()->bidTiming() == 'ontime');
+      foreach ($projects as $i) {
+        $bidTiming = $i->bidTiming();
+
+        if ($bidTiming == 'late') {
+          $late->push($i);
+        }
+
+        if ($bidTiming == 'soon') {
+          $soon->push($i);
+        }
+
+        if ($bidTiming == 'ontime' ) {
+          $soon->push($i);
+        }
+      }
+
+      $this->assertTrue($late->count() == 4);
+      $this->assertTrue($ontime->count() == 11);
+      $this->assertTrue($soon->count() == 10);
     }
 
 

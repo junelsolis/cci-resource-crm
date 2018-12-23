@@ -56,34 +56,26 @@ class Project extends Model
 
     public function bidTiming() {
 
-      $now = Carbon::today();
+      $now = Carbon::now();
       $bidDate = new Carbon($this->bid_date);
+      $nextWeek = Carbon::now()->addWeek();
 
-      $nextWeek = Carbon::today();
-      $nextWeek->addWeek();
-
-      $bidTiming;
-
-      if ($bidDate->lessThan($now) && ($this->status_id == 1 || $this->status_id == 4)) {
+      // late project
+      if ( $bidDate->lessThan($now) && (($this->status_id == 1) || ($this->status_id == 4)) ) {
         $bidTiming = 'late';
         $this->bidTiming = $bidTiming;
-        return $bidTiming;
+        return $this->bidTiming;
       }
 
-      else if (($bidDate->greaterThanOrEqualTo($now)) && ($bidDate->lessThanOrEqualto($nextWeek))) {
+      // soon project
+      if ($bidDate->greaterThanOrEqualTo($now) && $bidDate->lessThanOrEqualTo($nextWeek)) {
         $bidTiming = 'soon';
         $this->bidTiming = $bidTiming;
-        return $bidTiming;
-
+        return $this->bidTiming;
       }
 
-      else {
-        $bidTiming = 'ontime';
-        $this->bidTiming = $bidTiming;
-        return $bidTiming;
-
-      }
-
+      $this->bidTiming = 'ontime';
+      return $this->bidTiming;
     }
 
     protected $table = 'projects';

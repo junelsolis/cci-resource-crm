@@ -14,6 +14,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+
+        /*    Product sales user IDs: 21 - 40
+              Inside Sales User IDs: 51-60
+        */
+
+
+        // create main product sales user
         factory('App\User')->create([
           'id' => 2,
           'username' => 'jsmith',
@@ -27,7 +34,26 @@ class UsersTableSeeder extends Seeder
         ]);
 
 
+        // create other product sales users
+        $index = 21;
+        while ($index <= 40) {
 
+
+          factory('App\User')->create([
+            'id' => $index,
+          ]);
+
+          DB::table('user_roles')->insert([
+            'user_id' => $index,
+            'role' => 'product-sales'
+          ]);
+
+          $index++;
+
+        }
+
+
+        // main inside sales user
         factory('App\User')->create([
           'id' => 3,
           'username' => 'esimmons',
@@ -39,6 +65,24 @@ class UsersTableSeeder extends Seeder
           'user_id' => 3,
           'role' => 'inside-sales'
         ]);
+
+
+        // create other inside sales users
+        $index = 51;
+        while ($index <= 60) {
+
+          factory('App\User')->create([
+            'id' => $index,
+          ]);
+
+          DB::table('user_roles')->insert([
+            'user_id' => $index,
+            'role' => 'inside-sales'
+          ]);
+
+          $index++;
+
+        }
 
 
 

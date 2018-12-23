@@ -163,23 +163,28 @@
               <tr>
                 <td
                   <?php
-                    if ($item->bidTiming() == 'late' && ($i->status()->status != 'Quoted') && ($i->status()->status != 'Sold') && ($item->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                    if ($item->bidTiming() == 'soon' && ($i->status()->status != 'Quoted') && ($i->status()->status != 'Sold') && ($i->status()->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+
+                    $status = $item->status()->status;
+                    $bidTiming = $item->bidTiming();
+
+                    if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                    if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                   ?>><strong>{{ $item->formattedBidDate() }}</strong></td>
                 <td
                   <?php
-                    if ($item->status()->status == 'New') { echo 'class=\'status-new\''; }
-                    if ($item->status()->status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                    if ($item->status()->status == 'Sold') { echo 'class=\'status-sold\''; }
-                    if ($item->status()->status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                    if ($item->status()->status == 'Lost') { echo 'class=\'status-lost\''; }
+
+                    if ($status == 'New') { echo 'class=\'status-new\''; }
+                    if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                    if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                    if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                    if ($status == 'Lost') { echo 'class=\'status-lost\''; }
                   ?>
                 >
-                  {{ $item->status()->status}}
+                  {{ $status}}
                 </td>
 
                 <td>{{ $item->name}}</td>
-                <td>{{ $item->amount }}</td>
+                <td>{{ $item->formattedAmount() }}</td>
               </tr>
               @endforeach
             </tbody>
