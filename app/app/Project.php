@@ -21,9 +21,9 @@ class Project extends Model
 
       parent::boot();
 
-      self::created(function($model){
+      self::created(function(Project $project){
         $note = new ProjectNote([
-          'project_id' => $model->id,
+          'project_id' => $project->id,
           'note' => 'Project created.',
           'last_updated_by_id' => session('logged_in_user_id'),
         ]);
@@ -49,7 +49,7 @@ class Project extends Model
     }
 
     public function notes() {
-      return $this->hasMany('App\ProjectNote', 'project_id');
+      return $this->hasMany('App\ProjectNote', 'project_id', 'id');
     }
 
     public function formattedBidDate() {

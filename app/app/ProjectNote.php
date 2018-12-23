@@ -12,6 +12,7 @@ class ProjectNote extends Model
 
     public $formattedDate;
     public $userIsAuthor;
+    public $author;
 
     public function project() {
       return $this->belongsTo('App\Project','project_id','id');
@@ -19,6 +20,7 @@ class ProjectNote extends Model
 
     public function author() {
       return $this->belongsTo('App\User','last_updated_by_id', 'id');
+
     }
 
     public function formattedDate() {
