@@ -554,17 +554,17 @@
                 </tr>
               </thead>
               <tbody>
-                @if ($otherProjects)
+                @if ($otherProjects->count() > 0)
                 @foreach ($otherProjects as $i)
                 <tr>
                   <td>{{ $i->productSales->name }}</td>
                   <td>{{ $i->name }}</td>
-                  <td>{{ $i->status->status }}</td>
-                  <td>{{ $i->bidDate }}</td>
+                  <td>{{ $i->status()->status }}</td>
+                  <td>{{ $i->formattedBidDate() }}</td>
                   <td>{{ $i->manufacturer}}</td>
                   <td>{{ $i->product }}</td>
                   <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i->amount }}</td>
+                  <td>{{ $i->formattedAmount() }}</td>
                   <td>{{ $i->apc_opp_id }}</td>
                   <td>{{ $i->engineer}}</td>
                   <td>{{ $i->contractor}}</td>

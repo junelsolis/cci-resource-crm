@@ -10,6 +10,7 @@ use DB;
 
 class ProductSalesUser extends User
 {
+
     public function projectsThisYear() {
       $thisYear = Carbon::now()->subYear();
       $thisYear->format('Y-m-d');
@@ -73,7 +74,13 @@ class ProductSalesUser extends User
     }
 
     public function otherProjects() {
-      $projects = Project::where('product_sales_id', '!=', $this->id)->get();
+      $thisYear = Carbon::now()->subYear();
+      $thisYear->format('Y-m-d');
+
+      $projects = Project::where('product_sales_id', '!=', $this->id)
+        ->where('bid_date', '>=', $thisYear)
+        ->orderBy('bid_date', 'desc')
+        ->get();
 
       return $projects;
     }

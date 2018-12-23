@@ -33,7 +33,7 @@ class ProductSalesController extends Controller
       $ongoingProjects = $user->ongoingProjects();
       $upcomingProjects = $user->upcomingProjects();
 
-      $otherProjects = $this->getOtherProjects();
+      $otherProjects = $user->otherProjects();
       $chartData = $this->productSalesCharts(session('logged_in_user_id'));
 
 
