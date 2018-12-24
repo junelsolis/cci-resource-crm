@@ -216,7 +216,7 @@
                     </td>
                     <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
                     <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                    <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                    <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -457,23 +457,23 @@
                   <th>Upcoming Projects</th>
                   <th>Ongoing Projects</th>
                   <th>Next Project Bid Date</th>
-                  <th>Lost Projects</th>
                   <th>Projects Sold</th>
+                  <th>Lost Projects</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($productSales as $i)
                 <tr>
                   <td>{{ $i->name }}</td>
-                  <td>{{ $i->upcomingProjects()->count() }}</td>
-                  <td>{{ $i->ongoingProjects()->count() }}</td>
+                  <td>{{ $i->upcomingProjects->count() }}</td>
+                  <td>{{ $i->ongoingProjects->count() }}</td>
                   <td>
-                    @if ($i->upcomingProjects()->first())
-                    {{ $i->upcomingProjects()->first()->bidDate}}
+                    @if ($i->upcomingProjects->first())
+                    {{ $i->upcomingProjects->first()->formattedBidDate()}}
                     @endif
                   </td>
-                  <td>{{ $i->lostProjects->count() }}</td>
-                  <td>{{ $i->soldProjects->count() }}</td>
+                  <td>{{ $i->projectsThisYear->where('status_id', 3)->count() }}</td>
+                  <td>{{ $i->projectsThisYear->where('status_id', 5)->count() }}</td>
                 </tr>
                 @endforeach
               </tbody>
@@ -566,7 +566,7 @@
                   </td>
                   <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                   <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a></td>
+                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
                 </tr>
 
                 @endforeach
@@ -585,7 +585,7 @@
                 } );
 
                 $('#product-sales-table').DataTable( {
-                  "order": [[ 0, "asc" ]],
+                  "order": [[ 1, "desc" ]],
                   'pageLength': 10,
                 } );
               });

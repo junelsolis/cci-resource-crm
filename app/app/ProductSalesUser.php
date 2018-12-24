@@ -11,6 +11,11 @@ use DB;
 class ProductSalesUser extends User
 {
 
+    public $projectsThisYear;
+    public $upcomingProjects;
+    public $ongoingProjects;
+    public $otherProjects;
+
     public function projectsThisYear() {
       $thisYear = Carbon::now()->subYear();
       $thisYear->format('Y-m-d');
@@ -20,6 +25,7 @@ class ProductSalesUser extends User
         ->orderBy('bid_date', 'desc')
         ->get();
 
+      $this->projectsThisYear = $projects;
 
       return $projects;
     }
@@ -59,6 +65,8 @@ class ProductSalesUser extends User
       $projects = $projects->reverse();
       //$projects = $projects->take(5);
 
+      $this->upcomingProjects = $projects;
+
       return $projects;
     }
 
@@ -69,6 +77,7 @@ class ProductSalesUser extends User
         ->whereIn('status_id', $status_ids)
         ->get();
 
+      $this->ongoingProjects = $projects;
 
       return $projects;
     }
@@ -82,6 +91,8 @@ class ProductSalesUser extends User
         ->orderBy('bid_date', 'desc')
         ->get();
 
+
+      $this->ongoingProjects = $projects;
       return $projects;
     }
 }

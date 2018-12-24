@@ -10,11 +10,11 @@
   </form>
   <br />
 
-  @foreach ($i->notes as $note)
+  @foreach ($i->notes->reverse() as $note)
   <div class="note-card">
 
     <span id='note-{{$note->id}}-upcoming-projects'>{!! $note->note !!}</span><br /><br />
-    @if ($note->userIsAuthor == true && $note->editable == true)
+    @if ($note->userIsAuthor() == true && $note->editable == true)
     <script>
 
       $(document).ready(function() {
@@ -40,7 +40,7 @@
     <br />
     @endif
     <p>
-      <strong>{{ $note->author }}</strong> on {{ $note->date }}
+      <strong>{{ $note->author()->name }}</strong> on {{ $note->formattedDate }}
     </p>
 
   </div>

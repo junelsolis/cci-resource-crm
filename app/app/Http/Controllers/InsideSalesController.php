@@ -35,6 +35,12 @@ class InsideSalesController extends Controller
 
     $insideSales = $this->getInsideSalesReps();
     $productSales = ProductSalesUser::all();
+    foreach ($productSales as $user) {
+      $user->projectsThisYear();
+      $user->upcomingProjects();
+      $user->ongoingProjects();
+    }
+    
     $projectStatusCodes = $this->getProjectStatusCodes();
 
     return view('inside-sales/inside-sales-main')

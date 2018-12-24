@@ -12,6 +12,9 @@ class InsideSalesUser extends User
 {
 
     public $userDetails;
+    public $projectsThisYear;
+    public $upcomingProjects;
+    public $ongoingProjects;
 
     public function projectsThisYear() {
       $thisYear = Carbon::now()->subYear();
@@ -22,6 +25,7 @@ class InsideSalesUser extends User
         ->orderBy('bid_date', 'desc')
         ->get();
 
+      $this->projectsThisYear = $projects;
       return $projects;
     }
 
@@ -60,6 +64,7 @@ class InsideSalesUser extends User
       $projects = $projects->reverse();
       //$projects = $projects->take(5);
 
+      $this->upcomingProjects = $projects;
       return $projects;
 
     }
@@ -72,6 +77,7 @@ class InsideSalesUser extends User
         ->get();
 
 
+      $this->upcomingProjects = $projects;
       return $projects;
     }
 
