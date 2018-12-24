@@ -17,8 +17,8 @@ class InsideSalesUser extends User
       $thisYear = Carbon::now()->subYear();
       $thisYear->format('Y-m-d');
 
-      $projects = Project::where('inside_sales_id', $this->id)
-        ->where('bid_date', '>=', $thisYear)
+      $projects = Project::
+        where('bid_date', '>=', $thisYear)
         ->orderBy('bid_date', 'desc')
         ->get();
 

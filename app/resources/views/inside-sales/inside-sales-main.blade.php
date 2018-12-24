@@ -137,10 +137,10 @@
       <div class='cell small-12'>
         <div class='card'>
           <div class='grid-x align-middle'>
-            <div class='cell medium-6 large-2'>
-              <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Upcoming Projects</strong></h5>
+            <div class='cell medium-6 large-6'>
+              <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;My Upcoming Projects</strong></h5>
             </div>
-            <div class='cell medium-6 large-10'>
+            <div class='cell medium-6 large-6'>
               <!-- <ul class='menu align-right'>
                 <li><input type='text' class='search'  placeholder='Search Project' /></li>
               </ul> -->
@@ -174,19 +174,22 @@
                     <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
                     <td id='{{ $i->id}}-status'
                       <?php
-                        if ($i->status->status == 'New') { echo 'class=\'status-new\''; }
-                        if ($i->status->status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                        if ($i->status->status == 'Sold') { echo 'class=\'status-sold\''; }
-                        if ($i->status->status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                        if ($i->status->status == 'Lost') { echo 'class=\'status-lost\''; }
+
+                        $status = $i->status()->status;
+
+                        if ($status == 'New') { echo 'class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo 'class=\'status-lost\''; }
                       ?>
-                    >{{ $i->status->status }}</td>
+                    >{{ $status }}</td>
                     <td id='{{ $i->id}}-bidDate'
                       <?php
-                          if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                          if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                          if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($i->status->status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                       ?>
-                    >{{ $i->bidDate }}
+                    >{{ $i->formattedBidDate() }}
                     </td>
                     <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
                     <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
@@ -204,7 +207,7 @@
                         echo $name;
                       ?>
                     </td>
-                    <td id='{{ $i->id}}-amount'>{{ $i->amount }}</td>
+                    <td id='{{ $i->id}}-amount'>{{ $i->formattedAmount() }}</td>
                     <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                     <td id='{{ $i->id}}-invoiceLink'>
                       @if (isset($i->invoice_link))
@@ -444,14 +447,15 @@
       <!-- product sales persons section -->
       <div class='cell small-12'>
         <div class='card'>
-          <h5><strong><i class="fas fa-user-tie"></i>&nbsp;Product Salespersons</strong></h5>
+          <h5><strong><i class="fas fa-user-tie"></i>&nbsp;Product Sales</strong></h5>
           <br />
           <div class='table-scroll'>
-            <table id='product-salespersons' class='unstriped'>
+            <table id='product-sales-table' class='unstriped'>
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Upcoming Projects</th>
+                  <th>Ongoing Projects</th>
                   <th>Next Project Bid Date</th>
                   <th>Lost Projects</th>
                   <th>Projects Sold</th>
@@ -461,10 +465,11 @@
                 @foreach ($productSales as $i)
                 <tr>
                   <td>{{ $i->name }}</td>
-                  <td>{{ $i->upcomingProjects->count() }}</td>
+                  <td>{{ $i->upcomingProjects()->count() }}</td>
+                  <td>{{ $i->ongoingProjects()->count() }}</td>
                   <td>
-                    @if ($i->upcomingProjects->first())
-                    {{ $i->upcomingProjects->first()->bidDate}}
+                    @if ($i->upcomingProjects()->first())
+                    {{ $i->upcomingProjects()->first()->bidDate}}
                     @endif
                   </td>
                   <td>{{ $i->lostProjects->count() }}</td>
@@ -520,19 +525,21 @@
                   <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
                   <td id='{{$i->id}}-all-status'
                     <?php
-                      if ($i->status->status == 'New') { echo ' class=\'status-new\''; }
-                      if ($i->status->status == 'Engineered') { echo ' class=\'status-engineered\''; }
-                      if ($i->status->status == 'Sold') { echo ' class=\'status-sold\''; }
-                      if ($i->status->status == 'Quoted') { echo ' class=\'status-quoted\''; }
-                      if ($i->status->status == 'Lost') { echo ' class=\'status-lost\''; }
+
+                      $status = $i->status()->status;
+                      if ($status == 'New') { echo ' class=\'status-new\''; }
+                      if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
+                      if ($status == 'Sold') { echo ' class=\'status-sold\''; }
+                      if ($status == 'Quoted') { echo ' class=\'status-quoted\''; }
+                      if ($status == 'Lost') { echo ' class=\'status-lost\''; }
                     ?>
-                  >{{ $i->status->status }}</td>
+                  >{{ $status }}</td>
                   <td id='{{$i->id}}-all-bidDate'
                     <?php
-                        if ($i->bidTiming == 'late' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                        if ($i->bidTiming == 'soon' && ($i->status->status != 'Quoted') && ($i->status->status != 'Sold') && ($i->status->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                        if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                        if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                     ?>
-                  >{{ $i->bidDate }}
+                  >{{ $i->formattedBidDate() }}
                   </td>
                   <td id='{{$i->id}}-all-manufacturer'>{{ $i->manufacturer }}</td>
                   <td id='{{$i->id}}-all-product'>{{ $i->product }}</td>
@@ -550,7 +557,7 @@
                       echo $name;
                     ?>
                   </td>
-                  <td id='{{$i->id}}-all-amount'>{{ $i->amount }}</td>
+                  <td id='{{$i->id}}-all-amount'>{{ $i->formattedAmount() }}</td>
                   <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td id='{{ $i->id}}-all-invoiceLink'>
                     @if (isset($i->invoice_link))
@@ -574,6 +581,11 @@
 
                 $('#all-projects-table').DataTable( {
                   "order": [[ 3, "desc" ]],
+                  'pageLength': 10,
+                } );
+
+                $('#product-sales-table').DataTable( {
+                  "order": [[ 0, "asc" ]],
                   'pageLength': 10,
                 } );
               });

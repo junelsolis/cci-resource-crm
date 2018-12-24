@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\Traits\ProjectData;
 use App\Traits\PeopleData;
 use App\Traits\ChartData;
+use App\InsideSalesUser;
+use App\ProductSalesUser;
 
 class InsideSalesController extends Controller
 {
@@ -23,12 +25,17 @@ class InsideSalesController extends Controller
     // set session key
     session(['current_section' => 'inside-sales']);
 
-    $userDetails = $this->getLoggedInUserDetails();
+    // set user
+    $user = InsideSalesUser::find(session('logged_in_user_id'));
+
+    $userDetails = $user->userDetails();
+    $upcomingProjects = $user->upcomingProjects();
+    $allProjects = $user->projectsThisYear();
+    $ongoingProjects = $user->ongoingProjects();
+
     $insideSales = $this->getInsideSalesReps();
-    $productSales = $this->getProductSalesReps();
+    $productSales = ProductSalesUser::all();
     $projectStatusCodes = $this->getProjectStatusCodes();
-    $upcomingProjects = $this->getUpcomingProjects();
-    $allProjects = $this->getAllProjects();
 
     return view('inside-sales/inside-sales-main')
       ->with('userDetails', $userDetails)
@@ -36,7 +43,8 @@ class InsideSalesController extends Controller
       ->with('productSales', $productSales)
       ->with('projectStatusCodes', $projectStatusCodes)
       ->with('upcomingProjects', $upcomingProjects)
-      ->with('allProjects', $allProjects);
+      ->with('allProjects', $allProjects)
+      ->with('ongoingProjects', $ongoingProjects);
   }
 
 

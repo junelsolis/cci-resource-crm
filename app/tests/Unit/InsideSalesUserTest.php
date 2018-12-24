@@ -36,13 +36,13 @@ class InsideSalesUserTest extends TestCase
       // projects within this year
       factory('App\Project',30)->create([
         'bid_date' => Carbon::now()->subMonths(rand(0,11)),
-        'inside_sales_id' => $this->user->id
+        // 'inside_sales_id' => $this->user->id
       ]);
 
       // projects more than a year old
       factory('App\Project',15)->create([
         'bid_date' => Carbon::now()->subMonths(rand(12,20)),
-        'inside_sales_id' => $this->user->id
+        // 'inside_sales_id' => $this->user->id
       ]);
 
       $this->assertTrue($this->user->projectsThisYear()->count() == 30);
