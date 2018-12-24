@@ -96,26 +96,26 @@ class LoginController extends Controller
             -- setup project status codes
       */
 
-      $count = DB::table('users')->count();
-
-      if ($count == 0) {
-
-        $password = Hash::make('cciadminpassword');
-
-        // insert in users table
-        $id = DB::table('users')->insertGetId([
-          'username' => 'admin',
-          'name' => 'Administrator',
-          'password' => $password,
-          'created_at' => \Carbon\Carbon::now()
-        ]);
-
-        // insert in roles table
-        DB::table('user_roles')->insert([
-          'user_id' => $id,
-          'role' => 'administrator',
-          'created_at' => \Carbon\Carbon::now()
-        ]);
+      // $count = DB::table('users')->count();
+      //
+      // if ($count == 0) {
+      //
+      //   $password = Hash::make('cciadminpassword');
+      //
+      //   // insert in users table
+      //   $id = DB::table('users')->insertGetId([
+      //     'username' => 'admin',
+      //     'name' => 'Administrator',
+      //     'password' => $password,
+      //     'created_at' => \Carbon\Carbon::now()
+      //   ]);
+      //
+      //   // insert in roles table
+      //   DB::table('user_roles')->insert([
+      //     'user_id' => $id,
+      //     'role' => 'administrator',
+      //     'created_at' => \Carbon\Carbon::now()
+      //   ]);
 
         // // insert project status codes
         // DB::table('project_status')->insert([
@@ -126,10 +126,10 @@ class LoginController extends Controller
         //   [ 'status' => 'Lost']
         // ]);
 
-        return;
-      }
-
-      else { return; }
+      //   return;
+      // }
+      //
+      // else { return; }
     }
     private function checkAlreadyLoggedIn() {
       if (session()->has('logged_in_user_id') && session()->has('logged_in_user_roles')) {

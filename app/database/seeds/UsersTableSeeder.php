@@ -19,6 +19,18 @@ class UsersTableSeeder extends Seeder
               Inside Sales User IDs: 51-60
         */
 
+        // create admin user
+        factory('App\User')->create([
+          'id' => 1,
+          'username' => 'admin',
+          'name' => 'Administrator',
+          'password' => Hash::make('cciadminpassword')
+        ]);
+
+        DB::table('user_roles')->insert([
+          'user_id' => 1,
+          'role' => 'administrator'
+        ]);
 
         // create main product sales user
         factory('App\User')->create([
