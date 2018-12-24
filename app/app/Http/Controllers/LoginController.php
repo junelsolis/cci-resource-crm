@@ -117,14 +117,14 @@ class LoginController extends Controller
           'created_at' => \Carbon\Carbon::now()
         ]);
 
-        // insert project status codes
-        DB::table('project_status')->insert([
-          [ 'status' => 'New' ],
-          [ 'status' => 'Quoted' ],
-          [ 'status' => 'Sold' ],
-          [ 'status' => 'Engineered' ],
-          [ 'status' => 'Lost']
-        ]);
+        // // insert project status codes
+        // DB::table('project_status')->insert([
+        //   [ 'status' => 'New' ],
+        //   [ 'status' => 'Quoted' ],
+        //   [ 'status' => 'Sold' ],
+        //   [ 'status' => 'Engineered' ],
+        //   [ 'status' => 'Lost']
+        // ]);
 
         return;
       }
