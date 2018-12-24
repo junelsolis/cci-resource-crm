@@ -390,7 +390,7 @@
                   <td id='{{$i->id}}-status'
                     <?php
 
-                      $status = $i->status();
+                      $status = $i->status()->status;
                       if ($status == 'New') { echo 'class=\'status-new\''; }
                       if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
                       if ($status == 'Sold') { echo 'class=\'status-sold\''; }
@@ -743,7 +743,7 @@
         data: {
           labels: {!! $i->chartData['months'] !!},
           datasets: [{
-            data: {!! $i->chartData['sales'] !!},
+            data: {!!  $i->chartData['sales'] !!},
             borderColor: "rgba(255,99,132,1)",
             fill: true,
             backgroundColor: "rgba(255,99,132,0.2)"
@@ -769,7 +769,7 @@
         data: {
           labels: {!! $i->chartData['nextSixMonths'] !!},
           datasets: [{
-            data: {!! $i->chartData['projectedSales'] !!},
+            data: {!!  $i->chartData['projectedSales'] !!},
             borderColor: '#3e95cd',
             fill: true,
             backgroundColor: 'rgba(62,149,205,0.2)'
