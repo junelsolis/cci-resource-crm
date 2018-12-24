@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use DB;
+use App\Project;
 use Carbon\Carbon;
 
 trait ProjectData {
@@ -150,21 +151,30 @@ trait ProjectData {
 
   }
 
-  protected function getAllProjects() {
+  protected function projectsThisYear() {
     /*  Get all projects
         in the last twelve months
     */
 
-    $now = Carbon::today();
-    $now->setTimezone('America/New_York');
-    $now->subYear();
+    // $now = Carbon::today();
+    // $now->setTimezone('America/New_York');
+    // $now->subYear();
+    //
+    // $projects = DB::table('projects')
+    //   ->orderBy('bid_date')
+    //   ->where('bid_date', '>=', $now)
+    //   ->get();
+    //
+    // $projects = $this->expandProjectInfo($projects);
+    //
+    // return $projects;
 
-    $projects = DB::table('projects')
+    $lastYear = Carbon::now()->subYear()->format('Y-m-d');
+
+    $projects = Project::
+      where('bid_date', '>=', $lastYear)
       ->orderBy('bid_date')
-      ->where('bid_date', '>=', $now)
       ->get();
-
-    $projects = $this->expandProjectInfo($projects);
 
     return $projects;
   }
