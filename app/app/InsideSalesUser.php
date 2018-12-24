@@ -31,6 +31,10 @@ class InsideSalesUser extends User
 
     public function upcomingProjects() {
 
+      // if (empty($this->projectsThisYear)) {
+      //   return $this->projectsThisYear;
+      // }
+
       $thisYear = Carbon::now()->subYear();
 
       $projects = Project::where('inside_sales_id', $this->id)
@@ -70,6 +74,10 @@ class InsideSalesUser extends User
     }
 
     public function ongoingProjects() {
+      // if (empty($this->ongoingProjects)) {
+      //   return $this->ongoingProjects;
+      // }
+
       $status_ids = [1,2,4];
 
       $projects = Project::where('inside_sales_id', $this->id)
@@ -82,7 +90,11 @@ class InsideSalesUser extends User
     }
 
     public function userDetails() {
-      $user = User::where('id', session('logged_in_user_id'))->first();
+      // if (empty($this->userDetails)) {
+      //   return $this->userDetails;
+      // }
+
+      $user = User::where('id', $this->id)->first();
 
       $collect = collect();
 

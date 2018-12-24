@@ -85,12 +85,17 @@ class UsersTableSeeder extends Seeder
         }
 
 
-
+        // create executive user
         factory('App\User')->create([
           'id' => 4,
           'username' => 'rharris',
           'name' => 'Richard Harris',
           'password' => Hash::make('ccipassword'),
+        ]);
+
+        DB::table('user_roles')->insert([
+          'user_id' => 4,
+          'role' => 'executive'
         ]);
     }
 }
