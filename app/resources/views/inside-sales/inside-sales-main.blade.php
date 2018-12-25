@@ -68,75 +68,63 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($upcomingProjects as $i)
-                  <tr>
-                    <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
-                    <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
-                    <td id='{{ $i->id}}-status'
-                      <?php
+                  @foreach ($upcomingProjects->chunk(10) as $chunk)
+                    @foreach ($chunk as $i)
+                    <tr>
+                      <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
+                      <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
+                      <td id='{{ $i->id}}-status'
+                        <?php
 
-                        $status = $i->status()->status;
+                          $status = $i->status()->status;
 
-                        if ($status == 'New') { echo 'class=\'status-new\''; }
-                        if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                        if ($status == 'Sold') { echo 'class=\'status-sold\''; }
-                        if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                        if ($status == 'Lost') { echo 'class=\'status-lost\''; }
-                      ?>
-                    >{{ $status }}</td>
-                    <td id='{{ $i->id}}-bidDate'
-                      <?php
-                          if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                          if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($i->status->status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                      ?>
-                    >{{ $i->formattedBidDate() }}
-                    </td>
-                    <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
-                    <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
-                    <td id='{{ $i->id}}-productSales'>
-                      <?php
-                        $array = explode(' ', $i->productSales->name);
-                        $name = substr($array[0],0,1) . ' ' . $array[1];
-                        echo $name;
-                      ?>
-                    </td>
-                    <td id='{{ $i->id}}-insideSales'>
-                      <?php
-                        $array = explode(' ', $i->insideSales->name);
-                        $name = substr($array[0],0,1) . ' ' . $array[1];
-                        echo $name;
-                      ?>
-                    </td>
-                    <td id='{{ $i->id}}-amount'>{{ $i->formattedAmount() }}</td>
-                    <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
-                    <td id='{{ $i->id}}-invoiceLink'>
-                      @if (isset($i->invoice_link))
-                      <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
-                      @endif
-                    </td>
-                    <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
-                    <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                    <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
-                  </tr>
+                          if ($status == 'New') { echo 'class=\'status-new\''; }
+                          if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                          if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                          if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                          if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                        ?>
+                      >{{ $status }}</td>
+                      <td id='{{ $i->id}}-bidDate'
+                        <?php
+                            if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                            if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($i->status->status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                        ?>
+                      >{{ $i->formattedBidDate() }}
+                      </td>
+                      <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
+                      <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
+                      <td id='{{ $i->id}}-productSales'>
+                        <?php
+                          $array = explode(' ', $i->productSales->name);
+                          $name = substr($array[0],0,1) . ' ' . $array[1];
+                          echo $name;
+                        ?>
+                      </td>
+                      <td id='{{ $i->id}}-insideSales'>
+                        <?php
+                          $array = explode(' ', $i->insideSales->name);
+                          $name = substr($array[0],0,1) . ' ' . $array[1];
+                          echo $name;
+                        ?>
+                      </td>
+                      <td id='{{ $i->id}}-amount'>{{ $i->formattedAmount() }}</td>
+                      <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
+                      <td id='{{ $i->id}}-invoiceLink'>
+                        @if (isset($i->invoice_link))
+                        <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
+                        @endif
+                      </td>
+                      <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
+                      <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
+                      <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
+                    </tr>
+                    @endforeach
                   @endforeach
                 </tbody>
               </table>
-              <script>
-                // $.fn.editable.defaults.mode = 'inline';
-
-
-
-
-
-
-
-              </script>
-
             </div>
-
         </div>
-
-
       </div>
 
 
@@ -158,20 +146,23 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($productSales as $i)
-                <tr>
-                  <td>{{ $i->name }}</td>
-                  <td>{{ $i->upcomingProjects->count() }}</td>
-                  <td>{{ $i->ongoingProjects->count() }}</td>
-                  <td>
-                    @if ($i->upcomingProjects->first())
-                    {{ $i->upcomingProjects->first()->formattedBidDate()}}
-                    @endif
-                  </td>
-                  <td>{{ $i->projectsThisYear->where('status_id', 3)->count() }}</td>
-                  <td>{{ $i->projectsThisYear->where('status_id', 5)->count() }}</td>
-                </tr>
+                @foreach ($productSales->chunk(5) as $chunk)
+                  @foreach ($chunk as $i)
+                  <tr>
+                    <td>{{ $i->name }}</td>
+                    <td>{{ $i->upcomingProjects->count() }}</td>
+                    <td>{{ $i->ongoingProjects->count() }}</td>
+                    <td>
+                      @if ($i->upcomingProjects->first())
+                      {{ $i->upcomingProjects->first()->formattedBidDate()}}
+                      @endif
+                    </td>
+                    <td>{{ $i->projectsThisYear->where('status_id', 3)->count() }}</td>
+                    <td>{{ $i->projectsThisYear->where('status_id', 5)->count() }}</td>
+                  </tr>
+                  @endforeach
                 @endforeach
+
               </tbody>
             </table>
           </div>
@@ -214,59 +205,59 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($allProjects as $i)
-                <tr>
-                  <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a>
-                  </td>
-                  <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
-                  <td id='{{$i->id}}-all-status'
-                    <?php
+                @foreach ($allProjects->chunk(10) as $chunk)
+                  @foreach ($chunk as $i)
+                  <tr>
+                    <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a>
+                    </td>
+                    <td id='{{$i->id}}-all-name'>{{ $i->name}}</td>
+                    <td id='{{$i->id}}-all-status'
+                      <?php
 
-                      $status = $i->status()->status;
-                      if ($status == 'New') { echo ' class=\'status-new\''; }
-                      if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
-                      if ($status == 'Sold') { echo ' class=\'status-sold\''; }
-                      if ($status == 'Quoted') { echo ' class=\'status-quoted\''; }
-                      if ($status == 'Lost') { echo ' class=\'status-lost\''; }
-                    ?>
-                  >{{ $status }}</td>
-                  <td id='{{$i->id}}-all-bidDate'
-                    <?php
-                        if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                        if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                    ?>
-                  >{{ $i->formattedBidDate() }}
-                  </td>
-                  <td id='{{$i->id}}-all-manufacturer'>{{ $i->manufacturer }}</td>
-                  <td id='{{$i->id}}-all-product'>{{ $i->product }}</td>
-                  <td id='{{$i->id}}-all-productSales'>
-                    <?php
-                      $array = explode(' ', $i->productSales->name);
-                      $name = substr($array[0],0,1) . ' ' . $array[1];
-                      echo $name;
-                    ?>
-                  </td>
-                  <td id='{{$i->id}}-all-insideSales'>
-                    <?php
-                      $array = explode(' ', $i->insideSales->name);
-                      $name = substr($array[0],0,1) . ' ' . $array[1];
-                      echo $name;
-                    ?>
-                  </td>
-                  <td id='{{$i->id}}-all-amount'>{{ $i->formattedAmount() }}</td>
-                  <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
-                  <td id='{{ $i->id}}-all-invoiceLink'>
-                    @if (isset($i->invoice_link))
-                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
-                    @endif
-                  </td>
-                  <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
-                  <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                  <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
-                </tr>
-
+                        $status = $i->status()->status;
+                        if ($status == 'New') { echo ' class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo ' class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo ' class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo ' class=\'status-lost\''; }
+                      ?>
+                    >{{ $status }}</td>
+                    <td id='{{$i->id}}-all-bidDate'
+                      <?php
+                          if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                    >{{ $i->formattedBidDate() }}
+                    </td>
+                    <td id='{{$i->id}}-all-manufacturer'>{{ $i->manufacturer }}</td>
+                    <td id='{{$i->id}}-all-product'>{{ $i->product }}</td>
+                    <td id='{{$i->id}}-all-productSales'>
+                      <?php
+                        $array = explode(' ', $i->productSales->name);
+                        $name = substr($array[0],0,1) . ' ' . $array[1];
+                        echo $name;
+                      ?>
+                    </td>
+                    <td id='{{$i->id}}-all-insideSales'>
+                      <?php
+                        $array = explode(' ', $i->insideSales->name);
+                        $name = substr($array[0],0,1) . ' ' . $array[1];
+                        echo $name;
+                      ?>
+                    </td>
+                    <td id='{{$i->id}}-all-amount'>{{ $i->formattedAmount() }}</td>
+                    <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
+                    <td id='{{ $i->id}}-all-invoiceLink'>
+                      @if (isset($i->invoice_link))
+                      <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
+                      @endif
+                    </td>
+                    <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
+                    <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
+                    <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
+                  </tr>
+                  @endforeach
                 @endforeach
-
               </tbody>
             </table>
 
