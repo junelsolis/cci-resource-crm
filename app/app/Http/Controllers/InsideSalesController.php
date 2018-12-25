@@ -41,6 +41,8 @@ class InsideSalesController extends Controller
       $user->ongoingProjects();
     }
 
+    $chartData = $this->insideSalesCharts($user->id);
+
     $projectStatusCodes = $this->getProjectStatusCodes();
 
     return view('inside-sales/inside-sales-main')
@@ -50,7 +52,8 @@ class InsideSalesController extends Controller
       ->with('projectStatusCodes', $projectStatusCodes)
       ->with('upcomingProjects', $upcomingProjects)
       ->with('allProjects', $allProjects)
-      ->with('ongoingProjects', $ongoingProjects);
+      ->with('ongoingProjects', $ongoingProjects)
+      ->with('chartData', $chartData);
   }
 
 

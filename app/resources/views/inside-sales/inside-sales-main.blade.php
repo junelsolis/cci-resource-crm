@@ -24,16 +24,136 @@
   @include('navbar')
   <body>
 
-    <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
-      <!-- <div class='cell small-12'>
-        <div class='card'>
-          <ul class='menu'>
-            <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;New Project</a></li>
-          </ul>
-        </div>
-      </div> -->
+    <div id='main' class='grid-x off-canvas-content' data-equalizer data-equalize-on="medium" data-off-canvas-content>
+
 
       <!-- upcoming projects section -->
+
+      <div class='cell small-12'>
+        <div class='card'>
+          <div class='grid-x align-middle'>
+            <div class='cell medium-6 large-3'>
+              <canvas id='project-counts'></canvas>
+            </div>
+            <div class='cell medium-6 large-3'>
+              <canvas id='project-status'></canvas>
+            </div>
+            <div class='cell medium-6 large-3' style='text-align:center;'>
+              <span class='stat'>{{ $upcomingProjects->count() }}</span><br />
+              <span class='stat-title'>Upcoming Projects</span>
+            </div>
+            <div class='cell medium-6 large-3' style='text-align:center;'>
+              <span class='stat'>{{ $upcomingProjects->first()->formattedBidDate() }}</span>&nbsp;<a href='/inside-sales/people/{{ $upcomingProjects->first()->product_sales_id}}'><i class="fas fa-external-link-alt"></i></a><br />
+              <span class='stat-title'>Next Upcoming Project</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- javascript for projects charts -->
+      <script>
+        var ctx = document.getElementById("project-counts").getContext('2d');
+        var projectCounts = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! $chartData['months'] !!},
+                datasets: [{
+                    data: {!! $chartData['projectCounts'] !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+              maintainAspectRatio: false,
+              title: {
+                display: true,
+                text: 'Project Counts (Last 12 months)'
+              },
+              legend: {
+                display: false,
+              },
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+            }
+        });
+
+
+
+        var ctx = document.getElementById("project-status").getContext('2d');
+        var projectStatus = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: {!! $chartData['projectStatus']->pluck('name') !!},
+                datasets: [{
+                    data: {!! $chartData['projectStatus']->pluck('count') !!},
+                    backgroundColor: [
+                        'rgba(243,156,18,0.6)',
+                        'rgba(41,128,185,0.6)',
+                        'rgba(39,174,96,0.6)',
+                        'rgba(142,68,173,0.6)',
+                        'rgba(44,62,80,0.6)',
+                    ],
+                    // borderColor: [
+                    //   'rgba(243,156,18,1)',
+                    //   'rgba(41,128,185,1)',
+                    //   'rgba(39,174,96,1)',
+                    //   'rgba(142,68,173,1)',
+                    //   'rgba(44,62,80,1)',
+                    // ],
+                    borderWidth: 1
+                }]
+
+            },
+            options: {
+              maintainAspectRatio: false,
+              title: {
+                display: true,
+                text: 'Project Status (Up to last 12 months)'
+              },
+              legend: {
+                display: true,
+                position: 'right',
+              },
+            }
+        });
+
+
+
+      </script>
+
+
       <div class='cell small-12'>
         <div class='card'>
           <div class='grid-x align-middle'>
@@ -129,7 +249,7 @@
 
                 $('#upcoming-projects-table').DataTable( {
                   "order": [[ 3, 'asc']],
-                  'pageLength': 10,
+                  'pageLength': 5,
                 });
 
               </script>
@@ -179,7 +299,7 @@
             <script>
               $('#product-sales-table').DataTable( {
                 "order": [[ 1, "desc" ]],
-                'pageLength': 10,
+                'pageLength': 5,
               } );
             </script>
           </div>
@@ -280,7 +400,7 @@
             <script>
               $('#all-projects-table').DataTable( {
                 "order": [[ 1, "desc" ]],
-                'pageLength': 10,
+                'pageLength': 5,
               } );
             </script>
           </div>

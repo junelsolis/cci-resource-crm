@@ -68,6 +68,22 @@ trait ChartData {
 
     }
 
+    protected function insideSalesCharts($inside_sales_id) {
+      $projects = $this->allProjects();
+      $months = $this->createMonths();
+
+      $projectStatus = $this->countProjectStatus($projects);
+      $projectCounts = $this->countProjectsByMonth($projects);
+
+      // collect everything
+      $chartData = collect();
+      $chartData->put('months', $months->pluck('name'));
+      $chartData->put('projectStatus', $projectStatus);
+      $chartData->put('projectCounts', $projectCounts);
+
+      return $chartData;
+    }
+
     protected function allProjects() {
       $now = Carbon::now();
       $now->setTimezone('America/New_York');
