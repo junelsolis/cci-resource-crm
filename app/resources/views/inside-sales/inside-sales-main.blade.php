@@ -38,13 +38,17 @@
             <div class='cell medium-6 large-3'>
               <canvas id='project-status'></canvas>
             </div>
-            <div class='cell medium-6 large-3' style='text-align:center;color:rgba(243,156,18,0.6);'>
-              <span class='stat'>{{ $upcomingProjects->count() }}</span><br />
+            <div class='cell medium-2' style='text-align:center;color:rgba(243,156,18,0.6);'>
+              <span class='stat' style='font-size:35px !important;'>{{ $upcomingProjects->count() }}</span><br />
               <span class='stat-title'>Upcoming Projects</span>
             </div>
-            <div class='cell medium-6 large-3' style='text-align:center;color:rgba(44,62,80,0.6);'>
-              <span class='stat'>{{ $upcomingProjects->first()->formattedBidDate() }}</span>&nbsp;<a href='/inside-sales/people/{{ $upcomingProjects->first()->product_sales_id}}'><i class="fas fa-external-link-alt"></i></a><br />
+            <div class='cell medium-2' style='text-align:center;color:rgba(44,62,80,0.6);'>
+              <span class='stat' style='font-size:35px !important;'>{{ $upcomingProjects->first()->formattedBidDate() }}</span><br />
               <span class='stat-title'>Next Upcoming Project</span>
+            </div>
+            <div class='cell medium-2' style='text-align:center;'>
+              <span class='stat' style='font-size:35px !important;color:#40739e;'>{{ $allProjects->count() }}</span><br />
+              <span class='stat-title'>Projects This Year</span>
             </div>
           </div>
         </div>

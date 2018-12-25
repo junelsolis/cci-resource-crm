@@ -6679,7 +6679,7 @@ a.thumbnail image {
 }
 
 .off-canvas.is-transition-overlap.is-open {
-  box-shadow: 0 0 10px rgba(10, 10, 10, 0.7);
+  box-shadow: 0 0 0px rgba(10, 10, 10, 0.7);
 }
 
 .off-canvas.is-open {
@@ -6715,7 +6715,7 @@ a.thumbnail image {
 }
 
 .off-canvas-absolute.is-transition-overlap.is-open {
-  box-shadow: 0 0 10px rgba(10, 10, 10, 0.7);
+  box-shadow: 0 0 0px rgba(10, 10, 10, 0.7);
 }
 
 .off-canvas-absolute.is-open {
@@ -6749,7 +6749,7 @@ a.thumbnail image {
 }
 
 .position-left.is-transition-push {
-  box-shadow: inset -13px 0 20px -13px rgba(10, 10, 10, 0.25);
+  box-shadow: inset 0px 0 0px 0px rgba(10, 10, 10, 0);
 }
 
 .position-right {
@@ -6778,7 +6778,7 @@ a.thumbnail image {
 }
 
 .position-right.is-transition-push {
-  box-shadow: inset 13px 0 20px -13px rgba(10, 10, 10, 0.25);
+  box-shadow: inset 0px 0 0px 0px rgba(10, 10, 10, 0);
 }
 
 .position-top {
@@ -6807,7 +6807,7 @@ a.thumbnail image {
 }
 
 .position-top.is-transition-push {
-  box-shadow: inset 0 -13px 20px -13px rgba(10, 10, 10, 0.25);
+  box-shadow: inset 0 0px 0px 0px rgba(10, 10, 10, 0);
 }
 
 .position-bottom {
@@ -6836,7 +6836,7 @@ a.thumbnail image {
 }
 
 .position-bottom.is-transition-push {
-  box-shadow: inset 0 13px 20px -13px rgba(10, 10, 10, 0.25);
+  box-shadow: inset 0 0px 0px 0px rgba(10, 10, 10, 0);
 }
 
 .off-canvas-content {
@@ -7949,8 +7949,8 @@ select {
 /* classes for project information */
 
 .project-info {
-  background-color: #576574;
-  padding-top: 100px;
+  background-color: rgba(52, 73, 94, 0.1);
+  padding-top: 80px;
   padding-bottom: 50px;
   padding-left: 15px;
   padding-right: 15px;
@@ -7962,7 +7962,7 @@ select {
 }
 
 .project-info h4 {
-  color: white;
+  color: #707070;
 }
 
 .project-info h4 span {
@@ -7970,11 +7970,11 @@ select {
 }
 
 .project-info textarea {
-  border-radius: 3px;
+  min-height: 200px;
 }
 
 .project-info .note-card {
-  background-color: white;
+  background-color: rgba(87, 101, 116, 0.15);
   border-radius: 3px;
   padding: 8px 10px 0px 10px;
   margin-bottom: 10px;

@@ -4,9 +4,10 @@
       <ul id='logo' class='menu'>
         <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a></li>
         @if (session('current_section') == 'executive')
-        <li><a href='#sales'>Sales</a></li>
-        <li><a href='#projects'>Projects</a></li>
-        <li><a href='#people'>People</a></li>
+        <!-- <li><a href='#sales'>Sales</a></li> -->
+        <!-- <li><a href='#projects'>Projects</a></li> -->
+        <!-- <li><a href='#people'>People</a></li> -->
+        <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
 
         @if (session('current_section') == 'product-sales')
