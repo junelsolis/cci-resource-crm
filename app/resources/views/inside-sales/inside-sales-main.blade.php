@@ -25,13 +25,13 @@
   <body>
 
     <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
-      <div class='cell small-12'>
+      <!-- <div class='cell small-12'>
         <div class='card'>
           <ul class='menu'>
             <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;New Project</a></li>
           </ul>
         </div>
-      </div>
+      </div> -->
 
       <!-- upcoming projects section -->
       <div class='cell small-12'>

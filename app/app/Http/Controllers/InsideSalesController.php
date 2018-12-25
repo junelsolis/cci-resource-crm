@@ -34,7 +34,7 @@ class InsideSalesController extends Controller
     $ongoingProjects = $user->ongoingProjects();
 
     $insideSales = $this->getInsideSalesReps();
-    $productSales = ProductSalesUser::all();
+    $productSales = $this->getProductSalesReps();
     foreach ($productSales as $user) {
       $user->projectsThisYear();
       $user->upcomingProjects();
