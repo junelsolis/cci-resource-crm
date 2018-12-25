@@ -369,6 +369,7 @@
                       <?php
 
                         $status = $i->status()->status;
+
                         if ($status == 'New') { echo 'class=\'status-new\''; }
                         if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
                         if ($status == 'Sold') { echo 'class=\'status-sold\''; }
@@ -378,8 +379,8 @@
                     >{{ $status }}</td>
                     <td id='{{$i->id}}-bidDate'
                       <?php
-                          if ($i->bidTiming == 'late' && ($i->status != 'Quoted') && ($i->status != 'Sold') && ($i->status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                          if ($i->bidTiming == 'soon' && ($i->status != 'Quoted') && ($i->status != 'Sold') && ($i->status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                          if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                       ?>
                     >{{ $i->formattedBidDate() }}</td>
                     <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
@@ -560,7 +561,7 @@
                     }
                   );
 
-                });
+
 
                 // enable editing of row on click of toggle link
                 $('#{{$i->id}}-toggle').click(function(e) {
