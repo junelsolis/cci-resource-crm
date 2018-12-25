@@ -88,6 +88,7 @@
                     <th>Quote Link</th>
                     <th>Engineer</th>
                     <th>Contractor</th>
+                    <th>Note</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -126,6 +127,7 @@
                     </td>
                     <td>{{ $i->engineer }}</td>
                     <td>{{ $i->contractor }}</td>
+                    <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -153,6 +155,7 @@
 
 
 
+    <!-- OFF-CANVAS DIVS -->
     <!-- add project div -->
     <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
       <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
@@ -242,6 +245,10 @@
         <button type='submit' class='primary button align-right'><i class="fas fa-check"></i>&nbsp;Save</button>
       </form>
     </div>
+
+    @foreach ($person->ongoingProjects as $i)
+      @include('project-info')
+    @endforeach
 
 
   </body>
