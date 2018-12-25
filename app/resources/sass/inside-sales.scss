@@ -1,0 +1,38 @@
+.people-menu {
+  background-color: #ffffff;
+
+  .current-person {
+    background-color: #F8F8F8;
+    padding-top: 20px !important;
+    padding-bottom: 20px!important;
+
+    a {
+      color: #192156;
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+  ul a {
+    color: #707070;
+  }
+}
+
+.people-info {
+  .person-title {
+    span {
+      line-height: 10%;
+    }
+  }
+
+  .stats {
+    margin-top: 30px;
+  }
+
+  .table {
+    margin-top: 30px;
+  }
+}

@@ -3,6 +3,7 @@
 namespace App\Traits;
 use DB;
 use Carbon\Carbon;
+use App\ProductSalesUser;
 
 trait PeopleData {
   protected function getInsideSalesReps() {
@@ -22,39 +23,11 @@ trait PeopleData {
   }
   protected function getProductSalesReps() {
     $sales = DB::table('user_roles')->select('user_id','role')->where('role','product-sales')->distinct()->get();
-    $sales = $sales->pluck('user_id');
+    $ids = $sales->pluck('user_id');
 
-    $users = DB::table('users')
-      ->whereIn('id', $sales)
-      ->orderBy('name')
-      ->select('id', 'name')
-      ->get();
+    $reps = ProductSalesUser::whereIn('id', $ids)->orderBy('name')->get();
 
-
-    $now = Carbon::now();
-    $now->setTimezone('America/New_York');
-    $lastYear = $now->subYear();
-
-    $projects = DB::table('projects')
-      ->where('bid_date', '>=', $lastYear)
-      ->orderBy('bid_date')
-      ->get();
-
-    foreach ($users as $user) {
-      $lostProjects = $this->getProductSalesRepLostProjects($user->id, $projects);
-      $user->lostProjects = $lostProjects;
-
-      $soldProjects = $this->getProductSalesRepSoldProjects($user->id, $projects);
-      $user->soldProjects = $soldProjects;
-
-      $upcomingProjects = $this->getProductSalesRepUpcomingProjects($user->id, $projects);
-      $user->upcomingProjects = $upcomingProjects;
-
-      $chartData = $this->productSalesCharts($user->id);
-      $user->chartData = $chartData;
-    }
-
-    return $users;
+    return $reps;
   }
   protected function getExecs() {
     $execs = DB::table('user_roles')->select('user_id','role')->where('role','executive')->distinct()->get();

@@ -54,6 +54,44 @@ class InsideSalesController extends Controller
   }
 
 
+  public function showPeople(Request $request) {
+    if ($this->checkLoggedIn()) {}
+    else { return redirect('/'); }
+
+    // set session key
+    session(['current_section' => 'inside-sales']);
+
+    // set user
+    $user = InsideSalesUser::find(session('logged_in_user_id'));
+
+    $userDetails = $user->userDetails();
+
+    // get person from request
+    // if empty, select first one
+    if (empty($request['id'])) {
+      $person = $this->getProductSalesReps()->first();
+    } else {
+      $person = ProductSalesUser::where('id', $request['id'])->first();
+    }
+
+    // initialize person data
+    $person->ongoingProjects();
+    $person->chartData();
+    $person->projectsThisYear();
+
+    // additional page info
+    $productSales = $this->getProductSalesReps();
+    $insideSales = $this->getInsideSalesReps();
+    $projectStatusCodes = $this->getProjectStatusCodes();
+
+    return view('/inside-sales/people')
+      ->with('userDetails', $userDetails)
+      ->with('productSales', $productSales)
+      ->with('person', $person)
+      ->with('productSales', $productSales)
+      ->with('insideSales', $insideSales)
+      ->with('projectStatusCodes', $projectStatusCodes);
+  }
 
   private function checkLoggedIn() {
     if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('inside-sales')) {

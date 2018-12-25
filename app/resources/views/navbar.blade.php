@@ -15,6 +15,12 @@
         <li><a href=''>Stats</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
+
+        @if (session('current_section') == 'inside-sales')
+        <li><a href='/inside-sales'>Dashboard</a></li>
+        <li><a href='/inside-sales/people/'>People</a></li>
+        <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+        @endif
       </ul>
     </div>
     <div id='right' class='cell medium-6'>

@@ -32,6 +32,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: cci
+    ports:
+      - "127.0.0.1:3306:3306"
     secrets:
       - db_root_password
 

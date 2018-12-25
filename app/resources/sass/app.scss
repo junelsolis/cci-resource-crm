@@ -5,11 +5,13 @@
 @import "vendor/zurb/foundation/scss/foundation";
 // Everything
 @include foundation-everything(true);
+
 @import "site-default.scss";
 @import "navbar.scss";
 @import "login.scss";
 @import "header-footer.scss";
 @import "set-password.scss";
+@import "inside-sales.scss";
 
 .navbar-laravel {
   background-color: #fff;

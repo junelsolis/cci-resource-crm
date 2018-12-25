@@ -25,6 +25,15 @@ class ExecController extends Controller
 
       $userDetails = $user->details();
       $productSalesReps = $this->getProductSalesReps();
+      foreach ($productSalesReps as $i) {
+        $i->projectsThisYear();
+        $i->upcomingProjects();
+        $i->ongoingProjects();
+        $i->chartData();
+      }
+
+      $upcomingProjects = $this->getUpcomingProjects();
+
       $insideSalesReps = $this->getInsideSalesReps();
       $projectsThisYear = $this->projectsThisYear();
       $projectStatusCodes = $this->getProjectStatusCodes();
@@ -39,26 +48,9 @@ class ExecController extends Controller
         ->with('projects', $projectsThisYear)
         ->with('chartData', $chartData)
         ->with('projectStatusCodes', $projectStatusCodes)
-        ->with('insideSales', $insideSalesReps);
+        ->with('insideSales', $insideSalesReps)
+        ->with('upcomingProjects', $upcomingProjects);
     }
-
-    // private function getLoggedInUserDetails() {
-    //   /*  returns the user's full name
-    //       and role
-    //   */
-    //
-    //   $user_id = session()->get('logged_in_user_id');     // get user id from session
-    //   $name = DB::table('users')->where('id', $user_id)->pluck('name')->first();
-    //
-    //   $role = 'Executive';
-    //
-    //   $collect = collect([
-    //     'name' => $name,
-    //     'role' => $role
-    //   ]);
-    //
-    //   return $collect;
-    // }
 
     private function getProjectStatusCodes() {
       /*  Returns a collection of project status

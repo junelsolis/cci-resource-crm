@@ -124,17 +124,17 @@ trait ProjectData {
     */
     $status_ids = [1,2,4];
     // get all projects except those sold or lost
-    $projects = DB::table('projects')
-      ->orderBy('bid_date')
-      // ->where([
-      //   ['status_id', '!=', 2],
-      //   ['status_id', '!=', 3],
-      //   ['status_id', '!=', 5]
-      // ])
+    // $projects = DB::table('projects')
+    //   ->orderBy('bid_date')
+    //   ->whereIn('status_id', $status_ids)
+    //   ->get();
+
+    $projects = Project::
+      orderBy('bid_date')
       ->whereIn('status_id', $status_ids)
       ->get();
 
-    // only projects that are ahead of today, and not sold
+
     $now = Carbon::now();
     foreach ($projects as $key => $project) {
       // project bid date is ahead or same day and not quoted
@@ -145,10 +145,33 @@ trait ProjectData {
       }
     }
 
-    $projects = $this->expandProjectInfo($projects);
+
 
     return $projects;
 
+  }
+
+  protected function upcomingProjectsCount() {
+    $status_ids = [1,2,4];
+
+    $projects = Project::
+      orderBy('bid_date')
+      ->whereIn('status_id', $status_ids)
+      ->select('bid_date','status_id')
+      ->get();
+
+
+    $now = Carbon::now();
+    foreach ($projects as $key => $project) {
+      // project bid date is ahead or same day and not quoted
+      if (new Carbon($project->bid_date)) {}
+      else if ($project->status == 1 || $project->status == 4) {}
+      else {
+        $projects->forget($key);
+      }
+    }
+
+    return $projects->count();
   }
 
   protected function projectsThisYear() {

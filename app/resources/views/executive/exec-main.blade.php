@@ -341,19 +341,19 @@
         <div class='card'>
           <div class='grid-x'>
             <div class='cell medium-2'>
-              <span class='stat'>38</span><br />
+              <span class='stat'>{{ $upcomingProjects->count() }}</span><br />
               <spn class='stat-title'>Upcoming Projects</spn>
             </div>
             <div class='cell medium-2'>
-              <span class='stat'>44</span><br />
+              <span class='stat'>{{ $upcomingProjects->where('status_id',2)->count() }}</span><br />
               <span class='stat-title'>Quoted Projects</span>
             </div>
             <div class='cell medium-2'>
-              <span class='stat'>11</span><br />
+              <span class='stat'>{{ $projects->where('status_id',5)->count() }}</span><br />
               <span class='stat-title'>Lost Projects</span>
             </div>
             <div class='cell medium-2'>
-              <span class='stat'>44</span><br />
+              <span class='stat'>{{ $projects->count() }}</span><br />
               <span class='stat-title'>Total Projects (Last 12 mo)</span>
             </div>
           </div>
@@ -663,15 +663,15 @@
               </thead>
               <tbody>
                 @if ($productSalesReps)
-                @foreach ($productSalesReps as $i)
+                @foreach ($productSalesReps->all() as $i)
                 <tr>
                   <td><a data-toggle='{{ $i->id }}-person-info'><i class="fas fa-info-circle"></i></a></td>
                   <td>{{ $i->name }}</td>
                   <td>{{ $i->upcomingProjects->count() }}</td>
-                  <td>{{ $i->soldProjects->count() }}</td>
+                  <td>{{ $i->projectsThisYear->where('status_id',3)->count() }}</td>
                   <td>${{ number_format($i->chartData['sales']->sum()) }}</td>
                   <td>${{ number_format($i->chartData['projectedSales']->sum()) }}</td>
-                  <td>{{ $i->lostProjects->count() }}</td>
+                  <td>{{ $i->projectsThisYear->where('status_id',5)->count() }}</td>
                 </tr>
                 @endforeach
                 @endif
@@ -682,7 +682,7 @@
             <script>
               $(document).ready(function() {
                 $('#product-sales-table').DataTable( {
-                  "order": [[ 1, 'asc']],
+                  "order": [[ 2, 'desc']],
                   'pageLength': 10,
                 });
               });

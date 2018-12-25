@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Carbon\Carbon;
 use App\Project;
+use App\Traits\ChartData;
 use DB;
 
 class ProductSalesUser extends User
 {
 
+    use ChartData;
+
     public $projectsThisYear;
     public $upcomingProjects;
     public $ongoingProjects;
     public $otherProjects;
+    public $chartData;
 
     public function projectsThisYear() {
       $thisYear = Carbon::now()->subYear();
@@ -94,5 +98,12 @@ class ProductSalesUser extends User
 
       $this->ongoingProjects = $projects;
       return $projects;
+    }
+
+    public function chartData() {
+
+      $this->chartData =  $this->productSalesCharts($this->id);
+
+      return $this->chartData;
     }
 }
