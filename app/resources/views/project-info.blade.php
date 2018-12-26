@@ -15,7 +15,7 @@
   <div class="note-card">
 
     <span id='note-{{$note->id}}-all-projects'>{!! $note->note !!}</span><br /><br />
-    @if ($note->userIsAuthor() == true && $note->editable == true)
+    @if ($note->isEditor() == true && $note->editable == true)
     <script>
 
       $(document).ready(function() {

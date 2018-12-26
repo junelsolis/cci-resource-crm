@@ -23,6 +23,32 @@ class ProjectNote extends Model
 
     }
 
+    public function isEditor() {
+      $user_id = session('logged_in_user_id');
+      $product_sales_id = $this->project()->product_sales_id;
+      $inside_sales_id = $this->project()->inside_sales_id;
+
+      // if user is author of note, allow
+      if ($user_id == $this->author()->id) { return true; }
+
+      //  if user is product sales of project, return true
+      if ($user_id == $product_sales_id) { return true; }
+
+      if ($user_id == $inside_sales_id) { return true; }
+
+      // if user is exec, return true
+      $user = User::find($user_id);
+      if (in_array('executive',$user->roles())) { return true; }
+
+
+      // if user is inside sales of project, return true
+      if (in_array('inside-sales', $user->roles())) { return true; }
+
+      return false;
+
+
+    }
+
     public function formattedDate() {
       if (empty($this->updated_at)) {
         $date = new Carbon($this->updated_at);

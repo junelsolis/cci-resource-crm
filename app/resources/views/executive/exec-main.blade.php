@@ -430,7 +430,7 @@
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
                   <td>
-                    <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->first()->note,20) }}</a>
+                    <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a>
                   </td>
                 </tr>
                 @endforeach

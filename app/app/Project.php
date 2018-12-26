@@ -28,6 +28,8 @@ class Project extends Model
           'last_updated_by_id' => session('logged_in_user_id'),
         ]);
 
+        $note->editable = false;
+
         $note->save();
       });
     }
@@ -52,6 +54,23 @@ class Project extends Model
       return $this->hasMany('App\ProjectNote', 'project_id', 'id');
     }
 
+    public function canAddNote() {
+      $user_id = session('logged_in_user_id');
+
+
+      // if product sales of this project, allow
+      if ($user_id == $this->product_sales_id) { return true; }
+
+
+      $user = User::find($user_id);
+      // if inside sales, allow
+      if (in_array('inside-sales', $user->roles())) { return true; }
+
+      // if exec allow
+      if (in_array('executive', $user->roles())) { return true; }
+
+      return false;
+    }
     public function formattedBidDate() {
       $bid_date = $this->bid_date;
       $bid_date = new \Carbon\Carbon($bid_date);

@@ -18,6 +18,7 @@ class CreateProjectNotesTable extends Migration
             $table->integer('project_id');
             $table->integer('last_updated_by_id');
             $table->text('note');
+            $table->boolean('editable')->default(true);
             $table->timestamps();
         });
     }

@@ -5,39 +5,70 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
+use App\ProjectNote;
+use App\Project;
 
 class NoteController extends Controller
 {
 
     public function addNote(Request $request) {
-      $check = $this->checkAllowedToAddOrDelete($request['project_id']);
-      if ($check == false) { return redirect('/'); }
+      // $check = $this->checkAllowedToAddOrDelete($request['project_id']);
+      // if ($check == false) { return redirect('/'); }
+      //
+      // $project_id = $request['project_id'];
+      // $user_id = session('logged_in_user_id');
+      // $note = $request['note'];
+      // $editable = $request['editable'];
+      //
+      //
+      // if ($editable !== 'true') {
+      //   DB::table('project_notes')->insert([
+      //     'project_id' => $project_id,
+      //     'last_updated_by_id' => $user_id,
+      //     'note' => $note,
+      //     'created_at' => Carbon::now()
+      //   ]);
+      //
+      // }
+      //
+      // else if ($editable == 'true') {
+      //   DB::table('project_notes')->insert([
+      //     'project_id' => $project_id,
+      //     'last_updated_by_id' => $user_id,
+      //     'note' => $note,
+      //     'editable' => true,
+      //     'created_at' => Carbon::now()
+      //   ]);
+      // }
+      //
+
 
       $project_id = $request['project_id'];
-      $user_id = session('logged_in_user_id');
       $note = $request['note'];
-      $editable = $request['editable'];
 
-
-      if ($editable !== 'true') {
-        DB::table('project_notes')->insert([
-          'project_id' => $project_id,
-          'last_updated_by_id' => $user_id,
-          'note' => $note,
-          'created_at' => Carbon::now()
-        ]);
-
+      if (empty($project_id) || empty($note)) {
+        return redirect('/');
       }
 
-      else if ($editable == 'true') {
-        DB::table('project_notes')->insert([
-          'project_id' => $project_id,
-          'last_updated_by_id' => $user_id,
-          'note' => $note,
-          'editable' => true,
-          'created_at' => Carbon::now()
-        ]);
+      // retrieve project
+      $project = Project::find($project_id);
+
+      // check if allowed to add note
+      if ($project->canAddNote() == false) {
+        return redirect('/');
       }
+
+
+      // add note
+      $projectNote = new ProjectNote([
+        'project_id' => $project->id,
+        'last_updated_by_id' => session('logged_in_user_id'),
+        'note' => $note
+      ]);
+
+      $projectNote->save();
+
+
 
 
       return redirect(session('_previous')['url']);
@@ -47,22 +78,50 @@ class NoteController extends Controller
     public function editNote(Request $request) {
       // $check = $this->checkIsAuthorAndEditable($request['pk']);
       // if ($check == false) { return redirect('/'); }
+      //
+      // $note_id = $request['pk'];
+      // $value = $request['value'];
+      //
+      // // retrieve note
+      // $note = DB::table('project_notes')->where('id', $note_id)->first();
+      //
+      // // compare old and new note. Return if unchanged
+      // if ($value == $note->note) {
+      //   return;
+      // }
+      //
+      // DB::table('project_notes')->where('id', $note_id)->update([
+      //   'note' => $value,
+      //   'updated_at' => Carbon::now()
+      // ]);
+
+
 
       $note_id = $request['pk'];
       $value = $request['value'];
 
-      // retrieve note
-      $note = DB::table('project_notes')->where('id', $note_id)->first();
-
-      // compare old and new note. Return if unchanged
-      if ($value == $note->note) {
-        return;
+      // check for null values
+      if (empty($note_id) || empty($value)) {
+        return redirect('/');
       }
 
-      DB::table('project_notes')->where('id', $note_id)->update([
-        'note' => $value,
-        'updated_at' => Carbon::now()
-      ]);
+      // retrieve note
+      $note = ProjectNote::find($note_id);
+
+      // if note not found return
+      if (empty($note)) {
+        return redirect('/');
+      }
+
+      // check allowed to edit
+      if ($note->isEditor() == false) {
+        return redirect('/');
+      }
+
+      $note->note = $value;
+      $note->last_updated_by_id = session('logged_in_user_id');
+      $note->save();
+
 
       return response('Note edited.',200);
     }
