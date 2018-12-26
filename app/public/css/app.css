@@ -7949,7 +7949,7 @@ select {
 /* classes for project information */
 
 .project-info {
-  background-color: rgba(52, 73, 94, 0.1);
+  background-color: #DEE0E2;
   padding-top: 80px;
   padding-bottom: 50px;
   padding-left: 15px;
@@ -8134,7 +8134,7 @@ select {
 
 .login {
   height: 100vh;
-  background-color: #2c3e50;
+  background-color: #485460;
 }
 
 .login .login-box {
@@ -8149,7 +8149,7 @@ select {
   text-align: center;
   padding: 20px;
   border-radius: 6px;
-  box-shadow: 0px 2px 2px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 2px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 .login .login-box form {
