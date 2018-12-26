@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>CCI Tracker</title>
+    <title>CCI POST</title>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -11,8 +11,10 @@
   </head>
   <body class='login'>
     <div class='login-box'>
-      <img src='{{ asset('images/logo.png')}}' />
+      <img src='{{ asset('images/logo.png')}}' style='max-width: 140px;' />
       <!-- <h3>Critical Components CRM</h3> -->
+      <br /><br />
+      <span class='app-name'>Project Opportunities Sales Tracker</span>
       <br /><br />
       <form method='post' action='/login'>
         {{ csrf_field() }}
@@ -32,6 +34,7 @@
 
         <button class='button button-primary expanded' type='submit'><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button>
       </form>
+
     </div>
   </body>
 </html>
