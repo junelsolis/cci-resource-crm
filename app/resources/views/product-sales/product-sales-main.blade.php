@@ -75,38 +75,40 @@
           <h5><strong><i class="fas fa-clock"></i>&nbsp;Upcoming Projects</strong></h5>
           <br />
           @if ($upcomingProjects->count() > 0)
-          <table class='unstriped'>
-            <tbody>
-              @foreach ($upcomingProjects->take(5) as $item)
-              <tr>
-                <td
-                  <?php
+          <div class='table-scroll'>
+            <table class='unstriped'>
+              <tbody>
+                @foreach ($upcomingProjects->take(5) as $item)
+                <tr>
+                  <td
+                    <?php
 
-                    $status = $item->status()->status;
-                    $bidTiming = $item->bidTiming();
+                      $status = $item->status()->status;
+                      $bidTiming = $item->bidTiming();
 
-                    if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                    if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                  ?>><strong>{{ $item->formattedBidDate() }}</strong></td>
-                <td
-                  <?php
+                      if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                      if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                    ?>><strong>{{ $item->formattedBidDate() }}</strong></td>
+                  <td
+                    <?php
 
-                    if ($status == 'New') { echo 'class=\'status-new\''; }
-                    if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                    if ($status == 'Sold') { echo 'class=\'status-sold\''; }
-                    if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                    if ($status == 'Lost') { echo 'class=\'status-lost\''; }
-                  ?>
-                >
-                  {{ $status}}
-                </td>
+                      if ($status == 'New') { echo 'class=\'status-new\''; }
+                      if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                      if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                      if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                      if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                    ?>
+                  >
+                    {{ $status}}
+                  </td>
 
-                <td>{{ $item->name}}</td>
-                <td>{{ $item->formattedAmount() }}</td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+                  <td>{{ $item->name}}</td>
+                  <td>{{ $item->formattedAmount() }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
           @else
           <div style='text-align:center;'>
             You have no upcoming projects.<br /><br />

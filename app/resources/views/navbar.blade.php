@@ -1,8 +1,10 @@
 <div id='navbar'>
-  <div class='grid-x'>
+
+  <!-- top bar for medium and large -->
+  <div id='wide' class='grid-x'>
     <div class='cell medium-6'>
       <ul id='logo' class='menu'>
-        <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Tracker</strong></a></li>
+        <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Post</strong></a></li>
         @if (session('current_section') == 'executive')
         <!-- <li><a href='#sales'>Sales</a></li> -->
         <!-- <li><a href='#projects'>Projects</a></li> -->
@@ -122,5 +124,86 @@
         </form>
       </div>
     </div>
+  </div>
+
+
+  <!-- top bar for mobile -->
+  <div id='mobile' class='grid-x'>
+    <div>
+      <ul class='menu'>
+        <li><a><i id='hamburger' class="fas fa-bars"  data-toggle="mobile-menu"></i></a></li>
+        <li><a><strong>CCI POST</strong></a></li>
+      </ul>
+
+    </div>
+  </div>
+
+
+  <!-- off-canvas mobile menu -->
+  <div class="off-canvas position-left" id="mobile-menu" data-off-canvas>
+    <ul class='menu'>
+      <li><a><i id='hamburger' class="fas fa-bars"  data-toggle="mobile-menu"></i></a></li>
+      <li><a><strong>CCI POST</strong></a></li>
+    </ul>
+
+    <hr />
+
+    <ul class='vertical menu'>
+      @if (session('current_section') == 'executive')
+      <!-- <li><a href='#sales'>Sales</a></li> -->
+      <!-- <li><a href='#projects'>Projects</a></li> -->
+      <!-- <li><a href='#people'>People</a></li> -->
+      <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+      @endif
+
+      @if (session('current_section') == 'product-sales')
+      <li><a href='/product-sales'>Dashboard</a></li>
+      <li><a href=''>Sales</a></li>
+      <li><a href=''>Stats</a></li>
+      <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+      @endif
+
+      @if (session('current_section') == 'inside-sales')
+      <li><a href='/inside-sales'>Dashboard</a></li>
+      <li><a href='/inside-sales/people/'>People</a></li>
+      <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+      @endif
+    </ul>
+
+
+    <hr />
+
+
+    <ul class="vertical menu" data-dropdown-menu>
+      <li><a href="#"><strong>{{ $userDetails['name'] }}</strong><br />{{ $userDetails['role'] }}</a></li>
+      <!-- <li>|</li> -->
+      <li>
+        @if (session('logged_in_user_roles')->count() > 1)
+        <a id='section' href="#"><i class="fas fa-angle-double-down"></i>&nbsp;Section</a>
+        @endif
+        <ul class="menu">
+          @foreach (session('logged_in_user_roles') as $role)
+          <li>
+            @if ($role == 'product-sales')
+            <a href='/product-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Product Sales</a>
+            @endif
+            @if ($role == 'inside-sales')
+            <a href='/inside-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Inside Sales</a>
+            @endif
+            @if ($role == 'executive')
+            <a href='/exec'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>
+            @endif
+            @if ($role == 'administrator')
+            <a href='/admin'><i class='fas fa-server'></i>&nbsp;Administrator</a>
+            @endif
+
+          </li>
+          @endforeach
+        </ul>
+      </li>
+      <li><a data-open="settings-modal" title='Account Settings'><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
+      <li><a href="/logout" title='Logout'><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a></li>
+    </ul>
+    <hr />
   </div>
 </div>
