@@ -437,15 +437,7 @@
               </tbody>
             </table>
 
-            <!-- initialize projects table js -->
-            <script>
-              $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-              $('#projects-table').DataTable( {
-                "order": [[ 3, 'desc']],
-                'pageLength': 10,
-              });
-            </script>
 
             <!-- initialize editables -->
             <script>
@@ -624,15 +616,27 @@
                   $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
                   $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
                   $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-productSales').toggleClass('edit-enabled');
                   $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
                   $('#{{$i->id}}-amount').toggleClass('edit-enabled');
                   $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
                   $('#{{$i->id}}-invoiceLink').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
                   $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
                 });
 
                 @endforeach
               @endforeach
+            </script>
+
+            <!-- initialize projects table js -->
+            <script>
+              $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+              $('#projects-table').DataTable( {
+                "order": [[ 3, 'desc']],
+                'pageLength': 10,
+              });
             </script>
           </div>
         </div>
