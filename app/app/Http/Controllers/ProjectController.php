@@ -42,39 +42,13 @@ class ProjectController extends Controller
 
 
       // make sure link starts with http
-      // if ((empty($invoice_link) == false) && starts_with('http://', $invoice_link) == false && starts_with('https://', $invoice_link) == false) {
-      //   $invoice_link = 'http://'. $invoice_link;
-      // }
+      if (!empty($invoice_link)) {
+        if (starts_with('http://',$invoice_link) || starts_with('https://',$invoice_link) || starts_with('//',$invoice_link)) {}
 
-      //
-      // // insert project into database
-      // $project_id = DB::table('projects')->insertGetId([
-      //   'name' => $name,
-      //   'status_id' => $status_id,
-      //   'bid_date' => $bid_date,
-      //   'manufacturer' => $manufacturer,
-      //   'product' => $product,
-      //   'product_sales_id' => $product_sales_id,
-      //   'inside_sales_id' => $inside_sales_id,
-      //   'amount' => $amount,
-      //   'apc_opp_id' => $apc_opp_id,
-      //   'invoice_link' => $invoice_link,
-      //   'engineer' => $engineer,
-      //   'contractor' => $contractor,
-      //   'created_at' => Carbon::now(),
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // insert project creation note
-      // $creationNote = 'Project created.';
-      // $now = Carbon::now();
-      //
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $project_id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => $creationNote,
-      //   'created_at' => $now
-      // ]);
+        else {
+          $invoice_link = 'http://'.$invoice_link;
+        }
+      }
 
 
       $project = Project::create([
@@ -93,21 +67,6 @@ class ProjectController extends Controller
       ]);
 
 
-      // $project->save();
-
-
-
-
-
-      // if user placed a note, insert it
-      // if (!empty($note)) {
-      //   DB::table('project_notes')->insert([
-      //     'project_id' => $project_id,
-      //     'last_updated_by_id' => session('logged_in_user_id'),
-      //     'note' => $note,
-      //     'created_at' => $now->addSecond()
-      //   ]);
-      // }
       if (!empty($note)) {
 
         ProjectNote::create([
@@ -125,9 +84,7 @@ class ProjectController extends Controller
 
       return redirect($url);
 
-      // return response()->json([
-      //   'status' => 'Project created.'
-      // ]);
+
 
     }
 
@@ -138,24 +95,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // // modify name
-      // DB::table('projects')->where('id', $id)->update([
-      //   'name' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // add note entry
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Project name changed',
-      //   'created_at' => Carbon::now()
-      // ]);
 
 
       // get project
@@ -180,23 +119,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'status_id' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // add note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Status changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
 
       // retrieve project
       $project = Project::find($id);
@@ -217,23 +139,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-
-      // DB::table('projects')->where('id', $id)->update([
-      //   'bid_date' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Bid date changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
 
       // retrieve project
       $project = Project::find($id);
@@ -256,23 +161,7 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'manufacturer' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Manufacturer changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
+
 
       // retrieve project
       $project = Project::find($id);
@@ -295,23 +184,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'product' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Product changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
 
       // retrieve project
       $project = Project::find($id);
@@ -333,24 +205,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // // update product sales id
-      // DB::table('projects')->where('id', $id)->update([
-      //   'product_sales_id' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Changed Product Sales Representative.',
-      //   'created_at' => Carbon::now()
-      // ]);
 
       // retrieve project
       $project = Project::find($id);
@@ -375,23 +229,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'inside_sales_id' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Changed Inside Sales Representative.',
-      //   'created_at' => Carbon::now()
-      // ]);
 
       // retrieve project
       $project = Project::find($id);
@@ -415,24 +252,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'amount' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Amount changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
-
 
       // retrieve project
       $project = Project::find($id);
@@ -455,21 +274,7 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'apc_opp_id' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'APC OPP ID changed.',
-      // ]);
+
 
       // retrieve project
       $project = Project::find($id);
@@ -492,27 +297,14 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // // make sure link starts with http
-      // if (starts_with('http://', $value) == false && starts_with('https://', $value) == false) {
-      //   $value = 'http://'. $value;
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'invoice_link' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Quote link changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
+      // make sure link starts with http
+      if (!empty($value)) {
+        if (starts_with('http://',$value) || starts_with('https://',$value) || starts_with('//',$value)) {}
+
+        else {
+          $value = 'http://'.$value;
+        }
+      }
 
       // retrieve project
       $project = Project::find($id);
@@ -536,23 +328,7 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id', $id)->update([
-      //   'engineer' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // // create note
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Engineer changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
+
 
       // retrieve project
       $project = Project::find($id);
@@ -575,22 +351,6 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // $check = $this->checkAllowed($id);
-      // if ($check == false) {
-      //   return response('Error 2700',404);
-      // }
-      //
-      // DB::table('projects')->where('id',$id)->update([
-      //   'contractor' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-      //
-      // DB::table('project_notes')->insert([
-      //   'project_id' => $id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => 'Contractor changed.',
-      //   'created_at' => Carbon::now()
-      // ]);
 
       // retrieve project
       $project = Project::find($id);
@@ -607,28 +367,5 @@ class ProjectController extends Controller
     }
 
 
-    // private function checkAllowed($project_id) {
-    //   // verify logged in
-    //   if (session()->has('logged_in_user_id')) {}
-    //     else {
-    //     session()->flush();
-    //     return false;
-    //   }
-    //
-    //   // get project
-    //   $project = DB::table('projects')->where('id', $project_id)->first();
-    //
-    //   // verify allowed to edit
-    //   $logged_in_user_roles = session('logged_in_user_roles');
-    //
-    //   if ($logged_in_user_roles->contains('inside-sales')) { return true; }
-    //   if ($logged_in_user_roles->contains('executive')) { return true; }
-    //
-    //   if ($logged_in_user_roles->contains('product-sales') && $project->product_sales_id == session('logged_in_user_id')) { return true; }
-    //
-    //   session()->flush();
-    //   return false;
-    //
-    //
-    // }
+  
 }
