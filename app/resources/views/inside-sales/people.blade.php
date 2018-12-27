@@ -52,6 +52,7 @@
             <div class='grid-x'>
               <div class='cell medium-4'>
                 <div>
+                  <br /><br />
                   <span class='stat'>{{ $person->ongoingProjects->count() }}</span>
                   <span class='stat-title'>Ongoing Projects</span><br />
 
@@ -63,12 +64,114 @@
                 </div>
               </div>
               <div class='cell medium-4'>
-                project counts
+                <canvas id='project-counts'></canvas>
               </div>
               <div class='cell medium-4'>
-                project status
+                <canvas id='project-status'></canvas>
               </div>
 
+              <!-- javascript for projects charts -->
+              <script>
+                var ctx = document.getElementById("project-counts").getContext('2d');
+                var projectCounts = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: {!! $person->chartData['months'] !!},
+                        datasets: [{
+                            data: {!! $person->chartData['projectCounts'] !!},
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                      maintainAspectRatio: false,
+                      title: {
+                        display: true,
+                        text: 'Project Counts (Last 12 months)'
+                      },
+                      legend: {
+                        display: false,
+                      },
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero:true
+                              }
+                          }]
+                      }
+                    }
+                });
+
+
+
+                var ctx = document.getElementById("project-status").getContext('2d');
+                var projectStatus = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: {!! $person->chartData['projectStatus']->pluck('name') !!},
+                        datasets: [{
+                            data: {!! $person->chartData['projectStatus']->pluck('count') !!},
+                            backgroundColor: [
+                                'rgba(243,156,18,0.6)',
+                                'rgba(41,128,185,0.6)',
+                                'rgba(39,174,96,0.6)',
+                                'rgba(142,68,173,0.6)',
+                                'rgba(44,62,80,0.6)',
+                            ],
+                            // borderColor: [
+                            //   'rgba(243,156,18,1)',
+                            //   'rgba(41,128,185,1)',
+                            //   'rgba(39,174,96,1)',
+                            //   'rgba(142,68,173,1)',
+                            //   'rgba(44,62,80,1)',
+                            // ],
+                            borderWidth: 1
+                        }]
+
+                    },
+                    options: {
+                      maintainAspectRatio: false,
+                      title: {
+                        display: true,
+                        text: 'Project Status (Up to last 12 months)'
+                      },
+                      legend: {
+                        display: true,
+                        position: 'right',
+                      },
+                    }
+                });
+
+
+
+              </script>
             </div>
           </div>
 
@@ -78,6 +181,7 @@
               <table id='ongoing-projects-table' class='unstriped'>
                 <thead>
                   <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Product</th>
                     <th>Status</th>
@@ -94,9 +198,10 @@
                 <tbody>
                   @foreach ($person->ongoingProjects() as $i)
                   <tr>
-                    <td>{{ $i->name }}</td>
-                    <td>{{ $i->product }}</td>
-                    <td
+                    <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class='fas fa-edit'></i></a></td>
+                    <td id='{{$i->id}}-name'>{{ $i->name }}</td>
+                    <td id='{{$i->id}}-product'>{{ $i->product }}</td>
+                    <td id='{{$i->id}}->status'
                       <?php
 
                         $status = $i->status()->status;
@@ -109,7 +214,7 @@
                         if ($status == 'Lost') { echo 'class=\'status-lost\''; }
                       ?>
                     >{{ $i->status()->status }}</td>
-                    <td
+                    <td id='{{$i->id}}-bidDate'
                     <?php
 
 
@@ -117,21 +222,210 @@
                       if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                     ?>
                     >{{ $i->formattedBidDate() }}</td>
-                    <td>{{ $i->insideSales->name }}</td>
-                    <td>{{ $i->formattedAmount() }}</td>
-                    <td>{{ $i->apc_opp_id }}</td>
-                    <td>
+                    <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                    <td id='{{$i->id}}-amount'>{{ $i->formattedAmount() }}</td>
+                    <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
+                    <td id='{{$i->id}}-invoiceLink'>
                       @if (isset($i->invoice_link))
                       <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
                       @endif
                     </td>
-                    <td>{{ $i->engineer }}</td>
-                    <td>{{ $i->contractor }}</td>
+                    <td id='{{$i->id}}-engineer'>{{ $i->engineer }}</td>
+                    <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
                     <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
                   </tr>
                   @endforeach
                 </tbody>
               </table>
+
+              <!-- initialize editables -->
+              <script>
+                @foreach($person->ongoingProjects()->chunk(10) as $chunk)
+                  @foreach ($chunk as $i)
+                    $('#{{$i->id}}-name').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/name',
+                        title: 'Enter Project Name',
+                        disabled: true,
+                        name: 'name',
+                      }
+                    );
+
+                    $('#{{$i->id}}-status').editable(
+                      {
+                        container: 'body',
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/status',
+                        title: 'Choose Status',
+                        disabled: true,
+                        name: 'status',
+                        value: {{ $i->status_id}},
+                          source: [
+                            @foreach ($projectStatusCodes as $code)
+                            { value: {{ $code->id }}, text: '{{ $code->status }}'},
+                            @endforeach
+                          ]
+                      }
+                    );
+
+                    $('#{{$i->id}}-bidDate').editable(
+                      {
+                        container: 'body',
+                        type: 'date',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/bid-date',
+                        title: 'Select Bid Date',
+                        disabled: true,
+                        name: 'bidDate',
+                        format: 'yyyy-mm-dd',
+                        viewformat: 'mm/dd/yy',
+                        datepicker: {
+                          weekStart: 1
+                        }
+                      }
+                    );
+
+
+                    $('#{{$i->id}}-manufacturer').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/manufacturer',
+                        title: 'Enter Manufacturer',
+                        disabled: true,
+                        name: 'manufacturer',
+                      }
+                    );
+
+                    $('#{{$i->id}}-product').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/product',
+                        title: 'Enter Product Name',
+                        disabled: true,
+                        name: 'product',
+                      }
+                    );
+
+                    $('#{{$i->id}}-insideSales').editable(
+                      {
+                        container: 'body',
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/inside-sales',
+                        title: 'Select Inside Sales Rep',
+                        value: {{ $i->inside_sales_id }},
+                        disabled: true,
+                        name: 'insideSales',
+                        source: [
+                          @foreach ($insideSales as $item)
+                          { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                          @endforeach
+                        ]
+                      }
+                    );
+
+                    $('#{{$i->id}}-amount').editable(
+                      {
+                        container: 'body',
+                        type: 'number',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/amount',
+                        title: 'Enter Amount',
+                        disabled: true,
+                        name: 'amount',
+                      }
+                    );
+
+                    $('#{{$i->id}}-apcOppId').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/apc-opp-id',
+                        title: 'Enter APC OPP ID',
+                        disabled: true,
+                        name: 'apcOppId',
+                      }
+                    );
+
+                    $('#{{$i->id}}-invoiceLink').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/quote',
+                        title: 'Edit Quote',
+                        disabled: true,
+                        name: 'quote'
+                      }
+                    );
+
+                    $('#{{$i->id}}-engineer').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/engineer',
+                        title: 'Enter Engineer',
+                        disabled: true,
+                        name: 'engineer',
+                      }
+                    );
+
+                    $('#{{$i->id}}-contractor').editable(
+                      {
+                        container: 'body',
+                        type: 'text',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/contractor',
+                        title: 'Enter Contractor',
+                        disabled: true,
+                        name: 'contractor',
+                      }
+                    );
+
+
+
+                  // enable editing of row on click of toggle link
+                  $('#{{$i->id}}-toggle').click(function(e) {
+                    e.stopPropagation();
+                    $('#{{$i->id}}-name').editable('toggleDisabled');
+                    $('#{{$i->id}}-status').editable('toggleDisabled');
+                    $('#{{$i->id}}-bidDate').editable('toggleDisabled');
+                    $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
+                    $('#{{$i->id}}-product').editable('toggleDisabled');
+                    $('#{{$i->id}}-insideSales').editable('toggleDisabled');
+                    $('#{{$i->id}}-amount').editable('toggleDisabled');
+                    $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
+                    $('#{{$i->id}}-invoiceLink').editable('toggleDisabled');
+                    $('#{{$i->id}}-engineer').editable('toggleDisabled');
+                    $('#{{$i->id}}-contractor').editable('toggleDisabled');
+
+
+                    $('#{{$i->id}}-name').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-status').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-bidDate').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-manufacturer').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-product').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-insideSales').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-amount').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-invoiceLink').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
+                    $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
+                  });
+                  @endforeach
+                @endforeach
+
+              </script>
 
               <!-- initialize projects table js -->
               <script>

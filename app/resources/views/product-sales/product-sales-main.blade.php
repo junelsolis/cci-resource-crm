@@ -593,6 +593,7 @@
                   $('#{{$i->id}}-amount').toggleClass('edit-enabled');
                   $('#{{$i->id}}-apcOppId').toggleClass('edit-enabled');
                   $('#{{$i->id}}-invoiceLink').toggleClass('edit-enabled');
+                  $('#{{$i->id}}-engineer').toggleClass('edit-enabled');
                   $('#{{$i->id}}-contractor').toggleClass('edit-enabled');
                 });
                 @endforeach

@@ -14,7 +14,7 @@
 
         @if (session('current_section') == 'product-sales')
         <li><a href='/product-sales'>Dashboard</a></li>
-        <li><a href=''>Sales</a></li>
+        <!-- <li><a href=''>Sales</a></li> -->
         <li><a href=''>Stats</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
@@ -131,7 +131,7 @@
   <div id='mobile' class='grid-x'>
     <div>
       <ul class='menu'>
-        <li><a><i id='hamburger' class="fas fa-bars"  data-toggle="mobile-menu"></i></a></li>
+        <li data-toggle="mobile-menu"><a><i id='hamburger' class="fas fa-bars"></i></a></li>
         <li><a><strong>CCI POST</strong></a></li>
       </ul>
 
@@ -142,7 +142,7 @@
   <!-- off-canvas mobile menu -->
   <div class="off-canvas position-left" id="mobile-menu" data-off-canvas>
     <ul class='menu'>
-      <li><a><i id='hamburger' class="fas fa-bars"  data-toggle="mobile-menu"></i></a></li>
+      <li data-toggle="mobile-menu"><a><i id='hamburger' class="fas fa-bars"></i></a></li>
       <li><a><strong>CCI POST</strong></a></li>
     </ul>
 
@@ -158,7 +158,7 @@
 
       @if (session('current_section') == 'product-sales')
       <li><a href='/product-sales'>Dashboard</a></li>
-      <li><a href=''>Sales</a></li>
+      <!-- <li><a href=''>Sales</a></li> -->
       <li><a href=''>Stats</a></li>
       <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
       @endif
