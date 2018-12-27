@@ -248,15 +248,7 @@
                 </tbody>
               </table>
 
-              <script>
-                $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-                $('#upcoming-projects-table').DataTable( {
-                  "order": [[ 3, 'asc']],
-                  'pageLength': 5,
-                });
-
-              </script>
             </div>
         </div>
       </div>
@@ -402,10 +394,7 @@
               </tbody>
             </table>
             <script>
-              $('#all-projects-table').DataTable( {
-                "order": [[ 1, "desc" ]],
-                'pageLength': 5,
-              } );
+
             </script>
           </div>
         </div>
@@ -531,6 +520,7 @@
 
     </script>
 
+
     <!-- setup upcoming projects editables -->
     <script>
       //$(document).ready(function() {
@@ -538,6 +528,7 @@
             @foreach ($chunk as $i)
               $('#{{$i->id}}-name').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/name',
@@ -549,6 +540,7 @@
 
               $('#{{$i->id}}-status').editable(
                 {
+                  container: 'body',
                   type: 'select',
                   pk: {{ $i->id }},
                   url: '/project/edit/status',
@@ -584,6 +576,7 @@
 
               $('#{{$i->id}}-manufacturer').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/manufacturer',
@@ -595,6 +588,7 @@
 
               $('#{{$i->id}}-product').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/product',
@@ -606,6 +600,7 @@
 
               $('#{{$i->id}}-productSales').editable(
                 {
+                  container: 'body',
                   type: 'select',
                   pk: {{ $i->id }},
                   url: '/project/edit/product-sales',
@@ -623,6 +618,7 @@
 
               $('#{{$i->id}}-insideSales').editable(
                 {
+                  container: 'body',
                   type: 'select',
                   pk: {{ $i->id }},
                   url: '/project/edit/inside-sales',
@@ -640,6 +636,7 @@
 
               $('#{{$i->id}}-amount').editable(
                 {
+                  container: 'body',
                   type: 'number',
                   pk: {{ $i->id }},
                   url: '/project/edit/amount',
@@ -651,6 +648,7 @@
 
               $('#{{$i->id}}-apcOppId').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/apc-opp-id',
@@ -662,6 +660,7 @@
 
               $('#{{$i->id}}-invoiceLink').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/quote',
@@ -673,6 +672,7 @@
 
               $('#{{$i->id}}-engineer').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/engineer',
@@ -684,6 +684,7 @@
 
               $('#{{$i->id}}-contractor').editable(
                 {
+                  container: 'body',
                   type: 'text',
                   pk: {{ $i->id }},
                   url: '/project/edit/contractor',
@@ -741,6 +742,7 @@
           @foreach ($chunk as $i)
             $('#{{$i->id}}-all-name').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/name',
@@ -752,6 +754,7 @@
 
             $('#{{$i->id}}-all-status').editable(
               {
+                container: 'body',
                 type: 'select',
                 pk: {{ $i->id }},
                 url: '/project/edit/status',
@@ -787,6 +790,7 @@
 
             $('#{{$i->id}}-all-manufacturer').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/manufacturer',
@@ -798,6 +802,7 @@
 
             $('#{{$i->id}}-all-product').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/product',
@@ -809,6 +814,7 @@
 
             $('#{{$i->id}}-all-productSales').editable(
               {
+                container: 'body',
                 type: 'select',
                 pk: {{ $i->id }},
                 url: '/project/edit/product-sales',
@@ -826,6 +832,7 @@
 
             $('#{{$i->id}}-all-insideSales').editable(
               {
+                container: 'body',
                 type: 'select',
                 pk: {{ $i->id }},
                 url: '/project/edit/inside-sales',
@@ -843,6 +850,7 @@
 
             $('#{{$i->id}}-all-amount').editable(
               {
+                container: 'body',
                 type: 'number',
                 pk: {{ $i->id }},
                 url: '/project/edit/amount',
@@ -854,6 +862,7 @@
 
             $('#{{$i->id}}-all-apcOppId').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/apc-opp-id',
@@ -865,6 +874,7 @@
 
             $('#{{$i->id}}-all-invoiceLink').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/quote',
@@ -876,6 +886,7 @@
 
             $('#{{$i->id}}-all-engineer').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/engineer',
@@ -887,6 +898,7 @@
 
             $('#{{$i->id}}-all-contractor').editable(
               {
+                container: 'body',
                 type: 'text',
                 pk: {{ $i->id }},
                 url: '/project/edit/contractor',
@@ -932,6 +944,22 @@
           @endforeach
         @endforeach
 
+
+    </script>
+
+    <!-- init datables -->
+    <script>
+      $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+      $('#upcoming-projects-table').DataTable( {
+        "order": [[ 3, 'asc']],
+        'pageLength': 5,
+      });
+
+      $('#all-projects-table').DataTable( {
+        "order": [[ 1, "desc" ]],
+        'pageLength': 5,
+      } );
 
     </script>
 

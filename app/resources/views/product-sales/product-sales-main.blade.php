@@ -407,15 +407,7 @@
 
             </table>
 
-            <!-- init datatable -->
-            <script>
-              $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
-              $('#my-projects-table').DataTable( {
-                "order": [[ 3, 'desc']],
-                'pageLength': 10,
-              });
-            </script>
 
             <!-- init editables -->
             <script>
@@ -424,6 +416,7 @@
                 @foreach ($chunk as $i)
                   $('#{{$i->id}}-name').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/name',
@@ -435,6 +428,7 @@
 
                   $('#{{$i->id}}-status').editable(
                     {
+                      container: 'body',
                       type: 'select',
                       pk: {{ $i->id }},
                       url: '/project/edit/status',
@@ -452,6 +446,7 @@
 
                   $('#{{$i->id}}-bidDate').editable(
                     {
+                      container: 'body',
                       type: 'date',
                       pk: {{ $i->id }},
                       url: '/project/edit/bid-date',
@@ -469,6 +464,7 @@
 
                   $('#{{$i->id}}-manufacturer').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/manufacturer',
@@ -480,6 +476,7 @@
 
                   $('#{{$i->id}}-product').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/product',
@@ -491,6 +488,7 @@
 
                   $('#{{$i->id}}-insideSales').editable(
                     {
+                      container: 'body',
                       type: 'select',
                       pk: {{ $i->id }},
                       url: '/project/edit/inside-sales',
@@ -508,6 +506,7 @@
 
                   $('#{{$i->id}}-amount').editable(
                     {
+                      container: 'body',
                       type: 'number',
                       pk: {{ $i->id }},
                       url: '/project/edit/amount',
@@ -519,6 +518,7 @@
 
                   $('#{{$i->id}}-apcOppId').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/apc-opp-id',
@@ -530,6 +530,7 @@
 
                   $('#{{$i->id}}-invoiceLink').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/quote',
@@ -541,6 +542,7 @@
 
                   $('#{{$i->id}}-engineer').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/engineer',
@@ -552,6 +554,7 @@
 
                   $('#{{$i->id}}-contractor').editable(
                     {
+                      container: 'body',
                       type: 'text',
                       pk: {{ $i->id }},
                       url: '/project/edit/contractor',
@@ -592,6 +595,17 @@
                 });
                 @endforeach
               @endforeach
+            </script>
+
+
+            <!-- init datatable -->
+            <script>
+              $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+              $('#my-projects-table').DataTable( {
+                "order": [[ 3, 'desc']],
+                'pageLength': 10,
+              });
             </script>
           </div>
           <div class='grid-x align-middle'>
