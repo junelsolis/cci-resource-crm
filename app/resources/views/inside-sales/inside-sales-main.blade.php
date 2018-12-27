@@ -408,8 +408,7 @@
     <!-- setup upcoming projects editables -->
     <script>
       //$(document).ready(function() {
-          @foreach ($upcomingProjects->chunk(10) as $chunk)
-            @foreach ($chunk as $i)
+            @foreach ($upcomingProjects as $i)
               $('#{{$i->id}}-name').editable(
                 {
                   container: 'body',
@@ -612,7 +611,6 @@
 
             });
             @endforeach
-          @endforeach
 
       //});
 
@@ -622,8 +620,7 @@
     <script>
 
       //$(document).ready(function() {
-        @foreach ($allProjects->chunk(10) as $chunk)
-          @foreach ($chunk as $i)
+          @foreach ($allProjects as $i)
             $('#{{$i->id}}-all-name').editable(
               {
                 container: 'body',
@@ -826,7 +823,6 @@
           });
 
           @endforeach
-        @endforeach
 
 
     </script>

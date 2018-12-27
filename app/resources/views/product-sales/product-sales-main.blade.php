@@ -83,7 +83,7 @@
                   <td
                     <?php
 
-                      $status = $item->status()->status;
+                      $status = $item->status['status'];
                       $bidTiming = $item->bidTiming();
 
                       if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
@@ -370,7 +370,7 @@
                     <td id='{{$i->id}}-status'
                       <?php
 
-                        $status = $i->status()->status;
+                        $status = $i->status['status'];
 
                         if ($status == 'New') { echo 'class=\'status-new\''; }
                         if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
@@ -651,7 +651,7 @@
                 <tr>
                   <td>{{ $i->productSales->name }}</td>
                   <td>{{ $i->name }}</td>
-                  <td>{{ $i->status()->status }}</td>
+                  <td>{{ $i->status['status'] }}</td>
                   <td>{{ $i->formattedBidDate() }}</td>
                   <td>{{ $i->manufacturer}}</td>
                   <td>{{ $i->product }}</td>

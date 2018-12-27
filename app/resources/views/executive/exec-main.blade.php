@@ -390,7 +390,7 @@
                   <td id='{{$i->id}}-status'
                     <?php
 
-                      $status = $i->status()->status;
+                      $status = $i->status['status'];
                       if ($status == 'New') { echo 'class=\'status-new\''; }
                       if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
                       if ($status == 'Sold') { echo 'class=\'status-sold\''; }
