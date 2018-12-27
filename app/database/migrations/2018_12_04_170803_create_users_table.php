@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('name');
             $table->string('password');
+            $table->boolean('change_password')->default(true);
+            $table->datetime('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

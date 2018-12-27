@@ -204,7 +204,7 @@
                     <td id='{{$i->id}}->status'
                       <?php
 
-                        $status = $i->status()->status;
+                        $status = $i->status['status'];
                         $bidTiming = $i->bidTiming();
 
                         if ($status == 'New') { echo 'class=\'status-new\''; }
@@ -213,7 +213,7 @@
                         if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
                         if ($status == 'Lost') { echo 'class=\'status-lost\''; }
                       ?>
-                    >{{ $i->status()->status }}</td>
+                    >{{ $status }}</td>
                     <td id='{{$i->id}}-bidDate'
                     <?php
 

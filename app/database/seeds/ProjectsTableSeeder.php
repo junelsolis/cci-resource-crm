@@ -17,14 +17,14 @@ class ProjectsTableSeeder extends Seeder
 
         session(['logged_in_user_id' => 2]);
 
-        factory('App\Project', 5)->create([
+        factory('App\Project', 3)->create([
           'product_sales_id' => 2,
           // 'inside_sales_id' => 3,
           // 'bid_date' => Carbon::now()->addWeeks(rand(1,15)),
           'status_id' => 1
         ]);
 
-        factory('App\Project', 15)->create([
+        factory('App\Project', 6)->create([
           'product_sales_id' => 2,
           // 'inside_sales_id' => 3,
           // 'bid_date' => Carbon::now()->addMonths(rand(0,6)),
@@ -38,7 +38,7 @@ class ProjectsTableSeeder extends Seeder
           'status_id' => 4
         ]);
 
-        factory('App\Project', 32)->create([
+        factory('App\Project', 10)->create([
           'product_sales_id' => 2,
           // 'inside_sales_id' => 3,
           // 'bid_date' => Carbon::now()->subMonths(rand(0,11)),
@@ -61,7 +61,7 @@ class ProjectsTableSeeder extends Seeder
           'status_id' => 1
         ]);
 
-        factory('App\Project', 15)->create([
+        factory('App\Project', 7)->create([
           'inside_sales_id' => 3,
           // 'inside_sales_id' => 3,
           // 'bid_date' => Carbon::now()->addMonths(rand(0,6)),
@@ -75,7 +75,7 @@ class ProjectsTableSeeder extends Seeder
           'status_id' => 4
         ]);
 
-        factory('App\Project', 32)->create([
+        factory('App\Project', 11)->create([
           'inside_sales_id' => 3,
           // 'inside_sales_id' => 3,
           // 'bid_date' => Carbon::now()->subMonths(rand(0,11)),
@@ -91,13 +91,8 @@ class ProjectsTableSeeder extends Seeder
 
 
 
-
-
-
-
-
         // create random projects for random product sales and random inside sales
 
-        factory('App\Project', 200)->create();
+        factory('App\Project', 100)->create();
     }
 }

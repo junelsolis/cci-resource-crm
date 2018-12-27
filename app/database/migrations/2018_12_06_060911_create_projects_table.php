@@ -16,17 +16,23 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->tinyInteger('status_id');
+            $table->unsignedInteger('status_id');
             $table->date('bid_date');
             $table->string('manufacturer')->nullable();
             $table->string('product');
-            $table->integer('inside_sales_id');
-            $table->integer('amount');
-            $table->integer('apc_opp_id')->nullable();
+            $table->unsignedInteger('product_sales_id');
+            $table->unsignedInteger('inside_sales_id');
+            $table->unsignedInteger('amount');
+            $table->string('apc_opp_id')->nullable();
             $table->string('invoice_link')->nullable();
             $table->string('engineer')->nullable();
             $table->string('contractor')->nullable();
             $table->timestamps();
+
+
+            $table->foreign('status_id')->references('id')->on('project_status');
+            $table->foreign('product_sales_id')->references('id')->on('users');
+            $table->foreign('inside_sales_id')->references('id')->on('users');
         });
     }
 

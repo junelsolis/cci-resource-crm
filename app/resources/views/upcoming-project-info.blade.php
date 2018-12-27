@@ -14,7 +14,7 @@
   <div class="note-card">
 
     <span id='note-{{$note->id}}-upcoming-projects'>{!! $note->note !!}</span><br /><br />
-    @if ($note->isEditor() == true && $note->editable == true)
+    @if ($note->editable == true)
     <script>
 
       $(document).ready(function() {
@@ -40,7 +40,7 @@
     <br />
     @endif
     <p>
-      <strong>{{ $note->author()->name }}</strong> on {{ $note->formattedDate() }}
+      <strong>{{ $note->author->name }}</strong> on {{ $note->formattedDate() }}
     </p>
 
   </div>

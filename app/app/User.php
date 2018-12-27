@@ -25,7 +25,7 @@ class User extends Model
     }
 
     public function notes() {
-      return $this->hasMany('App\ProjectNote','last_updated_by_id','id');
+      return $this->hasMany('App\ProjectNote','last_updated_by_id', 'id');
     }
 
 

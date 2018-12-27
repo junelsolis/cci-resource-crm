@@ -7,7 +7,7 @@ use App\ProjectNote;
 use App\User;
 use App\ProjectStatus;
 use Carbon\Carbon;
-// use DB;
+use DB;
 
 class Project extends Model
 {
@@ -164,9 +164,17 @@ class Project extends Model
 
 
     public function status() {
-      $status = ProjectStatus::find($this->status_id);
-      $this->status = $status;
-      return $status;
+      // $status = ProjectStatus::find($this->status_id);
+      // $this->status = $status;
+      // return $status;
+
+      // $status = DB::table('project_status')->where('id', $this->status_id)->first();
+      //
+      // $this->status = $status;
+      // return $status;
+
+      return $this->hasOne('App\ProjectStatus','id', 'status_id');
+
     }
 
     public function productSales() {

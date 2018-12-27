@@ -196,6 +196,7 @@ trait ProjectData {
 
     $projects = Project::
       where('bid_date', '>=', $lastYear)
+      // ->with(['notes','insideSales','productSales'])
       ->orderBy('bid_date')
       ->get();
 

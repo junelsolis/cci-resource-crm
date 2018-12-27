@@ -25,7 +25,8 @@ trait PeopleData {
     $sales = DB::table('user_roles')->select('user_id','role')->where('role','product-sales')->distinct()->get();
     $ids = $sales->pluck('user_id');
 
-    $reps = ProductSalesUser::whereIn('id', $ids)->orderBy('name')->get();
+    $reps = ProductSalesUser::whereIn('id', $ids)
+      ->orderBy('name')->get();
 
     return $reps;
   }

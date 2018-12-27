@@ -192,15 +192,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($upcomingProjects->chunk(10) as $chunk)
-                    @foreach ($chunk as $i)
+                    @foreach ($upcomingProjects as $i)
                     <tr>
                       <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
                       <td id='{{ $i->id}}-name'>{{ $i->name}}</td>
                       <td id='{{ $i->id}}-status'
                         <?php
 
-                          $status = $i->status()->status;
+                          $status = $i->status['status'];
 
                           if ($status == 'New') { echo 'class=\'status-new\''; }
                           if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
@@ -212,7 +211,7 @@
                       <td id='{{ $i->id}}-bidDate'
                         <?php
                             if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                            if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($i->status->status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                            if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                         ?>
                       >{{ $i->formattedBidDate() }}
                       </td>
@@ -241,10 +240,13 @@
                       </td>
                       <td id='{{ $i->id}}-engineer'>{{ $i->engineer }}</td>
                       <td id='{{ $i->id}}-contractor'>{{ $i->contractor }}</td>
-                      <td><a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
+                      <td>
+                        @if ($i->notes)
+                        <a class='table-note' data-toggle="{{$i->id}}-upcoming-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a>
+                        @endif
+                      </td>
                     </tr>
                     @endforeach
-                  @endforeach
                 </tbody>
               </table>
 
@@ -272,8 +274,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($productSales->chunk(5) as $chunk)
-                  @foreach ($chunk as $i)
+                  @foreach ($productSales as $i)
                   <tr>
                     <td>{{ $i->name }}</td>
                     <td>{{ $i->upcomingProjects->count() }}</td>
@@ -287,7 +288,6 @@
                     <td>{{ $i->projectsThisYear->where('status_id', 5)->count() }}</td>
                   </tr>
                   @endforeach
-                @endforeach
 
               </tbody>
             </table>
@@ -338,8 +338,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($allProjects->chunk(10) as $chunk)
-                  @foreach ($chunk as $i)
+                  @foreach ($allProjects as $i)
                   <tr>
                     <td><a id='{{$i->id}}-all-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a>
                     </td>
@@ -347,7 +346,7 @@
                     <td id='{{$i->id}}-all-status'
                       <?php
 
-                        $status = $i->status()->status;
+                        $status = $i->status['status'];
                         if ($status == 'New') { echo ' class=\'status-new\''; }
                         if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
                         if ($status == 'Sold') { echo ' class=\'status-sold\''; }
@@ -387,10 +386,13 @@
                     </td>
                     <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                     <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
-                    <td><a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a></td>
+                    <td>
+                      @if ($i->notes)
+                      <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a>
+                      @endif
+                    </td>
                   </tr>
                   @endforeach
-                @endforeach
               </tbody>
             </table>
             <script>
@@ -398,127 +400,9 @@
             </script>
           </div>
         </div>
-
-
       </div>
     </div>
 
-    <!-- Off-canvas content -->
-    <!-- divs for off-canvas project information -->
-    @foreach ($allProjects as $i)
-      @include('project-info')
-    @endforeach
-
-    @foreach ($upcomingProjects as $i)
-      @include('upcoming-project-info')
-    @endforeach
-
-    <!-- add project div -->
-    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
-      <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
-      <br />
-      <form method='post' action='/project/add'>
-        {{ csrf_field() }}
-        <fieldset class='fieldset'>
-          <legend>
-            Project Details
-          </legend>
-
-          <label>Project Name<span><i class="fas fa-star-of-life"></i></span></label>
-          <input type='text' name='name' required />
-
-          <label>Product<span><i class="fas fa-star-of-life"></i></span></label>
-          <input type='text' name='product' required />
-
-          <label>Manufacturer</label>
-          <input type='text' name='manufacturer' />
-        </fieldset>
-
-        <fieldset class='fieldset'>
-          <legend>
-            Bid Information
-          </legend>
-
-          <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
-          <input type='date' name='bid_date' required />
-
-          <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
-          <select name='status_id' required>
-            <option value="" selected disabled hidden>Select One</option>
-            @foreach ($projectStatusCodes as $code)
-            <option value='{{ $code->id }}'>{{ $code->status }}</option>
-            @endforeach
-          </select>
-
-          <label>Amount<span><i class="fas fa-star-of-life"></i></span></label>
-          <input type='number' name='amount' required placeholder='$' />
-
-          <label>Product Sales<span><i class="fas fa-star-of-life"></i></span></label>
-          <select name='product_sales_id' required>
-            <option value='' selected disabled hidden>Select One</option>
-            @foreach ($productSales as $item)
-            <option value='{{ $item->id }}'>{{ $item->name }}</option>
-            @endforeach
-          </select>
-
-          <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
-          <select name='inside_sales_id' required>
-            <option value="" selected disabled hidden>Select One</option>
-            @foreach ($insideSales as $item)
-            <option value='{{ $item->id }}'>{{ $item->name }}</option>
-            @endforeach
-          </select>
-        </fieldset>
-
-        <fieldset class='fieldset'>
-          <legend>
-            External Information
-          </legend>
-            <label>APC OPP ID</label>
-            <input type='text' name='apc_opp_id' />
-
-            <label>Quote Link</label>
-            <input type='text' name='invoice_link' />
-        </fieldset>
-
-        <fieldset class='fieldset'>
-          <legend>
-            Additional Information
-          </legend>
-            <label>Engineer</label>
-            <input type='text' name='engineer' />
-
-            <label>Contractor</label>
-            <input type='text' name='contractor' />
-        </fieldset>
-
-        <fieldset class='fieldset'>
-          <legend>
-            Note
-          </legend>
-          <textarea name='note' width='100%' placeholder='Optional note...'></textarea>
-        </fieldset>
-
-        <button type='submit' class='primary button align-right'><i class="fas fa-check"></i>&nbsp;Save</button>
-      </form>
-    </div>
-
-
-
-    <!-- some initialization scripts -->
-    <script>
-
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-
-      });
-
-      $(document).foundation();
-
-
-    </script>
 
 
     <!-- setup upcoming projects editables -->
@@ -949,6 +833,10 @@
 
     <!-- init datables -->
     <script>
+
+    //$(document).ready(function() {
+
+    $(document).ready(function() {
       $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
       $('#upcoming-projects-table').DataTable( {
@@ -961,7 +849,128 @@
         'pageLength': 5,
       } );
 
+    });
+
     </script>
+
+
+    <!-- Off-canvas content -->
+    <!-- divs for off-canvas project information -->
+    @foreach ($allProjects as $i)
+      @include('project-info')
+    @endforeach
+
+    @foreach ($upcomingProjects as $i)
+      @include('upcoming-project-info')
+    @endforeach
+
+    <!-- add project div -->
+    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
+      <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
+      <br />
+      <form method='post' action='/project/add'>
+        {{ csrf_field() }}
+        <fieldset class='fieldset'>
+          <legend>
+            Project Details
+          </legend>
+
+          <label>Project Name<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='name' required />
+
+          <label>Product<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='product' required />
+
+          <label>Manufacturer</label>
+          <input type='text' name='manufacturer' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Bid Information
+          </legend>
+
+          <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='date' name='bid_date' required />
+
+          <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='status_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($projectStatusCodes as $code)
+            <option value='{{ $code->id }}'>{{ $code->status }}</option>
+            @endforeach
+          </select>
+
+          <label>Amount<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='number' name='amount' required placeholder='$' />
+
+          <label>Product Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='product_sales_id' required>
+            <option value='' selected disabled hidden>Select One</option>
+            @foreach ($productSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+
+          <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='inside_sales_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($insideSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            External Information
+          </legend>
+            <label>APC OPP ID</label>
+            <input type='text' name='apc_opp_id' />
+
+            <label>Quote Link</label>
+            <input type='text' name='invoice_link' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Additional Information
+          </legend>
+            <label>Engineer</label>
+            <input type='text' name='engineer' />
+
+            <label>Contractor</label>
+            <input type='text' name='contractor' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Note
+          </legend>
+          <textarea name='note' width='100%' placeholder='Optional note...'></textarea>
+        </fieldset>
+
+        <button type='submit' class='primary button align-right'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+    </div>
+
+
+
+    <!-- some initialization scripts -->
+    <script>
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+
+      });
+
+      $(document).foundation();
+
+
+    </script>
+
 
   </body>
   @include('footer')

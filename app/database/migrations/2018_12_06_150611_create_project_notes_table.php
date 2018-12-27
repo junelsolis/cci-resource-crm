@@ -15,11 +15,14 @@ class CreateProjectNotesTable extends Migration
     {
         Schema::create('project_notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
-            $table->integer('last_updated_by_id');
+            $table->unsignedInteger('project_id');
+            $table->unsignedInteger('last_updated_by_id');
             $table->text('note');
             $table->boolean('editable')->default(true);
             $table->timestamps();
+
+            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('last_updated_by_id')->references('id')->on('users');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use DB;
+use App\Project;
 use Carbon\Carbon;
 
 trait ChartData {
@@ -86,12 +87,14 @@ trait ChartData {
 
     protected function allProjects() {
       $now = Carbon::now();
-      $now->setTimezone('America/New_York');
+      //$now->setTimezone('America/New_York');
       $lastYear = $now->subYear();
 
-      $projects = DB::table('projects')
-        ->where('bid_date','>=', $lastYear)
-        ->get();
+      // $projects = DB::table('projects')
+      //   ->where('bid_date','>=', $lastYear)
+      //   ->get();
+
+      $projects = Project::where('bid_date','>=', $lastYear)->get();
 
       return $projects;
     }

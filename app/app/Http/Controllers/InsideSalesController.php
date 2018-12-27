@@ -10,6 +10,7 @@ use App\Traits\PeopleData;
 use App\Traits\ChartData;
 use App\InsideSalesUser;
 use App\ProductSalesUser;
+use App\ProjectNote;
 
 class InsideSalesController extends Controller
 {
@@ -29,12 +30,26 @@ class InsideSalesController extends Controller
     $user = InsideSalesUser::find(session('logged_in_user_id'));
 
     $userDetails = $user->userDetails();
-    $upcomingProjects = $user->upcomingProjects();
-    $allProjects = $user->projectsThisYear();
-    $ongoingProjects = $user->ongoingProjects();
+    $upcomingProjects = $user->upcomingProjects()->load([
+      'insideSales:id,name',
+      'productSales:id,name',
+      'notes.author:id,name',
+      'status'
+    ]);
+
+    $allProjects = $this->projectsThisYear()->load([
+      'notes.author:id,name',
+      'insideSales:id,name',
+      'productSales:id,name',
+      'status'
+    ]);
+
+    // return $allProjects;
+    //$ongoingProjects = $user->ongoingProjects();
 
     $insideSales = $this->getInsideSalesReps();
-    $productSales = $this->getProductSalesReps();
+    $productSales = $this->getProductSalesReps()->load('projects');
+
     foreach ($productSales as $user) {
       $user->projectsThisYear();
       $user->upcomingProjects();
@@ -52,7 +67,7 @@ class InsideSalesController extends Controller
       ->with('projectStatusCodes', $projectStatusCodes)
       ->with('upcomingProjects', $upcomingProjects)
       ->with('allProjects', $allProjects)
-      ->with('ongoingProjects', $ongoingProjects)
+      //->with('ongoingProjects', $ongoingProjects)
       ->with('chartData', $chartData);
   }
 
