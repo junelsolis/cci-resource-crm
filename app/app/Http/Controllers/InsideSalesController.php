@@ -34,11 +34,14 @@ class InsideSalesController extends Controller
       'insideSales:id,name',
       'productSales:id,name',
       'notes.author:id,name',
+      'notes.project:id,product_sales_id',
       'status'
     ]);
 
+    // return $upcomingProjects;
     $allProjects = $this->projectsThisYear()->load([
       'notes.author:id,name',
+      'notes.project:id,product_sales_id',
       'insideSales:id,name',
       'productSales:id,name',
       'status'

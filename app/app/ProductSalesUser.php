@@ -93,7 +93,7 @@ class ProductSalesUser extends User
       $projects = $projects->reverse();
       //$projects = $projects->take(5);
 
-      $this->upcomingProjects = $projects;
+       $this->upcomingProjects = $projects;
 
       return $projects;
     }
@@ -126,7 +126,7 @@ class ProductSalesUser extends User
         ->get();
 
 
-      $this->ongoingProjects = $projects;
+      // $this->ongoingProjects = $projects;
       return $projects;
     }
 

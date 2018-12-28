@@ -93,6 +93,6 @@ class ProjectsTableSeeder extends Seeder
 
         // create random projects for random product sales and random inside sales
 
-        factory('App\Project', 100)->create();
+        factory('App\Project', 500)->create();
     }
 }

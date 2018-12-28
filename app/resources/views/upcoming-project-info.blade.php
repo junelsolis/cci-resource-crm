@@ -14,10 +14,14 @@
   <div class="note-card">
 
     <span id='note-{{$note->id}}-upcoming-projects'>{!! $note->note !!}</span><br /><br />
-    @if ($note->editable == true)
+    @if ($note['isEditor'] == true && $note->editable == true)
+
+    <a id='{{$note->id}}-note-edit-upcoming-toggle' class='button tiny'><i class="fas fa-pen"></i>&nbsp;Edit</a>
+    <a href='/note/delete/{{ $note->id }}' class='button tiny secondary'><i class="fas fa-times"></i>&nbsp;Delete</a>
+    <br />
     <script>
 
-      $(document).ready(function() {
+      // $(document).ready(function() {
         $('#note-{{$note->id}}-upcoming-projects').editable({
           container: 'body',
           type: 'textarea',
@@ -33,14 +37,11 @@
           $('#note-{{$note->id}}-upcoming-projects').editable('toggleDisabled');
         });
 
-      });
+      // });
     </script>
-    <a id='{{$note->id}}-note-edit-upcoming-toggle' class='button tiny'><i class="fas fa-pen"></i>&nbsp;Edit</a>
-    <a href='/note/delete/{{ $note->id }}' class='button tiny secondary'><i class="fas fa-times"></i>&nbsp;Delete</a>
-    <br />
     @endif
     <p>
-      <strong>{{ $note->author->name }}</strong> on {{ $note->formattedDate() }}
+      <strong>{{ $note->author->name }}</strong> on {{ $note['formattedDate'] }}
     </p>
 
   </div>

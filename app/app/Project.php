@@ -230,15 +230,12 @@ class Project extends Model
       $bid_date = new \Carbon\Carbon($bid_date);
       $format = $bid_date->format('m/d/Y');
 
-      $this->formattedBidDate = $format;
-
       return $format;
     }
 
     public function formattedAmount() {
       $format = '$' . number_format($this->amount);
 
-      $this->formattedAmount = $format;
       return $format;
     }
 
@@ -266,7 +263,20 @@ class Project extends Model
       return $this->bidTiming;
     }
 
+    public function getBidTimingAttribute() {
+      return $this->bidTiming();
+    }
+
+    public function getFormattedAmountAttribute() {
+      return $this->formattedAmount();
+    }
+
+    public function getFormattedBidDateAttribute() {
+      return $this->formattedBidDate();
+    }
+
     protected $table = 'projects';
+    protected $appends = ['formattedBidDate','bidTiming','formattedAmount'];
     protected $fillable = [
       'name',
       'status_id',

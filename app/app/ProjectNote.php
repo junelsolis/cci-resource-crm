@@ -32,23 +32,23 @@ class ProjectNote extends Model
       // $inside_sales_id = $this->project->inside_sales_id;
 
       // if user is author of note, allow
-      if ($user_id == $this->author->id) { $this->isEditor = true; return true; }
+      if ($user_id == $this->author->id) { return true; }
 
       //  if user is product sales of project, return true
-      if ($user_id == $this->project->product_sales_id) { $this->isEditor = true; return true; }
+      if ($user_id == $this->project->product_sales_id) {  return true; }
 
       // if ($user_id == $inside_sales_id) { return true; }
 
+      // $user = User::find($user_id);
+
       // if user is inside sales, return true
-      if (session('logged_in_user_roles')->contains('inside-sales')) { $this->isEditor = true; return true; }
+      if (session('logged_in_user_roles')->contains('inside-sales')) {  return true; }
 
       // if user is exec, return true
       // $user = User::find($user_id);
-      if (session('logged_in_user_roles')->contains('executive')) { $this->isEditor = true; return true; }
+      if (session('logged_in_user_roles')->contains('executive')) { return true; }
 
 
-
-      $this->isEditor = false;
       return false;
 
 
@@ -93,7 +93,11 @@ class ProjectNote extends Model
       return $this->isEditor();
     }
 
-    protected $appends = ['isEditor'];
+    public function getFormattedDateAttribute() {
+      return $this->formattedDate();
+    }
+
+    protected $appends = ['isEditor', 'formattedDate'];
     protected $fillable = ['project_id','last_updated_by_id','note','editable'];
     protected $table = 'project_notes';
 
