@@ -199,7 +199,7 @@
                       <td id='{{ $i->id}}-status'
                         <?php
 
-                          $status = $i->status['status'];
+                          $status = $i['status']['status'];
 
                           if ($status == 'New') { echo 'class=\'status-new\''; }
                           if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
@@ -210,8 +210,8 @@
                       >{{ $status }}</td>
                       <td id='{{ $i->id}}-bidDate'
                         <?php
-                            if ($i->bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                            if ($i->bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                            if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                            if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                         ?>
                       >{{ $i['formattedBidDate'] }}
                       </td>
@@ -560,7 +560,7 @@
                     <td id='{{$i->id}}-all-status'
                       <?php
 
-                        $status = $i->status['status'];
+                        $status = $i['status']['status'];
                         if ($status == 'New') { echo ' class=\'status-new\''; }
                         if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
                         if ($status == 'Sold') { echo ' class=\'status-sold\''; }
@@ -570,8 +570,8 @@
                     >{{ $status }}</td>
                     <td id='{{$i->id}}-all-bidDate'
                       <?php
-                          if ($i->bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                          if ($i->bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                          if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                       ?>
                     >{{ $i['formattedBidDate'] }}
                     </td>

@@ -204,7 +204,7 @@
                     <td id='{{$i->id}}->status'
                       <?php
 
-                        $status = $i->status['status'];
+                        $status = $i['status']['status'];
                         $bidTiming = $i['bidTiming'];
 
                         if ($status == 'New') { echo 'class=\'status-new\''; }
@@ -434,7 +434,7 @@
                   $.fn.dataTable.moment( 'MM/DD/YYYY' );
 
                   $('#ongoing-projects-table').DataTable( {
-                    "order": [[ 3, 'asc']],
+                    "order": [[ 4, 'asc']],
                     'pageLength': 10,
                   });
                 });

@@ -27,6 +27,8 @@
     <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
 
       <!-- SALES SECTION -->
+
+
       <div id='sales' class='cell small-12'>
         <div class='card'>
           <h5><strong><i class="fas fa-dollar-sign"></i>&nbsp;Sales</strong></h5>
@@ -341,24 +343,65 @@
         <div class='card'>
           <div class='grid-x'>
             <div class='cell medium-2'>
-              <span class='stat'>{{ $upcomingProjects->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $upcomingProjects->count() }}</span><br />
               <spn class='stat-title'>Upcoming Projects</spn>
             </div>
             <div class='cell medium-2'>
-              <span class='stat'>{{ $upcomingProjects->where('status_id',2)->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $upcomingProjects->where('status_id',2)->count() }}</span><br />
               <span class='stat-title'>Quoted Projects</span>
             </div>
             <div class='cell medium-2'>
-              <span class='stat'>{{ $projects->where('status_id',5)->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $projects->where('status_id',5)->count() }}</span><br />
               <span class='stat-title'>Lost Projects</span>
             </div>
             <div class='cell medium-2'>
-              <span class='stat'>{{ $projects->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $projects->count() }}</span><br />
               <span class='stat-title'>Total Projects (Last 12 mo)</span>
             </div>
           </div>
         </div>
       </div>
+
+
+      <!-- inside sales stats -->
+      <div class='cell small-12'>
+        <div class='card'>
+          <h5><strong>Inside Sales</strong>&nbsp;<em>Ongoing Projects</em></h5>
+          <div class='grid-x'>
+
+            <?php
+              $colors = [
+                //'rgba(255,99,132,1,
+                'rgba(243,156,18,0.6)',
+                // 'rgba(54, 162, 235, 1)',
+                // 'rgba(255, 206, 86, 1)',
+                // 'rgba(75, 192, 192, 1)',
+                // 'rgba(153, 102, 255, 1)',
+                // 'rgba(255, 159, 64, 1)',
+                // 'rgba(255,99,132,1)',
+                // 'rgba(54, 162, 235, 1)',
+                // 'rgba(255, 206, 86, 1)',
+                // 'rgba(75, 192, 192, 1)',
+                // 'rgba(153, 102, 255, 1)',
+                // 'rgba(255, 159, 64, 1)'
+              ];
+
+            ?>
+            @foreach ($insideSales as $i)
+            <div class='cell small-4 medium-3 large-2'>
+              <?php
+                $index = array_rand($colors);
+                $randomColor = $colors[$index];
+              ?>
+              <span class='stat' style='color:<?php echo $randomColor;?>;'>{{ $i['ongoingProjects']->count()}}</span>
+              <span class='stat-title'>{{ $i->name }}</span>
+            </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+
+
       <!-- table for projects -->
       <div class='cell small-12'>
         <div class='card'>
@@ -390,7 +433,7 @@
                   <td id='{{$i->id}}-status'
                     <?php
 
-                      $status = $i->status['status'];
+                      $status = $i['status']['status'];
                       if ($status == 'New') { echo 'class=\'status-new\''; }
                       if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
                       if ($status == 'Sold') { echo 'class=\'status-sold\''; }
@@ -400,10 +443,11 @@
                   >{{ $status }}</td>
                   <td id='{{$i->id}}-bidDate'
                     <?php
-                        if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                        if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      $bidTiming = $i['bidTiming'];
+                        if ($bidTiming== 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                        if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                     ?>
-                  >{{ $i->formattedBidDate() }}</td>
+                  >{{ $i['formattedBidDate'] }}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
                   <td id='{{$i->id}}-productSales'>
@@ -420,7 +464,7 @@
                       echo $name;
                     ?>
                   </td>
-                  <td id='{{$i->id}}-amount'>{{ $i->formattedAmount() }}</td>
+                  <td id='{{$i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                   <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td id='{{$i->id}}-invoiceLink'>
                     @if (isset($i->invoice_link))
@@ -441,8 +485,7 @@
 
             <!-- initialize editables -->
             <script>
-              @foreach ($projects->chunk(10) as $chunk)
-                @foreach ($chunk as $i)
+                @foreach ($projects as $i)
                   $('#{{$i->id}}-name').editable(
                     {
                       container: 'body',
@@ -626,7 +669,6 @@
                 });
 
                 @endforeach
-              @endforeach
             </script>
 
             <!-- initialize projects table js -->
@@ -666,11 +708,11 @@
                 <tr>
                   <td><a data-toggle='{{ $i->id }}-person-info'><i class="fas fa-info-circle"></i></a></td>
                   <td>{{ $i->name }}</td>
-                  <td>{{ $i->upcomingProjects->count() }}</td>
-                  <td>{{ $i->projectsThisYear->where('status_id',3)->count() }}</td>
-                  <td>${{ number_format($i->chartData['sales']->sum()) }}</td>
-                  <td>${{ number_format($i->chartData['projectedSales']->sum()) }}</td>
-                  <td>{{ $i->projectsThisYear->where('status_id',5)->count() }}</td>
+                  <td>{{ $i['upcomingProjects']->count() }}</td>
+                  <td>{{ $i['projectsThisYear']->where('status_id',3)->count() }}</td>
+                  <td>${{ number_format($i['chartData']['sales']->sum()) }}</td>
+                  <td>${{ number_format($i['chartData']['projectedSales']->sum()) }}</td>
+                  <td>{{ $i['projectsThisYear']->where('status_id',5)->count() }}</td>
                 </tr>
                 @endforeach
                 @endif
@@ -681,7 +723,7 @@
             <script>
               $('#product-sales-table').DataTable( {
                 "order": [[ 2, 'desc']],
-                'pageLength': 10,
+                'pageLength': 5,
               });
             </script>
           </div>
@@ -699,8 +741,7 @@
     @endforeach
 
     <!-- salesperson info -->
-    @foreach ($productSalesReps->chunk(10) as $chunk)
-      @foreach ($chunk as $i)
+      @foreach ($productSalesReps as $i)
         <div class='off-canvas position-left person-info' id='{{$i->id}}-person-info' data-off-canvas data-auto-focus='false'>
         <div class='user-icon'>
           <i class="fas fa-user-circle"></i><br />
@@ -713,11 +754,11 @@
             <span class='title'>Sales History</span>
           </div>
           <div class='cell small-6'>
-            <span class='stat-sales'>${{ number_format($i->chartData['sales']->sum()) }}</span><br />
+            <span class='stat-sales'>${{ number_format($i['chartData']['sales']->sum()) }}</span><br />
             <span class='stat-title'>Sales (Last 12 mo)</span>
           </div>
           <div class='cell small-6'>
-            <span class='stat-projected'>${{ number_format($i->chartData['projectedSales']->sum()) }}</span><br />
+            <span class='stat-projected'>${{ number_format($i['chartData']['projectedSales']->sum()) }}</span><br />
             <span class='stat-title'>Projected Sales (6 mo)</span>
           </div>
           <div class='cell small-12'>
@@ -732,19 +773,17 @@
         </div>
       </div>
       @endforeach
-    @endforeach
 
     <!-- charts for each salesperson -->
-    @foreach ($productSalesReps->chunk(10) as $chunk)
-    @foreach ($chunk as $i)
+    @foreach ($productSalesReps as $i)
     <script>
       var personctx = document.getElementById('{{$i->id}}-sales-chart').getContext('2d');
       var salesChart = new Chart(personctx, {
         type: 'line',
         data: {
-          labels: {!! $i->chartData['months'] !!},
+          labels: {!! $i['chartData']['months'] !!},
           datasets: [{
-            data: {!!  $i->chartData['sales'] !!},
+            data: {!!  $i['chartData']['sales'] !!},
             borderColor: "rgba(255,99,132,1)",
             fill: true,
             backgroundColor: "rgba(255,99,132,0.2)"
@@ -768,9 +807,9 @@
       var projectSalesChart = new Chart(personctx, {
         type: 'line',
         data: {
-          labels: {!! $i->chartData['nextSixMonths'] !!},
+          labels: {!! $i['chartData']['nextSixMonths'] !!},
           datasets: [{
-            data: {!!  $i->chartData['projectedSales'] !!},
+            data: {!!  $i['chartData']['projectedSales'] !!},
             borderColor: '#3e95cd',
             fill: true,
             backgroundColor: 'rgba(62,149,205,0.2)'
@@ -794,9 +833,9 @@
       var projectStatus = new Chart(personctx, {
           type: 'doughnut',
           data: {
-              labels: {!! $i->chartData['projectStatus']->pluck('name') !!},
+              labels: {!! $i['chartData']['projectStatus']->pluck('name') !!},
               datasets: [{
-                  data: {!! $i->chartData['projectStatus']->pluck('count') !!},
+                  data: {!! $i['chartData']['projectStatus']->pluck('count') !!},
                   backgroundColor: [
                       'rgba(243,156,18,0.6)',
                       'rgba(41,128,185,0.6)',
@@ -829,7 +868,6 @@
       });
 
     </script>
-    @endforeach
     @endforeach
 
 

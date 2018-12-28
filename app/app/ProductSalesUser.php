@@ -40,7 +40,7 @@ class ProductSalesUser extends User
         ->where('bid_date', '>=', $thisYear)
         ->sortByDesc('bid_date');
 
-      $this->projectsThisYear = $projects;
+      // $this->projectsThisYear = $projects;
 
       return $projects;
     }
@@ -93,7 +93,7 @@ class ProductSalesUser extends User
       $projects = $projects->reverse();
       //$projects = $projects->take(5);
 
-       $this->upcomingProjects = $projects;
+       // $this->upcomingProjects = $projects;
 
       return $projects;
     }
@@ -111,7 +111,7 @@ class ProductSalesUser extends User
 
       $projects = $this->projects->whereIn('status_id', $status_ids);
 
-      $this->ongoingProjects = $projects;
+      // $this->ongoingProjects = $projects;
 
       return $projects;
     }
@@ -132,8 +132,55 @@ class ProductSalesUser extends User
 
     public function chartData() {
 
-      $this->chartData =  $this->productSalesCharts($this->id);
+      $projects = $this->projectsThisYear();
 
-      return $this->chartData;
+      $months = $this->createMonths();
+      $nextSixMonths = $this->createNextSixMonths();
+
+      // calculate sales
+      $sales = $this->calculateSales($projects);
+
+      // projected sales
+      $projectedSales = $this->calculateProjectedSales($projects);
+
+      // project status counts
+      $projectStatus = $this->countProjectStatus($projects);
+
+      // project counts last 12 months
+      $projectCounts = $this->countProjectsByMonth($projects);
+
+      // gather everything up
+      $chartData = collect();
+      $chartData->put('months', $months->pluck('name'));
+      $chartData->put('nextSixMonths', $nextSixMonths->pluck('name'));
+      $chartData->put('sales', $sales);
+      $chartData->put('projectedSales', $projectedSales);
+      $chartData->put('projectStatus', $projectStatus);
+      $chartData->put('projectCounts', $projectCounts);
+
+
+      return $chartData;
     }
+
+    public function getProjectsThisYearAttribute() {
+      return $this->projectsThisYear();
+    }
+
+    public function getUpcomingProjectsAttribute() {
+      return $this->upcomingProjects();
+    }
+
+    public function getOngoingProjectsAttribute() {
+      return $this->ongoingProjects();
+    }
+
+    public function getOtherProjectsAttribute() {
+      return $this->otherProjects();
+    }
+
+    public function getChartDataAttribute() {
+      return $this->chartData();
+    }
+
+    protected $appends = ['projectsThisYear','upcomingProjects','ongoingProjects','otherProjects','chartData'];
 }

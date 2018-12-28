@@ -4,6 +4,7 @@ namespace App\Traits;
 use DB;
 use Carbon\Carbon;
 use App\ProductSalesUser;
+use App\InsideSalesUser;
 
 trait PeopleData {
   protected function getInsideSalesReps() {
@@ -13,10 +14,15 @@ trait PeopleData {
     $sales = DB::table('user_roles')->select('user_id','role')->where('role','inside-sales')->distinct()->get();
     $sales = $sales->pluck('user_id');
 
-    $users = DB::table('users')
-      ->whereIn('id', $sales)
+    // $users = DB::table('users')
+    //   ->whereIn('id', $sales)
+    //   ->orderBy('name')
+    //   ->select('id', 'name')
+    //   ->get();
+
+    $users = InsideSalesUser::whereIn('id', $sales)
       ->orderBy('name')
-      ->select('id', 'name')
+      // ->select('id','name')
       ->get();
 
     return $users;
@@ -26,7 +32,9 @@ trait PeopleData {
     $ids = $sales->pluck('user_id');
 
     $reps = ProductSalesUser::whereIn('id', $ids)
-      ->orderBy('name')->get();
+      ->orderBy('name')
+      ->with('projects')
+      ->get();
 
     return $reps;
   }

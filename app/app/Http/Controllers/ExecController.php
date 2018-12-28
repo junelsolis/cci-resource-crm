@@ -25,17 +25,19 @@ class ExecController extends Controller
 
       $userDetails = $user->details();
       $productSalesReps = $this->getProductSalesReps();
-      foreach ($productSalesReps as $i) {
-        $i->projectsThisYear();
-        $i->upcomingProjects();
-        $i->ongoingProjects();
-        $i->chartData();
-      }
 
+      // return $productSalesReps;
       $upcomingProjects = $this->getUpcomingProjects();
 
       $insideSalesReps = $this->getInsideSalesReps();
-      $projectsThisYear = $this->projectsThisYear();
+
+      $projectsThisYear = $this->projectsThisYear()->load([
+        'insideSales:id,name',
+        'productSales:id,name',
+        'notes.author:id,name',
+        'notes.project:id,name',
+        'status'
+      ]);
       $projectStatusCodes = $this->getProjectStatusCodes();
       $chartData = $this->execCharts();
 

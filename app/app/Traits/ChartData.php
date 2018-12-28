@@ -4,6 +4,7 @@ namespace App\Traits;
 use DB;
 use App\Project;
 use Carbon\Carbon;
+use App\ProductSalesUser;
 
 trait ChartData {
 
@@ -103,14 +104,19 @@ trait ChartData {
           within the last 12 months
       */
 
+      $user = ProductSalesUser::find($product_sales_id);
+
+
       $now = Carbon::now();
       $now->setTimezone('America/New_York');
       $lastYear = $now->subYear();
 
-      $projects = DB::table('projects')
-        ->where('product_sales_id', $product_sales_id)
-        ->where('bid_date', '>=', $lastYear)
-        ->get();
+      // $projects = DB::table('projects')
+      //   ->where('product_sales_id', $product_sales_id)
+      //   ->where('bid_date', '>=', $lastYear)
+      //   ->get();
+
+      $projects = $user->projects->where('bid_date', '>=', $lastYear);
 
       return $projects;
 
@@ -210,79 +216,59 @@ trait ChartData {
       $now = Carbon::now();
       $now->setTimezone('America/New_York');
 
-      // count new projects
-      $count = 0;
 
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 1) {
-          $count++;
-        }
+      $new = collect();
+      $quoted = collect();
+      $sold = collect();
+      $engineered = collect();
+      $lost = collect();
+
+      $newCount = 0;
+      $quotedCount = 0;
+      $soldCount = 0;
+      $engineeredCount = 0;
+      $lostCount = 0;
+
+      foreach ($projects as $i) {
+
+
+        if ($i['status']['status'] == 'New') { $newCount++; continue;}
+        if ($i['status']['status'] == 'Quoted') { $quotedCount++; continue;}
+        if ($i['status']['status'] == 'Sold') { $soldCount++; continue; }
+        if ($i['status']['status'] == 'Engineered') { $engineeredCount++; continue; }
+        if ($i['status']['status'] == 'Lost') { $lostCount++; continue; }
+
       }
+
 
       $collect = collect();
       $collect->put('name', 'New');
-      $collect->put('count', $count);
+      $collect->put('count', $newCount);
+
       $projectStatus->push($collect);
-
-      // count Quoted projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 2) {
-          $count++;
-        }
-      }
 
       $collect = collect();
       $collect->put('name', 'Quoted');
-      $collect->put('count', $count);
+      $collect->put('count', $quotedCount);
+
       $projectStatus->push($collect);
-
-      // count Sold projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 3) {
-          $count++;
-        }
-      }
 
       $collect = collect();
       $collect->put('name', 'Sold');
-      $collect->put('count', $count);
+      $collect->put('count', $soldCount);
+
       $projectStatus->push($collect);
-
-      // count Engineered projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 4) {
-          $count++;
-        }
-      }
 
       $collect = collect();
       $collect->put('name', 'Engineered');
-      $collect->put('count', $count);
+      $collect->put('count', $engineeredCount);
+
       $projectStatus->push($collect);
-
-      // count Lost projects
-      $count = 0;
-
-      foreach ($projects as $project) {
-        $bidDate = new Carbon($project->bid_date);
-        if ($project->status_id == 5) {
-          $count++;
-        }
-      }
 
       $collect = collect();
       $collect->put('name', 'Lost');
-      $collect->put('count', $count);
+      $collect->put('count', $engineeredCount);
+
       $projectStatus->push($collect);
 
       return $projectStatus;

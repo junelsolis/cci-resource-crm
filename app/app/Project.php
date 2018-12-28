@@ -277,6 +277,7 @@ class Project extends Model
 
     protected $table = 'projects';
     protected $appends = ['formattedBidDate','bidTiming','formattedAmount'];
+    protected $with = ['insideSales','productSales','status'];
     protected $fillable = [
       'name',
       'status_id',
