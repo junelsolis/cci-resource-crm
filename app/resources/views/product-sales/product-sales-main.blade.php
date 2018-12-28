@@ -84,11 +84,11 @@
                     <?php
 
                       $status = $item->status['status'];
-                      $bidTiming = $item->bidTiming();
+                      $bidTiming = $item['bidTiming'];
 
                       if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
                       if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                    ?>><strong>{{ $item->formattedBidDate() }}</strong></td>
+                    ?>><strong>{{ $item['formattedBidDate'] }}</strong></td>
                   <td
                     <?php
 
@@ -103,7 +103,7 @@
                   </td>
 
                   <td>{{ $item->name}}</td>
-                  <td>{{ $item->formattedAmount() }}</td>
+                  <td>{{ $item['formattedAmount'] }}</td>
                 </tr>
                 @endforeach
               </tbody>
@@ -370,7 +370,7 @@
                     <td id='{{$i->id}}-status'
                       <?php
 
-                        $status = $i->status['status'];
+                        $status = $i['status']['status'];
 
                         if ($status == 'New') { echo 'class=\'status-new\''; }
                         if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
@@ -381,14 +381,14 @@
                     >{{ $status }}</td>
                     <td id='{{$i->id}}-bidDate'
                       <?php
-                          if ($i->bidTiming() == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                          if ($i->bidTiming() == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                          if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                       ?>
-                    >{{ $i->formattedBidDate() }}</td>
+                    >{{ $i['formattedBidDate'] }}</td>
                     <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                     <td id='{{$i->id}}-product'>{{ $i->product }}</td>
                     <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
-                    <td id='{{$i->id}}-amount'>{{ $i->formattedAmount() }}</td>
+                    <td id='{{$i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                     <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                     <td id='{{$i->id}}-invoiceLink' >
                       @if (isset($i->invoice_link))
@@ -651,12 +651,12 @@
                 <tr>
                   <td>{{ $i->productSales->name }}</td>
                   <td>{{ $i->name }}</td>
-                  <td>{{ $i->status['status'] }}</td>
-                  <td>{{ $i->formattedBidDate() }}</td>
+                  <td>{{ $i['status']['status'] }}</td>
+                  <td>{{ $i['formattedBidDate'] }}</td>
                   <td>{{ $i->manufacturer}}</td>
                   <td>{{ $i->product }}</td>
                   <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i->formattedAmount() }}</td>
+                  <td>{{ $i['formattedAmount'] }}</td>
                   <td>{{ $i->apc_opp_id }}</td>
                   <td>{{ $i->engineer}}</td>
                   <td>{{ $i->contractor}}</td>

@@ -29,11 +29,21 @@ class ProductSalesController extends Controller
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
 
-      $projectsThisYear = $user->projectsThisYear();
+      $projectsThisYear = $user->projectsThisYear()->load([
+        'insideSales:id,name',
+        'notes.author:id,name',
+        'status'
+      ]);
+
+      // return $projectsThisYear;
       $ongoingProjects = $user->ongoingProjects();
       $upcomingProjects = $user->upcomingProjects();
 
-      $otherProjects = $user->otherProjects();
+      $otherProjects = $user->otherProjects()->load([
+        'productSales:id,name',
+        'insideSales:id,name',
+        'status'
+      ]);
       $chartData = $this->productSalesCharts(session('logged_in_user_id'));
 
 
