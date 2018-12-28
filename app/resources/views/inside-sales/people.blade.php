@@ -205,7 +205,7 @@
                       <?php
 
                         $status = $i->status['status'];
-                        $bidTiming = $i->bidTiming();
+                        $bidTiming = $i['bidTiming'];
 
                         if ($status == 'New') { echo 'class=\'status-new\''; }
                         if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
@@ -221,9 +221,9 @@
                       if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
                       if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
                     ?>
-                    >{{ $i->formattedBidDate() }}</td>
+                    >{{ $i['formattedBidDate'] }}</td>
                     <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
-                    <td id='{{$i->id}}-amount'>{{ $i->formattedAmount() }}</td>
+                    <td id='{{$i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                     <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                     <td id='{{$i->id}}-invoiceLink'>
                       @if (isset($i->invoice_link))

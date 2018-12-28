@@ -96,7 +96,7 @@ class InsideSalesController extends Controller
     }
 
     // initialize person data
-    $person->ongoingProjects();
+    $person->ongoingProjects()->load(['insideSales:id,name','notes.author:id,name','notes.project:id,name']);
     $person->chartData();
     $person->projectsThisYear();
 
