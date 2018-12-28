@@ -491,15 +491,15 @@
                   @foreach ($productSales as $i)
                   <tr>
                     <td>{{ $i->name }}</td>
-                    <td>{{ $i->upcomingProjects->count() }}</td>
-                    <td>{{ $i->ongoingProjects->count() }}</td>
+                    <td>{{ $i['upcomingProjects']->count() }}</td>
+                    <td>{{ $i['ongoingProjects']->count() }}</td>
                     <td>
-                      @if ($i->upcomingProjects->first())
-                      {{ $i->upcomingProjects->first()->formattedBidDate()}}
+                      @if ($i['upcomingProjects'])
+                      {{ $i['upcomingProjects']->first()['formattedBidDate']}}
                       @endif
                     </td>
-                    <td>{{ $i->projectsThisYear->where('status_id', 3)->count() }}</td>
-                    <td>{{ $i->projectsThisYear->where('status_id', 5)->count() }}</td>
+                    <td>{{ $i['projectsThisYear']->where('status_id', 3)->count() }}</td>
+                    <td>{{ $i['projectsThisYear']->where('status_id', 5)->count() }}</td>
                   </tr>
                   @endforeach
 
