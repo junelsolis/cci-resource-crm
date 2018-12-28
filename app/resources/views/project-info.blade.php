@@ -11,8 +11,6 @@
   <br />
 
   @if (isset($i->notes))
-
-
   @foreach ($i->notes->reverse() as $note)
   <div class="note-card">
 

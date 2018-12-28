@@ -53,13 +53,13 @@
               <div class='cell medium-4'>
                 <div>
                   <br /><br />
-                  <span class='stat'>{{ $person->ongoingProjects->count() }}</span>
+                  <span class='stat'>{{ $person['ongoingProjects']->count() }}</span>
                   <span class='stat-title'>Ongoing Projects</span><br />
 
-                  <span class='stat'>{{ $person->projectsThisYear->where('status_id', 3)->count() }}</span>
+                  <span class='stat'>{{ $person['projectsThisYear']->where('status_id', 3)->count() }}</span>
                   <span class='stat-title'>Projects Sold</span><br />
 
-                  <span class='stat'>{{ $person->projectsThisYear->count() }}</span>
+                  <span class='stat'>{{ $person['projectsThisYear']->count() }}</span>
                   <span class='stat-title'>Total Projects</span>
                 </div>
               </div>
@@ -76,9 +76,9 @@
                 var projectCounts = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: {!! $person->chartData['months'] !!},
+                        labels: {!! $person['chartData']['months'] !!},
                         datasets: [{
-                            data: {!! $person->chartData['projectCounts'] !!},
+                            data: {!! $person['chartData']['projectCounts'] !!},
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
@@ -135,9 +135,9 @@
                 var projectStatus = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: {!! $person->chartData['projectStatus']->pluck('name') !!},
+                        labels: {!! $person['chartData']['projectStatus']->pluck('name') !!},
                         datasets: [{
-                            data: {!! $person->chartData['projectStatus']->pluck('count') !!},
+                            data: {!! $person['chartData']['projectStatus']->pluck('count') !!},
                             backgroundColor: [
                                 'rgba(243,156,18,0.6)',
                                 'rgba(41,128,185,0.6)',
@@ -540,7 +540,7 @@
       </form>
     </div>
 
-    @foreach ($person->ongoingProjects as $i)
+    @foreach ($person['ongoingProjects'] as $i)
       @include('project-info')
     @endforeach
 
