@@ -27,6 +27,13 @@ class ProjectNote extends Model
     }
 
     public function isEditor() {
+
+      // do not allow uneditable notes to be changed
+      if ($this->editable == false) {
+        return false;
+      }
+
+
       $user_id = session('logged_in_user_id');
       // $product_sales_id = $this->project->product_sales_id;
       // $inside_sales_id = $this->project->inside_sales_id;

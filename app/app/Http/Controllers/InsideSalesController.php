@@ -124,7 +124,7 @@ class InsideSalesController extends Controller
     $user = InsideSalesUser::find(session('logged_in_user_id'));
 
     // if there is a project id in the request, use that
-    $project = Project::find($request['id'])->first();
+    $project = Project::find($request['id']);
 
     if (empty($project)) {
       $project = Project::first();

@@ -80,7 +80,8 @@ class NoteController extends Controller
       ]);
 
       if ($request['pk']) {
-        return response('Note added.',200);
+        // return response('Note added.',200);
+        return redirect(session('_previous')['url']);
       }
 
       return redirect(session('_previous')['url']);
@@ -139,11 +140,22 @@ class NoteController extends Controller
     }
 
     public function deleteNote(Request $request) {
-      $check = $this->checkAllowedToDelete($request['id']);
-      if ($check == false) { return redirect('/'); }
+      // $check = $this->checkAllowedToDelete($request['id']);
+      // if ($check == false) { return redirect('/'); }
+      //
+      // // delete note from db
+      // DB::table('project_notes')->where('id', $request['id'])->delete();
 
-      // delete note from db
-      DB::table('project_notes')->where('id', $request['id'])->delete();
+
+      // retrieve note
+      $note = ProjectNote::find($request['id']);
+
+      // check allowed to delete
+      if ($note->isEditor() == false) {
+        return redirect('/');
+      }
+
+      $note->delete();
 
       // return to previous view
       return redirect(session('_previous')['url']);
