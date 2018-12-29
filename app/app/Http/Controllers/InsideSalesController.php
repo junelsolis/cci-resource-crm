@@ -11,6 +11,7 @@ use App\Traits\ChartData;
 use App\InsideSalesUser;
 use App\ProductSalesUser;
 use App\ProjectNote;
+use App\Project;
 
 class InsideSalesController extends Controller
 {
@@ -116,7 +117,31 @@ class InsideSalesController extends Controller
     if ($this->checkLoggedIn()) {}
     else { return redirect('/'); }
 
+    // set session key
+    session(['current_section' => 'inside-sales']);
 
+    // set user
+    $user = InsideSalesUser::find(session('logged_in_user_id'));
+
+    // if there is a project id in the request, use that
+    $project = Project::find($request['id'])->first();
+
+    if (empty($project)) {
+      $project = Project::first();
+    }
+
+    $project->load(['notes.author:id,name','productSales:id,name','insideSales:id,name']);
+
+    // get other projects
+    $otherProjects = $user['projectsThisYear']->load([
+      'insideSales:id,name',
+      'productSales:id,name',
+    ]);
+
+    return view('inside-sales.projects')
+      ->with('userDetails', $user['userDetails'])
+      ->with('project', $project)
+      ->with('otherProjects', $otherProjects);
   }
 
 

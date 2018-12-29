@@ -44,7 +44,14 @@ class NoteController extends Controller
 
 
       $project_id = $request['project_id'];
+      if (empty($project_id)) {
+        $project_id = $request['pk'];
+      }
+
       $note = $request['note'];
+      if (empty($note)) {
+        $note = $request['value'];
+      }
 
       if (empty($project_id) || empty($note)) {
         return redirect('/');
@@ -60,16 +67,21 @@ class NoteController extends Controller
 
 
       // add note
-      $projectNote = new ProjectNote([
+      // $projectNote = new ProjectNote([
+      //   'project_id' => $project->id,
+      //   'last_updated_by_id' => session('logged_in_user_id'),
+      //   'note' => $note
+      // ]);
+
+      ProjectNote::create([
         'project_id' => $project->id,
         'last_updated_by_id' => session('logged_in_user_id'),
         'note' => $note
       ]);
 
-      $projectNote->save();
-
-
-
+      if ($request['pk']) {
+        return response('Note added.',200);
+      }
 
       return redirect(session('_previous')['url']);
     }

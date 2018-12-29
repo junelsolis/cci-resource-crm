@@ -28,7 +28,6 @@ class InsideSalesUser extends User
         //->with(['notes','productSales','insideSales'])
         ->get();
 
-      $this->projectsThisYear = $projects;
       return $projects;
     }
 
@@ -128,12 +127,20 @@ class InsideSalesUser extends User
       return $this->upcomingProjects();
     }
 
+    public function getUserDetailsAttribute() {
+      return $this->userDetails();
+    }
+
+    public function getProjectsThisYearAttribute() {
+      return $this->projectsThisYear();
+    }
+
 
 
 
 
 
     protected $fillable = ['name','username'];
-    protected $appends = ['ongoingProjects','upcomingProjects'];
+    protected $appends = ['userDetails','ongoingProjects','upcomingProjects','projectsThisYear'];
     protected $table = 'users';
 }

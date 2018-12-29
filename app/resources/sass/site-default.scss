@@ -4,16 +4,18 @@
 
 html {
   scroll-behavior: smooth;
-  // font-size: 14px;
+  // min-height: 100%;
 }
 
 body {
   background-color: #F8F8F8;
   overscroll-behavior: none;
+  min-height: 100%;
 }
 
 #main {
   padding-top: 40px;
+  // min-height: 100vh;
 }
 table {
   font-size: 13px;
@@ -283,4 +285,100 @@ select {
   text-align: center;
   color: #707070;
   font-weight: bolder;
+}
+
+// segmented card
+.card-top {
+  @extend .card;
+
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 0px;
+  border-bottom-style: none;
+  background-color: #303952;
+
+  margin-bottom: 0;
+
+  h5 {
+    color: white;
+  }
+}
+.card-middle {
+  @extend .card;
+
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-top-style: none;
+
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 0px;
+  border-bottom-style: none;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  li {
+    color: #707070;
+    list-style: square;
+  }
+
+}
+
+.card-bottom {
+  @extend .card;
+
+  //background-color: #747d8c;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-top-style: none;
+
+
+  padding: 0;
+
+  margin-top: 0px;
+
+  table {
+    margin-top: 0;
+    margin-bottom: 50px;
+    background-color: #dfe4ea;
+    border-bottom-style: none;
+    border-bottom-width: 0;
+
+    tbody {
+      border-left-width: 0;
+      border-right-width: 0;
+      border-left-style: 0;
+      border-right-style: 0;
+    }
+    margin-left: 0;
+    margin-right: 0;
+
+    tr {
+
+      td {
+        background-color: #dfe4ea;
+        color: #707070;
+
+        em {
+          color: black;
+        }
+      }
+      border-left-style: none;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-right-style: none;
+
+
+    }
+
+    tr:last-child {
+      td {
+        border-bottom-style: none;
+        border-bottom-width: 0;
+      }
+    }
+
+
+  }
 }
