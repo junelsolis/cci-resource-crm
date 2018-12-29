@@ -29,6 +29,7 @@ Route::post('/admin/user/reset/{id}', 'AdminController@resetPassword');
 // inside sales routes
 Route::get('/inside-sales', 'InsideSalesController@showDashboard');
 Route::get('/inside-sales/people/{id?}','InsideSalesController@showPeople');
+Route::get('/inside-sales/project/{id}','InsideSalesController@showProject');
 
 // product sales routes
 Route::get('/product-sales', 'ProductSalesController@showDashboard');

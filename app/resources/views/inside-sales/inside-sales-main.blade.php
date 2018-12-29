@@ -602,7 +602,7 @@
                     <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
                     <td>
                       @if ($i->notes)
-                      <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a>
+                      <a class='table-note' href='/inside-sales/project/{{$i->id}}'>{{ str_limit($i->notes->last()->note,20) }}</a>
                       @endif
                     </td>
                   </tr>
@@ -837,10 +837,7 @@
       @include('upcoming-project-info')
     @endforeach
 
-    @foreach ($allProjects as $i)
-      @include('project-info')
-    @endforeach
-
+  
 
     <!-- add project div -->
     <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">

@@ -22,7 +22,7 @@ class ProjectNote extends Model
     }
 
     public function author() {
-      return $this->belongsTo('App\User','last_updated_by_id','id');
+      return $this->hasOne('App\User','id','last_updated_by_id');
 
     }
 
@@ -35,7 +35,7 @@ class ProjectNote extends Model
       if ($user_id == $this->author->id) { return true; }
 
       //  if user is product sales of project, return true
-      if ($user_id == $this->project->product_sales_id) {  return true; }
+      if ($user_id == $this->project->productSales->id) {  return true; }
 
       // if ($user_id == $inside_sales_id) { return true; }
 

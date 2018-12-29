@@ -30,34 +30,32 @@ class InsideSalesController extends Controller
     $user = InsideSalesUser::find(session('logged_in_user_id'));
 
     $userDetails = $user->userDetails();
-    $upcomingProjects = $user->upcomingProjects()->load([
-      'insideSales:id,name',
-      'productSales:id,name',
+    $upcomingProjects = $user['upcomingProjects']->load([
+      // 'insideSales:id,name',
+      // 'productSales:id,name',
       'notes.author:id,name',
       'notes.project:id,product_sales_id',
-      'status'
+      'status:id,status'
     ]);
 
     // return $upcomingProjects;
     $allProjects = $this->projectsThisYear()->load([
-      'notes.author:id,name',
-      'notes.project:id,product_sales_id',
-      'insideSales:id,name',
-      'productSales:id,name',
-      'status'
+      'notes',
+      // 'insideSales:id,name',
+      // 'productSales:id,name',
+      'status:id,status'
     ]);
 
-    // return $allProjects;
     //$ongoingProjects = $user->ongoingProjects();
 
     $insideSales = $this->getInsideSalesReps();
     $productSales = $this->getProductSalesReps()->load('projects');
 
-    foreach ($productSales as $user) {
-      $user->projectsThisYear();
-      $user->upcomingProjects();
-      $user->ongoingProjects();
-    }
+    // foreach ($productSales as $user) {
+    //   $user->projectsThisYear();
+    //   $user->upcomingProjects();
+    //   $user->ongoingProjects();
+    // }
 
     $chartData = $this->insideSalesCharts($user->id);
 
@@ -113,6 +111,14 @@ class InsideSalesController extends Controller
       ->with('insideSales', $insideSales)
       ->with('projectStatusCodes', $projectStatusCodes);
   }
+
+  public function showProject(Request $request) {
+    if ($this->checkLoggedIn()) {}
+    else { return redirect('/'); }
+
+
+  }
+
 
   private function checkLoggedIn() {
     if (session()->has('logged_in_user_id') && session('logged_in_user_roles')->contains('inside-sales')) {

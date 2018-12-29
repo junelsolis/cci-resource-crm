@@ -34,9 +34,9 @@ class InsideSalesUser extends User
 
     public function upcomingProjects() {
 
-      if (empty($this->projectsThisYear)) {
-        $this->projectsThisYear();
-      }
+      // if (empty($this->projectsThisYear)) {
+      //   $this->projectsThisYear();
+      // }
 
       $thisYear = Carbon::now()->subYear();
 
@@ -50,7 +50,7 @@ class InsideSalesUser extends User
 
       $status_ids = [3,5];
 
-      $projects = $this->projectsThisYear
+      $projects = $this->projectsThisYear()
         ->whereNotIn('status_id', $status_ids)
         ->where('inside_sales_id', $this->id)
         //->load('productSales','insideSales')
@@ -79,7 +79,7 @@ class InsideSalesUser extends User
       $projects = $projects->reverse();
       //$projects = $projects->take(5);
 
-      $this->upcomingProjects = $projects;
+      // $this->upcomingProjects = $projects;
       return $projects;
 
     }
@@ -124,12 +124,16 @@ class InsideSalesUser extends User
       return $this->ongoingProjects();
     }
 
+    public function getUpcomingProjectsAttribute() {
+      return $this->upcomingProjects();
+    }
+
 
 
 
 
 
     protected $fillable = ['name','username'];
-    protected $appends = ['ongoingProjects'];
+    protected $appends = ['ongoingProjects','upcomingProjects'];
     protected $table = 'users';
 }
