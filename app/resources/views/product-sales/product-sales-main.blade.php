@@ -104,6 +104,7 @@
 
                   <td>{{ $item->name}}</td>
                   <td>{{ $item['formattedAmount'] }}</td>
+                  <td><a href='/product-sales/project/{{$item->id}}'><i class="fas fa-search"></i></a></td>
                 </tr>
                 @endforeach
               </tbody>
@@ -332,16 +333,16 @@
 
       <!-- My Projects -->
       <div class='cell small-12'>
-        <div id='projects' class='card'>
-          <div class='grid-x align-middle'>
-            <div class='cell small-6'>
-              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
-            </div>
+        <div class='card-top'>
+          <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
+        </div>
+        <div id='projects' class='card-middle'>
+          <!-- <div class='grid-x align-middle'>
             <div class='cell small-6' style='text-align:right;'>
               <a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a>
             </div>
           </div>
-          <br />
+          <br /> -->
           <div class='table-scroll'>
             <table id='my-projects-table' class="unstriped">
               <thead>
@@ -387,7 +388,7 @@
                     >{{ $i['formattedBidDate'] }}</td>
                     <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer}}</td>
                     <td id='{{$i->id}}-product'>{{ $i->product }}</td>
-                    <td id='{{$i->id}}-insideSales'>{{ $i->insideSales->name }}</td>
+                    <td id='{{$i->id}}-insideSales'>{{ $i->insideSales['formattedName']['initials'] }}</td>
                     <td id='{{$i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                     <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                     <td id='{{$i->id}}-invoiceLink' >
@@ -613,9 +614,12 @@
           </div>
           <div class='grid-x align-middle'>
             <div class='cell medium-6 large-2'>
-              <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+
             </div>
           </div>
+        </div>
+        <div class='card-bottom'>
+          <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
         </div>
       </div>
 
@@ -655,7 +659,7 @@
                   <td>{{ $i['formattedBidDate'] }}</td>
                   <td>{{ $i->manufacturer}}</td>
                   <td>{{ $i->product }}</td>
-                  <td>{{ $i->insideSales->name }}</td>
+                  <td>{{ $i->insideSales['formattedName']['initials']}}</td>
                   <td>{{ $i['formattedAmount'] }}</td>
                   <td>{{ $i->apc_opp_id }}</td>
                   <td>{{ $i->engineer}}</td>
