@@ -142,7 +142,7 @@
               <tbody>
                 @forelse ($otherProjects as $i)
                 <tr>
-                  <td><a href='/inside-sales/project/{{$i->id}}'><i class="fas fa-binoculars"></i></a></td>
+                  <td><a href='/inside-sales/project/{{$i->id}}'><i class="fas fa-search"></i></a></td>
                   <td>{{ $i->name}}</td>
                   <td
                     <?php
@@ -174,7 +174,7 @@
                   </td>
                   <td>{{ $i->engineer}}</td>
                   <td>{{ $i->contractor}}</td>
-                  <td></td>
+                  <td><a href='/inside-sales/project/{{$i->id}}'><i class="fas fa-search"></i></a></td>
                 </tr>
                 @empty
                 @endforelse

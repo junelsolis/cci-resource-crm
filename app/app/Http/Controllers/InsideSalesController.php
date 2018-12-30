@@ -41,7 +41,7 @@ class InsideSalesController extends Controller
 
     // return $upcomingProjects;
     $allProjects = $this->projectsThisYear()->load([
-      'notes',
+      //'notes',
       // 'insideSales:id,name',
       // 'productSales:id,name',
       'status:id,status'

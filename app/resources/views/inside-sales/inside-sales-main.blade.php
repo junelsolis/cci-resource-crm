@@ -217,20 +217,8 @@
                       </td>
                       <td id='{{ $i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
                       <td id='{{ $i->id}}-product'>{{ $i->product }}</td>
-                      <td id='{{ $i->id}}-productSales'>
-                        <?php
-                          $array = explode(' ', $i->productSales->name);
-                          $name = substr($array[0],0,1) . ' ' . $array[1];
-                          echo $name;
-                        ?>
-                      </td>
-                      <td id='{{ $i->id}}-insideSales'>
-                        <?php
-                          $array = explode(' ', $i->insideSales->name);
-                          $name = substr($array[0],0,1) . ' ' . $array[1];
-                          echo $name;
-                        ?>
-                      </td>
+                      <td id='{{ $i->id}}-productSales'>{{ $i->productSales['formattedName']['initials'] }}</td>
+                      <td id='{{ $i->id}}-insideSales'>{{ $i->insideSales['formattedName']['initials'] }}</td>
                       <td id='{{ $i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                       <td id='{{ $i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                       <td id='{{ $i->id}}-invoiceLink'>
@@ -519,7 +507,7 @@
           </div>
         </div>
         <div class='card-bottom'>
-          
+
         </div>
 
       </div>
@@ -582,14 +570,14 @@
                         // $array = explode(' ', $i->productSales->name);
                         // $name = substr($array[0],0,1) . ' ' . $array[1];
                         // echo $name;
-                      ?>{{ $i->productSales->name}}
+                      ?>{{ $i->productSales['formattedName']['initials']}}
                     </td>
                     <td id='{{$i->id}}-all-insideSales'>
                       <?php
                         // $array = explode(' ', $i->insideSales->name);
                         // $name = substr($array[0],0,1) . ' ' . $array[1];
                         // echo $name;
-                      ?>{{ $i->insideSales->name}}
+                      ?>{{ $i->insideSales['formattedName']['initials']}}
                     </td>
                     <td id='{{$i->id}}-all-amount'>{{ $i['formattedAmount'] }}</td>
                     <td id='{{$i->id}}-all-apcOppId'>{{ $i->apc_opp_id }}</td>
@@ -601,9 +589,7 @@
                     <td id='{{$i->id}}-all-engineer'>{{ $i->engineer }}</td>
                     <td id='{{$i->id}}-all-contractor'>{{ $i->contractor }}</td>
                     <td>
-                      @if ($i->notes)
-                      <a class='table-note' href='/inside-sales/project/{{$i->id}}'>{{ str_limit($i->notes->last()->note,20) }}</a>
-                      @endif
+                      <a href='/inside-sales/project/{{$i->id}}'><i class="fas fa-search"></i></a>
                     </td>
                   </tr>
                   @endforeach
