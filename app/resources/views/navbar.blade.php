@@ -16,6 +16,7 @@
         <li><a href='/product-sales'>Dashboard</a></li>
         <!-- <li><a href=''>Sales</a></li> -->
         <li><a href=''>Stats</a></li>
+        <li><a href='/product-sales/project/'>Projects</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
 

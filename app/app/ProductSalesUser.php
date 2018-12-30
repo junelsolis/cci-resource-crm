@@ -15,6 +15,7 @@ class ProductSalesUser extends User
 
     use ChartData;
 
+    public $userDetails;
     public $projectsThisYear;
     public $upcomingProjects;
     public $ongoingProjects;
@@ -160,6 +161,22 @@ class ProductSalesUser extends User
 
 
       return $chartData;
+    }
+
+    public function userDetails() {
+      // if (empty($this->userDetails)) {
+      //   return $this->userDetails;
+      // }
+
+      $user = User::where('id', $this->id)->first();
+
+      $collect = collect();
+
+      $collect->put('name', $user->name);
+      $collect->put('role', 'Product Sales');
+
+      $this->userDetails = $collect;
+      return $collect;
     }
 
     public function getProjectsThisYearAttribute() {

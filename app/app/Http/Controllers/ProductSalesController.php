@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use App\ProductSalesUser;
+use App\Project;
 
 use App\Traits\ProjectData;
 use App\Traits\PeopleData;
@@ -60,6 +61,36 @@ class ProductSalesController extends Controller
         ->with('upcomingProjects', $upcomingProjects)
         ->with('otherProjects', $otherProjects)
         ->with('chartData', $chartData);
+    }
+
+    public function showProject(Request $request) {
+      if ($this->checkLoggedIn()) {}
+      else { return redirect('/'); }
+
+      // get user
+      $user = ProductSalesUser::where('id', session('logged_in_user_id'))->first();
+
+      $userDetails = $user->userDetails();
+
+
+      if (empty($request['id'])) {
+        $project = $user['projectsThisYear']->first();
+      } else {
+        $project = $user['projectsThisYear']->where('id',$request['id'])->first();
+      }
+
+
+      $insideSales = $this->getInsideSalesReps();
+      $projectStatusCodes = $this->getProjectStatusCodes();
+
+      return view('product-sales.projects')->with([
+        'userDetails' => $userDetails,
+        'project' => $project,
+        'projects' => $user['projectsThisYear'],
+        'projectStatusCodes' => $projectStatusCodes,
+        'insideSales' => $insideSales,
+      ]);
+
     }
 
     private function checkLoggedIn() {

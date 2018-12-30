@@ -34,6 +34,7 @@ Route::get('/inside-sales/project/{id?}','InsideSalesController@showProject');
 // product sales routes
 Route::get('/product-sales', 'ProductSalesController@showDashboard');
 Route::post('/product-sales/project/add', 'ProductSalesController@addProject');
+Route::get('/product-sales/project/{id?}', 'ProductSalesController@showProject');
 
 // executive routes
 Route::get('/executive', 'ExecController@showDashboard');
