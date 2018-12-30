@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use DB;
 use Carbon\Carbon;
 use App\ProjectNote;
@@ -81,10 +82,10 @@ class NoteController extends Controller
 
       if ($request['pk']) {
         // return response('Note added.',200);
-        return redirect(session('_previous')['url']);
+        return redirect()->back();
       }
 
-      return redirect(session('_previous')['url']);
+      return redirect()->back();
     }
 
 
