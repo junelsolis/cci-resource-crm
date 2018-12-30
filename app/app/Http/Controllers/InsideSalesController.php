@@ -127,7 +127,7 @@ class InsideSalesController extends Controller
     $project = Project::find($request['id']);
 
     if (empty($project)) {
-      $project = Project::first();
+      $project = Project::whereRaw('id = (select max(`id`) from projects)')->first();
     }
 
     $project->load(['notes.author:id,name','productSales:id,name','insideSales:id,name']);

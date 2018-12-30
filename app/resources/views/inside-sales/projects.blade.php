@@ -115,8 +115,8 @@
       </div>
 
       <div class='cell small-12'>
-        <div class='card-top' style='margin-top:50px;'>
-          <h5><strong>Other Projects</strong></h5>
+        <div class='card-top' style='margin-top:50px;background-color:white;'>
+          <h5 style='color:#303952;'><strong>Other Projects</strong></h5>
         </div>
         <div class='card-middle'>
           <div class='table-scroll'>

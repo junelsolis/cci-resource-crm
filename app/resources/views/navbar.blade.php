@@ -22,6 +22,7 @@
         @if (session('current_section') == 'inside-sales')
         <li><a href='/inside-sales'>Dashboard</a></li>
         <li><a href='/inside-sales/people/'>People</a></li>
+        <li><a href='/inside-sales/project/'>Projects</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
       </ul>

@@ -159,11 +159,11 @@
 
 
       <div class='cell small-12'>
-        <div class='card'>
+        <div class='card-top'>
+          <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;My Upcoming Projects</strong></h5>
+        </div>
+        <div class='card-middle'>
           <div class='grid-x align-middle'>
-            <div class='cell medium-6 large-6'>
-              <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;My Upcoming Projects</strong></h5>
-            </div>
             <div class='cell medium-6 large-6'>
               <!-- <ul class='menu align-right'>
                 <li><input type='text' class='search'  placeholder='Search Project' /></li>
@@ -467,14 +467,18 @@
               </script>
             </div>
         </div>
+        <div class='card-bottom'>
+
+        </div>
       </div>
 
 
       <!-- product sales persons section -->
       <div class='cell small-12'>
-        <div class='card'>
+        <div class='card-top'>
           <h5><strong><i class="fas fa-user-tie"></i>&nbsp;Product Sales</strong></h5>
-          <br />
+        </div>
+        <div class='card-middle'>
           <div class='table-scroll'>
             <table id='product-sales-table' class='unstriped'>
               <thead>
@@ -514,23 +518,19 @@
             </script>
           </div>
         </div>
-        <br />
+        <div class='card-bottom'>
+          
+        </div>
 
       </div>
 
 
       <!-- all projects section -->
       <div class='cell small-12'>
-        <div id='all-projects' class='card'>
-          <div class='grid-x align-middle'>
-            <div class='cell medium-6 large-2'>
-              <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;All Projects</strong></h5>
-            </div>
-            <div class='cell medium-6 large-10'>
-
-            </div>
-          </div>
-          <br />
+        <div class='card-top'>
+          <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;All Projects</strong></h5>
+        </div>
+        <div id='all-projects' class='card-middle'>
           <div class='table-scroll'>
             <table id='all-projects-table' class='unstriped'>
               <thead>
@@ -824,6 +824,9 @@
             </script>
           </div>
         </div>
+        <div class='card-bottom'>
+
+        </div>
       </div>
     </div>
 
@@ -837,7 +840,7 @@
       @include('upcoming-project-info')
     @endforeach
 
-  
+
 
     <!-- add project div -->
     <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
