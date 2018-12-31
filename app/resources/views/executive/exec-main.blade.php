@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Executive | CCI Tracker</title>
+    <title>Executive | CCI POST</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
@@ -24,25 +23,56 @@
   </head>
   @include('navbar')
   <body>
-    <div id='main' class='grid-x off-canvas-content' data-off-canvas-content>
+    <div id='main' class='grid-x off-canvas-content' data-equalizer data-off-canvas-content>
 
-      <!-- SALES SECTION -->
+      <!-- sales numbers -->
+      <div class='cell small-12'>
+          <div class='card'>
+            <div class='grid-x'>
+              <div class='cell medium-4' style='text-align:center;'>
+                <span style='color:rgba(255,99,132,1);font-size:20px;font-weight:bold;'>
+                  <?php
+                    echo '$' . number_format($chartData['sales']->sum());
+                  ?>
+                </span><br />
+                Sales Over Past 12 Months
+              </div>
+              <div class='cell medium-4' style='text-align:center;'>
+                <span style='color:#3e95cd;font-size:20px;font-weight:bold;'>
+                  <?php
+                    echo '$' . number_format($chartData['projectedSales']->sum());
+                   ?>
+                </span><br />
+                Projected Sales (Next 6 Months)
+              </div>
+              <div class='cell medium-4' style='text-align:center;'>
+                <span style='color:rgba(189, 195, 199,1.0);font-size:20px;font-weight:bold;'>
+                  <?php
+                    echo '$' . number_format($chartData['lostBids']->sum());
+                  ?>
+                </span><br />
+                Bids Lost (Last 12 Months)
+              </div>
+            </div>
+        </div>
 
+      </div>
 
-      <div id='sales' class='cell small-12'>
-        <div class='card'>
+      <!-- sales charts -->
+      <div id='sales' class='cell small-12 medium-6'>
+        <div class='card'  data-equalizer-watch>
           <h5><strong><i class="fas fa-dollar-sign"></i>&nbsp;Sales</strong></h5>
 
           <div class='grid-x'>
-            <div class='cell medium-4'>
+            <div class='cell medium-6'>
               <canvas id="sales-past-year"></canvas>
             </div>
-            <div class='cell medium-4'>
+            <div class='cell medium-6'>
               <canvas id="projected-sales"></canvas>
             </div>
-            <div class='cell medium-4'>
+            <!-- <div class='cell medium-4'>
               <canvas id='lost-bids'></canvas>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -100,79 +130,49 @@
 
 
 
-          var ctx = document.getElementById('lost-bids').getContext('2d');
-          var lostBids = new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: {!! $chartData['months'] !!},
-              datasets: [{
-                data: {!! $chartData['lostBids'] !!},
-                borderColor: "rgba(189, 195, 199,0.2)",
-                fill: true,
-                backgroundColor: "rgba(189, 195, 199,0.2)"
-              }]
-            },
-            options: {
-              maintainAspectRatio: false,
-              title: {
-                display: true,
-                text: 'Lost Bids (Last 12 months)'
-              },
-              legend: {
-                display: false,
-              }
-            }
-          });
+          // var ctx = document.getElementById('lost-bids').getContext('2d');
+          // var lostBids = new Chart(ctx, {
+          //   type: 'line',
+          //   data: {
+          //     labels: {!! $chartData['months'] !!},
+          //     datasets: [{
+          //       data: {!! $chartData['lostBids'] !!},
+          //       borderColor: "rgba(189, 195, 199,0.2)",
+          //       fill: true,
+          //       backgroundColor: "rgba(189, 195, 199,0.2)"
+          //     }]
+          //   },
+          //   options: {
+          //     maintainAspectRatio: false,
+          //     title: {
+          //       display: true,
+          //       text: 'Lost Bids (Last 12 months)'
+          //     },
+          //     legend: {
+          //       display: false,
+          //     }
+          //   }
+          // });
 
 
         </script>
       </div>
-      <div class='cell small-12'>
-          <div class='card'>
-            <div class='grid-x'>
-              <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:rgba(255,99,132,1);font-size:30px;font-weight:bold;'>
-                  <?php
-                    echo '$' . number_format($chartData['sales']->sum());
-                  ?>
-                </span><br />
-                Sales Over Past 12 Months
-              </div>
-              <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:#3e95cd;font-size:30px;font-weight:bold;'>
-                  <?php
-                    echo '$' . number_format($chartData['projectedSales']->sum());
-                   ?>
-                </span><br />
-                Projected Sales (Next 6 Months)
-              </div>
-              <div class='cell medium-4' style='text-align:center;'>
-                <span style='color:rgba(189, 195, 199,1.0);font-size:30px;font-weight:bold;'>
-                  <?php
-                    echo '$' . number_format($chartData['lostBids']->sum());
-                  ?>
-                </span><br />
-                Bids Lost (Last 12 Months)
-              </div>
-            </div>
-        </div>
 
-      </div>
 
-      <!-- PROJECTS SECTIONS -->
-      <div id='projects' class='cell small-12'>
-        <div class='card' style='padding-bottom: 50px;'>
+      <!-- projects charts -->
+      <div id='projects' class='cell small-12 medium-6'>
+        <div class='card' style='padding-bottom: 50px;' data-equalizer-watch>
           <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Projects</strong></h5>
           <div class='grid-x'>
-            <div class='cell medium-4'>
+            <div class='cell medium-6'>
               <canvas id="project-counts"></canvas>
             </div>
-            <div class='cell medium-4'>
+            <div class='cell medium-6'>
               <canvas id="project-status"></canvas>
             </div>
-            <div class='cell medium-4'>
+            <!-- <div class='cell medium-4'>
               <canvas id='top-projects'></canvas>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -276,67 +276,228 @@
           });
 
 
-          var ctx = document.getElementById("top-projects").getContext('2d');
-          var projectCounts = new Chart(ctx, {
-              type: 'horizontalBar',
-              data: {
-                  labels: {!! $chartData['topProjects']->take(6)->pluck('name') !!},
-                  datasets: [{
-                      data: {!! $chartData['topProjects']->take(6)->pluck('amount') !!},
-                      backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)',
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)'
-                      ],
-                      borderColor: [
-                          'rgba(255,99,132,1)',
-                          'rgba(54, 162, 235, 1)',
-                          'rgba(255, 206, 86, 1)',
-                          'rgba(75, 192, 192, 1)',
-                          'rgba(153, 102, 255, 1)',
-                          'rgba(255, 159, 64, 1)',
-                          'rgba(255,99,132,1)',
-                          'rgba(54, 162, 235, 1)',
-                          'rgba(255, 206, 86, 1)',
-                          'rgba(75, 192, 192, 1)',
-                          'rgba(153, 102, 255, 1)',
-                          'rgba(255, 159, 64, 1)'
-                      ],
-                      borderWidth: 1
-                  }]
-              },
-              options: {
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: 'Top Projects (Last 12 months)'
-                },
-                legend: {
-                  display: false,
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-              }
-          });
+          // var ctx = document.getElementById("top-projects").getContext('2d');
+          // var projectCounts = new Chart(ctx, {
+          //     type: 'horizontalBar',
+          //     data: {
+          //         labels: {!! $chartData['topProjects']->take(6)->pluck('name') !!},
+          //         datasets: [{
+          //             data: {!! $chartData['topProjects']->take(6)->pluck('amount') !!},
+          //             backgroundColor: [
+          //                 'rgba(255, 99, 132, 0.2)',
+          //                 'rgba(54, 162, 235, 0.2)',
+          //                 'rgba(255, 206, 86, 0.2)',
+          //                 'rgba(75, 192, 192, 0.2)',
+          //                 'rgba(153, 102, 255, 0.2)',
+          //                 'rgba(255, 159, 64, 0.2)',
+          //                 'rgba(255, 99, 132, 0.2)',
+          //                 'rgba(54, 162, 235, 0.2)',
+          //                 'rgba(255, 206, 86, 0.2)',
+          //                 'rgba(75, 192, 192, 0.2)',
+          //                 'rgba(153, 102, 255, 0.2)',
+          //                 'rgba(255, 159, 64, 0.2)'
+          //             ],
+          //             borderColor: [
+          //                 'rgba(255,99,132,1)',
+          //                 'rgba(54, 162, 235, 1)',
+          //                 'rgba(255, 206, 86, 1)',
+          //                 'rgba(75, 192, 192, 1)',
+          //                 'rgba(153, 102, 255, 1)',
+          //                 'rgba(255, 159, 64, 1)',
+          //                 'rgba(255,99,132,1)',
+          //                 'rgba(54, 162, 235, 1)',
+          //                 'rgba(255, 206, 86, 1)',
+          //                 'rgba(75, 192, 192, 1)',
+          //                 'rgba(153, 102, 255, 1)',
+          //                 'rgba(255, 159, 64, 1)'
+          //             ],
+          //             borderWidth: 1
+          //         }]
+          //     },
+          //     options: {
+          //       maintainAspectRatio: false,
+          //       title: {
+          //         display: true,
+          //         text: 'Top Projects (Last 12 months)'
+          //       },
+          //       legend: {
+          //         display: false,
+          //       },
+          //       scales: {
+          //           yAxes: [{
+          //               ticks: {
+          //                   beginAtZero:true
+          //               }
+          //           }]
+          //       }
+          //     }
+          // });
 
 
 
         </script>
       </div>
+
+      <!-- javascript for projects charts -->
+      <script>
+        var ctx = document.getElementById("project-counts").getContext('2d');
+        var projectCounts = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! $chartData['months'] !!},
+                datasets: [{
+                    data: {!! $chartData['projectCounts'] !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+              maintainAspectRatio: false,
+              title: {
+                display: true,
+                text: 'Project Counts (Last 12 months)'
+              },
+              legend: {
+                display: false,
+              },
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+            }
+        });
+
+
+
+        var ctx = document.getElementById("project-status").getContext('2d');
+        var projectStatus = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: {!! $chartData['projectStatus']->pluck('name') !!},
+                datasets: [{
+                    data: {!! $chartData['projectStatus']->pluck('count') !!},
+                    backgroundColor: [
+                        'rgba(243,156,18,0.6)',
+                        'rgba(41,128,185,0.6)',
+                        'rgba(39,174,96,0.6)',
+                        'rgba(142,68,173,0.6)',
+                        'rgba(44,62,80,0.6)',
+                    ],
+                    // borderColor: [
+                    //   'rgba(243,156,18,1)',
+                    //   'rgba(41,128,185,1)',
+                    //   'rgba(39,174,96,1)',
+                    //   'rgba(142,68,173,1)',
+                    //   'rgba(44,62,80,1)',
+                    // ],
+                    borderWidth: 1
+                }]
+
+            },
+            options: {
+              maintainAspectRatio: false,
+              title: {
+                display: true,
+                text: 'Project Status (Up to last 12 months)'
+              },
+              legend: {
+                display: true,
+                position: 'right',
+              },
+            }
+        });
+
+
+        // var ctx = document.getElementById("top-projects").getContext('2d');
+        // var projectCounts = new Chart(ctx, {
+        //     type: 'horizontalBar',
+        //     data: {
+        //         labels: {!! $chartData['topProjects']->take(6)->pluck('name') !!},
+        //         datasets: [{
+        //             data: {!! $chartData['topProjects']->take(6)->pluck('amount') !!},
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)',
+        //                 'rgba(75, 192, 192, 0.2)',
+        //                 'rgba(153, 102, 255, 0.2)',
+        //                 'rgba(255, 159, 64, 0.2)',
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)',
+        //                 'rgba(75, 192, 192, 0.2)',
+        //                 'rgba(153, 102, 255, 0.2)',
+        //                 'rgba(255, 159, 64, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255,99,132,1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)',
+        //                 'rgba(75, 192, 192, 1)',
+        //                 'rgba(153, 102, 255, 1)',
+        //                 'rgba(255, 159, 64, 1)',
+        //                 'rgba(255,99,132,1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)',
+        //                 'rgba(75, 192, 192, 1)',
+        //                 'rgba(153, 102, 255, 1)',
+        //                 'rgba(255, 159, 64, 1)'
+        //             ],
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //       maintainAspectRatio: false,
+        //       title: {
+        //         display: true,
+        //         text: 'Top Projects (Last 12 months)'
+        //       },
+        //       legend: {
+        //         display: false,
+        //       },
+        //       scales: {
+        //           yAxes: [{
+        //               ticks: {
+        //                   beginAtZero:true
+        //               }
+        //           }]
+        //       }
+        //     }
+        // });
+
+
+
+      </script>
 
       <!-- more project stats -->
       <div class='cell small-12'>
@@ -361,7 +522,6 @@
           </div>
         </div>
       </div>
-
 
       <!-- inside sales stats -->
       <div class='cell small-12'>
@@ -404,7 +564,10 @@
 
       <!-- table for projects -->
       <div class='cell small-12'>
-        <div class='card'>
+        <div class='card-top'>
+          <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Projects</strong></h5>
+        </div>
+        <div class='card-middle'>
           <div class='table-scoll'>
             <table id='projects-table' class='unstriped display'>
               <thead>
@@ -450,20 +613,8 @@
                   >{{ $i['formattedBidDate'] }}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
-                  <td id='{{$i->id}}-productSales'>
-                    <?php
-                      $array = explode(' ', $i->productSales->name);
-                      $name = substr($array[0],0,1) . ' ' . $array[1];
-                      echo $name;
-                    ?>
-                  </td>
-                  <td id='{{$i->id}}-insideSales'>
-                    <?php
-                      $array = explode(' ', $i->insideSales->name);
-                      $name = substr($array[0],0,1) . ' ' . $array[1];
-                      echo $name;
-                    ?>
-                  </td>
+                  <td id='{{$i->id}}-productSales'>{{ $i['productSales']['initials'] }}</td>
+                  <td id='{{$i->id}}-insideSales'>{{ $i['insideSales']['initials'] }}</td>
                   <td id='{{$i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                   <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td id='{{$i->id}}-invoiceLink'>
@@ -682,6 +833,9 @@
             </script>
           </div>
         </div>
+        <div class='card-bottom'>
+
+        </div>
       </div>
 
 
@@ -730,8 +884,8 @@
         </div>
 
       </div>
-    </div>
 
+    </div>
 
     <!-- OFF-CANVAS DIVS -->
     <!-- project notes -->
@@ -741,38 +895,38 @@
     @endforeach
 
     <!-- salesperson info -->
-      @foreach ($productSalesReps as $i)
-        <div class='off-canvas position-left person-info' id='{{$i->id}}-person-info' data-off-canvas data-auto-focus='false'>
-        <div class='user-icon'>
-          <i class="fas fa-user-circle"></i><br />
-          <h4>{{ $i->name }}</h4>
+    @foreach ($productSalesReps as $i)
+    <div class='off-canvas position-left person-info' id='{{$i->id}}-person-info' data-off-canvas data-auto-focus='false'>
+      <div class='user-icon'>
+        <i class="fas fa-user-circle"></i><br />
+        <h4>{{ $i->name }}</h4>
+      </div>
+      <br /><br />
+      <!-- sales stats -->
+      <div class='grid-x'>
+        <div class='cell small-12'>
+          <span class='title'>Sales History</span>
         </div>
-        <br /><br />
-        <!-- sales stats -->
-        <div class='grid-x'>
-          <div class='cell small-12'>
-            <span class='title'>Sales History</span>
-          </div>
-          <div class='cell small-6'>
-            <span class='stat-sales'>${{ number_format($i['chartData']['sales']->sum()) }}</span><br />
-            <span class='stat-title'>Sales (Last 12 mo)</span>
-          </div>
-          <div class='cell small-6'>
-            <span class='stat-projected'>${{ number_format($i['chartData']['projectedSales']->sum()) }}</span><br />
-            <span class='stat-title'>Projected Sales (6 mo)</span>
-          </div>
-          <div class='cell small-12'>
-            <canvas id="{{$i->id}}-sales-chart"></canvas>
-          </div>
-          <div class='cell small-12'>
-            <canvas id='{{$i->id}}-projected-sales-chart'></canvas>
-          </div>
-          <div class='cell small-12'>
-            <canvas id='{{$i->id}}-project-status'></canvas>
-          </div>
+        <div class='cell small-6'>
+          <span class='stat-sales'>${{ number_format($i['chartData']['sales']->sum()) }}</span><br />
+          <span class='stat-title'>Sales (Last 12 mo)</span>
+        </div>
+        <div class='cell small-6'>
+          <span class='stat-projected'>${{ number_format($i['chartData']['projectedSales']->sum()) }}</span><br />
+          <span class='stat-title'>Projected Sales (6 mo)</span>
+        </div>
+        <div class='cell small-12'>
+          <canvas id="{{$i->id}}-sales-chart"></canvas>
+        </div>
+        <div class='cell small-12'>
+          <canvas id='{{$i->id}}-projected-sales-chart'></canvas>
+        </div>
+        <div class='cell small-12'>
+          <canvas id='{{$i->id}}-project-status'></canvas>
         </div>
       </div>
-      @endforeach
+    </div>
+    @endforeach
 
     <!-- charts for each salesperson -->
     @foreach ($productSalesReps as $i)

@@ -32,8 +32,8 @@ class ExecController extends Controller
       $insideSalesReps = $this->getInsideSalesReps();
 
       $projectsThisYear = $this->projectsThisYear()->load([
-        'insideSales:id,name',
-        'productSales:id,name',
+        //'insideSales:id,name',
+        //'productSales:id,name',
         'notes.author:id,name',
         'notes.project:id,name',
         'status'

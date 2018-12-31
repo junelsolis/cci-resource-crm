@@ -42,7 +42,7 @@ class ProjectNote extends Model
       if ($user_id == $this->author->id) { return true; }
 
       //  if user is product sales of project, return true
-      if ($user_id == $this->project->productSales->id) {  return true; }
+      if ($user_id == $this->project['productSales']['id']) {  return true; }
 
       // if ($user_id == $inside_sales_id) { return true; }
 

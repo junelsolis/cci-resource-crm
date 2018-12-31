@@ -22,7 +22,7 @@ trait PeopleData {
 
     $users = InsideSalesUser::whereIn('id', $sales)
       ->orderBy('name')
-      // ->select('id','name')
+      ->select('id','name')
       ->get();
 
     return $users;
