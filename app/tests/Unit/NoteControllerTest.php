@@ -27,14 +27,28 @@ class NoteControllerTest extends TestCase
 
       $this->controller = new NoteController;
 
+      // insert project statuses
+      DB::table('project_status')->insert([
+        ['id' => 1, 'status' => 'New'],
+        ['id' => 2, 'status' => 'Quoted'],
+        ['id' => 3, 'status' => 'Sold'],
+        ['id' => 4, 'status' => 'Engineered'],
+        ['id' => 5, 'status' => 'Lost']
+      ]);
+
       // add user
       $this->user = factory('App\User')->create(['id' => 25]);
       DB::table('user_roles')->insert(['user_id' => 25, 'role' => 'inside-sales']);
 
       $this->session(['logged_in_user_id' => 25]);
 
+      $productSales = factory('App\User')->create(['id' => 30]);
+
       // add project
-      $this->project = factory('App\Project')->create(['inside_sales_id' => 25]);
+      $this->project = factory('App\Project')->create([
+        'inside_sales_id' => 25,
+        'product_sales_id' => 30,
+      ]);
     }
 
     /** @test */
@@ -46,6 +60,7 @@ class NoteControllerTest extends TestCase
       $response = $this->call('POST', 'NoteController@addNote',
         [
           'project_id' => $this->project->id,
+          'last_updated_by_id' => $this->user->id,
           'note' => 'This is a new note.',
         ]
       );
@@ -88,19 +103,21 @@ class NoteControllerTest extends TestCase
     /** @test */
     public function check_only_certain_users_can_add_note() {
 
-      $user = factory('App\User')->create(['id' => 5]);
-      DB::table('user_roles')->insert(['user_id' => $user->id, 'role' => 'product-sales']);
+      // $user = factory('App\User')->create(['id' => 5]);
+      // DB::table('user_roles')->insert(['user_id' => $user->id, 'role' => 'product-sales']);
 
-      $this->session(['logged_in_user_id' => $user->id]);
+      $this->session(['logged_in_user_id' => 10]);
 
+      //  product sales of project can add a note
+      factory('App\User')->create(['id' => 10]);
+      factory('App\User')->create(['id' => 20]);
+      
       $project = factory('App\Project')->create([
         // 'id' => 333,
         'product_sales_id' => 10,
         'inside_sales_id' => 20,
       ]);
 
-      //  product sales of project can add a note
-      factory('App\User')->create(['id' => 10]);
       DB::table('user_roles')->insert(['user_id' => 10, 'role' => 'product-sales']);
 
       $this->session(['logged_in_user_id' => 10]);
