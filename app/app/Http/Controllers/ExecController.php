@@ -72,7 +72,7 @@ class ExecController extends Controller
       else { return redirect('/'); }
 
       // set session key
-      session(['current_section' => 'inside-sales']);
+      session(['current_section' => 'executive']);
 
       // set user
       $user = ExecUser::find(session('logged_in_user_id'));

@@ -25,17 +25,26 @@
   <body>
 
     <div id='main' class='grid-x off-canvas-content' data-equalizer data-equalize-on="medium" data-off-canvas-content>
+
+      <!-- list of product sales reps -->
       <div class='cell medium-2'>
         <div class='card' style='padding:0;'>
           <ul class='vertical menu people-menu'>
             <li style='background-color:#303952;'><a style='color:white;'><strong>Product Sales</strong></a></li>
-            <li class='selected'><a>Test Selected</a></li>
             @foreach ($productSalesReps as $i)
-            <li><a href=''>{{ $i->name }}</a></li>
+            <li
+              <?php
+                if ($rep->id == $i->id) {
+                  echo ' class=\'selected\'';
+                }
+              ?>
+            ><a href='/executive/people/{{$i->id}}'>{{ $i->name }}</a></li>
             @endforeach
           </ul>
         </div>
       </div>
+
+      <!-- info for product sales rep -->
       <div class='cell medium-7'>
         <div class='card-top'>
           <h5><strong><i class="fas fa-user-tie"></i>&nbsp;{{ $rep->name }}</strong></h5>
@@ -101,12 +110,27 @@
 
         </div>
       </div>
+
+      <!-- stats for user -->
       <div class='cell medium-3'>
         <div class='card-top'>
           <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;User Stats</strong></h5>
         </div>
         <div class='card-middle'>
-
+          <div class='grid-x'>
+            <div class='cell small-12'>
+              <canvas id="sales-past-year"></canvas>
+            </div>
+            <div class='cell small-12'>
+              <canvas id="projected-sales"></canvas>
+            </div>
+            <div class='cell small-12'>
+              <canvas id="project-counts"></canvas>
+            </div>
+            <div class='cell small-12'>
+              <canvas id="project-status"></canvas>
+            </div>
+          </div>
         </div>
         <div class='card-bottom'>
 
@@ -131,6 +155,163 @@
 
     </script>
 
+
+    <!-- sales charts for user -->
+    <script>
+      var ctx = document.getElementById('sales-past-year').getContext('2d');
+      var salesPastYear = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {!! $rep['chartData']['months'] !!},
+          datasets: [{
+            data: {!! $rep['chartData']['sales'] !!},
+            borderColor: "rgba(255,99,132,1)",
+            fill: true,
+            backgroundColor: "rgba(255,99,132,0.2)"
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Sales (Last 12 months)'
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+
+
+
+      var ctx = document.getElementById('projected-sales').getContext('2d');
+      var projectedSales = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {!! $rep['chartData']['nextSixMonths'] !!},
+          datasets: [{
+            data: {!! $rep['chartData']['projectedSales'] !!},
+            borderColor: '#3e95cd',
+            fill: true,
+            backgroundColor: 'rgba(62,149,205,0.2)'
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Projected Sales (Next 6 Months)'
+          },
+          legend: {
+            display: false,
+          }
+        }
+      });
+
+
+    </script>
+
+    <!-- project charts for user -->
+    <script>
+      var ctx = document.getElementById("project-counts").getContext('2d');
+      var projectCounts = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: {!! $rep['chartData']['months'] !!},
+              datasets: [{
+                  data: {!! $rep['chartData']['projectCounts'] !!},
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)',
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)',
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: 'Project Counts (Last 12 months)'
+            },
+            legend: {
+              display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+          }
+      });
+
+
+
+      var ctx = document.getElementById("project-status").getContext('2d');
+      var projectStatus = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+              labels: {!! $rep['chartData']['projectStatus']->pluck('name') !!},
+              datasets: [{
+                  data: {!! $rep['chartData']['projectStatus']->pluck('count') !!},
+                  backgroundColor: [
+                      'rgba(243,156,18,0.6)',
+                      'rgba(41,128,185,0.6)',
+                      'rgba(39,174,96,0.6)',
+                      'rgba(142,68,173,0.6)',
+                      'rgba(44,62,80,0.6)',
+                  ],
+                  // borderColor: [
+                  //   'rgba(243,156,18,1)',
+                  //   'rgba(41,128,185,1)',
+                  //   'rgba(39,174,96,1)',
+                  //   'rgba(142,68,173,1)',
+                  //   'rgba(44,62,80,1)',
+                  // ],
+                  borderWidth: 1
+              }]
+
+          },
+          options: {
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: 'Project Status (Up to last 12 months)'
+            },
+            legend: {
+              display: true,
+              position: 'right',
+            },
+          }
+      });
+
+
+    </script>
 
   </body>
   @include('footer')
