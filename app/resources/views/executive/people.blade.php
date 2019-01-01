@@ -28,9 +28,11 @@
 
       <!-- list of product sales reps -->
       <div class='cell medium-2'>
-        <div class='card' style='padding:0;'>
+        <div class='info-card'>
+          <div class='title'>
+            <strong>Product Sales</strong>
+          </div>
           <ul class='vertical menu people-menu'>
-            <li style='background-color:#303952;'><a style='color:white;'><strong>Product Sales</strong></a></li>
             @foreach ($productSalesReps as $i)
             <li
               <?php
@@ -46,95 +48,94 @@
 
       <!-- info for product sales rep -->
       <div class='cell medium-7'>
-        <div class='card-top'>
-          <h5><strong><i class="fas fa-user-tie"></i>&nbsp;{{ $rep->name }}</strong></h5>
-        </div>
-        <div class='card-middle'>
-          <div class='table-scroll'>
-            <table id='user-projects-table' class='unstriped'>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th>Product</th>
-                  <th>Status</th>
-                  <th>Bid Date</th>
-                  <th>Inside Sales</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                @forelse ($rep['projectsThisYear'] as $i)
-                <tr>
-                  <td></td>
-                  <td>{{ $i->name }}</td>
-                  <td>{{ $i->product }}</td>
-                  <td
-                    <?php
-
-                      $status = $i['status']['status'];
-                      if ($status == 'New') { echo 'class=\'status-new\''; }
-                      if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
-                      if ($status == 'Sold') { echo 'class=\'status-sold\''; }
-                      if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
-                      if ($status == 'Lost') { echo 'class=\'status-lost\''; }
-                    ?>
-                  >{{ $status }}</td>
-                  <td
-                    <?php
-                      $bidTiming = $i['bidTiming'];
-                        if ($bidTiming== 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                        if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                    ?>
-                  >{{ $i['formattedBidDate'] }}</td>
-                  <td>{{ $i['insideSales']['formattedName']['initials'] }}</td>
-                  <td>{{ $i['formattedAmount'] }}</td>
-                </tr>
-                @empty
-                @endforelse
-              </tbody>
-            </table>
-
-            <!-- initialize data table -->
-            <script>
-              $.fn.dataTable.moment( 'MM/DD/YYYY' );
-
-              $('#user-projects-table').DataTable( {
-                "order": [[ 4, 'desc']],
-                'pageLength': 10,
-              });
-            </script>
+        <div class='info-card' data-equalizer-watch>
+          <div class='title-muted'>
+            <h5><strong><i class="fas fa-user-tie"></i>&nbsp;{{ $rep->name }}</strong></h5>
           </div>
-        </div>
-        <div class='card-bottom'>
+          <div class='content'>
+            <div class='table-scroll'>
+              <table id='user-projects-table' class='unstriped'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Product</th>
+                    <th>Status</th>
+                    <th>Bid Date</th>
+                    <th>Inside Sales</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse ($rep['projectsThisYear'] as $i)
+                  <tr>
+                    <td></td>
+                    <td>{{ $i->name }}</td>
+                    <td>{{ $i->product }}</td>
+                    <td
+                      <?php
 
+                        $status = $i['status']['status'];
+                        if ($status == 'New') { echo 'class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                      ?>
+                    >{{ $status }}</td>
+                    <td
+                      <?php
+                        $bidTiming = $i['bidTiming'];
+                          if ($bidTiming== 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                    >{{ $i['formattedBidDate'] }}</td>
+                    <td>{{ $i['insideSales']['formattedName']['initials'] }}</td>
+                    <td>{{ $i['formattedAmount'] }}</td>
+                  </tr>
+                  @empty
+                  @endforelse
+                </tbody>
+              </table>
+
+              <!-- initialize data table -->
+              <script>
+                $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+                $('#user-projects-table').DataTable( {
+                  "order": [[ 4, 'desc']],
+                  'pageLength': 10,
+                });
+              </script>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- stats for user -->
       <div class='cell medium-3'>
-        <div class='card-top'>
-          <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;User Stats</strong></h5>
-        </div>
-        <div class='card-middle'>
-          <div class='grid-x'>
-            <div class='cell small-12'>
-              <canvas id="sales-past-year"></canvas>
-            </div>
-            <div class='cell small-12'>
-              <canvas id="projected-sales"></canvas>
-            </div>
-            <div class='cell small-12'>
-              <canvas id="project-counts"></canvas>
-            </div>
-            <div class='cell small-12'>
-              <canvas id="project-status"></canvas>
+        <div class='info-card' data-equalizer-watch>
+          <div class='title-muted'>
+            <h5><strong><i class="fas fa-chart-bar"></i>&nbsp;User Stats</strong></h5>
+          </div>
+          <div class='content'>
+            <div class='grid-x'>
+              <div class='cell small-12'>
+                <canvas id="sales-past-year"></canvas>
+              </div>
+              <div class='cell small-12'>
+                <canvas id="projected-sales"></canvas>
+              </div>
+              <div class='cell small-12'>
+                <canvas id="project-counts"></canvas>
+              </div>
+              <div class='cell small-12'>
+                <canvas id="project-status"></canvas>
+              </div>
             </div>
           </div>
         </div>
-        <div class='card-bottom'>
 
-        </div>
       </div>
 
 

@@ -101,14 +101,19 @@ class InsideSalesController extends Controller
 
     // additional page info
     $productSales = $this->getProductSalesReps();
+    $sorted = $productSales->sortBy(function ($rep, $key) {
+      return $rep['formattedName']['lastname'];
+    });
+
     $insideSales = $this->getInsideSalesReps();
+
     $projectStatusCodes = $this->getProjectStatusCodes();
 
     return view('/inside-sales/people')
       ->with('userDetails', $userDetails)
       ->with('productSales', $productSales)
       ->with('person', $person)
-      ->with('productSales', $productSales)
+      ->with('productSales', $sorted)
       ->with('insideSales', $insideSales)
       ->with('projectStatusCodes', $projectStatusCodes);
   }

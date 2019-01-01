@@ -151,10 +151,11 @@
     <hr />
 
     <ul class='vertical menu'>
+      <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Post</strong></a></li>
       @if (session('current_section') == 'executive')
-      <!-- <li><a href='#sales'>Sales</a></li> -->
-      <!-- <li><a href='#projects'>Projects</a></li> -->
-      <!-- <li><a href='#people'>People</a></li> -->
+      <li><a href='/executive'>Dashboard</a></li>
+      <li><a href='/executive/people/'>People</a></li>
+      <li><a href='/executive/projects/'>Projects</a></li>
       <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
       @endif
 
@@ -162,12 +163,14 @@
       <li><a href='/product-sales'>Dashboard</a></li>
       <!-- <li><a href=''>Sales</a></li> -->
       <li><a href=''>Stats</a></li>
+      <li><a href='/product-sales/project/'>Projects</a></li>
       <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
       @endif
 
       @if (session('current_section') == 'inside-sales')
       <li><a href='/inside-sales'>Dashboard</a></li>
       <li><a href='/inside-sales/people/'>People</a></li>
+      <li><a href='/inside-sales/project/'>Projects</a></li>
       <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
       @endif
     </ul>
