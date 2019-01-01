@@ -4,21 +4,22 @@
     <meta charset="utf-8">
     <title>Administrator | Critical Components</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link rel=stylesheet href="{{ asset('css/foundation.min.css')}}" /> -->
+    <link href='{{ asset('css/bootstrap.css') }}'rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.css"/>
     <link rel=stylesheet href="{{ asset('css/app.css') }}" />
-
-    <!-- <link rel='stylesheet' href="{{ asset('css/navbar.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/default.css') }}" />
-    <link rel='stylesheet' href="{{ asset('css/admin/main.css') }}" /> -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('js/foundation.min.js')}}"></script>
     <script src="{{ asset('js/Chart.min.js')}}"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src='{{ asset('js/bootstrap.min.js')}}'></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js'></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/datatables.min.js"></script>
+    <script src='//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js'></script>
+
+
   </head>
   @include('navbar')
   <body>
@@ -39,11 +40,119 @@
       </div>
       @endif
 
-      <div class='cell small-12'>
-        <div class='card'>
-          <h5><strong><i class='fas fa-user'></i>&nbsp;Add User</strong></h5>
-          <div class='grid-x'>
-            <div class=''
+      <div class='cell medium-4'>
+        <div class='info-card'>
+          <div class='title'>
+            <h5><strong><i class="fas fa-user-plus"></i>&nbsp;Add User</strong></h5>
+          </div>
+          <div class='content'>
+            <form method='post' action='/user/add'>
+              {{ csrf_field() }}
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class='cell medium-8'>
+        <div class='info-card'>
+          <div class='title-muted'>
+            <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
+          </div>
+          <div class='content'>
+            <div class='table-scroll'>
+              <table id='users-table' class="unstriped">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Roles</th>
+                    <th>Password</th>
+                    <th>Last Login</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($users as $user)
+                  <tr>
+                    <td><a id='{{$user->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
+                    <td id='{{ $user->id}}-name'>{{ $user->name }}</td>
+                    <td id='{{ $user->id}}-username'>{{ $user->username }}</td>
+                    <td id='{{ $user->id}}-roles'>
+                      @foreach ($user['roles'] as $role)
+                      {{ $role }}<br />
+                      @endforeach
+                    </td>
+                    <td><a data-open='{{$user->id}}-password-modal'><i class="fas fa-sync-alt"></i>&nbsp;Reset Password</a></td>
+                    <td id='{{ $user->id}}->lastLogin'>{{ $user->lastLogin }}</a></td>
+                  </tr>
+
+                  <script>
+
+                  $.ajaxSetup({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+
+                  });
+
+                  $(document).ready(function() {
+                    $('#{{$user->id}}-name').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $user->id }},
+                        url: '/user/edit/name',
+                        title: 'Enter Name',
+                        disabled: true,
+                        name: 'name',
+                      }
+                    );
+
+                    $('#{{$user->id}}-username').editable(
+                      {
+                        type: 'text',
+                        pk: {{ $user->id }},
+                        url: '/user/edit/username',
+                        title: 'Enter Name',
+                        disabled: true,
+                        name: 'username',
+                      }
+                    );
+
+                    $('#{{$user->id}}-roles').editable(
+                      {
+                        type: 'checklist',
+                        pk: {{ $user->id }},
+                        url: '/user/edit/roles',
+                        title: 'Select Roles',
+                        disabled: true,
+                        name: 'roles',
+                        source: [
+                          { value: 'product-sales', text: 'Product Sales' },
+                          { value: 'inside-sales', text: 'Inside Sales' },
+                          { value: 'executive', text: 'Executive' },
+                          { value: 'administrator', text: 'Administrator' },
+                        ]
+                      }
+                    );
+                  });
+
+                  // enable editing of row on click of toggle link
+                  $('#{{$user->id}}-toggle').click(function(e) {
+                    e.stopPropagation();
+                    $('#{{$user->id}}-name').editable('toggleDisabled');
+                    $('#{{$user->id}}-username').editable('toggleDisabled');
+                    $('#{{$user->id}}-roles').editable('toggleDisabled');
+
+                    $('#{{$user->id}}-name').toggleClass('edit-enabled');
+                    $('#{{$user->id}}-username').toggleClass('edit-enabled');
+                    $('#{{$user->id}}-roles').toggleClass('edit-enabled');
+
+                  });
+                  </script>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -112,100 +221,7 @@
               <br />
               <input type='text' placeholder='Find user' />
 
-              <div class='table-scroll'>
-                <table class="unstriped">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Name</th>
-                      <th>Username</th>
-                      <th>Roles</th>
-                      <th>Password</th>
-                      <th>Last Login</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach ($userDirectory as $user)
-                    <tr>
-                      <td><a id='{{$user->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
-                      <td id='{{ $user->id}}-name'>{{ $user->name }}</td>
-                      <td id='{{ $user->id}}-username'>{{ $user->username }}</td>
-                      <td id='{{ $user->id}}-roles'>
-                        @foreach ($user->roles as $role)
-                        {{ $role->role }}<br />
-                        @endforeach
-                      </td>
-                      <td><a data-open='{{$user->id}}-password-modal'><i class="fas fa-sync-alt"></i>&nbsp;Reset Password</a></td>
-                      <td id='{{ $user->id}}->lastLogin'>{{ $user->lastLogin }}</a></td>
-                    </tr>
 
-                    <script>
-
-                    $.ajaxSetup({
-                      headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      }
-
-                    });
-
-                    $(document).ready(function() {
-                      $('#{{$user->id}}-name').editable(
-                        {
-                          type: 'text',
-                          pk: {{ $user->id }},
-                          url: '/user/edit/name',
-                          title: 'Enter Name',
-                          disabled: true,
-                          name: 'name',
-                        }
-                      );
-
-                      $('#{{$user->id}}-username').editable(
-                        {
-                          type: 'text',
-                          pk: {{ $user->id }},
-                          url: '/user/edit/username',
-                          title: 'Enter Name',
-                          disabled: true,
-                          name: 'username',
-                        }
-                      );
-
-                      $('#{{$user->id}}-roles').editable(
-                        {
-                          type: 'checklist',
-                          pk: {{ $user->id }},
-                          url: '/user/edit/roles',
-                          title: 'Select Roles',
-                          disabled: true,
-                          name: 'roles',
-                          source: [
-                            { value: 'product-sales', text: 'Product Sales' },
-                            { value: 'inside-sales', text: 'Inside Sales' },
-                            { value: 'executive', text: 'Executive' },
-                            { value: 'administrator', text: 'Administrator' },
-                          ]
-                        }
-                      );
-                    });
-
-                    // enable editing of row on click of toggle link
-                    $('#{{$user->id}}-toggle').click(function(e) {
-                      e.stopPropagation();
-                      $('#{{$user->id}}-name').editable('toggleDisabled');
-                      $('#{{$user->id}}-username').editable('toggleDisabled');
-                      $('#{{$user->id}}-roles').editable('toggleDisabled');
-
-                      $('#{{$user->id}}-name').toggleClass('edit-enabled');
-                      $('#{{$user->id}}-username').toggleClass('edit-enabled');
-                      $('#{{$user->id}}-roles').toggleClass('edit-enabled');
-
-                    });
-                    </script>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
             </div>
 
 
@@ -214,7 +230,7 @@
 
 
         <!-- Modals -->
-        @foreach ($userDirectory as $user)
+        @foreach ($users as $user)
         <div class='reveal' id='{{$user->id}}-password-modal' style='text-align: center;' data-reveal>
           <h5 style="color:#707070;">Confirm password change for</h5>
           <h3 style='font-weight:bolder;'>{{ $user->name}}</h3>
@@ -235,5 +251,11 @@
   @include('footer')
   <script>
     $(document).foundation();
+
+    $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+    $('#users-table').DataTable( {
+      'pageLength': 10,
+    });
   </script>
 </html>

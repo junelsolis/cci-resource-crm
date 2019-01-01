@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
+use App\ExecUser;
+use App\User;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -14,17 +16,21 @@ class AdminController extends Controller
       else { return redirect('/'); }
 
 
-      $userDetails = $this->getLoggedInUserDetails();
-      $userDirectory = $this->getUserDirectory();
-      $stats = $this->getStats();
+      // get current user
+      $user = ExecUser::where('id', session('logged_in_user_id'))->first();
+
+
+      // get all users except the current one
+      $users = User::where('id','!=', session('logged_in_user_id'))->get();
+
 
       // set session key
       session(['current_section' => 'admin']);
 
-      return view('administrator/main')
-        ->with('userDetails', $userDetails)
-        ->with('userDirectory', $userDirectory)
-        ->with('stats', $stats);
+
+      return view('administrator.main')
+        ->with('userDetails', $user['userDetails'])
+        ->with('users', $users);
     }
 
 
