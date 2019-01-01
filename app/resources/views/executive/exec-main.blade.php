@@ -526,7 +526,7 @@
       <!-- inside sales stats -->
       <div class='cell small-12'>
         <div class='card'>
-          <h5><strong>Inside Sales</strong>&nbsp;<em>Ongoing Projects</em></h5>
+          <h5><strong>Inside Sales Ongoing Projects</strong></h5>
           <div class='grid-x'>
 
             <?php
@@ -585,7 +585,7 @@
                   <th>Quote Link</th>
                   <th>Engineer</th>
                   <th>Contractor</th>
-                  <th>Note</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -613,8 +613,8 @@
                   >{{ $i['formattedBidDate'] }}</td>
                   <td id='{{$i->id}}-manufacturer'>{{ $i->manufacturer }}</td>
                   <td id='{{$i->id}}-product'>{{ $i->product }}</td>
-                  <td id='{{$i->id}}-productSales'>{{ $i['productSales']['initials'] }}</td>
-                  <td id='{{$i->id}}-insideSales'>{{ $i['insideSales']['initials'] }}</td>
+                  <td id='{{$i->id}}-productSales'>{{ $i['productSales']['formattedName']['initials'] }}</td>
+                  <td id='{{$i->id}}-insideSales'>{{ $i['insideSales']['formattedName']['initials'] }}</td>
                   <td id='{{$i->id}}-amount'>{{ $i['formattedAmount'] }}</td>
                   <td id='{{$i->id}}-apcOppId'>{{ $i->apc_opp_id }}</td>
                   <td id='{{$i->id}}-invoiceLink'>
@@ -625,7 +625,7 @@
                   <td id='{{$i->id}}-engineer'>{{ $i->engineer}}</td>
                   <td id='{{$i->id}}-contractor'>{{ $i->contractor }}</td>
                   <td>
-                    <a class='table-note' data-toggle="{{$i->id}}-all-projects-info">{{ str_limit($i->notes->last()->note,20) }}</a>
+                    <a href='/executive/projects/{{$i->id}}'><i class="fas fa-search"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -890,9 +890,99 @@
     <!-- OFF-CANVAS DIVS -->
     <!-- project notes -->
     <!-- divs for off-canvas project information -->
-    @foreach ($projects as $i)
-      @include('project-info')
-    @endforeach
+
+
+    <!-- add project -->
+    <!-- add project div -->
+    <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
+      <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
+      <br />
+      <form method='post' action='/project/add'>
+        {{ csrf_field() }}
+        <fieldset class='fieldset'>
+          <legend>
+            Project Details
+          </legend>
+
+          <label>Project Name<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='name' required />
+
+          <label>Product<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='text' name='product' required />
+
+          <label>Manufacturer</label>
+          <input type='text' name='manufacturer' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Bid Information
+          </legend>
+
+          <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='date' name='bid_date' required />
+
+          <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='status_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($projectStatusCodes as $code)
+            <option value='{{ $code->id }}'>{{ $code->status }}</option>
+            @endforeach
+          </select>
+
+          <label>Amount<span><i class="fas fa-star-of-life"></i></span></label>
+          <input type='number' name='amount' required placeholder='$' />
+
+          <label>Product Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='product_sales_id' required>
+            <option value='' selected disabled hidden>Select One</option>
+            @foreach ($productSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+
+          <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
+          <select name='inside_sales_id' required>
+            <option value="" selected disabled hidden>Select One</option>
+            @foreach ($insideSales as $item)
+            <option value='{{ $item->id }}'>{{ $item->name }}</option>
+            @endforeach
+          </select>
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            External Information
+          </legend>
+            <label>APC OPP ID</label>
+            <input type='text' name='apc_opp_id' />
+
+            <label>Quote Link</label>
+            <input type='text' name='invoice_link' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Additional Information
+          </legend>
+            <label>Engineer</label>
+            <input type='text' name='engineer' />
+
+            <label>Contractor</label>
+            <input type='text' name='contractor' />
+        </fieldset>
+
+        <fieldset class='fieldset'>
+          <legend>
+            Note
+          </legend>
+          <textarea name='note' width='100%' placeholder='Optional note...'></textarea>
+        </fieldset>
+
+        <button type='submit' class='primary button align-right'><i class="fas fa-check"></i>&nbsp;Save</button>
+      </form>
+    </div>
+
 
     <!-- salesperson info -->
     @foreach ($productSalesReps as $i)

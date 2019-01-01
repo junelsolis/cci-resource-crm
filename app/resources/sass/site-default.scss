@@ -300,7 +300,9 @@ select {
   margin-bottom: 0;
 
   h5 {
+    padding: 0;
     color: white;
+    font-size: 14px;
   }
 }
 .card-middle {
@@ -317,10 +319,19 @@ select {
 
   margin-top: 0px;
   margin-bottom: 0px;
+  //padding: 0;
 
+  table {
+    margin: 0;
+    padding: 0;
+  }
   li {
     color: #707070;
     list-style: square;
+  }
+
+  h5 {
+    color: #707070;
   }
 
 }
@@ -343,7 +354,7 @@ select {
   table {
     margin-top: 0;
     margin-bottom: 50px;
-    background-color: #dfe4ea;
+    background-color: white	;
     border-bottom-style: none;
     border-bottom-width: 0;
 
@@ -359,7 +370,7 @@ select {
     tr {
 
       td {
-        background-color: #dfe4ea;
+        background-color: #F8F8F8	;
         color: #707070;
 
         em {
@@ -382,5 +393,41 @@ select {
     }
 
 
+  }
+}
+
+// people menu card
+.people-menu {
+  padding: 0;
+  margin: 0;
+
+  a {
+    color: #707070;
+  }
+
+  li {
+    border-bottom: #f8f8f8 solid 1px;
+  }
+
+  .selected {
+    background-color: #7E869A;
+    a {
+      color: white;
+    }
+  }
+
+  .selected:hover {
+    background-color: #f8f8f8;
+    a {
+      color: #303952;
+    }
+  }
+
+  li:hover {
+    background-color: #f8f8f8;
+  }
+
+  li:last-child {
+    border-width: 0;
   }
 }

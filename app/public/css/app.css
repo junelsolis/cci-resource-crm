@@ -8089,7 +8089,9 @@ select {
 }
 
 .card-top h5 {
+  padding: 0;
   color: white;
+  font-size: 14px;
 }
 
 .card-middle {
@@ -8104,9 +8106,18 @@ select {
   margin-bottom: 0px;
 }
 
+.card-middle table {
+  margin: 0;
+  padding: 0;
+}
+
 .card-middle li {
   color: #707070;
   list-style: square;
+}
+
+.card-middle h5 {
+  color: #707070;
 }
 
 .card-bottom {
@@ -8119,7 +8130,7 @@ select {
 .card-bottom table {
   margin-top: 0;
   margin-bottom: 50px;
-  background-color: #dfe4ea;
+  background-color: white;
   border-bottom-style: none;
   border-bottom-width: 0;
   margin-left: 0;
@@ -8141,7 +8152,7 @@ select {
 }
 
 .card-bottom table tr td {
-  background-color: #dfe4ea;
+  background-color: #F8F8F8;
   color: #707070;
 }
 
@@ -8152,6 +8163,43 @@ select {
 .card-bottom table tr:last-child td {
   border-bottom-style: none;
   border-bottom-width: 0;
+}
+
+.people-menu {
+  padding: 0;
+  margin: 0;
+}
+
+.people-menu a {
+  color: #707070;
+}
+
+.people-menu li {
+  border-bottom: #f8f8f8 solid 1px;
+}
+
+.people-menu .selected {
+  background-color: #7E869A;
+}
+
+.people-menu .selected a {
+  color: white;
+}
+
+.people-menu .selected:hover {
+  background-color: #f8f8f8;
+}
+
+.people-menu .selected:hover a {
+  color: #303952;
+}
+
+.people-menu li:hover {
+  background-color: #f8f8f8;
+}
+
+.people-menu li:last-child {
+  border-width: 0;
 }
 
 #navbar {

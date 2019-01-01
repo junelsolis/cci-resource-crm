@@ -19,5 +19,10 @@ class ExecUser extends User
       return $collect;
     }
 
+    public function getUserDetailsAttribute() {
+      return $this->details();
+    }
+
+    protected $appends = ['userDetails'];
     protected $table = 'users';
 }

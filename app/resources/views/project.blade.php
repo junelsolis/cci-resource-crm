@@ -53,7 +53,7 @@
           @forelse ($project->notes->reverse() as $i)
           <tr>
             <td>
-              <em>{!! nl2br($i->note) !!}</em><br />&mdash; <strong>{{ $i->author->name}}</strong> on {{ $i['formattedDate'] }}<br /><br />
+              <em id='note-{{$i->id}}'>{!! nl2br($i->note) !!}</em><br />&mdash; <strong>{{ $i->author->name}}</strong> on {{ $i['formattedDate'] }}<br /><br />
 
               @if ($i['isEditor'] == true && $i->editable == true)
               <a id='{{$i->id}}-toggle' class='button tiny'><i class="fas fa-pen"></i>&nbsp;Edit</a>

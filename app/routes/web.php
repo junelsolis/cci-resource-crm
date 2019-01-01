@@ -38,6 +38,8 @@ Route::get('/product-sales/project/{id?}', 'ProductSalesController@showProject')
 
 // executive routes
 Route::get('/executive', 'ExecController@showDashboard');
+Route::get('/executive/people/{id?}', 'ExecController@showPeople');
+Route::get('/executive/projects/{id?}', 'ExecController@showProject');
 
 // project routes
 Route::post('/project/add', 'ProjectController@addProject');

@@ -6,9 +6,9 @@
       <ul id='logo' class='menu'>
         <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Post</strong></a></li>
         @if (session('current_section') == 'executive')
-        <!-- <li><a href='#sales'>Sales</a></li> -->
-        <!-- <li><a href='#projects'>Projects</a></li> -->
-        <!-- <li><a href='#people'>People</a></li> -->
+        <li><a href='/executive'>Dashboard</a></li>
+        <li><a href='/executive/people/'>People</a></li>
+        <li><a href='/executive/projects/'>Projects</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
 
