@@ -112,8 +112,8 @@ class InsideSalesController extends Controller
     return view('/inside-sales/people')
       ->with('userDetails', $userDetails)
       ->with('productSales', $productSales)
-      ->with('person', $person)
-      ->with('productSales', $sorted)
+      ->with('rep', $person)
+      ->with('productSalesReps', $sorted)
       ->with('insideSales', $insideSales)
       ->with('projectStatusCodes', $projectStatusCodes);
   }
