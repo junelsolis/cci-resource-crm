@@ -11,7 +11,7 @@
   </head>
   <body class='set-password'>
     <div class='form-box'>
-      <img src='{{ asset('images/logo.png') }}' />
+      <img src='{{ asset('images/logo.png') }}' style='max-width: 140px;' />
       <br /><br />
       <div id='welcome'>
         Welcome, <strong>{{ $name }}</strong><br />
@@ -48,12 +48,14 @@
         @endif
       </form>
       <br /><br />
-      <div style='text-align:left;padding-left:40px;'>
+      <div style='text-align:left;padding-left:10px;color:#707070'>
         <strong>Password Policy</strong><br />
-        &dash; Minimum 10 characters<br />
-        &dash; Uppercase AND lowercase required<br />
-        &dash; Must contain at least 1 number<br />
-        &dash; Must contain at least 1 symbol
+        <ul style='list-style:square;color:#707070;font-size:12px;'>
+          <li>Minimum 10 characters</li>
+          <li>Uppercase AND lowercase required</li>
+          <li>Must contain at least 1 number</li>
+          <li>Must contain at least 1 symbol</li>
+        </ul>
       </div>
     </div>
   </body>

@@ -8350,7 +8350,14 @@ select {
 
 .login {
   height: 100vh;
-  background-color: #f1f2f6;
+  background: #c5deea;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #c5deea 0%, #8abbd7 31%, #066dab 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#c5deea", endColorstr="#066dab",GradientType=0 );
+  /* IE6-9 */
 }
 
 .login .login-box {
@@ -8382,6 +8389,54 @@ select {
   background-color: #063564;
 }
 
+@media screen and (max-width: 39.9375em) {
+  .login {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .set-password {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+.set-password {
+  height: 100vh;
+  background: #c5deea;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #c5deea 0%, #8abbd7 31%, #066dab 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#c5deea", endColorstr="#066dab",GradientType=0 );
+  /* IE6-9 */
+}
+
+.set-password .form-box {
+  background-color: white;
+  max-width: 400px;
+  min-height: 400px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0px 1px 6px 3px rgba(0, 0, 0, 0.2);
+}
+
+.set-password .form-box form {
+  max-width: 350px;
+  margin: auto;
+}
+
+.set-password .form-box form button {
+  background-color: #063564;
+}
+
 .footer {
   min-height: 150px;
   background-color: #222f3e;
@@ -8398,31 +8453,6 @@ select {
 
 .footer h5 {
   color: white;
-}
-
-.set-password {
-  height: 100vh;
-  background-color: #2c3e50;
-}
-
-.set-password .form-box {
-  background-color: white;
-  max-width: 400px;
-  min-height: 400px;
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  margin: auto;
-  text-align: center;
-  padding: 20px;
-  border-radius: 6px;
-  box-shadow: 0px 2px 2px 3px rgba(0, 0, 0, 0.4);
-}
-
-.set-password .form-box form {
-  max-width: 350px;
-  margin: auto;
 }
 
 .people-menu {
