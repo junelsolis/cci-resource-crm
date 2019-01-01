@@ -5122,6 +5122,8 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
 }
 
 .card,
+.info-card,
+.card-tab,
 .card-bottom,
 .card-middle,
 .card-top {
@@ -5138,6 +5140,8 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
 }
 
 .card > :last-child,
+.info-card > :last-child,
+.card-tab > :last-child,
 .card-bottom > :last-child,
 .card-middle > :last-child,
 .card-top > :last-child {
@@ -7850,6 +7854,8 @@ select {
 /* display cards */
 
 .card,
+.info-card,
+.card-tab,
 .card-bottom,
 .card-middle,
 .card-top {
@@ -8200,6 +8206,55 @@ select {
 
 .people-menu li:last-child {
   border-width: 0;
+}
+
+.card-tab {
+  padding: 5px;
+  border-left: #303952 solid 3px;
+}
+
+.card-tab .content {
+  background-color: white;
+  padding-left: 10px;
+}
+
+.info-card {
+  padding: 0;
+}
+
+.info-card h5 {
+  font-size: 14px;
+}
+
+.info-card .title {
+  background-color: #303952;
+  color: white;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.info-card .title h5 {
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.info-card .title-muted {
+  background-color: #f0f0f0;
+  color: #303952;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.info-card .title-muted h5 {
+  margin: 0;
+  padding: 0;
+}
+
+.info-card .content {
+  padding: 10px;
 }
 
 #navbar {
