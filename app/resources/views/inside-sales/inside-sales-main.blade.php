@@ -802,8 +802,6 @@
             </div>
           </div>
         </div>
-        <div class='card-top'>
-        </div>
       </div>
     </div>
 
