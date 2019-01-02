@@ -50,8 +50,6 @@ class ProjectController extends Controller
         }
       }
 
-      return $invoice_link;
-
 
       $project = Project::create([
         'name' => $name,
