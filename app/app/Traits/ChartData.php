@@ -318,9 +318,9 @@ trait ChartData {
       $monthLoop = new Carbon('first day of this month');
       $monthLoop->setTimezone('America/New_York');
 
-      while ($index <= 6) {
+      while ($index <= 5) {
 
-        if ($index == 0) { $index++; continue;}
+        //if ($index == 0) { $index++; continue;}
 
         $date = new Carbon($monthLoop);
         $date->setTimezone('America/New_York');
