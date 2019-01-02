@@ -504,6 +504,24 @@
                       }
                     );
 
+                    $('#{{$i->id}}-productSales').editable(
+                      {
+                        container: 'body',
+                        type: 'select',
+                        pk: {{ $i->id }},
+                        url: '/project/edit/product-sales',
+                        title: 'Select Product Sales Rep',
+                        value: {{ $i->product_sales_id }},
+                        disabled: true,
+                        name: 'productSales',
+                        source: [
+                          @foreach ($productSales as $item)
+                          { value: {{ $item->id }}, text: '{{ $item->name }}'},
+                          @endforeach
+                        ]
+                      }
+                    );
+
                     $('#{{$i->id}}-insideSales').editable(
                       {
                         container: 'body',
@@ -592,6 +610,7 @@
                     $('#{{$i->id}}-bidDate').editable('toggleDisabled');
                     $('#{{$i->id}}-manufacturer').editable('toggleDisabled');
                     $('#{{$i->id}}-product').editable('toggleDisabled');
+                    $('#{{$i->id}}-productSales').editable('toggleDisabled');
                     $('#{{$i->id}}-insideSales').editable('toggleDisabled');
                     $('#{{$i->id}}-amount').editable('toggleDisabled');
                     $('#{{$i->id}}-apcOppId').editable('toggleDisabled');
