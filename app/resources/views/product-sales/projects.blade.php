@@ -308,6 +308,87 @@
         </div>
       </div>
 
+      <!-- Other Projects -->
+      <div class='cell small-12'>
+        <div class='info-card'>
+          <div class='title-muted'>
+            <h5><strong>Other Projects</strong></h5>
+          </div>
+          <div class='content'>
+            <div class='table-scroll'>
+              <table id='other-projects-table' class='unstriped'>
+                <thead>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Bid Date</th>
+                  <th>Manufacturer</th>
+                  <th>Product</th>
+                  <th>Product Sales</th>
+                  <th>Inside Sales</th>
+                  <th>Amount</th>
+                  <th>APC OPP ID</th>
+                  <th>Quote</th>
+                  <th>Engineer</th>
+                  <th>Contractor</th>
+                  <th>Note</th>
+                </thead>
+                <tbody>
+                  @foreach ($otherProjects as $i)
+                  <tr>
+                    <td>{{ $i->name }}</td>
+                    <td
+                      <?php
+
+                        $status = $i['status']['status'];
+
+                        if ($status == 'New') { echo 'class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                      ?>
+                    >{{ $status}}</td>
+                    <td
+                      <?php
+                          if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                    >{{ $i['formattedBidDate'] }}</td>
+                    <td>{{ $i->manufacturer}}</td>
+                    <td>{{ $i->product}}</td>
+                    <td>{{ $i['productSales']['formattedName']['initials'] }}</td>
+                    <td>{{ $i['insideSales']['formattedName']['initials'] }}</td>
+                    <td>{{ $i['formattedAmount'] }}</td>
+                    <td>{{ $i->apc_opp_id }}</td>
+                    <td>
+                      @if (isset($i->invoice_link))
+                      <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></a>
+                      @endif
+                    </td>
+                    <td>{{ $i->engineer }}</td>
+                    <td>{{ $i->contractor }}</td>
+                    <td>
+                      <a href='/product-sales/project/{{$i->id}}'><i class="fas fa-search"></i></a>
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+
+              <!-- init datatable -->
+              <script>
+                $.fn.dataTable.moment( 'MM/DD/YYYY' );
+
+                $('#other-projects-table').DataTable( {
+                  "order": [[ 2, 'desc']],
+                  'pageLength': 10,
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- add project div -->
@@ -349,7 +430,7 @@
 
           <label>Amount<span><i class="fas fa-star-of-life"></i></span></label>
           <input type='number' name='amount' required placeholder='$' />
-  
+
 
           <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
           <select name='inside_sales_id' required>

@@ -35,24 +35,17 @@ class ProjectNote extends Model
 
 
       $user_id = session('logged_in_user_id');
-      // $product_sales_id = $this->project->product_sales_id;
-      // $inside_sales_id = $this->project->inside_sales_id;
 
       // if user is author of note, allow
       if ($user_id == $this->author->id) { return true; }
 
-      //  if user is product sales of project, return true
+      //  if user is product sales of project, allow
       if ($user_id == $this->project['productSales']['id']) {  return true; }
 
-      // if ($user_id == $inside_sales_id) { return true; }
-
-      // $user = User::find($user_id);
-
-      // if user is inside sales, return true
+      // if user is inside sales, allow
       if (session('logged_in_user_roles')->contains('inside-sales')) {  return true; }
 
-      // if user is exec, return true
-      // $user = User::find($user_id);
+      // if user is exec, allow
       if (session('logged_in_user_roles')->contains('executive')) { return true; }
 
 

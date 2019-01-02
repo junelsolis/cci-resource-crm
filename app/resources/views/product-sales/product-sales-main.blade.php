@@ -635,34 +635,49 @@
               <table id='other-projects-table' class='unstriped'>
                 <thead>
                   <tr>
-                    <th>Sales Rep</th>
                     <th>Name</th>
                     <th>Status</th>
                     <th>Bid Date</th>
                     <th>Manufacturer</th>
                     <th>Product</th>
+                    <th>Product Sales</th>
                     <th>Inside Sales</th>
                     <th>Amount</th>
                     <th>APC OPP ID</th>
                     <th>Engineer</th>
                     <th>Contractor</th>
+                    <th>Note</th>
                   </tr>
                 </thead>
                 <tbody>
                   @if ($otherProjects->count() > 0)
                   @foreach ($otherProjects as $i)
                   <tr>
-                    <td>{{ $i->productSales->name }}</td>
                     <td>{{ $i->name }}</td>
-                    <td>{{ $i['status']['status'] }}</td>
+                    <td
+                      <?php
+
+                        $status = $i['status']['status'];
+
+                        if ($status == 'New') { echo 'class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                      ?>
+                    >{{ $status}}</td>
                     <td>{{ $i['formattedBidDate'] }}</td>
                     <td>{{ $i->manufacturer}}</td>
                     <td>{{ $i->product }}</td>
-                    <td>{{ $i->insideSales['formattedName']['initials']}}</td>
+                    <td>{{ $i['productSales']['formattedName']['initials']}}</td>
+                    <td>{{ $i['insideSales']['formattedName']['initials']}}</td>
                     <td>{{ $i['formattedAmount'] }}</td>
                     <td>{{ $i->apc_opp_id }}</td>
                     <td>{{ $i->engineer}}</td>
                     <td>{{ $i->contractor}}</td>
+                    <td>
+                      <a href='/product-sales/project/{{$i->id}}'><i class="fas fa-search"></i></a>
+                    </td>
                   </tr>
                   @endforeach
                   @endif
@@ -672,7 +687,7 @@
               <!-- initialize data table -->
               <script>
                 $('#other-projects-table').DataTable( {
-                  "order": [[ 3, 'desc']],
+                  "order": [[ 2, 'desc']],
                   'pageLength': 5,
                 });
               </script>

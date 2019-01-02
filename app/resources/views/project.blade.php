@@ -13,12 +13,12 @@
             <li><strong>Bid Date:</strong> {{ $project['formattedBidDate'] }}</li>
             <li><strong>Manufacturer:</strong> {{ $project->manufacturer }}</li>
             <li><strong>Product:</strong> {{ $project->product }}</li>
-            <li><strong>Product Sales:</strong> {{ $project->insideSales->name }}</li>
+            <li><strong>Product Sales:</strong> {{ $project->productSales->name }}</li>
           </ul>
         </div>
         <div class='cell medium-6 large-3'>
           <ul style='list-style: square;'>
-            <li><strong>Inside Sales:</strong> {{ $project->productSales->name }}</li>
+            <li><strong>Inside Sales:</strong> {{ $project->insideSales->name }}</li>
             <li><strong>Amount:</strong> {{ $project['formattedAmount'] }}</li>
             <li><strong>APC OPP ID:</strong> {{ $project->apc_opp_id }}</li>
             <li><strong>Quote Link:</strong> <a href='{{$project->invoice_link}}'>{{ str_limit($project->invoice_link,20) }}</a></li>

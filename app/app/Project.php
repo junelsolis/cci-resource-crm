@@ -195,10 +195,14 @@ class Project extends Model
 
 
       // if product sales of this project, allow
-      if ($user_id == $this->product_sales_id) { return true; }
+      // if ($user_id == $this->product_sales_id) { return true; }
 
 
       $user = User::find($user_id);
+
+      // if product sales, allow
+      if (in_array('product-sales', $user->roles())) { return true; }
+
       // if inside sales, allow
       if (in_array('inside-sales', $user->roles())) { return true; }
 

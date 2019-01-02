@@ -73,20 +73,27 @@ class ProductSalesController extends Controller
       $userDetails = $user->userDetails();
 
 
+      // retrive Project
       if (empty($request['id'])) {
-        $project = $user['projectsThisYear']->first();
+        $project = Project::first();
       } else {
-        $project = $user['projectsThisYear']->where('id',$request['id'])->first();
+        $project = Project::find($request['id']);
       }
 
-
+      // collect inside sales reps and project status codes
+      // for add project off-canvas div
       $insideSales = $this->getInsideSalesReps();
       $projectStatusCodes = $this->getProjectStatusCodes();
+
+      // get all other projects
+      $userProjectIds = $user['projectsThisYear']->pluck('id');
+      $otherProjects = Project::whereNotIn('id', $userProjectIds)->get();
 
       return view('product-sales.projects')->with([
         'userDetails' => $userDetails,
         'project' => $project,
         'projects' => $user['projectsThisYear'],
+        'otherProjects' => $otherProjects,
         'projectStatusCodes' => $projectStatusCodes,
         'insideSales' => $insideSales,
       ]);
