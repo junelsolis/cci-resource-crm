@@ -363,7 +363,7 @@
             <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Projects</strong></h5>
           </div>
           <div class='content'>
-            <div class='table-scoll'>
+            <div class='table-scroll'>
               <table id='projects-table' class='unstriped display'>
                 <thead>
                   <tr>
