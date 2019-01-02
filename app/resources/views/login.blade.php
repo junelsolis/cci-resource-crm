@@ -23,17 +23,24 @@
         <label>Password</label>
         <input type='password' name='password' required />
 
-        @if (session('error'))
-        <div data-closable class="callout alert-callout-subtle warning radius">
-          <strong>Invalid credentials</strong><br />Please try again.
-          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-            <span aria-hidden="true">⊗</span>
-          </button>
+
+        <!-- divs for error messages -->
+        <div class='grid-x' style='padding:0;'>
+          <div class='cell small-12' style='padding:0'>
+            @if (session('error'))
+            <div class='message-card-success' data-closable>
+              <span>{!! session('error') !!}</span>
+              <button class="close-button" aria-label="Close alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @endif
+          </div>
         </div>
-        @endif
 
         <button class='button button-primary expanded' type='submit'><i class="fas fa-sign-in-alt"></i>&nbsp;Login</button>
       </form>
+
 
     </div>
   </body>

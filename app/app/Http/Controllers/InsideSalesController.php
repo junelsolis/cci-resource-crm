@@ -137,6 +137,11 @@ class InsideSalesController extends Controller
 
     $project->load(['notes.author:id,name','productSales:id,name','insideSales:id,name']);
 
+
+    $projectStatusCodes = $this->getProjectStatusCodes();
+    $productSales = $this->getProductSalesReps();
+    $insideSales = $this->getInsideSalesReps();
+    
     // get other projects
     $otherProjects = $user['projectsThisYear']->load([
       'insideSales:id,name',
@@ -146,7 +151,10 @@ class InsideSalesController extends Controller
     return view('inside-sales.projects')
       ->with('userDetails', $user['userDetails'])
       ->with('project', $project)
-      ->with('otherProjects', $otherProjects);
+      ->with('otherProjects', $otherProjects)
+      ->with('projectStatusCodes',$projectStatusCodes)
+      ->with('productSales', $productSales)
+      ->with('insideSales', $insideSales);
   }
 
 
