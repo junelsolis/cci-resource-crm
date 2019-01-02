@@ -43,12 +43,14 @@ class ProjectController extends Controller
 
       // make sure link starts with http
       if (!empty($invoice_link)) {
-        if (starts_with('http://',$invoice_link) || starts_with('https://',$invoice_link) || starts_with('//',$invoice_link)) {}
+        if ( (starts_with($invoice_link, 'http://')) || (starts_with($invoice_link, 'https://')) || (starts_with($invoice_link,'//')) ) { }
 
         else {
           $invoice_link = 'http://'.$invoice_link;
         }
       }
+
+      return $invoice_link;
 
 
       $project = Project::create([
@@ -367,5 +369,5 @@ class ProjectController extends Controller
     }
 
 
-  
+
 }
