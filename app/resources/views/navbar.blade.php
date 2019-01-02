@@ -15,7 +15,7 @@
         @if (session('current_section') == 'product-sales')
         <li><a href='/product-sales'>Dashboard</a></li>
         <!-- <li><a href=''>Sales</a></li> -->
-        <li><a href=''>Stats</a></li>
+        <!-- <li><a href=''>Stats</a></li> -->
         <li><a href='/product-sales/project/'>Projects</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
@@ -162,7 +162,7 @@
       @if (session('current_section') == 'product-sales')
       <li><a href='/product-sales'>Dashboard</a></li>
       <!-- <li><a href=''>Sales</a></li> -->
-      <li><a href=''>Stats</a></li>
+      <!-- <li><a href=''>Stats</a></li> -->
       <li><a href='/product-sales/project/'>Projects</a></li>
       <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
       @endif
@@ -196,7 +196,7 @@
             <a href='/inside-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Inside Sales</a>
             @endif
             @if ($role == 'executive')
-            <a href='/exec'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>
+            <a href='/executive'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>
             @endif
             @if ($role == 'administrator')
             <a href='/admin'><i class='fas fa-server'></i>&nbsp;Administrator</a>
