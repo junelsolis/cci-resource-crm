@@ -46,7 +46,7 @@
               <a href='/inside-sales'><i class='fas fa-dollar-sign'></i>&nbsp;Inside Sales</a>
               @endif
               @if ($role == 'executive')
-              <a href='/exec'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>
+              <a href='/executive'><i class='fas fa-user-tie'></i>&nbsp;Executive</a>
               @endif
               @if ($role == 'administrator')
               <a href='/admin'><i class='fas fa-server'></i>&nbsp;Administrator</a>

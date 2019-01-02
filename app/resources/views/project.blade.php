@@ -35,7 +35,7 @@
 <div class='cell small-12'>
   <div class='info-card' style='padding:0;margin-top:0;'>
     <div class='title-muted'>
-      <h5><strong>Notes</strong></h5>
+      <h5><strong><i class="fas fa-sticky-note"></i>&nbsp;Project Notes</strong></h5>
     </div>
     <div class='content' style='padding:0;'>
       <div class='table-scroll'>
