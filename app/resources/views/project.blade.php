@@ -1,3 +1,4 @@
+@if ($project)
 <div class='cell small-12'>
   <div class='info-card'>
     <div class='title'>
@@ -98,3 +99,4 @@
     </div>
   </div>
 </div>
+@endif

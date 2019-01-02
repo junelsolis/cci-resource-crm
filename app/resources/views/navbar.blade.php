@@ -169,7 +169,7 @@
       @if (session('current_section') == 'inside-sales')
       <li><a href='/inside-sales'><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li>
       <li><a href='/inside-sales/people/'><i class="fas fa-users"></i>&nbsp;People</a></li>
-      <li><a href='/inside-sales/project/'><i class="fas fa-project-diagram"></i>Projects</a></li>
+      <li><a href='/inside-sales/project/'><i class="fas fa-project-diagram"></i>&nbsp;Projects</a></li>
       <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
       @endif
     </ul>
