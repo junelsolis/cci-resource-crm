@@ -911,9 +911,9 @@
     @endforeach
 
 
+    @include('footer')
 
   </body>
-  @include('footer')
   <script>
     $.ajaxSetup({
       headers: {

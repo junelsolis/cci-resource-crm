@@ -324,9 +324,9 @@
 
     </script>
 
+    @include('footer')
 
   </body>
-  @include('footer')
 
 
 

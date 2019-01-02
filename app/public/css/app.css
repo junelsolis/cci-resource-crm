@@ -7805,12 +7805,12 @@ html.is-reveal-open body {
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body {
   -ms-scroll-chaining: none;
       overscroll-behavior: none;
-  min-height: 100%;
   background: white;
   background: linear-gradient(to bottom, white 0%, #f6f6f6 47%, #ededed 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#ffffff", endColorstr="#ededed",GradientType=0 );
@@ -8449,21 +8449,8 @@ select {
 }
 
 .footer {
-  min-height: 150px;
-  background-color: #222f3e;
-  padding-top: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  color: #bdc3c7;
-  position: relative;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.footer h5 {
-  color: white;
+  color: #707070;
+  text-align: right;
 }
 
 .people-menu {

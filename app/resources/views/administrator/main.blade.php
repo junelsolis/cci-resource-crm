@@ -189,8 +189,11 @@
       </div>
     </div>
     @endforeach
+
+    @include('footer')
+
+
   </body>
-  @include('footer')
   <script>
     $(document).foundation();
 

@@ -776,8 +776,10 @@
     @foreach ($projects as $i)
       @include('project-info')
     @endforeach
+
+    @include('footer')
+
   </body>
-  @include('footer')
   <script>
     $(document).foundation();
     //$.fn.editable.defaults.mode = 'inline';

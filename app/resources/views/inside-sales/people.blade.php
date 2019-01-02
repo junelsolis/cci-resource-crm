@@ -26,8 +26,9 @@
 
     @include('person')
 
+    @include('footer')
+
   </body>
-  @include('footer')
 
 
 
