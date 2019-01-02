@@ -491,3 +491,12 @@ select {
 
   .bottom {}
 }
+
+// message cards
+.message-card-success {
+  @extend .card;
+
+  border-left-width: 15px;
+  border-color: #3adb76;
+  background-color: rgba(58,219,112,0.5);
+}

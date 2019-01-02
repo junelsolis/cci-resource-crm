@@ -62,6 +62,8 @@ Route::post('/note/edit/{id}', 'NoteController@editNote');
 Route::get('/note/delete/{id}', 'NoteController@deleteNote');
 
 // user routes
+Route::post('/user/add', 'UserController@add');
 Route::post('/user/edit/name', 'UserController@editName');
 Route::post('/user/edit/username', 'UserController@editUsername');
 Route::post('/user/edit/roles', 'UserController@editRoles');
+Route::get('/user/password/reset/{id}','UserController@resetPassword');

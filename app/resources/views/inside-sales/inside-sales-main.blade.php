@@ -43,7 +43,15 @@
               <span class='stat-title'>Upcoming Projects</span>
             </div>
             <div class='cell medium-2' style='text-align:center;color:rgba(44,62,80,0.6);'>
-              <span class='stat' style='font-size:35px !important;'>{{ $upcomingProjects->first()->formattedBidDate() }}</span><br />
+              <span class='stat' style='font-size:35px !important;'>
+                <?php
+                  if ($upcomingProjects->count() > 0) {
+                    echo $upcomingProjects->first()['formattedBidDate'];
+                  } else {
+                    echo 'None';
+                  }
+                ?>
+              </span><br />
               <span class='stat-title'>Next Upcoming Project</span>
             </div>
             <div class='cell medium-2' style='text-align:center;'>
@@ -185,6 +193,7 @@
                     </tr>
                   </thead>
                   <tbody>
+                      @if ($upcomingProjects->count() > 0)
                       @foreach ($upcomingProjects as $i)
                       <tr>
                         <td><a id='{{$i->id}}-toggle' title='Click to Edit'><i class="fas fa-edit"></i></a></td>
@@ -228,6 +237,7 @@
                         </td>
                       </tr>
                       @endforeach
+                      @endif
                   </tbody>
                 </table>
 

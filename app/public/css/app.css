@@ -5122,6 +5122,7 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
 }
 
 .card,
+.message-card-success,
 .info-card,
 .card-tab,
 .card-bottom,
@@ -5140,6 +5141,7 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
 }
 
 .card > :last-child,
+.message-card-success > :last-child,
 .info-card > :last-child,
 .card-tab > :last-child,
 .card-bottom > :last-child,
@@ -7856,6 +7858,7 @@ select {
 /* display cards */
 
 .card,
+.message-card-success,
 .info-card,
 .card-tab,
 .card-bottom,
@@ -8257,6 +8260,12 @@ select {
 
 .info-card .content {
   padding: 10px;
+}
+
+.message-card-success {
+  border-left-width: 15px;
+  border-color: #3adb76;
+  background-color: rgba(58, 219, 112, 0.5);
 }
 
 #navbar {

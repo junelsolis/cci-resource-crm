@@ -26,36 +26,52 @@
 
     <div id='main' class='grid-x'>
 
-      @if (session('user-directory-success'))
+      <!-- success messages -->
+      @if (session('success'))
       <div class='cell small-12'>
-        <div class='card'>
-          <div data-closable class="callout alert-callout-subtle success radius">
-            <strong>Success</strong><br />{!! session('user-directory-success') !!}
-            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-              <span aria-hidden="true">⊗</span>
-            </button>
-          </div>
-      </div>
-
+        <div class='message-card-success callout' data-closable>
+          <span>{!! session('success') !!}</span>
+          <button class="close-button" aria-label="Close alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
       @endif
 
-      <div class='cell medium-4'>
+      <div class='cell small-12'>
         <div class='info-card'>
-          <div class='title'>
+          <div class='title-muted'>
             <h5><strong><i class="fas fa-user-plus"></i>&nbsp;Add User</strong></h5>
           </div>
           <div class='content'>
             <form method='post' action='/user/add'>
               {{ csrf_field() }}
+              <div class='grid-x grid-padding-x align-middle'>
+                <div class='cell medium-3'>
+                  <label>Full Name</label>
+                  <input type='text' required name='name' />
+                </div>
+                <div class='cell medium-7'>
+
+
+                    <input name='roles[]' value='product-sales' type='checkbox' /><label>Product&nbsp;Sales</label>
+                    <input name='roles[]' value='inside-sales' type='checkbox' /><label>Inside&nbsp;Sales</label>
+                    <input name='roles[]' value='executive' type='checkbox' /><label>Executive</label>
+                    <input name='roles[]' value='administrator' type='checkbox' /><label>System Administrator</label>
+                </div>
+                <div class='cell medium-2'>
+                  <button class='primary button'><i class="fas fa-check"></i>&nbsp;Save</button>
+
+                </div>
+              </div>
             </form>
           </div>
         </div>
       </div>
 
-      <div class='cell medium-8'>
+      <div class='cell small-12'>
         <div class='info-card'>
-          <div class='title-muted'>
+          <div class='title'>
             <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
           </div>
           <div class='content'>
@@ -95,9 +111,9 @@
 
                   });
 
-                  $(document).ready(function() {
                     $('#{{$user->id}}-name').editable(
                       {
+                        container: 'body',
                         type: 'text',
                         pk: {{ $user->id }},
                         url: '/user/edit/name',
@@ -109,6 +125,7 @@
 
                     $('#{{$user->id}}-username').editable(
                       {
+                        container: 'body',
                         type: 'text',
                         pk: {{ $user->id }},
                         url: '/user/edit/username',
@@ -120,6 +137,7 @@
 
                     $('#{{$user->id}}-roles').editable(
                       {
+                        container: 'body',
                         type: 'checklist',
                         pk: {{ $user->id }},
                         url: '/user/edit/roles',
@@ -134,7 +152,7 @@
                         ]
                       }
                     );
-                  });
+
 
                   // enable editing of row on click of toggle link
                   $('#{{$user->id}}-toggle').click(function(e) {
@@ -156,97 +174,21 @@
           </div>
         </div>
       </div>
-
-      <div class='cell medium-12' data-equalizer>
-        <div class='grid-x'>
-          <div class='cell medium-4'>
-            <div class="card" data-equalizer-watch>
-              <h5><strong><i class="fas fa-user"></i>&nbsp;Add User</strong></h5>
-              <form method='post' action='/admin/user/add'>
-                {{ csrf_field() }}
-                <fieldset class='fieldset'>
-                  <legend>
-                    User Details
-                  </legend>
-                  <label>Full Name</label>
-                  <input type='text' name='name' required />
-                </fieldset>
-                <fieldset class='fieldset'>
-                  <legend>
-                    Select Roles
-                  </legend>
-
-                  <input name='roles[]' value='product-sales' type='checkbox' /><label>Product&nbsp;Sales</label><br />
-                  <input name='roles[]' value='inside-sales' type='checkbox' /><label>Inside&nbsp;Sales</label><br />
-                  <input name='roles[]' value='executive' type='checkbox' /><label>Executive</label><br />
-                  <input name='roles[]' value='administrator' type='checkbox' /><label>System Administrator</label>
-                </fieldset>
-
-                @if ($errors->any())
-                  @foreach ($errors->all() as $error)
-                  <div data-closable class="callout alert-callout-subtle warning radius">
-                    <strong>Error</strong><br />{{ $error }}
-                    <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                      <span aria-hidden="true">⊗</span>
-                    </button>
-                  </div>
-                  @endforeach
-                @endif
-
-                @if (session('error'))
-                <div data-closable class="callout alert-callout-subtle warning radius">
-                  <strong>Error</strong><br />{{ session('error') }}
-                  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                    <span aria-hidden="true">⊗</span>
-                  </button>
-                </div>
-                @endif
-
-                @if (session('success'))
-                <div data-closable class="callout alert-callout-subtle success radius">
-                  <strong>Success</strong><br />{!! session('success') !!}
-                  <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                    <span aria-hidden="true">⊗</span>
-                  </button>
-                </div>
-                @endif
-
-                <button type='submit' class='button button-primary'><i class="fas fa-check"></i>&nbsp;Create User</button>
-              </form>
-            </div>
-          </div>
-          <div class='cell medium-8'>
-            <div class="card" data-equalizer-watch>
-              <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
-              <br />
-              <input type='text' placeholder='Find user' />
+    </div>
 
 
-            </div>
-
-
-          </div>
-        </div>
-
-
-        <!-- Modals -->
-        @foreach ($users as $user)
-        <div class='reveal' id='{{$user->id}}-password-modal' style='text-align: center;' data-reveal>
-          <h5 style="color:#707070;">Confirm password change for</h5>
-          <h3 style='font-weight:bolder;'>{{ $user->name}}</h3>
-          <br /><br />
-          <form action='/admin/user/reset/{{ $user->id }}' method='post'>
-            {{ csrf_field() }}
-            <div class='button-group align-center'>
-              <button type='submit' class='primary button'><i class="fas fa-sync"></i>&nbsp;Reset Password</button>
-              <button class='secondary button' data-close aria-label="Close modal">Cancel</button>
-            </div>
-          </form>
-
-        </div>
-        @endforeach
+    <!-- reset password modals -->
+    @foreach ($users as $user)
+    <div class="reveal" id="{{$user->id}}-password-modal" data-reveal>
+      <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Reset Password</strong></h5>
+      Are you sure you want to reset the password of <strong>{{$user->name}}</strong>?
+      <br /><br />
+      <div class='button-group'>
+        <a class='primary tiny button' href='/user/password/reset/{{ $user->id }}'>Reset</a>
+        <button class='secondary tiny button' data-close>Cancel</button>
       </div>
     </div>
+    @endforeach
   </body>
   @include('footer')
   <script>
