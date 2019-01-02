@@ -99,7 +99,7 @@
                       @endforeach
                     </td>
                     <td><a data-open='{{$user->id}}-password-modal'><i class="fas fa-sync-alt"></i>&nbsp;Reset Password</a></td>
-                    <td id='{{ $user->id}}-lastLogin'>{{ $user->formattedLastLogin }}</a></td>
+                    <td id='{{ $user->id}}-lastLogin'>{{ $user['formattedLastLogin'] }}</a></td>
                   </tr>
 
                   <script>

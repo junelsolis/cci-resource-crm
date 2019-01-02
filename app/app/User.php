@@ -15,6 +15,7 @@ class User extends Model
 
     public $roles;
     public $formattedName;
+    public $formattedLastLogin;
 
     public function roles() {
 
@@ -65,6 +66,10 @@ class User extends Model
 
     public function getFormattedNameAttribute() {
       return $this->formattedName();
+    }
+
+    public function getFormattedLastLoginAttribute() {
+      return $this->formattedLastLogin();
     }
 
 

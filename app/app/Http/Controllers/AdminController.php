@@ -21,9 +21,7 @@ class AdminController extends Controller
 
 
       // get all users except the current one
-      $users = User::where('id','!=', session('logged_in_user_id'))
-        ->with('formattedLastLogin')
-        ->get();
+      $users = User::where('id','!=', session('logged_in_user_id'))->get();
 
 
       // set session key
