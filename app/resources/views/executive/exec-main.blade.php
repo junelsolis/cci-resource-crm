@@ -294,19 +294,19 @@
         <div class='card-tab'>
           <div class='grid-x'>
             <div class='cell medium-2'>
-              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $upcomingProjects->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $upcomingProjects->count() }}</span>&nbsp;
               <spn class='stat-title'>Upcoming Projects</spn>
             </div>
             <div class='cell medium-2'>
-              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $upcomingProjects->where('status_id',2)->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $upcomingProjects->where('status_id',2)->count() }}</span>&nbsp;
               <span class='stat-title'>Quoted Projects</span>
             </div>
             <div class='cell medium-2'>
-              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $projects->where('status_id',5)->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $projects->where('status_id',5)->count() }}</span>&nbsp;
               <span class='stat-title'>Lost Projects</span>
             </div>
             <div class='cell medium-2'>
-              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $projects->count() }}</span><br />
+              <span class='stat' style='color:rgba(41,128,185,0.6);'>{{ $projects->count() }}</span>&nbsp;
               <span class='stat-title'>Total Projects (Last 12 mo)</span>
             </div>
           </div>
