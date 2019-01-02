@@ -707,7 +707,6 @@
     <!-- divs for off-canvas project information -->
 
 
-    <!-- add project -->
     <!-- add project div -->
     <div class='off-canvas position-left add-project' id='add-project' data-off-canvas data-auto-focus="false">
       <h4><i class="fas fa-plus"></i>&nbsp;New Project</h4>
@@ -735,7 +734,14 @@
           </legend>
 
           <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
-          <input type='date' name='bid_date' required />
+          <input id='date' type='date' name='bid_date' required />
+
+          <script>
+            if ( $('#date')[0].type != 'date' ) $('#date').datepicker({
+              //altField: '#actualDate',
+              altFormat: 'yy-mm-dd'
+            });
+          </script>
 
           <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
           <select name='status_id' required>

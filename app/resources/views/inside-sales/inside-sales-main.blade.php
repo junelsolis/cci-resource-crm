@@ -854,7 +854,14 @@
           </legend>
 
           <label>Bid Date<span><i class="fas fa-star-of-life"></i></span></label>
-          <input type='date' name='bid_date' required />
+          <input id='date' type='date' name='bid_date' required />
+
+          <script>
+            if ( $('#date')[0].type != 'date' ) $('#date').datepicker({
+              //altField: '#actualDate',
+              altFormat: 'yy-mm-dd'
+            });
+          </script>
 
           <label>Status<span><i class="fas fa-star-of-life"></i></span></label>
           <select name='status_id' required>

@@ -31,6 +31,9 @@ class ProjectController extends Controller
       else { $product_sales_id = session('logged_in_user_id'); }
 
 
+      // clean up bid date
+      $bid_date = new Carbon($bid_date);
+      $bid_date->format('Y-m-d');
 
       $inside_sales_id = $request['inside_sales_id'];
       $amount = $request['amount'];
