@@ -1,6 +1,6 @@
 @if ($project)
 <div class='cell small-12'>
-  <div class='info-card'>
+  <div id='top' class='info-card'>
     <div class='title'>
       <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Project Information</strong></h5>
     </div>

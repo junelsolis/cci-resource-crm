@@ -28,82 +28,85 @@
       @include ('project')
 
       <div class='cell small-12'>
-        <div class='card-top' style='margin-top:50px;background-color:white;'>
-          <h5 style='color:#303952;'><strong>Other Projects</strong></h5>
-        </div>
-        <div class='card-middle'>
-          <div class='table-scroll'>
-            <table id='other-projects-table' class='unstriped'>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th>Status</th>
-                  <th>Bid Date</th>
-                  <th>Manufacturer</th>
-                  <th>Product</th>
-                  <th>Product Sales</th>
-                  <th>Inside Sales</th>
-                  <th>Amount</th>
-                  <th>APC OPP ID</th>
-                  <th>Quote Link</th>
-                  <th>Engineer</th>
-                  <th>Contractor</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                @forelse ($otherProjects as $i)
-                <tr>
-                  <td><a href='/executive/projects/{{$i->id}}'><i class="fas fa-search"></i></a></td>
-                  <td>{{ $i->name}}</td>
-                  <td
-                    <?php
-
-                      $status = $i['status']['status'];
-                      if ($status == 'New') { echo ' class=\'status-new\''; }
-                      if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
-                      if ($status == 'Sold') { echo ' class=\'status-sold\''; }
-                      if ($status == 'Quoted') { echo ' class=\'status-quoted\''; }
-                      if ($status == 'Lost') { echo ' class=\'status-lost\''; }
-                    ?>
-                  >{{ $i['status']['status'] }}</td>
-                  <td
-                    <?php
-                        if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
-                        if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
-                    ?>
-                  >{{ $i['formattedBidDate']}}</td>
-                  <td>{{ $i->manufacturer }}</td>
-                  <td>{{ $i->product }}</td>
-                  <td>{{ $i->productSales->name }}</td>
-                  <td>{{ $i->insideSales->name }}</td>
-                  <td>{{ $i['formattedAmount']}}</td>
-                  <td>{{ $i->apc_opp_id }}</td>
-                  <td>
-                    @if (isset($i->invoice_link))
-                    <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
-                    @endif
-                  </td>
-                  <td>{{ $i->engineer}}</td>
-                  <td>{{ $i->contractor}}</td>
-                  <td><a href='/executive/projects/{{$i->id}}'><i class="fas fa-search"></i></a></td>
-                </tr>
-                @empty
-                @endforelse
-              </tbody>
-            </table>
-
-            <script>
-              $('#other-projects-table').DataTable( {
-                "order": [[ 3, "desc" ]],
-                'pageLength': 5,
-              } );
-            </script>
+        <div class='info-card'>
+          <div class='title-muted'>
+            <h5><strong>Other Projects</strong></h5>
           </div>
-        </div>
-        <div class='card-bottom'>
-          <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+          <div class='content'>
+            <div class='table-scroll'>
+              <table id='other-projects-table' class='unstriped'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Bid Date</th>
+                    <th>Manufacturer</th>
+                    <th>Product</th>
+                    <th>Product Sales</th>
+                    <th>Inside Sales</th>
+                    <th>Amount</th>
+                    <th>APC OPP ID</th>
+                    <th>Quote Link</th>
+                    <th>Engineer</th>
+                    <th>Contractor</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse ($otherProjects as $i)
+                  <tr>
+                    <td><a href='/executive/projects/{{$i->id}}'><i class="fas fa-search"></i></a></td>
+                    <td>{{ $i->name}}</td>
+                    <td
+                      <?php
+
+                        $status = $i['status']['status'];
+                        if ($status == 'New') { echo ' class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo ' class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo ' class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo ' class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo ' class=\'status-lost\''; }
+                      ?>
+                    >{{ $i['status']['status'] }}</td>
+                    <td
+                      <?php
+                          if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                    >{{ $i['formattedBidDate']}}</td>
+                    <td>{{ $i->manufacturer }}</td>
+                    <td>{{ $i->product }}</td>
+                    <td>{{ $i->productSales->name }}</td>
+                    <td>{{ $i->insideSales->name }}</td>
+                    <td>{{ $i['formattedAmount']}}</td>
+                    <td>{{ $i->apc_opp_id }}</td>
+                    <td>
+                      @if (isset($i->invoice_link))
+                      <a href='{{ $i->invoice_link }}' target='_blank'><i class="fas fa-link"></i></i></a>
+                      @endif
+                    </td>
+                    <td>{{ $i->engineer}}</td>
+                    <td>{{ $i->contractor}}</td>
+                    <td><a href='/executive/projects/{{$i->id}}'><i class="fas fa-search"></i></a></td>
+                  </tr>
+                  @empty
+                  @endforelse
+                </tbody>
+              </table>
+
+              <script>
+                $('#other-projects-table').DataTable( {
+                  "order": [[ 3, "desc" ]],
+                  'pageLength': 5,
+                } );
+              </script>
+            </div>
+
+            <br />
+            <a href='#top'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+
+          </div>
         </div>
       </div>
     </div>
