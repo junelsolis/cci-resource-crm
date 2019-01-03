@@ -20,7 +20,7 @@ class AdminController extends Controller
       session(['current_section' => 'admin']);
 
       // get current user
-      $user = ExecUser::where('id', session('logged_in_user_id'))->first();
+      $user = User::where('id', session('logged_in_user_id'))->first();
 
 
       // get all users except the current one
@@ -58,7 +58,7 @@ class AdminController extends Controller
 
 
       return view('administrator.main')
-        ->with('userDetails', $user['userDetails'])
+        ->with('userDetails', $this->getLoggedInUserDetails())
         ->with('users', $users)
         ->with('projects', $projects);
     }

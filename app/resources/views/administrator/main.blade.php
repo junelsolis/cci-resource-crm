@@ -254,8 +254,11 @@
       <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Reset Password</strong></h5>
       Are you sure you want to reset the password of <strong>{{$user->name}}</strong>?
       <br /><br />
-      <div class='button-group'>
-
+      <div style='text-align:center;'>
+        <div style='text-align:center;'>
+          <a class='alert small button' href='/user/password/reset/{{ $user->id }}'>Reset</a>
+          <a class='secondary small button' data-close>Cancel</a>
+        </div>
       </div>
     </div>
     @endforeach
