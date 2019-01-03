@@ -315,24 +315,46 @@ trait ChartData {
 
       $nextSixMonths = collect();
       $index = 0;
-      $monthLoop = new Carbon('first day of this month');
-      $monthLoop->setTimezone('America/New_York');
+
+      // $monthLoop = new Carbon('first day of this month');
+      // $monthLoop->setTimezone('America/New_York');
+      //
+      // while ($index <= 5) {
+      //
+      //   //if ($index == 0) { $index++; continue;}
+      //
+      //   $date = new Carbon($monthLoop);
+      //   $date->setTimezone('America/New_York');
+      //   $date->addMonths($index);
+      //   $name = new Carbon($date);
+      //   $name = $name->format('M');
+      //
+      //   $collect = collect([ 'date' => $date, 'name' => $name]);
+      //   $nextSixMonths->push($collect);
+      //
+      //   $index++;
+      // }
+
+      $month = new Carbon('first day of this month');
 
       while ($index <= 5) {
 
-        //if ($index == 0) { $index++; continue;}
-
-        $date = new Carbon($monthLoop);
-        $date->setTimezone('America/New_York');
+        $date = new Carbon($month);
         $date->addMonths($index);
+
         $name = new Carbon($date);
         $name = $name->format('M');
 
-        $collect = collect([ 'date' => $date, 'name' => $name]);
+        $collect = collect(['date' => $date, 'name' => $month->format('M')]);
         $nextSixMonths->push($collect);
 
+
         $index++;
+
+
       }
+
+
 
       return $nextSixMonths;
     }
