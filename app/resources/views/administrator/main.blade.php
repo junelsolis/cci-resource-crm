@@ -266,7 +266,7 @@
       <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Delete User</strong></h5>
       You are about to delete user <strong>{{ $i->name }}</strong><br /><br />
       All the user's projects and notes will be deleted. If there are any projects you wish to keep,
-      please make sure those projects are transferred to another person before deleting this account.<br /><br />
+      please make sure those projects are transferred to another person before deleting this account. This action is <span style='color:red;'>irreversible</span>.<br /><br />
       <div style='text-align:center;'>
         <a class='alert small button' href='/user/delete/{{ $i->id }}'>Delete</a>
         <a class='secondary small button' data-close>Cancel</a>

@@ -13,7 +13,7 @@ class ExecUser extends User
 
       $collect = collect();
       $collect->put('name', $this->name);
-      $collect->put('role', 'Executive');
+      $collect->put('role', 'System Administrator');
 
       $this->userDetails = $collect;
       return $collect;
