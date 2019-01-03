@@ -83,8 +83,11 @@
                     <th>Name</th>
                     <th>Username</th>
                     <th>Roles</th>
+                    <th>Projects</th>
+                    <th>Notes</th>
                     <th>Password</th>
                     <th>Last Login</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -98,74 +101,77 @@
                       {{ $role }}<br />
                       @endforeach
                     </td>
+                    <td>{{ $user->projectCount }}</td>
+                    <td>{{ $user->noteCount }}</td>
                     <td><a data-open='{{$user->id}}-password-modal'><i class="fas fa-sync-alt"></i>&nbsp;Reset Password</a></td>
                     <td id='{{ $user->id}}-lastLogin'>{{ $user['formattedLastLogin'] }}</a></td>
+                    <td><a data-open='{{ $user->id}}-delete-user-modal' style='color:lightgrey;'><i class="fas fa-trash-alt"></i></a></td>
                   </tr>
 
                   <script>
 
-                  $.ajaxSetup({
-                    headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-
-                  });
-
-                    $('#{{$user->id}}-name').editable(
-                      {
-                        container: 'body',
-                        type: 'text',
-                        pk: {{ $user->id }},
-                        url: '/user/edit/name',
-                        title: 'Enter Name',
-                        disabled: true,
-                        name: 'name',
+                    $.ajaxSetup({
+                      headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                       }
-                    );
 
-                    $('#{{$user->id}}-username').editable(
-                      {
-                        container: 'body',
-                        type: 'text',
-                        pk: {{ $user->id }},
-                        url: '/user/edit/username',
-                        title: 'Enter Name',
-                        disabled: true,
-                        name: 'username',
-                      }
-                    );
+                    });
 
-                    $('#{{$user->id}}-roles').editable(
-                      {
-                        container: 'body',
-                        type: 'checklist',
-                        pk: {{ $user->id }},
-                        url: '/user/edit/roles',
-                        title: 'Select Roles',
-                        disabled: true,
-                        name: 'roles',
-                        source: [
-                          { value: 'product-sales', text: 'Product Sales' },
-                          { value: 'inside-sales', text: 'Inside Sales' },
-                          { value: 'executive', text: 'Executive' },
-                          { value: 'administrator', text: 'Administrator' },
-                        ]
-                      }
-                    );
+                      $('#{{$user->id}}-name').editable(
+                        {
+                          container: 'body',
+                          type: 'text',
+                          pk: {{ $user->id }},
+                          url: '/user/edit/name',
+                          title: 'Enter Name',
+                          disabled: true,
+                          name: 'name',
+                        }
+                      );
+
+                      $('#{{$user->id}}-username').editable(
+                        {
+                          container: 'body',
+                          type: 'text',
+                          pk: {{ $user->id }},
+                          url: '/user/edit/username',
+                          title: 'Enter Name',
+                          disabled: true,
+                          name: 'username',
+                        }
+                      );
+
+                      $('#{{$user->id}}-roles').editable(
+                        {
+                          container: 'body',
+                          type: 'checklist',
+                          pk: {{ $user->id }},
+                          url: '/user/edit/roles',
+                          title: 'Select Roles',
+                          disabled: true,
+                          name: 'roles',
+                          source: [
+                            { value: 'product-sales', text: 'Product Sales' },
+                            { value: 'inside-sales', text: 'Inside Sales' },
+                            { value: 'executive', text: 'Executive' },
+                            { value: 'administrator', text: 'Administrator' },
+                          ]
+                        }
+                      );
 
 
-                  // enable editing of row on click of toggle link
-                  $('#{{$user->id}}-toggle').click(function(e) {
-                    e.stopPropagation();
-                    $('#{{$user->id}}-name').editable('toggleDisabled');
-                    $('#{{$user->id}}-username').editable('toggleDisabled');
-                    $('#{{$user->id}}-roles').editable('toggleDisabled');
+                    // enable editing of row on click of toggle link
+                    $('#{{$user->id}}-toggle').click(function(e) {
+                      e.stopPropagation();
+                      $('#{{$user->id}}-name').editable('toggleDisabled');
+                      $('#{{$user->id}}-username').editable('toggleDisabled');
+                      $('#{{$user->id}}-roles').editable('toggleDisabled');
 
-                    $('#{{$user->id}}-name').toggleClass('edit-enabled');
-                    $('#{{$user->id}}-username').toggleClass('edit-enabled');
-                    $('#{{$user->id}}-roles').toggleClass('edit-enabled');
+                      $('#{{$user->id}}-name').toggleClass('edit-enabled');
+                      $('#{{$user->id}}-username').toggleClass('edit-enabled');
+                      $('#{{$user->id}}-roles').toggleClass('edit-enabled');
 
-                  });
+                    });
                   </script>
                   @endforeach
                 </tbody>
@@ -184,8 +190,21 @@
       Are you sure you want to reset the password of <strong>{{$user->name}}</strong>?
       <br /><br />
       <div class='button-group'>
-        <a class='primary tiny button' href='/user/password/reset/{{ $user->id }}'>Reset</a>
-        <button class='secondary tiny button' data-close>Cancel</button>
+
+      </div>
+    </div>
+    @endforeach
+
+    <!-- user delete modals -->
+    @foreach ($users as $i)
+    <div class='reveal text-center' id='{{ $i->id}}-delete-user-modal' data-reveal>
+      <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Delete User</strong></h5>
+      You are about to delete user <strong>{{ $i->name }}</strong><br /><br />
+      All the user's projects and notes will be deleted. If there are any projects you wish to keep,
+      please make sure those projects are transferred to another person before deleting this account.<br /><br />
+      <div style='text-align:center;'>
+        <a class='alert small button' href='/user/delete/{{ $i->id }}'>Delete</a>
+        <a class='secondary small button' data-close>Cancel</a>
       </div>
     </div>
     @endforeach

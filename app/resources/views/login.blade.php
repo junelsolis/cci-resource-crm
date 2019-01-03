@@ -28,7 +28,7 @@
         <div class='grid-x' style='padding:0;'>
           <div class='cell small-12' style='padding:0'>
             @if (session('error'))
-            <div class='message-card-success' data-closable>
+            <div class='message-card-error' data-closable>
               <span>{!! session('error') !!}</span>
               <button class="close-button" aria-label="Close alert" type="button" data-close>
                 <span aria-hidden="true">&times;</span>

@@ -67,3 +67,4 @@ Route::post('/user/edit/name', 'UserController@editName');
 Route::post('/user/edit/username', 'UserController@editUsername');
 Route::post('/user/edit/roles', 'UserController@editRoles');
 Route::get('/user/password/reset/{id}','UserController@resetPassword');
+Route::get('/user/delete/{id}', 'UserController@delete');

@@ -136,6 +136,48 @@ class UserController extends Controller
 
 
     }
+    public function delete(Request $request) {
+      $check = $this->checkAllowed();
+      if ($check == false) {
+        return response('Error 2700',404);
+      }
+
+      $id = $request['id'];
+
+      // retrieve user
+      $user = User::find($id);
+
+      // delete all project notes belonging to user
+      DB::table('project_notes')->where('last_updated_by_id', $user->id)->delete();
+
+      // delete all projects where user is product sales
+      $ids = DB::table('projects')->where('product_sales_id', $user->id)->pluck('id');
+
+        // delete related notes
+        DB::table('project_notes')->whereIn('project_id', $ids)->delete();
+
+        // delete the projects
+        DB::table('projects')->whereIn('id', $ids)->delete();
+
+      // delete all projects where user is inside sales
+      $ids = DB::table('projects')->where('inside_sales_id', $user->id)->pluck('id');
+
+        // delete related notes
+        DB::table('project_notes')->whereIn('project_id', $ids)->delete();
+
+        // delete the projects
+        DB::table('projects')->whereIn('id', $ids)->delete();
+
+
+      // delete user roles
+      DB::table('user_roles')->where('user_id', $user->id)->delete();
+
+      // finally, delete the user from the db
+      $user->delete();
+
+      return redirect()->back()->with('success', 'User <strong>' . $user->name . '</strong> has been deleted.');
+
+    }
 
 
     private function checkAllowed() {

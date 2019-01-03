@@ -23,6 +23,30 @@ class AdminController extends Controller
       // get all users except the current one
       $users = User::where('id','!=', session('logged_in_user_id'))->get();
 
+      // count projects user is involved in: product sales and/or inside sales
+      foreach ($users as $i) {
+        $count = 0;
+
+        $projects = DB::table('projects')->where('product_sales_id',$i->id)->get();
+
+        $count += $projects->count();
+
+        $ids = $projects->pluck('id');
+
+        $projects = DB::table('projects')->whereNotIn('product_sales_id', $ids)->where('inside_sales_id', $i->id)->get();
+
+        $count += $projects->count();
+
+        $i->projectCount = $count;
+      }
+
+      // count notes belonging to the user
+      foreach ($users as $i) {
+
+        $count = DB::table('project_notes')->where('last_updated_by_id', $i->id)->count();
+        $i->noteCount = $count;
+      }
+
 
       // set session key
       session(['current_section' => 'admin']);
