@@ -27,11 +27,13 @@ class ProjectController extends Controller
         return redirect()->back();
       }
 
-      $name = $request['name'];
+
+      // retrieve user input
+      $name = ucwords($request['name']);
       $status_id = $request['status_id'];
       $bid_date = $request['bid_date'];
-      $manufacturer = $request['manufacturer'];
-      $product = $request['product'];
+      $manufacturer = ucwords($request['manufacturer']);
+      $product = ucwords($request['product']);
 
 
       /*  If product_sales_id is given in request, use that. Otherwise, use logged
@@ -50,8 +52,8 @@ class ProjectController extends Controller
       $amount = $request['amount'];
       $apc_opp_id = $request['apc_opp_id'];
       $invoice_link = $request['invoice_link'];
-      $engineer = $request['engineer'];
-      $contractor = $request['contractor'];
+      $engineer = ucwords($request['engineer']);
+      $contractor = ucwords($request['contractor']);
       $note = $request['note'];
 
 
