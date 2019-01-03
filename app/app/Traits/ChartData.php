@@ -267,7 +267,7 @@ trait ChartData {
 
       $collect = collect();
       $collect->put('name', 'Lost');
-      $collect->put('count', $engineeredCount);
+      $collect->put('count', $lostCount);
 
       $projectStatus->push($collect);
 
