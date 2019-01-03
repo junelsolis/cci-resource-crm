@@ -54,7 +54,7 @@ class User extends Model
     public function formattedLastLogin() {
       $login = new Carbon($this->last_login,'America/New_York');
 
-      return $login->format('m/d/Y H:i a');
+      return $login->format('m/d/Y h:i a');
     }
 
 
