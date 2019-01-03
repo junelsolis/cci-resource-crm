@@ -7,6 +7,7 @@ use DB;
 use Carbon\Carbon;
 use App\Project;
 use App\ProjectNote;
+use App\User;
 
 class ProjectController extends Controller
 {
@@ -15,6 +16,16 @@ class ProjectController extends Controller
       /*  takes in a HTTP request variable
           and uses it to create a new project
       */
+
+      // check if user is allowed to add a project
+      $user = User::find(session('logged_in_user_id'));
+
+      if (in_array('product-sales', $user->roles())) {}
+      elseif (in_array('inside_sales', $user->roles())) {}
+      elseif (in_array('executive',$user->roles())) {}
+      else {
+        return redirect()->back();
+      }
 
       $name = $request['name'];
       $status_id = $request['status_id'];

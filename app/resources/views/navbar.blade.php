@@ -4,7 +4,7 @@
   <div id='wide' class='grid-x'>
     <div class='cell medium-6'>
       <ul id='logo' class='menu'>
-        <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI Post</strong></a></li>
+        <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI POST</strong></a></li>
         @if (session('current_section') == 'executive')
         <li><a href='/executive'>Dashboard</a></li>
         <li><a href='/executive/people/'>People</a></li>
