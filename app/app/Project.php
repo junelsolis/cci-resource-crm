@@ -226,6 +226,9 @@ class Project extends Model
       // if exec allow
       if (in_array('inside_sales', $user->roles())) { return true; }
 
+      // if admin allow
+      if (in_array('administrator', $user->roles())) { return true; }
+
       return false;
     }
 

@@ -7,6 +7,7 @@ use DB;
 use Hash;
 use App\ExecUser;
 use App\User;
+use App\Project;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -15,6 +16,8 @@ class AdminController extends Controller
       if ($this->checkLoggedIn()) {}
       else { return redirect('/'); }
 
+      // set session key
+      session(['current_section' => 'admin']);
 
       // get current user
       $user = ExecUser::where('id', session('logged_in_user_id'))->first();
@@ -47,14 +50,17 @@ class AdminController extends Controller
         $i->noteCount = $count;
       }
 
+      // get all projects
+      $projects = Project::all();
 
-      // set session key
-      session(['current_section' => 'admin']);
+
+
 
 
       return view('administrator.main')
         ->with('userDetails', $user['userDetails'])
-        ->with('users', $users);
+        ->with('users', $users)
+        ->with('projects', $projects);
     }
 
 

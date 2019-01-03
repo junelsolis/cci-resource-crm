@@ -69,10 +69,11 @@
         </div>
       </div>
 
+      <!-- user directory -->
       <div class='cell small-12'>
         <div class='info-card'>
           <div class='title'>
-            <h5><strong><i class="fas fa-users"></i>&nbsp;Directory</strong></h5>
+            <h5><strong><i class="fas fa-users"></i>&nbsp;User Directory</strong></h5>
           </div>
           <div class='content'>
             <div class='table-scroll'>
@@ -180,6 +181,70 @@
           </div>
         </div>
       </div>
+
+      <!-- projects table -->
+      <div class='cell small-12'>
+        <div class='info-card'>
+          <div class='title'>
+            <h5><strong><i class="fas fa-project-diagram"></i>Projects</strong></h5>
+          </div>
+          <div class='content'>
+            <div class='table-scroll'>
+              <table id='projects-table' class='unstriped'>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Bid Date</th>
+                    <th>Product</th>
+                    <th>Product Sales</th>
+                    <th>Inside Sales</th>
+                    <th>Amount</th>
+                    <th>APC OPP ID</th>
+                    <th>Contractor</th>
+                    <th>Engineer</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($projects as $i)
+                  <tr>
+                    <td>{{ $i->name }}</td>
+                    <td
+                      <?php
+
+                        $status = $i['status']['status'];
+
+                        if ($status == 'New') { echo 'class=\'status-new\''; }
+                        if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                        if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                        if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                        if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                      ?>
+                    >{{ $status }}</td>
+                    <td
+                      <?php
+                          if ($i['bidTiming'] == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                          if ($i['bidTiming'] == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                      ?>
+                    >{{ $i['formattedBidDate']}}</td>
+                    <td>{{ $i->product }}</td>
+                    <td>{{ $i['productSales']->name }}</span></td>
+                    <td>{{ $i['insideSales']->name }}</td>
+                    <td>{{ $i['formattedAmount'] }}</td>
+                    <td>{{ $i->apc_opp_id }}</td>
+                    <td>{{ $i->contractor }}</td>
+                    <td>{{ $i->engineer }}</td>
+                    <td><a data-open='{{ $i->id}}-delete-project-modal' style='color:lightgrey;'><i class="fas fa-trash-alt"></i></a></td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
 
@@ -209,6 +274,19 @@
     </div>
     @endforeach
 
+    <!-- project delete modals -->
+    @foreach ($projects as $i)
+    <div class='reveal text-center' id='{{ $i->id}}-delete-project-modal' data-reveal>
+      <h5><strong><i class="fas fa-exclamation-circle"></i>&nbsp;Delete Project</strong></h5>
+      You are about to delete project <strong>{{ $i->name }}</strong><br /><br />
+      This project and all associated notes will be deleted. This action is <span style='color:red;'>irreversible</span>.<br /><br />
+      <div style='text-align:center;'>
+        <a class='alert small button' href='/project/delete/{{ $i->id }}'>Delete</a>
+        <a class='secondary small button' data-close>Cancel</a>
+      </div>
+    </div>
+    @endforeach
+
     @include('footer')
 
 
@@ -220,6 +298,11 @@
 
     $('#users-table').DataTable( {
       'pageLength': 10,
+    });
+
+    $('#projects-table').DataTable( {
+      'pageLength': 10,
+      "order": [[ 2, "desc" ]],
     });
   </script>
 </html>

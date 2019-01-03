@@ -369,6 +369,26 @@ class ProjectController extends Controller
       return response('Contractor changed.',200);
     }
 
+    public function delete(Request $request) {
+
+      $id = $request['id'];
+
+      // retrieve project
+      $project = Project::find($id);
+
+      $check = $project->canEdit();
+      if ($check == false) {
+        return response('Error 2700', 404);
+      }
+
+      // delete all project notes
+      DB::table('project_notes')->where('project_id', $project->id)->delete();
+
+      // delete project
+      $project->delete();
+
+      return redirect()->back()->with('success', 'Project <strong>' . $project->name . '</strong> has been deleted.');
+    }
 
 
 }
