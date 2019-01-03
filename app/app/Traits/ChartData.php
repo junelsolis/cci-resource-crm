@@ -340,12 +340,12 @@ trait ChartData {
       while ($index <= 5) {
 
         $date = new Carbon($month);
-        $date->addMonths($index);
+        //$date->addMonths($index);
 
-        $name = new Carbon($date);
-        $name = $name->format('M');
+        $name = new Carbon($date->addMonths($index));
+        //$name = $name->format('M');
 
-        $collect = collect(['date' => $date, 'name' => $month->format('M')]);
+        $collect = collect(['date' => $date, 'name' => $name->format('M')]);
         $nextSixMonths->push($collect);
 
 
