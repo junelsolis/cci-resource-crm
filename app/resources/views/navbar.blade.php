@@ -5,27 +5,30 @@
     <div class='cell medium-6'>
       <ul id='logo' class='menu'>
         <li><a href='/'><strong><i class="fas fa-home"></i>&nbsp;CCI POST</strong></a></li>
-        @if (session('current_section') == 'executive')
-        <li><a href='/executive'>Dashboard</a></li>
-        <li><a href='/executive/people/'>People</a></li>
-        <li><a href='/executive/projects/'>Projects</a></li>
-        <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
-        @endif
+
 
         @if (session('current_section') == 'product-sales')
-        <li><a href='/product-sales'>Dashboard</a></li>
+        <li><a href='/product-sales'><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li>
         <!-- <li><a href=''>Sales</a></li> -->
         <!-- <li><a href=''>Stats</a></li> -->
-        <li><a href='/product-sales/project/'>Projects</a></li>
+        <li><a href='/product-sales/project/'><i class="fas fa-project-diagram"></i>&nbsp;Projects</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
 
         @if (session('current_section') == 'inside-sales')
-        <li><a href='/inside-sales'>Dashboard</a></li>
-        <li><a href='/inside-sales/people/'>People</a></li>
-        <li><a href='/inside-sales/project/'>Projects</a></li>
+        <li><a href='/inside-sales'><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li>
+        <li><a href='/inside-sales/people/'><i class="fas fa-users"></i>&nbsp;People</a></li>
+        <li><a href='/inside-sales/project/'><i class="fas fa-project-diagram"></i>&nbsp;Projects</a></li>
         <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
         @endif
+
+        @if (session('current_section') == 'executive')
+        <li><a href='/executive'><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a></li>
+        <li><a href='/executive/people/'><i class="fas fa-users"></i>&nbsp;People</a></li>
+        <li><a href='/executive/projects/'><i class="fas fa-project-diagram"></i>&nbsp;Projects</a></li>
+        <li><a href='#' data-toggle="add-project"><i class="fas fa-plus"></i>&nbsp;Add Project</a></li>
+        @endif
+
       </ul>
     </div>
     <div id='right' class='cell medium-6'>
