@@ -8268,12 +8268,14 @@ select {
 .message-card-success {
   border-left-width: 15px;
   border-color: #3adb76;
+  color: #3adb76;
   background-color: rgba(58, 219, 112, 0.5);
 }
 
 .message-card-error {
   border-left-width: 15px;
   border-color: #ffae00;
+  color: #b57b00;
   background-color: rgba(255, 174, 0, 0.5);
 }
 
@@ -8403,10 +8405,6 @@ select {
 .login .login-box form {
   max-width: 300px;
   margin: auto;
-}
-
-.login .login-box form button {
-  background-color: #063564;
 }
 
 @media screen and (max-width: 39.9375em) {

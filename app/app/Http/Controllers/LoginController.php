@@ -34,7 +34,7 @@ class LoginController extends Controller
 
       $check = $this->checkUserPassword($username, $password);    // check user credentials
       if ($check == false) {
-        return back()->with('error', 'error');
+        return back()->with('error', 'Invalid credentials.');
       }
 
 
