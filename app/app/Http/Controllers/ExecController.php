@@ -95,10 +95,17 @@ class ExecController extends Controller
         // 'status'
       ]);
 
+      $projectStatusCodes = $this->getProjectStatusCodes();
+      $productSalesReps = $this->getProductSalesReps();
+      $insideSalesReps = $this->getInsideSalesReps();
+
       return view('executive.projects')
         ->with('userDetails', $user['userDetails'])
         ->with('project', $project)
-        ->with('otherProjects', $otherProjects);
+        ->with('otherProjects', $otherProjects)
+        ->with('projectStatusCodes', $projectStatusCodes)
+        ->with('productSalesReps', $productSalesReps)
+        ->with('insideSalesReps', $insideSalesReps);
     }
 
     public function showPeople(Request $request) {
@@ -111,6 +118,7 @@ class ExecController extends Controller
       $userDetails = $user['userDetails'];
 
       $productSalesReps = $this->getProductSalesReps();
+      $insideSalesReps = $this->getInsideSalesReps();
 
       if (empty($request['id'])) {
         $rep = $productSalesReps->first();
@@ -118,11 +126,16 @@ class ExecController extends Controller
         $rep = $productSalesReps->where('id', $request['id'])->first();
       }
 
+      $projectStatusCodes = $this->getProjectStatusCodes();
+
 
       return view('executive.people')->with([
         'userDetails' => $userDetails,
+        'projectStatusCodes' => $projectStatusCodes,
         'productSalesReps' => $productSalesReps,
-        'rep' => $rep
+        'insideSalesReps' => $insideSalesReps,
+        'rep' => $rep,
+
       ]);
     }
 

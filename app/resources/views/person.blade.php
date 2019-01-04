@@ -1,4 +1,3 @@
-<div id='main' class='grid-x off-canvas-content' data-equalizer data-equalize-on="medium" data-off-canvas-content>
 
   <!-- list of product sales reps -->
   <div class='cell medium-2'>
@@ -113,22 +112,6 @@
   </div>
 
 
-
-</div>
-<!-- some initialization scripts -->
-<script>
-
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-
-  });
-
-  $(document).foundation();
-
-
-</script>
 
 
 <!-- sales charts for user -->
