@@ -1,52 +1,103 @@
 @if ($project)
-<div class='cell small-12'>
-  <div id='top' class='info-card'>
+<div class='cell small-12 medium-4'>
+  <div id='top' class='info-card' data-equalizer-watch>
     <div class='title'>
       <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;Project Information</strong></h5>
     </div>
-    <div class='content'>
-      <div class='grid-x'>
-        <div class='cell medium-6 large-3'>
-          <ul style='list-style: square;'>
-            <li><strong>Name:</strong> {{ $project->name }}</li>
-            <li><strong>Status:</strong> {{ $project['status']['status'] }}</li>
-            <li><strong>Bid Date:</strong> {{ $project['formattedBidDate'] }}</li>
-            <li><strong>Manufacturer:</strong> {{ $project->manufacturer }}</li>
-            <li><strong>Product:</strong> {{ $project->product }}</li>
-            <li><strong>Product Sales:</strong> {{ $project->productSales->name }}</li>
-          </ul>
-        </div>
-        <div class='cell medium-6 large-3'>
-          <ul style='list-style: square;'>
-            <li><strong>Inside Sales:</strong> {{ $project->insideSales->name }}</li>
-            <li><strong>Amount:</strong> {{ $project['formattedAmount'] }}</li>
-            <li><strong>APC OPP ID:</strong> {{ $project->apc_opp_id }}</li>
-            <li><strong>Quote Link:</strong> <a href='{{$project->invoice_link}}'>{{ str_limit($project->invoice_link,20) }}</a></li>
-            <li><strong>Engineer:</strong> {{ $project->engineer }}</li>
-            <li><strong>Contractor:</strong> {{ $project->contractor }}</li>
-          </ul>
-        </div>
+    <div class='content' style='padding:0px;'>
 
+      <div class='table-scroll'>
+        <table class='unstriped' style='color:#404040;'>
+          <tbody style='border:none !important;'>
+            <tr>
+              <td style='width:20%;'><strong>Name</strong></td>
+              <td>{{ $project->name}}</td>
+            </tr>
+            <tr>
+              <td><strong>Status</strong></td>
+              <td
+                <?php
+                  $status = $project['status']['status'];
 
+                  if ($status == 'New') { echo 'class=\'status-new\''; }
+                  if ($status == 'Engineered') { echo 'class=\'status-engineered\''; }
+                  if ($status == 'Sold') { echo 'class=\'status-sold\''; }
+                  if ($status == 'Quoted') { echo 'class=\'status-quoted\''; }
+                  if ($status == 'Lost') { echo 'class=\'status-lost\''; }
+                ?>
+              >{{ $project['status']['status']}}</td>
+            </tr>
+            <tr>
+              <td><strong>Bid Date</strong></td>
+              <td
+                <?php
+
+                  $bidTiming = $project['bidTiming'];
+
+                  if ($bidTiming == 'late' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-late\'';}
+                  if ($bidTiming == 'soon' && ($status != 'Quoted') && ($status != 'Sold') && ($status != 'Lost')) { echo 'class=\'bidTiming-soon\''; }
+                ?>
+              >{{ $project['formattedBidDate'] }}</td>
+            </tr>
+            <tr>
+              <td><strong>Manufacturer</strong></td>
+              <td>{{ $project->manufacturer }}</td>
+            </tr>
+            <tr>
+              <td><strong>Product</strong></td>
+              <td>{{ $project->product }}</td>
+            </tr>
+            <tr>
+              <td><strong>Product Sales</strong></td>
+              <td>{{ $project['productSales']->name }}</td>
+            </tr>
+            <tr>
+              <td><strong>Inside Sales</strong></td>
+              <td>{{ $project['insideSales']->name }}</td>
+            </tr>
+            <tr>
+              <td><strong>Amount</strong></td>
+              <td>{{ $project['formattedAmount'] }}</td>
+            </tr>
+            <tr>
+              <td><strong>APC OPP ID</strong></td>
+              <td>{{ $project->apc_opp_id }}</td>
+            </tr>
+            <tr>
+              <td><strong>Quote Link</strong></td>
+              <td><a href='{{$project->invoice_link}}'>{{ str_limit($project->invoice_link,20) }}</a></td>
+            </tr>
+            <tr>
+              <td><strong>Engineer</strong></td>
+              <td>{{ $project->engineer}}</td>
+            </tr>
+            <tr>
+              <td><strong>Contractor</strong></td>
+              <td>{{ $project->contractor }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+
     </div>
   </div>
 </div>
 
-<div class='cell small-12'>
-  <div class='info-card' style='padding:0;margin-top:0;'>
-    <div class='title-muted'>
+<div class='cell small-12 medium-8'>
+  <div class='info-card' style='padding:0;' data-equalizer-watch>
+    <div class='title'>
       <h5><strong><i class="fas fa-sticky-note"></i>&nbsp;Project Notes</strong></h5>
     </div>
-    <div class='content' style='padding:0;'>
+    <div class='content' style='padding:0px;'>
       <div class='table-scroll'>
-          <table class='unstriped' style='margin:0;'>
-            <tbody>
+          <table class='striped'>
+            <tbody style='border:none !important;'>
               <tr>
                 <td><a id='add-note' data-type='textarea'><i class="fas fa-plus"></i>&nbsp;Add Note</a></td>
                 <script>
 
-                  // $.fn.editable.sdefaults.mode = 'inline';
+                  $.fn.editable.defaults.mode = 'inline';
 
                   $(function(){
                     $('#add-note').editable({
@@ -54,7 +105,8 @@
                       url: '/note/add/{{$project->id}}',
                       title: 'Enter Note',
                       pk: {{ $project->id }},
-                      rows: 10
+                      rows: 4,
+                      inputclass: 'textarea-width'
                     });
                   });
 
@@ -99,4 +151,5 @@
     </div>
   </div>
 </div>
+
 @endif

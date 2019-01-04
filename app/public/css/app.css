@@ -8240,6 +8240,7 @@ select {
   padding-left: 10px;
   padding-bottom: 5px;
   padding-top: 5px;
+  margin: 0;
 }
 
 .info-card .title h5 {
@@ -8277,6 +8278,10 @@ select {
   border-color: #ffae00;
   color: #b57b00;
   background-color: rgba(255, 174, 0, 0.5);
+}
+
+.textarea-width {
+  width: 500px !important;
 }
 
 #navbar {

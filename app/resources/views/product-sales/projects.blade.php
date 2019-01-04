@@ -24,13 +24,13 @@
   @include('navbar')
   <body>
 
-    <div id='main' class='grid-x off-canvas-content' data-equalizer data-equalize-on="medium" data-off-canvas-content>
+    <div id='main' class='grid-x off-canvas-content' data-equalizer data-equalize-on='medium' data-off-canvas-content>
       @include ('project')
 
       <!-- My Projects -->
       <div class='cell small-12'>
         <div class='info-card'>
-          <div class='title'>
+          <div class='title-muted'>
             <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
           </div>
           <div id='projects' class='content'>
