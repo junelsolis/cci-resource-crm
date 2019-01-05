@@ -13,35 +13,6 @@ class NoteController extends Controller
 {
 
     public function addNote(Request $request) {
-      // $check = $this->checkAllowedToAddOrDelete($request['project_id']);
-      // if ($check == false) { return redirect('/'); }
-      //
-      // $project_id = $request['project_id'];
-      // $user_id = session('logged_in_user_id');
-      // $note = $request['note'];
-      // $editable = $request['editable'];
-      //
-      //
-      // if ($editable !== 'true') {
-      //   DB::table('project_notes')->insert([
-      //     'project_id' => $project_id,
-      //     'last_updated_by_id' => $user_id,
-      //     'note' => $note,
-      //     'created_at' => Carbon::now()
-      //   ]);
-      //
-      // }
-      //
-      // else if ($editable == 'true') {
-      //   DB::table('project_notes')->insert([
-      //     'project_id' => $project_id,
-      //     'last_updated_by_id' => $user_id,
-      //     'note' => $note,
-      //     'editable' => true,
-      //     'created_at' => Carbon::now()
-      //   ]);
-      // }
-      //
 
 
       $project_id = $request['project_id'];
@@ -67,13 +38,6 @@ class NoteController extends Controller
       }
 
 
-      // add note
-      // $projectNote = new ProjectNote([
-      //   'project_id' => $project->id,
-      //   'last_updated_by_id' => session('logged_in_user_id'),
-      //   'note' => $note
-      // ]);
-
       ProjectNote::create([
         'project_id' => $project->id,
         'last_updated_by_id' => session('logged_in_user_id'),
@@ -90,25 +54,6 @@ class NoteController extends Controller
 
 
     public function editNote(Request $request) {
-      // $check = $this->checkIsAuthorAndEditable($request['pk']);
-      // if ($check == false) { return redirect('/'); }
-      //
-      // $note_id = $request['pk'];
-      // $value = $request['value'];
-      //
-      // // retrieve note
-      // $note = DB::table('project_notes')->where('id', $note_id)->first();
-      //
-      // // compare old and new note. Return if unchanged
-      // if ($value == $note->note) {
-      //   return;
-      // }
-      //
-      // DB::table('project_notes')->where('id', $note_id)->update([
-      //   'note' => $value,
-      //   'updated_at' => Carbon::now()
-      // ]);
-
 
 
       $note_id = $request['pk'];
@@ -141,12 +86,7 @@ class NoteController extends Controller
     }
 
     public function deleteNote(Request $request) {
-      // $check = $this->checkAllowedToDelete($request['id']);
-      // if ($check == false) { return redirect('/'); }
-      //
-      // // delete note from db
-      // DB::table('project_notes')->where('id', $request['id'])->delete();
-
+  
 
       // retrieve note
       $note = ProjectNote::find($request['id']);
