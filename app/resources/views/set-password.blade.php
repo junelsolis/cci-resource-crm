@@ -27,27 +27,39 @@
         <input type='password' name='confirmPassword' required />
         <button class='button button-primary expanded' type='submit'><i class="fas fa-sync-alt"></i>&nbsp;Change Password</button>
 
+       
+
         @if ($errors->any())
-          @foreach ($errors->all() as $error)
-          <div data-closable class="callout alert-callout-subtle warning radius">
-            <strong>Error</strong><br />{{ $error }}
-            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-              <span aria-hidden="true">⊗</span>
-            </button>
+          <div class='grid-x' style='padding:0;'>
+            <div class='cell-small-12' style='padding:0;'>
+              <div class='message-card-error callout' style='width:100%;margin:auto;text-align:left;'>
+              @foreach ($errors->all() as $error)
+                <span>{{ $error}}<br></span>
+                <button class="close-button" aria-label="Close alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+                </button>
+              @endforeach
+              </div>
+            </div>
           </div>
-          @endforeach
         @endif
 
         @if (session('error'))
-        <div data-closable class="callout alert-callout-subtle warning radius">
-          <strong>Error</strong><br />{{ session('error') }}
-          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-            <span aria-hidden="true">⊗</span>
-          </button>
+        <div class='grid-x' style='padding:0;'>
+          <div class='cell small-12' style='padding:0'>
+            @if (session('error'))
+            <div class='message-card-error callout' style='width:100%;margin:auto;margin-bottom:10px;' data-closable>
+              <span>{!! session('error') !!}</span>
+              <button class="close-button" aria-label="Close alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @endif
+          </div>
         </div>
         @endif
       </form>
-      <br /><br />
+      <br />
       <div style='text-align:left;padding-left:10px;color:#707070'>
         <strong>Password Policy</strong><br />
         <ul style='list-style:square;color:#707070;font-size:12px;'>
