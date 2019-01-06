@@ -344,7 +344,7 @@
       <!-- My Projects -->
       <div class='cell small-12'>
         <div class='info-card'>
-          <div class='title-muted'>
+          <div class='title'>
             <h5><strong><i class="fas fa-project-diagram"></i>&nbsp;My Projects</strong></h5>
           </div>
           <div class='content'>

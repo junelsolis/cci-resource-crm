@@ -303,7 +303,7 @@
             </div>
 
             <br />
-            <a href='#upcoming-projects'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
+            <a href='#top'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
           </div>
         </div>
       </div>
@@ -385,6 +385,8 @@
                 });
               </script>
             </div>
+            <br />
+            <a href='#top'><i class="fas fa-angle-double-up"></i>&nbsp;Back to Top</a>
           </div>
         </div>
       </div>

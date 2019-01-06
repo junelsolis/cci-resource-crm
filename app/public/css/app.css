@@ -8283,7 +8283,7 @@ select {
 }
 
 #navbar {
-  background-color: #F0F1F2;
+  background-color: white;
   color: #464B69;
   box-shadow: 0px 2px 1px lightgrey;
   position: sticky;
@@ -8302,10 +8302,6 @@ select {
 
 #navbar a:hover {
   color: #2b6bac;
-}
-
-#navbar #wide #right .menu {
-  background-color: #f0f1f2;
 }
 
 #navbar #wide #right .menu #section::after {

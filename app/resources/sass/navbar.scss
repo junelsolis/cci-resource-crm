@@ -1,5 +1,13 @@
 #navbar {
-  background-color: #F0F1F2;
+  // background-color: #F0F1F2;
+
+  background-color: white;
+//   background: rgb(255,255,255);
+// background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+// background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+// background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);
+// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=1 );
+
   color: #464B69;
   box-shadow: 0px 2px 1px lightgrey;
   position: sticky;
@@ -22,7 +30,7 @@
   #wide {
     #right {
       .menu {
-        background-color: #f0f1f2;
+        // background-color: #f0f1f2;
 
         #section::after {
           display: none;
