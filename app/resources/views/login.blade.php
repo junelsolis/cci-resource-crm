@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="{{ asset('js/jquery.js')}}"></script>
-    <script src='{{ asset('js/foundation.min.js')}}'></script>
+    <script src="{{ asset('js/foundation.min.js')}}"></script>
   </head>
   <body class='login'>
     <div class='login-box'>
@@ -28,7 +28,7 @@
         <div class='grid-x' style='padding:0;'>
           <div class='cell small-12' style='padding:0'>
             @if (session('error'))
-            <div class='message-card-error callout' data-closable>
+            <div class='message-card-error callout' style='width:100%;margin:auto;margin-bottom:10px;' data-closable>
               <span>{!! session('error') !!}</span>
               <button class="close-button" aria-label="Close alert" type="button" data-close>
                 <span aria-hidden="true">&times;</span>
@@ -44,4 +44,12 @@
 
     </div>
   </body>
+
+   <!-- initialize foundation -->
+   <script>
+
+      $(document).foundation();
+
+
+</script>
 </html>
