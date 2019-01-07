@@ -130,6 +130,7 @@ class UserController extends Controller
       $password = $this->randomPasswordString();
 
       $user->password = Hash::make($password);
+      $user->change_password = true;
       $user->save();
 
       return redirect()->back()->with('success', 'The password of user <strong>' . $user->name . '</strong> has been reset. The new password is <strong>' . $password . '</strong>');
