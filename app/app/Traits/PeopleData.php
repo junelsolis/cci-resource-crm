@@ -51,6 +51,14 @@ trait PeopleData {
     return $execs;
   }
 
+  protected function sortUsersByLastname($users) {
+    $sorted = $users->sortBy(function ($person, $key) {
+      return $person['formattedName']['lastname'];
+    });
+
+    return $sorted;
+  }
+
   private function getProductSalesRepUpcomingProjects($product_sales_id, $projects) {
     $now = Carbon::now();
     $now->setTimezone('America/New_York');

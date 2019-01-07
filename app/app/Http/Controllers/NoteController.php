@@ -46,7 +46,7 @@ class NoteController extends Controller
 
       if ($request['pk']) {
         // return response('Note added.',200);
-        return redirect()->back();
+        return response('Note added.',200);
       }
 
       return redirect()->back();
@@ -86,7 +86,7 @@ class NoteController extends Controller
     }
 
     public function deleteNote(Request $request) {
-  
+
 
       // retrieve note
       $note = ProjectNote::find($request['id']);

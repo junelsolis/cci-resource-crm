@@ -82,7 +82,8 @@ class ProductSalesController extends Controller
 
       // collect inside sales reps and project status codes
       // for add project off-canvas div
-      $insideSales = $this->getInsideSalesReps();
+      $insideSales = $this->sortUsersByLastname($this->getInsideSalesReps());
+      $productSales = $this->sortUsersByLastname($this->getProductSalesReps());
       $projectStatusCodes = $this->getProjectStatusCodes();
 
       // get all other projects
@@ -96,6 +97,7 @@ class ProductSalesController extends Controller
         'otherProjects' => $otherProjects,
         'projectStatusCodes' => $projectStatusCodes,
         'insideSales' => $insideSales,
+        'productSales' => $productSales,
       ]);
 
     }

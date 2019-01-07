@@ -118,7 +118,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       // change name
@@ -141,7 +141,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->status_id = $value;
@@ -161,7 +161,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->bid_date = $value;
@@ -184,7 +184,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false ) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->manufacturer = $value;
@@ -206,7 +206,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->product = $value;
@@ -227,7 +227,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->product_sales_id = $value;
@@ -251,7 +251,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700',404);
+        return response('Action not allowed.',404);
       }
 
 
@@ -274,7 +274,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->amount = $value;
@@ -297,7 +297,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->apc_opp_id = $value;
@@ -327,7 +327,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->invoice_link = $value;
@@ -351,7 +351,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
 
@@ -373,7 +373,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       $project->contractor = $value;
@@ -391,7 +391,7 @@ class ProjectController extends Controller
 
       $check = $project->canEdit();
       if ($check == false) {
-        return response('Error 2700', 404);
+        return response('Action not allowed.', 404);
       }
 
       // delete all project notes

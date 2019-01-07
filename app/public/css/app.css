@@ -8289,7 +8289,7 @@ select {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 100000;
+  z-index: 500;
 }
 
 #navbar .position-left {
