@@ -161,7 +161,7 @@
           <label>Product Sales<span><i class="fas fa-star-of-life"></i></span></label>
           <select name='product_sales_id' required>
             <option value='' selected disabled hidden>Select One</option>
-            @foreach ($productSalesReps as $item)
+            @foreach ($productSales as $item)
             <option value='{{ $item->id }}'>{{ $item->name }}</option>
             @endforeach
           </select>
@@ -169,7 +169,7 @@
           <label>Inside Sales<span><i class="fas fa-star-of-life"></i></span></label>
           <select name='inside_sales_id' required>
             <option value="" selected disabled hidden>Select One</option>
-            @foreach ($insideSalesReps as $item)
+            @foreach ($insideSales as $item)
             <option value='{{ $item->id }}'>{{ $item->name }}</option>
             @endforeach
           </select>

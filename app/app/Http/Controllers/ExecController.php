@@ -96,16 +96,16 @@ class ExecController extends Controller
       ]);
 
       $projectStatusCodes = $this->getProjectStatusCodes();
-      $productSalesReps = $this->getProductSalesReps();
-      $insideSalesReps = $this->getInsideSalesReps();
+      $productSales = $this->sortUsersByLastname($this->getProductSalesReps());
+      $insideSales = $this->sortUsersByLastname($this->getInsideSalesReps());
 
       return view('executive.projects')
         ->with('userDetails', $user['userDetails'])
         ->with('project', $project)
         ->with('otherProjects', $otherProjects)
         ->with('projectStatusCodes', $projectStatusCodes)
-        ->with('productSalesReps', $productSalesReps)
-        ->with('insideSalesReps', $insideSalesReps);
+        ->with('productSales', $productSales)
+        ->with('insideSales', $insideSales);
     }
 
     public function showPeople(Request $request) {
