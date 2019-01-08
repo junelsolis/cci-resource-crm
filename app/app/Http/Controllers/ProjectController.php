@@ -57,9 +57,9 @@ class ProjectController extends Controller
       $note = $request['note'];
 
 
-      // make sure link starts with http
+      // make sure link starts with http or https
       if (!empty($invoice_link)) {
-        if ( (starts_with($invoice_link, 'http://')) || (starts_with($invoice_link, 'https://')) || (starts_with($invoice_link,'//')) ) { }
+        if ( starts_with($invoice_link,'http://') || starts_with($invoice_link,'https://') || starts_with($invoice_link, '//') ) {}
 
         else {
           $invoice_link = 'http://'.$invoice_link;
@@ -313,9 +313,9 @@ class ProjectController extends Controller
       $id = $request['pk'];
       $value = $request['value'];
 
-      // make sure link starts with http
+      // make sure link starts with http or https
       if (!empty($value)) {
-        if (starts_with('http://',$value) || starts_with('https://',$value) || starts_with('//',$value)) {}
+        if ( starts_with($value,'http://') || starts_with($value,'https://') || starts_with($value,'//') ) {}
 
         else {
           $value = 'http://'.$value;
